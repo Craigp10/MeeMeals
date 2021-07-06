@@ -1,0 +1,13 @@
+.home-content-wrapper {
+  color: red;
+}
+
+.home-content-board {
+  border-radius: 4px;
+  border: 1px solid pink;
+  height: 80vh;
+  width: 90%;
+  margin: auto;
+  margin-top: 5%;
+  background-color: #fafafa;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import "./Meals.css";
 
 export default class Meals extends React.Component {
   constructor(props) {
@@ -6,6 +7,12 @@ export default class Meals extends React.Component {
   }
 
   render() {
-    return <h2> This is the meals page </h2>;
+    return (
+      <div className="meals-content-wrapper">
+        <div className="meals-content-board">
+          <h2>Welcome to Meals Page!</h2>
+        </div>
+      </div>
+    );
   }
 }
