@@ -1,0 +1,43 @@
+.mealbox-wrapper {
+  height: 250px;
+  width: 250px;
+  background-color: lightgrey;
+  border-radius: 25px;
+}
+
+.mealbox-content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mealbox-content-displayname {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-left: 15px;
+  display: inline-block;
+  width: 175px;
+  flex-grow: 1;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.mealbox-content-header-options {
+  display: flex;
+  align-items: flex-start;
+  padding: 5px 15px 5px 0;
+}
+.mealbox-content-header-options span {
+  padding: 5px;
+}
+
+.mealbox-content-ingredients {
+  text-align: left;
+}
+
+.mealbox-content-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}

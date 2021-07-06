@@ -1,5 +1,4 @@
 .meals-content-wrapper {
-  color: red;
 }
 
 .meals-content-board {
@@ -10,4 +9,10 @@
   margin: auto;
   margin-top: 5%;
   background-color: #fafafa;
+}
+
+.meals-content-mealboxes {
+  /* overflow-wrap: normal; */
+  /* display: flex; */
+  /* flex-direction: row; */
 }
