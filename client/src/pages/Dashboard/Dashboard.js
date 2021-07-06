@@ -12,18 +12,27 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import "./Dashboard.css";
 
 const Dashboard = () => (
-  <div>
+  <div className="dashboard-wrapper">
     <Router>
-      <TopBar />
-      <NavigationBar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/meals" component={Meals} />
-        <Route exact path="/calendar" component={Calendar} />
-        <Route component={NotFound} />
-      </Switch>
+      <div className="dashboard-content">
+        <div className="dashboard-topbar">
+          <TopBar />
+        </div>
+        <div className="dashboard-navigationbar">
+          <NavigationBar />
+        </div>
+        <div className="dashboard-content-inner">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/meals" component={Meals} />
+            <Route exact path="/calendar" component={Calendar} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+      </div>
     </Router>
   </div>
 );

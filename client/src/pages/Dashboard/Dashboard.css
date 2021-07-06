@@ -1,0 +1,11 @@
+.dashboard-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dashboard-content-inner {
+  box-sizing: border-box;
+  padding-left: 200px;
+  height: 100vh;
+}

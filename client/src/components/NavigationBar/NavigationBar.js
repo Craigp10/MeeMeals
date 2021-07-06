@@ -1,18 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const NavigationBar = (props) => (
-  <div>
+import "./NavigationBar.css";
+const navigationbar = (props) => (
+  <div className="navigationbar-wrapper">
     <ul>
       <React.Fragment>
         <li>
-          <Link to="/dashboard/">Homes</Link>
+          <Link className="navigationbar-link" to="/dashboard/">
+            Home
+          </Link>
         </li>
         <li>
-          <Link to="/dashboard/meals">Meals</Link>
+          <Link className="navigationbar-link" to="/dashboard/meals">
+            Meals
+          </Link>
         </li>
         <li>
-          <Link to="/dashboard/calendar">Calendar</Link>
+          <Link className="navigationbar-link" to="/dashboard/calendar">
+            Calendar
+          </Link>
         </li>
       </React.Fragment>
     </ul>
@@ -26,4 +32,4 @@ const NavigationBar = (props) => (
 //   setPageName: PropTypes.func.isRequired,
 // };
 
-export default NavigationBar;
+export default navigationbar;
