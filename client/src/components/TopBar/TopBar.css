@@ -1,20 +1,30 @@
-/* *,
-*::before,
-*::after {
-  box-sizing: border-box;
-  padding: 10px;
-  
-  margin: 0;
-} */
-
 .topbar-wrapper {
   background-color: #008ecd;
   display: flex;
-  height: 60px;
+  height: 75px;
+  box-sizing: border-box;
+}
+
+.topbar-wrapper span:hover {
+  cursor: pointer;
 }
 
 .topbar-title {
-  padding: 10px;
-  border: 1px solid black;
-  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  color: white;
+  font-weight: bold;
+}
+
+.topbar-leftover {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+img {
+  width: 75px;
+  height: 75px;
 }
