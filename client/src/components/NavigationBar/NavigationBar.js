@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./NavigationBar.css";
 const navigationbar = (props) => (
   <div className="navigationbar-wrapper">
-    <ul>
+    <ul className="navigationbar-link-list">
       <React.Fragment>
         <li>
           <Link className="navigationbar-link" to="/dashboard/">

@@ -4,7 +4,6 @@
   min-height: 100%;
   background-color: #e9e8e8;
   text-align: center;
-  /* display: block; */
   position: absolute;
   top: 75px;
   left: 0;
@@ -14,7 +13,6 @@
 
 ul {
   list-style-type: none;
-  padding: 0px;
   text-align: center;
 }
 
@@ -24,4 +22,13 @@ ul {
   color: #008ecd;
   text-align: center;
   padding: 20px 0;
+}
+.navigationbar-link-list {
+  /* padding: 40px 0px 0px 0px; */
+  padding: 0px;
+  margin: 0;
+}
+.navigationbar-link-list li:hover {
+  background-color: #d8d6d6;
+  /* cursor: pointer; */
 }
