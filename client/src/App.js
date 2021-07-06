@@ -23,6 +23,7 @@ const App = (props) => (
           path="/"
           component={Dashboard}
           isAuthenticated={true} //props.authenticated
+          // redirectTo={"dashboard"}
         />
         <Route component={NotFound} />
       </Switch>
