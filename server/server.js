@@ -2,9 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./db");
-const moviesRouter = require("./routes/movies-router");
-const mealsRouter = require("./routes/meals-router");
+const mealsRouter = require("./routes/meals.router");
 const app = express();
+const userRouter = require("./routes/user.router"); //(app);
+const authRouter = require("./routes/auth.router"); //(app);
 const apiPort = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,5 +19,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", mealsRouter);
+// app.use("/auth", authRouter); currently get error with this... need to spend some time learning express more.
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
