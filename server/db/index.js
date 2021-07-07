@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 const db_schema = require("../models/index");
+const dbConfig = require("../config/db.config");
 const Role = db_schema.role;
 
 mongoose
-  .connect(
-    // `mongodb://${process.env.HOST}:${process.env.PORT}/${process.env.DB}`,
-    `mongodb://127.0.0.1:27017/Mi_Meals`,
-    { useNewUrlParser: true }
-  )
+  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    useNewUrlParser: true,
+  })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
     initial();
