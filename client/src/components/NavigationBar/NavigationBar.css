@@ -24,11 +24,9 @@ ul {
   padding: 20px 0;
 }
 .navigationbar-link-list {
-  /* padding: 40px 0px 0px 0px; */
   padding: 0px;
   margin: 0;
 }
 .navigationbar-link-list li:hover {
   background-color: #d8d6d6;
-  /* cursor: pointer; */
 }
