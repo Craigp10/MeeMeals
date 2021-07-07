@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const Meals = new Schema(
   {
-    //is id built internally?
     display_name: { type: String, required: true },
     ingredients: { type: [String], required: false },
     date_created: { type: String, required: true },
-    date_created: { type: String, required: true },
+    date_last_eaten: { type: String, required: false },
+    description: { type: String, required: false },
   },
   { timestamps: true }
 );
