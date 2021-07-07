@@ -22,8 +22,12 @@ const router = express.Router();
 
 //   app.post("/api/auth/signin", controller.signin);
 // };
+console.log("AUTH ROUTER");
+router.get("/", (req, res) => {
+  res.send("Hello World Auth!");
+});
 
-router.post("/auth/signup", controller.signup);
-router.get("/auth/signin", controller.signin);
+router.post("/signup", controller.signup);
+router.post("/signin", controller.signin);
 
 module.exports = router;

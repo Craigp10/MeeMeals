@@ -5,7 +5,7 @@ const Role = db.role;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-
+console.log("AUTH CONTROLLER CALLED");
 exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
