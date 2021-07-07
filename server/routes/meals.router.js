@@ -1,6 +1,6 @@
 const express = require("express");
 
-const Meals = require("../controllers/meals-ctrl");
+const Meals = require("../controllers/meals.controller");
 
 const router = express.Router();
 router.get("/", (req, res) => {
