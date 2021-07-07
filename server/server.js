@@ -4,7 +4,7 @@ const cors = require("cors");
 const db = require("./db");
 const mealsRouter = require("./routes/meals.router");
 const app = express();
-// const userRouter = require("./routes/user.router")(app);
+const userRouter = require("./routes/user.router"); //(app);
 const authRouter = require("./routes/auth.router"); //(app);
 const apiPort = 3000;
 
@@ -20,5 +20,6 @@ app.get("/", (req, res) => {
 
 app.use("/api", mealsRouter);
 app.use("/auth", authRouter); //currently get error with this... need to spend some time learning express more.
+app.use("/user", userRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
