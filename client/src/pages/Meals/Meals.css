@@ -1,6 +1,7 @@
 .meals-content-wrapper {
   overflow: scroll;
   height: 100%;
+  color: #02203c;
 }
 
 .meals-content-board {

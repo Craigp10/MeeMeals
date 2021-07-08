@@ -29,5 +29,9 @@ ul {
   margin: 0;
 }
 .navigationbar-link-list li:hover {
-  background-color: #d8d6d6;
+  background-color: lightgray;
+}
+
+.navigationbar-link:hover {
+  color: white;
 }
