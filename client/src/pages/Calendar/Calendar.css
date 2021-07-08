@@ -1,13 +1,63 @@
 .calendar-content-wrapper {
-  color: red;
+  display: flex;
+}
+
+.glyphicon {
+  color: #02203c;
+  font-size: 20px;
+}
+
+span:hover {
+  cursor: pointer;
 }
 
 .calendar-content-board {
-  border-radius: 4px;
-  border: 1px solid pink;
-  height: 80vh;
-  width: 90%;
-  margin: auto;
-  margin-top: 5%;
-  background-color: #fafafa;
+  display: inline-block;
+  height: 100vh;
+  width: 70%;
+}
+
+.calendar-content-board-dates {
+  background-color: lightgray;
+  width: 100%;
+  height: 80px;
+}
+
+.calendar-content-board-dates {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.calendar-content-board-dates span {
+  padding: 10px 20px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  /* margin: 0 0.5px; */
+  box-shadow: 0 -30px 60px -12px rgb(50 50 93 / 25%);
+}
+
+.notActive {
+  height: 50px;
+  background-color: #02203c;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.isActive {
+  border-bottom: none;
+  background-color: white;
+  color: #02203c;
+  height: 70px;
+  transition: 0.2s ease-in-out;
+}
+.calendar-content-meal-selection {
+  height: 90px;
+  height: 100vh;
+  flex-grow: 1;
+  /* border: 1px solid green; */
+}
+.calendar-content-meal-selection-filter {
+  background-color: darkgray;
+  height: 100px;
 }
