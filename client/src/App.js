@@ -15,7 +15,7 @@ import "./App.css";
 
 const App = (props) => (
   <Router>
-    <div>
+    <div className="app">
       <Switch>
         <Route path="/login" component={Login} />
         <PrivateRoute
