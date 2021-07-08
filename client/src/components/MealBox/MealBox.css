@@ -1,6 +1,6 @@
-/* .grow:hover {
-  transform: scale(1.1);
-} */
+.grow:hover {
+  transform: scale(1.05);
+}
 
 .mealbox-wrapper {
   height: 250px;
@@ -12,15 +12,14 @@
   margin: 10px;
 }
 
-.mealbox-content {
-  height: 100%;
-  width: 100%;
-}
-
 .mealbox-content-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #02203c;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  color: white;
 }
 
 .mealbox-content-displayname {
@@ -63,4 +62,7 @@
   padding: 0 15px;
   bottom: 0;
   font-size: 1rem;
+  /* background-color: #02203c;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px; */
 }
