@@ -1,8 +1,20 @@
+/* .grow:hover {
+  transform: scale(1.1);
+} */
+
 .mealbox-wrapper {
   height: 250px;
-  width: 250px;
-  background-color: lightgrey;
+  width: 600px;
+  background-color: white;
+  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
+    0 18px 36px -18px rgb(0 0 0 / 30%);
   border-radius: 25px;
+  margin: 10px;
+}
+
+.mealbox-content {
+  height: 100%;
+  width: 100%;
 }
 
 .mealbox-content-header {
@@ -13,7 +25,7 @@
 
 .mealbox-content-displayname {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding-left: 15px;
   display: inline-block;
   width: 175px;
@@ -31,13 +43,24 @@
 .mealbox-content-header-options span {
   padding: 5px;
 }
+.mealbox-content-header-options span:hover {
+  cursor: pointer;
+}
 
-.mealbox-content-ingredients {
+/* .mealbox-content-ingredients {
+  text-align: left;
+} */
+
+.mealbox-content-description {
+  padding: 10px;
   text-align: left;
 }
 
 .mealbox-content-footer {
-  position: relative;
+  /* position: absolute; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
   bottom: 0;
-  width: 100%;
+  font-size: 1rem;
 }

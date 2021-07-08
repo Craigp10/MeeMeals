@@ -12,8 +12,10 @@ const Meals = () => {
 
   return (
     <div className="meals-content-wrapper">
+      <div className="meal-content-header">
+        <h2>Your Meals</h2>
+      </div>
       <div className="meals-content-board">
-        <h2>Welcome to Meals Page!</h2>
         <ul className="meals-content-mealboxes">
           {state.map((meal) => (
             <li key={meal._id}>
