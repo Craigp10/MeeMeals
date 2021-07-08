@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Calendar.css";
+import apis from "../../api/meals";
 
 const tmp_date = [
   { date: "7/8/2021", isActive: false },
@@ -13,6 +14,8 @@ const tmp_date = [
 
 const Calendar = (props) => {
   const [dates, setDates] = useState(tmp_date);
+  const [meals, setMeals] = useState([]);
+  const [filters, setFilters] = useState([]);
 
   const updateActiveDate = (e, index) => {
     const updatedDates = dates;
@@ -25,7 +28,12 @@ const Calendar = (props) => {
     });
     setDates([...updatedDates]);
   };
-  console.log(dates);
+
+  useEffect(async () => {
+    await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
+  }, []);
+
+  console.log(meals);
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
@@ -46,8 +54,22 @@ const Calendar = (props) => {
         </div>
       </div>
       <div className="calendar-content-meal-selection">
-        <div className="calendar-content-meal-selection-filter">a</div>
-        <div className="calendar-content-meal-selection-scroll"></div>
+        <div className="calendar-content-meal-selection-filter">
+          <span id="all">All</span>
+          <span id="breakfast">Breakfast</span>
+          <span id="lunch">Lunch</span>
+          <span id="dinner">Dinner</span>
+          <span id="snacks">Snacks</span>
+        </div>
+        <ul className="calendar-content-meal-selection-scroll">
+          {meals.map((meal, index) => {
+            return (
+              <li key={index} className="selection-scroll-meal">
+                {meal.display_name}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
