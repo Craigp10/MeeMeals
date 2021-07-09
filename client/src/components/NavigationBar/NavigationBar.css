@@ -32,7 +32,7 @@ ul {
   padding: 20px 0;
 }
 .navigationbar-link-list li:hover {
-  background-color: lightgray;
+  background-color: rgb(230, 230, 230);
 }
 
 .navigationbar-link:hover {
