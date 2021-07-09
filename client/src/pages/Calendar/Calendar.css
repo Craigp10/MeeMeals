@@ -2,7 +2,7 @@
   display: flex;
 }
 
-.glyphicon {
+.glyphicon-chevron-left .glyphicon-chevron-right {
   color: #02203c;
   font-size: 20px;
 }
@@ -33,7 +33,6 @@ span:hover {
   padding: 10px 20px;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
-  /* margin: 0 0.5px; */
   box-shadow: 0 -30px 60px -12px rgb(50 50 93 / 25%);
 }
 
@@ -52,7 +51,6 @@ span:hover {
   transition: 0.2s ease-in-out;
 }
 .calendar-content-meal-selection {
-  height: 90px;
   height: 100vh;
   flex-grow: 1;
   overflow: hidden;
@@ -62,24 +60,28 @@ span:hover {
 /* rgb(50 50 93 / 25%); */
 .calendar-content-meal-selection-filter {
   background-color: darkgray;
-  height: 10%;
+  height: 15%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   row-gap: 5px;
   column-gap: 5px;
   padding: 10px;
 }
 
-.calendar-content-meal-selection-filter span {
+/* .calendar-content-meal-selection-filter span {
+  border: 1px solid black;
+} */
+
+.filterBtn {
   display: flex;
   border-radius: 25px;
   align-items: center;
   justify-content: center;
   background-color: white;
-  /* border: 1px solid black; */
 }
-.calendar-content-meal-selection-filter span:hover {
+
+.filterBtn:hover {
   background-color: #02203c;
   color: white;
 }
@@ -90,36 +92,99 @@ span:hover {
   width: 70%;
   margin: 0 auto;
 }
+
 #breakfast {
   grid-column: 1;
   grid-row: 2;
 }
+
 #lunch {
   grid-column: 2;
   grid-row: 2;
 }
+
 #dinner {
   grid-column: 3;
   grid-row: 2;
 }
+
 #snacks {
   grid-column: 4;
   grid-row: 2;
 }
+
+#search {
+  border: none;
+}
+
+.glyphicon-search span:hover {
+  text-decoration: none;
+}
+
+.glyphicon-search {
+  grid-column: 1/5;
+  grid-row: 3;
+  padding: 0 10px;
+  display: flex;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.glyphicon-search input {
+  /* appearance: none; */
+  outline: none;
+  width: 100%;
+  padding: 0 20px;
+}
+
 .calendar-content-meal-selection-scroll {
   padding: 0;
   list-style-type: none;
   overflow: scroll;
-  height: 90%;
+  height: 85%;
 }
 .selection-scroll-meal {
   border: 1px solid lightgray;
   width: 100%;
   /* height: 15%; */
   height: 25%;
+  /* height: 120px; */
   box-shadow: 0 0 10px 0.2px #adadad;
 }
 .selection-scroll-meal:hover {
-  cursor: grab;
+  cursor: pointer;
   background-color: rgb(230, 230, 230);
 }
+
+.calendar-content-board-planner {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-content-board-planner-meal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  width: 80%;
+  margin: 25px;
+}
+
+.calendar-content-board-planner-meal-drop {
+  border: 1px solid lightgray;
+  width: 400px;
+  height: 120px;
+}
+
+/* .active {
+  box-shadow: 0 0 10px 0.2px #02203c;
+  cursor: pointer;
+}
+
+.active:hover {
+  background-color: #aec6dd;
+} */

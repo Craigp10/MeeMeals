@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Calendar.css";
 import apis from "../../api/meals";
+import MealDrop from "../../components/MealDrop/MealDrop";
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const tmp_date = [
   { date: "7/8/2021", isActive: false },
@@ -12,10 +14,20 @@ const tmp_date = [
   { date: "7/14/2021", isActive: true },
 ];
 
+const MEAL_TIMES = [
+  { meal_time: "Breakfast", meal: {} },
+  { meal_time: "Lunch", meal: {} },
+  { meal_time: "Dinner", meal: {} },
+  { meal_time: "Snacks", meal: {} },
+];
+
 const Calendar = (props) => {
   const [dates, setDates] = useState(tmp_date);
   const [meals, setMeals] = useState([]);
   const [filters, setFilters] = useState([]);
+  const [searchFilter, setSearchFilter] = useState("");
+  const [activeMealClick, setActiveMealClick] = useState(false);
+  const [activeMeal, setActiveMeal] = useState({});
 
   const updateActiveDate = (e, index) => {
     const updatedDates = dates;
@@ -29,11 +41,30 @@ const Calendar = (props) => {
     setDates([...updatedDates]);
   };
 
+  // const handleFilterChange = (e) => { //implement filter logic later
+  //   console.log(e);
+  // };
+
+  const handleMealClick = (e, index) => {
+    setActiveMealClick(!activeMealClick);
+    if (activeMealClick) {
+      setActiveMeal({});
+    } else {
+      setActiveMeal(meals[index]);
+    }
+  };
+
+  const handleMealDropClick = (index) => {
+    MEAL_TIMES[index].meal = { ...meals[index] };
+    setActiveMealClick(false);
+    setActiveMeal({});
+  };
+
   useEffect(async () => {
     await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
   }, []);
 
-  console.log(meals);
+  console.log(MEAL_TIMES);
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
@@ -50,25 +81,79 @@ const Calendar = (props) => {
           <span className="glyphicon glyphicon-chevron-right"></span>
         </div>
         <div className="calendar-content-board-planner">
-          <div className="calendar-content-board-planner-meal"></div>
+          {MEAL_TIMES.map((meal, index) => {
+            return (
+              <div className="calendar-content-board-planner-meal">
+                <label>{meal.meal_time}</label>
+                <MealDrop
+                  meal={meal.meal}
+                  activeMealClick={activeMealClick}
+                  mealClickCallback={handleMealDropClick}
+                  index={index}
+                />
+              </div>
+            );
+            // return (
+            //     <label>{meal.meal_time}</label>
+            //     <div
+            //       className={
+            //         activeMealClick
+            //           ? "calendar-content-board-planner-meal-drop active"
+            //           : "calendar-content-board-planner-meal-drop"
+            //       }
+            //       onClick={() => handleMealDropClick(index)}
+            //     >
+            //       {meal?.meal?.display_name}
+            //     </div>
+            //   </div>
+            // );
+          })}
         </div>
       </div>
       <div className="calendar-content-meal-selection">
         <div className="calendar-content-meal-selection-filter">
-          <span id="all">All</span>
-          <span id="breakfast">Breakfast</span>
-          <span id="lunch">Lunch</span>
-          <span id="dinner">Dinner</span>
-          <span id="snacks">Snacks</span>
+          <span className="filterBtn" id="all">
+            All
+          </span>
+          <span className="filterBtn" id="breakfast">
+            Breakfast
+          </span>
+          <span className="filterBtn" id="lunch">
+            Lunch
+          </span>
+          <span className="filterBtn" id="dinner">
+            Dinner
+          </span>
+          <span className="filterBtn" id="snacks">
+            Snacks
+          </span>
+          <span className="glyphicon glyphicon-search">
+            <input
+              id="search"
+              value={searchFilter}
+              placeholder="Search for meals"
+              onChange={(e) => setSearchFilter(e.target.value)}
+            />
+          </span>
         </div>
         <ul className="calendar-content-meal-selection-scroll">
-          {meals.map((meal, index) => {
-            return (
-              <li key={index} className="selection-scroll-meal">
-                {meal.display_name}
-              </li>
-            );
-          })}
+          {meals
+            .filter((meal) =>
+              meal.display_name
+                .toLowerCase()
+                .includes(searchFilter.toLowerCase())
+            )
+            .map((meal, index) => {
+              return (
+                <li
+                  key={index}
+                  className="selection-scroll-meal"
+                  onClick={(e) => handleMealClick(e, index)}
+                >
+                  {meal.display_name}
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>

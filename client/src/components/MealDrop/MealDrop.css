@@ -1,0 +1,38 @@
+.mealdrop-wrapper {
+  width: 400px;
+  height: 120px;
+  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
+    0 18px 36px -18px rgb(0 0 0 / 30%);
+  border-radius: 25px;
+}
+
+.active {
+  box-shadow: 0 0 10px 0.2px hsl(209, 94%, 12%);
+  cursor: pointer;
+}
+
+.active:hover {
+  background-color: #aec6dd;
+}
+
+.mealdrop-content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #02203c;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  color: white;
+}
+
+.mealdrop-content-displayname {
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding-left: 15px;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
