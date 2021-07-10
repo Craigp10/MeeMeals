@@ -10,13 +10,21 @@ const MealDrop = (props) => {
       }
       onClick={() => props.mealClickCallback(props.index)}
     >
-      {props.meal ? (
-        <div className="mealdrop-content-header">
-          <div className="mealdrop-content-displayname">
-            {props.meal.display_name}
+      {Object.keys(props.meal).length != 0 ? (
+        <div className="mealdrop-content">
+          <div className="mealdrop-content-header">
+            <div className="mealdrop-content-displayname">
+              {props.meal.display_name}
+            </div>
+            <span
+              className="glyphicon glyphicon-remove"
+              onClick={() => props.removeMeal(props.index)}
+            ></span>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="mealdrop-content-no-meal"></div>
+      )}
     </div>
   );
 };

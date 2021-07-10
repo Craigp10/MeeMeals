@@ -45,7 +45,7 @@ const Calendar = (props) => {
   //   console.log(e);
   // };
 
-  const handleMealClick = (e, index) => {
+  const handleMealClick = (index) => {
     setActiveMealClick(!activeMealClick);
     if (activeMealClick) {
       setActiveMeal({});
@@ -53,9 +53,12 @@ const Calendar = (props) => {
       setActiveMeal(meals[index]);
     }
   };
+  const handleMealRemoveClick = (index) => {
+    MEAL_TIMES[index].meal = {};
+  };
 
   const handleMealDropClick = (index) => {
-    MEAL_TIMES[index].meal = { ...meals[index] };
+    MEAL_TIMES[index].meal = { ...activeMeal };
     setActiveMealClick(false);
     setActiveMeal({});
   };
@@ -64,7 +67,9 @@ const Calendar = (props) => {
     await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
   }, []);
 
+  console.log(activeMeal, activeMealClick);
   console.log(MEAL_TIMES);
+
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
@@ -90,6 +95,7 @@ const Calendar = (props) => {
                   activeMealClick={activeMealClick}
                   mealClickCallback={handleMealDropClick}
                   index={index}
+                  removeMeal={handleMealRemoveClick}
                 />
               </div>
             );
@@ -148,7 +154,7 @@ const Calendar = (props) => {
                 <li
                   key={index}
                   className="selection-scroll-meal"
-                  onClick={(e) => handleMealClick(e, index)}
+                  onClick={() => handleMealClick(index)}
                 >
                   {meal.display_name}
                 </li>
