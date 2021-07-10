@@ -4,6 +4,9 @@
   height: 75px;
   box-sizing: border-box;
   margin: 0;
+  box-shadow: 1px 1px 5px #000000;
+  position: relative;
+  z-index: 10;
 }
 
 .topbar-wrapper span:hover {
