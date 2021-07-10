@@ -14,10 +14,10 @@ const MEAL_TIMES = [
 ];
 
 const Calendar = (props) => {
-  const [activeDate, setActiveDate] = useState({});
+  const [activeDate, setActiveDate] = useState("7/10/2021"); //Need to find a way to set our active date on assignment
   const [meals, setMeals] = useState([]);
   const [activeWeek, setActiveWeek] = useState(""); //# of week of year using momentJS...
-  const [categoryFilter, setCategoryFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
   const [searchFilter, setSearchFilter] = useState("");
   const [activeMealClick, setActiveMealClick] = useState(false);
   const [activeMeal, setActiveMeal] = useState({});
@@ -52,7 +52,7 @@ const Calendar = (props) => {
   //   });
   // });
 
-  console.log(activeDate);
+  console.log("activeDate", activeDate);
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
