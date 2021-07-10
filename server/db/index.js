@@ -3,6 +3,7 @@ require("dotenv").config();
 const db_schema = require("../models/index");
 const dbConfig = require("../config/db.config");
 const Role = db_schema.role;
+const Meals = db_schema.meals;
 
 mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -51,6 +52,52 @@ function initial() {
         console.log("added 'admin' to roles collection");
       });
     }
+  });
+
+  [
+    {
+      display_name: "Spinach Mozzerla pasta w/ cherry tomatoes",
+      ingredients: ["Cherry Tomatoes", "Spinach", "pasta of choice", "onion"],
+      date_created: "7/6/2021",
+      description:
+        "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
+    },
+    {
+      display_name: "Sausage, Rice, Peppers dish",
+      ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
+      date_created: "7/10/2021",
+      description: "",
+    },
+    {
+      display_name: "Cereal",
+      ingredients: ["almost milk", "cinnamon toast crunch"],
+      date_created: "7/1/2021",
+      description: "Pour milk then pour in cereal",
+    },
+    {
+      display_name: "Chicken Parm",
+      ingredients: [
+        "Chicken breast",
+        "basil",
+        "cheese",
+        "breadcrumbs",
+        "egg",
+        "pasta",
+      ],
+      date_created: "12/6/2020",
+      description:
+        "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
+    },
+    {
+      display_name: "Pad Thai",
+      ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
+      date_created: "5/6/2019",
+      description: "",
+    },
+  ].forEach((meal) => {
+    new Meals(meal).save((err) =>
+      console.log(`added ${meal.display_name} to roles collection`)
+    );
   });
 }
 
