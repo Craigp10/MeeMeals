@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./Calendar.css";
 import apis from "../../api/meals";
 import MealDrop from "../../components/MealDrop/MealDrop";
+import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const tmp_date = [
@@ -25,8 +26,8 @@ const Calendar = (props) => {
   const [dates, setDates] = useState(tmp_date);
   const [meals, setMeals] = useState([]);
   const [activeWeek, setActiveWeek] = useState(""); //# of week of year using momentJS...
-  const [categoryFilters, setCategoryFilters] = useState([]); //Probably make filtering its own component
-  const [searchFilter, setSearchFilter] = useState(""); //Probably make filtering its own component
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [searchFilter, setSearchFilter] = useState("");
   const [activeMealClick, setActiveMealClick] = useState(false);
   const [activeMeal, setActiveMeal] = useState({});
 
@@ -42,10 +43,6 @@ const Calendar = (props) => {
     setDates([...updatedDates]);
   };
 
-  // const handleFilterChange = (e) => { //implement filter logic later
-  //   console.log(e);
-  // };
-
   const handleMealClick = (index) => {
     setActiveMealClick(!activeMealClick);
     if (activeMealClick) {
@@ -54,6 +51,7 @@ const Calendar = (props) => {
       setActiveMeal(meals[index]);
     }
   };
+
   const handleMealRemoveClick = (index) => {
     MEAL_TIMES[index].meal = {};
   };
@@ -67,9 +65,6 @@ const Calendar = (props) => {
   useEffect(async () => {
     await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
   }, []);
-
-  console.log(activeMeal, activeMealClick);
-  console.log(MEAL_TIMES);
 
   return (
     <div className="calendar-content-wrapper">
@@ -100,56 +95,33 @@ const Calendar = (props) => {
                 />
               </div>
             );
-            // return (
-            //     <label>{meal.meal_time}</label>
-            //     <div
-            //       className={
-            //         activeMealClick
-            //           ? "calendar-content-board-planner-meal-drop active"
-            //           : "calendar-content-board-planner-meal-drop"
-            //       }
-            //       onClick={() => handleMealDropClick(index)}
-            //     >
-            //       {meal?.meal?.display_name}
-            //     </div>
-            //   </div>
-            // );
           })}
         </div>
       </div>
       <div className="calendar-content-meal-selection">
-        <div className="calendar-content-meal-selection-filter">
-          <span className="filterBtn" id="all">
-            All
-          </span>
-          <span className="filterBtn" id="breakfast">
-            Breakfast
-          </span>
-          <span className="filterBtn" id="lunch">
-            Lunch
-          </span>
-          <span className="filterBtn" id="dinner">
-            Dinner
-          </span>
-          <span className="filterBtn" id="snack">
-            Snack
-          </span>
-          <span className="glyphicon glyphicon-search">
-            <input
-              id="search"
-              value={searchFilter}
-              placeholder="Search for meals"
-              onChange={(e) => setSearchFilter(e.target.value)}
-            />
-          </span>
-        </div>
+        <FilterSelection
+          setSearchFilter={setSearchFilter}
+          searchFilter={searchFilter}
+          setCategoryFilter={setCategoryFilter}
+          categoryFilter={categoryFilter}
+        />
+
         <ul className="calendar-content-meal-selection-scroll">
           {meals
-            .filter((meal) =>
-              meal.display_name
-                .toLowerCase()
-                .includes(searchFilter.toLowerCase())
-            )
+            .filter((meal) => {
+              if (categoryFilter == "all") {
+                return meal.display_name
+                  .toLowerCase()
+                  .includes(searchFilter.toLowerCase());
+              } else {
+                return (
+                  meal.display_name
+                    .toLowerCase()
+                    .includes(searchFilter.toLowerCase()) &&
+                  meal.category == categoryFilter
+                );
+              }
+            })
             .map((meal, index) => {
               return (
                 <li

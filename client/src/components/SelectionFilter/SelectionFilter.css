@@ -1,0 +1,79 @@
+.filter-selection-wrapper {
+  background-color: darkgray;
+  height: 15%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 5px;
+  column-gap: 5px;
+  padding: 10px;
+}
+.filterBtn {
+  display: flex;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.filterBtn:hover {
+  background-color: #02203c;
+  color: white;
+}
+.activeCate {
+  background-color: #02203c;
+  color: white;
+}
+
+#all {
+  grid-column: 2 / 4;
+  grid-row: 1;
+  width: 70%;
+  margin: 0 auto;
+}
+
+#breakfast {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#lunch {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#dinner {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#snack {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+#search {
+  border: none;
+}
+
+.glyphicon-search span:hover {
+  text-decoration: none;
+}
+
+.glyphicon-search {
+  grid-column: 1/5;
+  grid-row: 3;
+  padding: 0 10px;
+  display: flex;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.glyphicon-search input {
+  /* appearance: none; */
+  outline: none;
+  width: 100%;
+  padding: 0 20px;
+}

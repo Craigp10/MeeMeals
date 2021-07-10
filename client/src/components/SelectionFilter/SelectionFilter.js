@@ -1,7 +1,62 @@
 import React, { useState, useEffect, useCallback } from "react";
+import "./SelectionFilter.css";
 
-const SelectionFilter = () => {
-  return <div></div>;
+const CATEGORY_FILTERS = [
+  {
+    id: "all",
+    text: "All",
+    isActive: true,
+  },
+  {
+    id: "breakfast",
+    text: "Breakfast",
+    isActive: false,
+  },
+  {
+    id: "lunch",
+    text: "Lunch",
+    isActive: false,
+  },
+  {
+    id: "dinner",
+    text: "Dinner",
+    isActive: false,
+  },
+  {
+    id: "snack",
+    text: "Snack",
+    isActive: false,
+  },
+];
+
+const SelectionFilter = (props) => {
+  return (
+    <div className="filter-selection-wrapper">
+      {CATEGORY_FILTERS.map((category) => {
+        return (
+          <span
+            className={
+              props.categoryFilter == category.id
+                ? "filterBtn activeCate"
+                : "filterBtn"
+            }
+            id={category.id}
+            onClick={() => props.setCategoryFilter(category.id)}
+          >
+            {category.text}
+          </span>
+        );
+      })}
+      <span className="glyphicon glyphicon-search">
+        <input
+          id="search"
+          value={props.searchFilter}
+          placeholder="Search for meals"
+          onChange={(e) => props.setSearchFilter(e.target.value)}
+        />
+      </span>
+    </div>
+  );
 };
 
 export default SelectionFilter;
