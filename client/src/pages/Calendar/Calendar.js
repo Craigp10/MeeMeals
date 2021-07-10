@@ -18,14 +18,14 @@ const MEAL_TIMES = [
   { meal_time: "Breakfast", meal: {} },
   { meal_time: "Lunch", meal: {} },
   { meal_time: "Dinner", meal: {} },
-  { meal_time: "Snacks", meal: {} },
+  { meal_time: "Snack", meal: {} },
 ];
 
 const Calendar = (props) => {
   const [dates, setDates] = useState(tmp_date);
   const [meals, setMeals] = useState([]);
-  const [filters, setFilters] = useState([]);
-  const [searchFilter, setSearchFilter] = useState("");
+  const [filters, setFilters] = useState([]); //Probably make filtering its own component
+  const [searchFilter, setSearchFilter] = useState(""); //Probably make filtering its own component
   const [activeMealClick, setActiveMealClick] = useState(false);
   const [activeMeal, setActiveMeal] = useState({});
 
@@ -130,8 +130,8 @@ const Calendar = (props) => {
           <span className="filterBtn" id="dinner">
             Dinner
           </span>
-          <span className="filterBtn" id="snacks">
-            Snacks
+          <span className="filterBtn" id="snack">
+            Snack
           </span>
           <span className="glyphicon glyphicon-search">
             <input
