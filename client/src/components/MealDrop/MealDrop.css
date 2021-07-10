@@ -15,12 +15,12 @@
   height: 120px;
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 18px 36px -18px rgb(0 0 0 / 30%);
-  background-color: lightgray;
 }
 
 .active {
   box-shadow: 0 0 10px 0.2px hsl(209, 94%, 12%);
   cursor: pointer;
+  background-color: transparent;
 }
 
 .active:hover {
