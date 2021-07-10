@@ -8,6 +8,7 @@ const Meals = new Schema(
     date_created: { type: String, required: true },
     date_last_eaten: { type: String, required: false },
     description: { type: String, required: false },
+    category: { type: String, required: true },
   },
   { timestamps: true }
 );
