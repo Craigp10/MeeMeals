@@ -3,17 +3,8 @@ import "./Calendar.css";
 import apis from "../../api/meals";
 import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
+import DateSelector from "../../components/DateSelector/DateSelector";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-const tmp_date = [
-  { date: "7/8/2021", isActive: false },
-  { date: "7/9/2021", isActive: false },
-  { date: "7/10/2021", isActive: false },
-  { date: "7/11/2021", isActive: false },
-  { date: "7/12/2021", isActive: false },
-  { date: "7/13/2021", isActive: false },
-  { date: "7/14/2021", isActive: true },
-];
 
 const MEAL_TIMES = [
   { meal_time: "Breakfast", meal: {} },
@@ -23,25 +14,13 @@ const MEAL_TIMES = [
 ];
 
 const Calendar = (props) => {
-  const [dates, setDates] = useState(tmp_date);
+  const [activeDate, setActiveDate] = useState({});
   const [meals, setMeals] = useState([]);
   const [activeWeek, setActiveWeek] = useState(""); //# of week of year using momentJS...
   const [categoryFilter, setCategoryFilter] = useState("");
   const [searchFilter, setSearchFilter] = useState("");
   const [activeMealClick, setActiveMealClick] = useState(false);
   const [activeMeal, setActiveMeal] = useState({});
-
-  const updateActiveDate = (e, index) => {
-    const updatedDates = dates;
-    updatedDates.forEach((date, idx) => {
-      if (idx != index) {
-        date.isActive = false;
-      } else {
-        date.isActive = true;
-      }
-    });
-    setDates([...updatedDates]);
-  };
 
   const handleMealClick = (index) => {
     setActiveMealClick(!activeMealClick);
@@ -66,20 +45,19 @@ const Calendar = (props) => {
     await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
   }, []);
 
+  // useEffect(async () => {
+  //   await apis.getDateMeals().then((resp) => {
+  //     // setActiveDateMeals()
+  //     console.log("returned", resp);
+  //   });
+  // });
+
+  console.log(activeDate);
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
         <div className="calendar-content-board-dates">
-          <span className="glyphicon glyphicon-chevron-left"></span>
-          {dates.map((date, index) => (
-            <span
-              className={date.isActive ? "isActive" : "notActive"}
-              onClick={(e) => updateActiveDate(e, index)}
-            >
-              {date.date}
-            </span>
-          ))}
-          <span className="glyphicon glyphicon-chevron-right"></span>
+          <DateSelector activeDate={activeDate} setActiveDate={setActiveDate} />
         </div>
         <div className="calendar-content-board-planner">
           {MEAL_TIMES.map((meal, index) => {

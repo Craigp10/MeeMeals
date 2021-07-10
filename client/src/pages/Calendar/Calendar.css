@@ -21,35 +21,11 @@ span:hover {
   background-color: lightgray;
   width: 100%;
   height: 80px;
-}
-
-.calendar-content-board-dates {
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
-.calendar-content-board-dates span {
-  padding: 10px 20px;
-  border-top-right-radius: 25px;
-  border-top-left-radius: 25px;
-  box-shadow: 0 -30px 60px -12px rgb(50 50 93 / 25%);
-}
-
-.notActive {
-  height: 50px;
-  background-color: #02203c;
-  color: white;
-  transition: 0.2s ease-in-out;
-}
-
-.isActive {
-  border-bottom: none;
-  background-color: white;
-  color: #02203c;
-  height: 70px;
-  transition: 0.2s ease-in-out;
-}
 .calendar-content-meal-selection {
   height: 100vh;
   flex-grow: 1;
