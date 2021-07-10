@@ -24,7 +24,8 @@ const MEAL_TIMES = [
 const Calendar = (props) => {
   const [dates, setDates] = useState(tmp_date);
   const [meals, setMeals] = useState([]);
-  const [filters, setFilters] = useState([]); //Probably make filtering its own component
+  const [activeWeek, setActiveWeek] = useState(""); //# of week of year using momentJS...
+  const [categoryFilters, setCategoryFilters] = useState([]); //Probably make filtering its own component
   const [searchFilter, setSearchFilter] = useState(""); //Probably make filtering its own component
   const [activeMealClick, setActiveMealClick] = useState(false);
   const [activeMeal, setActiveMeal] = useState({});
