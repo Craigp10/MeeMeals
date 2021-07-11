@@ -1,12 +1,5 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
