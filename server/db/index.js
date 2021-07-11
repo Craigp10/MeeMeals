@@ -53,67 +53,75 @@ function initial() {
       });
     }
   });
-  const existing_meals = Meals.find({});
-  console.log("existing_meals", existing_meals.length);
-  if (existing_meals.length == 0) {
-    [
-      {
-        display_name: "Spinach Mozzerla pasta w/ cherry tomatoes",
-        ingredients: ["Cherry Tomatoes", "Spinach", "pasta of choice", "onion"],
-        date_created: "7/6/2021",
-        category: "dinner",
-        description:
-          "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
-      },
-      {
-        display_name: "Sausage, Rice, Peppers dish",
-        ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
-        date_created: "7/10/2021",
-        category: "lunch",
-        description: "",
-      },
-      {
-        display_name: "Cereal",
-        ingredients: ["almost milk", "cinnamon toast crunch"],
-        date_created: "7/1/2021",
-        category: "breakfast",
-        description: "Pour milk then pour in cereal",
-      },
-      {
-        display_name: "Chicken Parm",
-        ingredients: [
-          "Chicken breast",
-          "basil",
-          "cheese",
-          "breadcrumbs",
-          "egg",
-          "pasta",
-        ],
-        date_created: "12/6/2020",
-        category: "dinner",
-        description:
-          "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
-      },
-      {
-        display_name: "Pad Thai",
-        ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
-        date_created: "5/6/2019",
-        category: "dinner",
-        description: "",
-      },
-      {
-        display_name: "Peanut Butter Toast",
-        ingredients: ["bread", "creamy peanut butter"],
-        date_created: "5/6/2019",
-        category: "snack",
-        description: "",
-      },
-    ].forEach((meal) => {
-      new Meals(meal).save((err) =>
-        console.log(`added ${meal.display_name} to roles collection`)
-      );
-    });
-  }
+  Meals.find({}, (err, meals) => {
+    if (!meals.length) {
+      [
+        {
+          display_name: "Spinach Mozzerla pasta w/ cherry tomatoes",
+          ingredients: [
+            "Cherry Tomatoes",
+            "Spinach",
+            "pasta of choice",
+            "onion",
+          ],
+          date_created: "7/6/2021",
+          category: "dinner",
+          description:
+            "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
+        },
+        {
+          display_name: "Sausage, Rice, Peppers dish",
+          ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
+          date_created: "7/10/2021",
+          category: "lunch",
+          description: "",
+        },
+        {
+          display_name: "Cereal",
+          ingredients: ["almost milk", "cinnamon toast crunch"],
+          date_created: "7/1/2021",
+          category: "breakfast",
+          description: "Pour milk then pour in cereal",
+        },
+        {
+          display_name: "Chicken Parm",
+          ingredients: [
+            "Chicken breast",
+            "basil",
+            "cheese",
+            "breadcrumbs",
+            "egg",
+            "pasta",
+          ],
+          date_created: "12/6/2020",
+          category: "dinner",
+          description:
+            "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
+        },
+        {
+          display_name: "Pad Thai",
+          ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
+          date_created: "5/6/2019",
+          category: "dinner",
+          description: "",
+        },
+        {
+          display_name: "Peanut Butter Toast",
+          ingredients: ["bread", "creamy peanut butter"],
+          date_created: "5/6/2019",
+          category: "snack",
+          description: "",
+        },
+      ].forEach((meal) => {
+        new Meals(meal).save((err) =>
+          console.log(`added ${meal.display_name} to roles collection`)
+        );
+      });
+    }
+  });
+  // console.log("existing_meals", existing_meals.length);
+  // if (existing_meals.length == 0) {
+  // }
 }
 
 db = mongoose.connection;
