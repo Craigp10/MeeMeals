@@ -4,7 +4,7 @@ import apis from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
-// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import dayjs from "dayjs";
 
 const MEAL_TIMES = [
   { meal_time: "Breakfast", meal: {} },
@@ -13,21 +13,9 @@ const MEAL_TIMES = [
   { meal_time: "Snack", meal: {} },
 ];
 
-const generateToday = () => {
-  let date = new Date();
-  return (
-    (date.getMonth() > 8 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) +
-    "/" +
-    (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) +
-    "/" +
-    date.getFullYear()
-  );
-};
-
 const Calendar = (props) => {
-  const [activeDate, setActiveDate] = useState(() => generateToday());
+  const [activeDate, setActiveDate] = useState(dayjs().format("M/D/YYYY"));
   const [meals, setMeals] = useState([]);
-  const [activeWeek, setActiveWeek] = useState(""); //# of week of year using momentJS...
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [searchFilter, setSearchFilter] = useState("");
   const [activeMealClick, setActiveMealClick] = useState(false);
@@ -61,9 +49,8 @@ const Calendar = (props) => {
   //     // setActiveDateMeals()
   //     console.log("returned", resp);
   //   });
-  // });
+  // },activeDate);
 
-  console.log("activeDate", activeDate);
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">

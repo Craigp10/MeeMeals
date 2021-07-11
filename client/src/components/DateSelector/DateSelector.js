@@ -1,23 +1,61 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./DateSelector.css";
+import dayjs from "dayjs";
 
-const tmp_date = [
-  { date: "7/8/2021", isActive: false },
-  { date: "7/9/2021", isActive: false },
-  { date: "7/10/2021", isActive: false },
-  { date: "7/11/2021", isActive: false },
-  { date: "7/12/2021", isActive: false },
-  { date: "7/13/2021", isActive: false },
-  { date: "7/14/2021", isActive: false },
-];
+// const tmp_date = [
+//   { date: "7/8/2021", isActive: false },
+//   { date: "7/9/2021", isActive: false },
+//   { date: "7/10/2021", isActive: false },
+//   { date: "7/11/2021", isActive: false },
+//   { date: "7/12/2021", isActive: false },
+//   { date: "7/13/2021", isActive: false },
+//   { date: "7/14/2021", isActive: false },
+// ];
+
+// const generateDates = (activeDate) => {
+//   const dates = [activeDate];
+//   for (let i = 1; i < 4; i++) {
+//     dates.push(dayjs(activeDate).add(i, "days").format("M/D/YYYY"));
+//     dates.unshift(dayjs(activeDate).subtract(i, "days").format("M/D/YYYY"));
+//   }
+//   return dates;
+// };
 
 const DateSelector = (props) => {
-  const [dates, setDates] = useState(tmp_date);
+  const initial_dates = [
+    {
+      date: dayjs(props.activeDate).subtract(3, "days").format("M/D/YYYY"),
+      isActive: false,
+    },
+    {
+      date: dayjs(props.activeDate).subtract(2, "days").format("M/D/YYYY"),
+      isActive: false,
+    },
+    {
+      date: dayjs(props.activeDate).subtract(1, "days").format("M/D/YYYY"),
+      isActive: false,
+    },
+    { date: dayjs(props.activeDate).format("M/D/YYYY"), isActive: false },
+    {
+      date: dayjs(props.activeDate).add(1, "days").format("M/D/YYYY"),
+      isActive: false,
+    },
+    {
+      date: dayjs(props.activeDate).add(2, "days").format("M/D/YYYY"),
+      isActive: false,
+    },
+    {
+      date: dayjs(props.activeDate).add(3, "days").format("M/D/YYYY"),
+      isActive: false,
+    },
+  ];
 
-  const updateActiveDate = (e, index) => {
-    const updatedDates = dates;
+  const [dates, setDates] = useState(initial_dates);
+
+  const updateActiveDate = (workingDates, index) => {
+    // const updatedDates = dates;
     let activeDate = "";
-    updatedDates.forEach((date, idx) => {
+    workingDates.forEach((date, idx) => {
       if (idx != index) {
         date.isActive = false;
       } else {
@@ -25,25 +63,46 @@ const DateSelector = (props) => {
         activeDate = date.date;
       }
     });
-    setDates([...updatedDates]);
+    console.log(activeDate);
+    setDates([...workingDates]);
     props.setActiveDate(activeDate);
   };
 
   const handleDatesChangeClick = (direction) => {
-    //Logic to determine the new date, remove the opposite old date and append the new date in the correct spot.
-    //Set state dates array, should trigger the useEffect hook.
+    const newDates = dates;
+    if (direction == "prev") {
+      newDates.unshift({
+        date: dayjs(newDates[0].date).subtract(1, "days").format("M/D/YYYY"),
+        isActive: false,
+      });
+      newDates.pop();
+      updateActiveDate(newDates, 0);
+    } else {
+      //direction == "next"
+      newDates.push({
+        date: dayjs(newDates[6].date).add(1, "days").format("M/D/YYYY"),
+        isActive: false,
+      });
+      newDates.shift();
+      updateActiveDate(newDates, 6);
+    }
   };
 
-  useEffect(() => {
-    console.log("useEffect triggered");
-    const dateAdded = {
-      date: "",
-      isActive: true,
-    };
+  // useEffect(() => {
+  //   console.log("useEffect triggered");
+  //   // if (!dates.length) {
+  //   //   setDates(generateDates(props.activeDate));
+  //   // } else {
+  //   const dateAdded = {
+  //     date: "",
+  //     isActive: true,
+  //   };
 
-    props.setActiveDate(dateAdded.date);
-  }, dates);
+  //   props.setActiveDate(dateAdded.date);
+  //   // }
+  // }, dates);
 
+  console.log("dates", dates);
   return (
     <div className="date-selector-wrapper">
       <span
@@ -53,8 +112,10 @@ const DateSelector = (props) => {
       {dates.map((date, index) => (
         <span
           key={index}
-          className={date.date == props.activeDate ? "isActive" : "notActive"}
-          onClick={(e) => updateActiveDate(e, index)}
+          className={
+            date.date == props.activeDate ? "dates isActive" : "dates notActive"
+          }
+          onClick={() => updateActiveDate(dates, index)}
         >
           {date.date}
         </span>

@@ -17,17 +17,21 @@
   box-shadow: 0 -30px 60px -12px rgb(50 50 93 / 25%);
 }
 
-.notActive {
-  height: 50px;
+.dates {
+  width: 400px;
+  transition: 0.2s ease-in-out;
+  text-align: center;
   background-color: #02203c;
   color: white;
-  transition: 0.2s ease-in-out;
+}
+
+.notActive {
+  height: 50px;
 }
 
 .isActive {
-  border-bottom: none;
   background-color: white;
   color: #02203c;
   height: 70px;
-  transition: 0.2s ease-in-out;
+  border-bottom: none;
 }
