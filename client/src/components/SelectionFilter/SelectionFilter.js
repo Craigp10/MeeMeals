@@ -32,9 +32,10 @@ const CATEGORY_FILTERS = [
 const SelectionFilter = (props) => {
   return (
     <div className="filter-selection-wrapper">
-      {CATEGORY_FILTERS.map((category) => {
+      {CATEGORY_FILTERS.map((category, index) => {
         return (
           <span
+            key={index}
             className={
               props.categoryFilter == category.id
                 ? "filterBtn activeCate"

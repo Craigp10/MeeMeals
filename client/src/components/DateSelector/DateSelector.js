@@ -52,6 +52,7 @@ const DateSelector = (props) => {
       ></span>
       {dates.map((date, index) => (
         <span
+          key={index}
           className={date.date == props.activeDate ? "isActive" : "notActive"}
           onClick={(e) => updateActiveDate(e, index)}
         >
