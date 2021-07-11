@@ -3,6 +3,8 @@
 }
 .mealdrop-content {
   width: 400px;
+  display: flex;
+  flex-direction: column;
   border-radius: 25px;
   height: 120px;
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
@@ -15,6 +17,11 @@
   height: 120px;
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 18px 36px -18px rgb(0 0 0 / 30%);
+}
+.mealdrop-content p {
+  padding: 10px 5px 0px;
+  font-size: 1rem;
+  flex-grow: 1;
 }
 
 .active {
@@ -51,4 +58,16 @@
 
 .mealdrop-content-header span {
   padding: 10px;
+}
+
+.mealdrop-content-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px 5px;
+  bottom: 0;
+  font-size: 1rem;
+
+  /* background-color: #02203c;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px; */
 }

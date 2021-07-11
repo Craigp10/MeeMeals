@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./MealBox.css";
 
 const MealBox = (props) => {
-  console.log(props);
   return (
     <div className="mealbox-wrapper grow">
       <div className="mealbox-content-header">
@@ -23,7 +22,7 @@ const MealBox = (props) => {
                 style={{ display: "block" }}
                 key={idx}
               >
-                {ingredient} a
+                {ingredient}
               </span>
             );
           })} */}
