@@ -5,9 +5,7 @@
 .home-content-board {
   border-radius: 4px;
   border: 1px solid pink;
+  background-color: #fafafa;
   height: 80vh;
   width: 90%;
-  margin: auto;
-  margin-top: 5%;
-  background-color: #fafafa;
 }
