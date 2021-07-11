@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Meals.css";
-import apis from "../../api/meals";
+import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 
 const Meals = () => {

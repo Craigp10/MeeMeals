@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Calendar.css";
-import apis from "../../api/meals";
+import apis from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
@@ -13,8 +13,19 @@ const MEAL_TIMES = [
   { meal_time: "Snack", meal: {} },
 ];
 
+const generateToday = () => {
+  let date = new Date();
+  return (
+    (date.getMonth() > 8 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) +
+    "/" +
+    (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) +
+    "/" +
+    date.getFullYear()
+  );
+};
+
 const Calendar = (props) => {
-  const [activeDate, setActiveDate] = useState("7/10/2021"); //Need to find a way to set our active date on assignment
+  const [activeDate, setActiveDate] = useState(() => generateToday());
   const [meals, setMeals] = useState([]);
   const [activeWeek, setActiveWeek] = useState(""); //# of week of year using momentJS...
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -62,7 +73,7 @@ const Calendar = (props) => {
         <div className="calendar-content-board-planner">
           {MEAL_TIMES.map((meal, index) => {
             return (
-              <div className="calendar-content-board-planner-meal">
+              <div className="calendar-content-board-planner-meal" key={index}>
                 <label>{meal.meal_time}</label>
                 <MealDrop
                   meal={meal.meal}
