@@ -21,7 +21,6 @@ const MealDrop = (props) => {
             ></span>
           </div>
           <p>{props.meal.description}</p>
-
           <div className="mealdrop-content-footer">
             <span>Created On: 7/6/21</span>
             <span>Last scheduled: 7/5/21</span>
