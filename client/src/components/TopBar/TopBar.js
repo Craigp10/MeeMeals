@@ -8,9 +8,10 @@ const TopBar = (props) => (
       <span className="topbar-title-text">Mi Meals</span>
     </div>
     <div className="topbar-leftover">
-      <span className="topbar-icon">
-        <img src={logout} />
-      </span>
+      <div className="topbar-icon">
+        <span className="glyphicon glyphicon-user"></span>
+        {/* <img src={logout} /> */}
+      </div>
     </div>
   </div>
 );
