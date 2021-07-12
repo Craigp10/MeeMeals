@@ -57,6 +57,7 @@ function initial() {
     if (!meals.length) {
       [
         {
+          user_id: "60e61a2a2990e3bac72f35cc",
           display_name: "Spinach Mozzerla pasta w/ cherry tomatoes",
           ingredients: [
             "Cherry Tomatoes",
@@ -70,6 +71,7 @@ function initial() {
             "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
         },
         {
+          user_id: "60e61a2a2990e3bac72f35cc",
           display_name: "Sausage, Rice, Peppers dish",
           ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
           date_created: "7/10/2021",
@@ -77,6 +79,7 @@ function initial() {
           description: "",
         },
         {
+          user_id: "60e61a2a2990e3bac72f35cc",
           display_name: "Cereal",
           ingredients: ["almost milk", "cinnamon toast crunch"],
           date_created: "7/1/2021",
@@ -84,6 +87,7 @@ function initial() {
           description: "Pour milk then pour in cereal",
         },
         {
+          user_id: "60e61a2a2990e3bac72f35cc",
           display_name: "Chicken Parm",
           ingredients: [
             "Chicken breast",
@@ -99,6 +103,7 @@ function initial() {
             "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
         },
         {
+          user_id: "60e61a2a2990e3bac72f35cc",
           display_name: "Pad Thai",
           ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
           date_created: "5/6/2019",
@@ -106,6 +111,7 @@ function initial() {
           description: "",
         },
         {
+          user_id: "60e61a2a2990e3bac72f35cc",
           display_name: "Peanut Butter Toast",
           ingredients: ["bread", "creamy peanut butter"],
           date_created: "5/6/2019",

@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+// ObjectId("60e61a2a2990e3bac72f35cc")
 const Meals = new Schema(
   {
     display_name: { type: String, required: true },
+    user_id: { type: String, required: true },
     ingredients: { type: [String], required: false },
     date_created: { type: String, required: true },
     date_last_eaten: { type: String, required: false },

@@ -6,7 +6,14 @@ const User = mongoose.model(
     username: String,
     email: String,
     password: String,
-    calendar: [Object],
+    calendar: [
+      {
+        breakfast: Object,
+        lunch: Object,
+        dinner: Object,
+        snack: Object,
+      },
+    ],
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
