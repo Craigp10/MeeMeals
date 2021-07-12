@@ -20,6 +20,7 @@ const Calendar = (props) => {
   const [searchFilter, setSearchFilter] = useState("");
   const [activeMealClick, setActiveMealClick] = useState(false);
   const [activeMeal, setActiveMeal] = useState({});
+  const [changes, setChanges] = useState([]);
 
   const handleMealClick = (index) => {
     setActiveMealClick(!activeMealClick);
@@ -42,7 +43,21 @@ const Calendar = (props) => {
 
   useEffect(async () => {
     await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
+
+    return () => {
+      //save changes
+      console.log("SAVING CHANGES");
+    };
   }, []);
+
+  useEffect(() => {
+    // await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
+
+    return () => {
+      //save changes
+      console.log("SAVING CHANGES");
+    };
+  }, [changes]);
 
   // useEffect(async () => {
   //   await apis.getDateMeals().then((resp) => {
@@ -58,6 +73,7 @@ const Calendar = (props) => {
           <DateSelector activeDate={activeDate} setActiveDate={setActiveDate} />
         </div>
         <div className="calendar-content-board-planner">
+          {/* <button onClick={() => setChanges([])}>Save</button> */}
           {MEAL_TIMES.map((meal, index) => {
             return (
               <div className="calendar-content-board-planner-meal" key={index}>
@@ -100,13 +116,19 @@ const Calendar = (props) => {
             })
             .map((meal, index) => {
               return (
-                <li
-                  key={index}
-                  className="selection-scroll-meal"
-                  onClick={() => handleMealClick(index)}
-                >
-                  {meal.display_name}
-                </li>
+                <div className="selection-scroll-meal-wrapper">
+                  <li
+                    key={index}
+                    className="selection-scroll-meal"
+                    onClick={() => handleMealClick(index)}
+                  >
+                    <div className="calendar-content-meal-header">
+                      <div className="calendar-content-meal-displayname">
+                        {meal.display_name}
+                      </div>
+                    </div>
+                  </li>
+                </div>
               );
             })}
         </ul>
