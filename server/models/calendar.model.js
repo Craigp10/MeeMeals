@@ -7,6 +7,7 @@ const Calendar = new Schema(
     users: {
       type: [
         {
+          user_id: { type: Schema.Types.ObjectId, ref: "User" },
           user_id: String,
           breakfast: String,
           lunch: String,
@@ -14,6 +15,7 @@ const Calendar = new Schema(
           snack: String,
         },
       ],
+      _id: false,
       required: false,
     },
   },

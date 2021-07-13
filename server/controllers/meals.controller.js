@@ -1,5 +1,4 @@
 const Meals = require("../models/meals.model");
-
 getMeals = async (req, res) => {
   await Meals.find({}, (err, meals) => {
     console.log("meals", meals);
@@ -9,6 +8,7 @@ getMeals = async (req, res) => {
     if (!meals.length) {
       return res.status(404).json({ success: false, error: `Movie not found` });
     }
+
     return res.status(200).json({ success: true, data: meals });
   }).catch((err) => console.log(err));
 };
@@ -49,7 +49,6 @@ createMeal = (req, res) => {
 
 deleteAllMeals = (req, res) => {
   const body = req.body;
-  console.log("Deleting meals", body);
   Meals.deleteMany({}, (err, elses) => {
     console.log(elses);
   });

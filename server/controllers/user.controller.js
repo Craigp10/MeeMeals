@@ -28,15 +28,11 @@ const pullDate = (req, res) => {
 
 const getMeals = async (req, res) => {
   const body = req.body;
-  console.log("body", body);
   const user = await User.findOne(
     {
       username: "Craigp10",
     },
-    (err, doc) => {
-      if (err) throw err;
-      return doc;
-    }
+    (err, doc) => doc
   );
 
   return res.status(201).json({
