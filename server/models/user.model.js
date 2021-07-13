@@ -6,20 +6,34 @@ const User = mongoose.model(
     username: String,
     email: String,
     password: String,
-    calendar: [
+    // calendar: [
+    //   {
+    //     breakfast: Object,
+    //     lunch: Object,
+    //     dinner: Object,
+    //     snack: Object,
+    //   },
+    // ],
+    meals: [
       {
-        breakfast: Object,
-        lunch: Object,
-        dinner: Object,
-        snack: Object,
+        display_name: { type: String, required: true },
+        user_id: { type: String, required: true },
+        ingredients: { type: [String], required: false },
+        date_created: { type: String, required: true },
+        date_last_eaten: { type: String, required: false },
+        description: { type: String, required: false },
+        category: { type: String, required: true },
       },
     ],
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role",
-      },
-    ],
+    roles: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Role",
+        },
+      ],
+      required: false,
+    },
   })
 );
 

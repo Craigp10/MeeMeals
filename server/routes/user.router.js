@@ -18,4 +18,8 @@ router.get(
   controller.adminBoard
 );
 
+router.post("/meals", controller.getMeals);
+
+router.post("/pullDate", controller.pullDate);
+
 module.exports = router;
