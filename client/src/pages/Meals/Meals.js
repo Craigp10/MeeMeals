@@ -4,10 +4,10 @@ import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 
 const Meals = () => {
-  const [state, setState] = useState([]);
+  const [meals, setMeals] = useState([]);
 
   useEffect(async () => {
-    await apis.getAllMeals().then((resp) => setState(resp.data.data));
+    await apis.getUserMeals().then((resp) => setMeals(resp.data.meals));
   }, []);
 
   return (
@@ -17,7 +17,7 @@ const Meals = () => {
       </div>
       <div className="meals-content-board">
         <ul className="meals-content-mealboxes">
-          {state.map((meal) => (
+          {meals.map((meal) => (
             <li key={meal._id}>
               <MealBox meal={meal} />
             </li>

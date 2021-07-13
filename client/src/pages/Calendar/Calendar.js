@@ -42,20 +42,14 @@ const Calendar = (props) => {
   };
 
   useEffect(async () => {
-    await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
-
-    return () => {
-      //save changes
-      console.log("SAVING CHANGES");
-    };
+    await apis.getUserMeals().then((resp) => setMeals(resp.data.meals));
   }, []);
 
   useEffect(() => {
-    // await apis.getAllMeals().then((resp) => setMeals(resp.data.data));
-
+    // await apis.saveCalendarChanges().then((resp) => );
     return () => {
       //save changes
-      console.log("SAVING CHANGES");
+      console.log("SAVING CHANGES CHANGES");
     };
   }, [changes]);
 
