@@ -6,6 +6,7 @@ const mealsRouter = require("./routes/meals.router");
 const app = express();
 const userRouter = require("./routes/user.router"); //(app);
 const authRouter = require("./routes/auth.router"); //(app);
+const calendarRouter = require("./routes/calendar.router");
 const apiPort = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,5 +22,6 @@ app.get("/", (req, res) => {
 app.use("/api", mealsRouter);
 app.use("/auth", authRouter); //currently get error with this... need to spend some time learning express more.
 app.use("/user", userRouter);
+app.use("/calendar", calendarRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
