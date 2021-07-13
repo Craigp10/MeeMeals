@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
   res.send("Hello World!");
 });
 router.post("/changes", controller.updateChanges);
-router.post("/singleDay", controller.pullSingleDay);
+router.post("/getDateMeals", controller.pullSingleDay);
 router.post("/schedule", controller.pullSchedule);
 
 module.exports = router;

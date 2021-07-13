@@ -57,7 +57,8 @@ pullSingleDay = async (req, res) => {
     const date_ = await Calendar.findOne(
       { date: date, users: { $elemMatch: { user_id: user_id } } },
       (err, doc) => {
-        console.log("doc", doc);
+        console.log("err doc", err, doc);
+
         if (err) {
           return res.status(400).json({ success: false, error: err });
         }
@@ -68,9 +69,12 @@ pullSingleDay = async (req, res) => {
       const data = date_.users.filter((user) => user.user_id == user_id)[0];
       return res.status(200).json({ success: true, data });
     } else {
-      return res
-        .status(204)
-        .json({ success: true, message: "No data for user on date", data });
+      console.log("else date_");
+      return res.status(204).json({
+        success: true,
+        message: "No data for user on date",
+        data: {},
+      });
     }
   } catch (e) {
     return res.status(400).json({

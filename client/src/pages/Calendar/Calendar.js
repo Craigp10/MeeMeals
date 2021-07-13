@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./Calendar.css";
 import apis from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
@@ -15,6 +15,19 @@ const MEAL_TIMES = [
 
 const Calendar = (props) => {
   const [activeDate, setActiveDate] = useState(dayjs().format("M/D/YYYY"));
+  const [MEAL_TIMES, setMEAL_TIMES] = useState([
+    { meal_time: "Breakfast", meal: {} },
+    { meal_time: "Lunch", meal: {} },
+    { meal_time: "Dinner", meal: {} },
+    { meal_time: "Snack", meal: {} },
+  ]);
+
+  const [activeDateSchedule, setActiveDateSchedule] = useState({
+    breakfast: "",
+    lunch: "",
+    dinner: "",
+    snack: "",
+  });
   const [meals, setMeals] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [searchFilter, setSearchFilter] = useState("");
@@ -45,20 +58,28 @@ const Calendar = (props) => {
     await apis.getUserMeals().then((resp) => setMeals(resp.data.meals));
   }, []);
 
-  useEffect(() => {
-    // await apis.saveCalendarChanges().then((resp) => );
-    return () => {
-      //save changes
-      console.log("SAVING CHANGES CHANGES");
-    };
-  }, [changes]);
+  useEffect(async () => {
+    await apis
+      .getDateMeals({
+        date: activeDate,
+        user_id: "60ece421179a8f07a9f1d561",
+      })
+      .then((resp) => {
+        const schedule = resp.data.data;
+        if (resp.status == 200) {
+          delete schedule.user_id;
+          setActiveDateSchedule(schedule);
+        }
+      });
+  }, [activeDate]);
 
   // useEffect(async () => {
-  //   await apis.getDateMeals().then((resp) => {
-  //     // setActiveDateMeals()
-  //     console.log("returned", resp);
-  //   });
-  // },activeDate);
+  //   // await apis.saveCalendarChanges().then((resp) => );
+  //   return () => {
+  //     //save changes
+  //     console.log("SAVING CHANGES CHANGES");
+  //   };
+  // }, [changes]);
 
   return (
     <div className="calendar-content-wrapper">
@@ -110,9 +131,8 @@ const Calendar = (props) => {
             })
             .map((meal, index) => {
               return (
-                <div className="selection-scroll-meal-wrapper">
+                <div key={index} className="selection-scroll-meal-wrapper">
                   <li
-                    key={index}
                     className="selection-scroll-meal"
                     onClick={() => handleMealClick(index)}
                   >
