@@ -1,4 +1,5 @@
 const Meals = require("../models/meals.model");
+const Users = require("../models/user.model");
 getMeals = async (req, res) => {
   await Meals.find({}, (err, meals) => {
     console.log("meals", meals);
@@ -8,6 +9,10 @@ getMeals = async (req, res) => {
     if (!meals.length) {
       return res.status(404).json({ success: false, error: `Movie not found` });
     }
+
+    // const user = Users.findOne({ _id: meals[0].user_id }, (err, user) => { //works as intended
+    //   console.log(user);
+    // });
 
     return res.status(200).json({ success: true, data: meals });
   }).catch((err) => console.log(err));
