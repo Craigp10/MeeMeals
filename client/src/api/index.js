@@ -11,8 +11,6 @@ export const getDateMeals = (payload) =>
 export const saveCalendarChanges = (payload) =>
   api.post("/calendar/changes", payload);
 
-// export const getDatemeals = () => api.post(`/user/calendar/`);
-
 const apis = {
   getAllMeals,
   getUserMeals,

@@ -6,52 +6,44 @@ import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
 
-const MEAL_TIMES = [
-  { meal_time: "Breakfast", meal: {} },
-  { meal_time: "Lunch", meal: {} },
-  { meal_time: "Dinner", meal: {} },
-  { meal_time: "Snack", meal: {} },
-];
-
 const Calendar = (props) => {
   const [activeDate, setActiveDate] = useState(dayjs().format("M/D/YYYY"));
-  const [MEAL_TIMES, setMEAL_TIMES] = useState([
-    { meal_time: "Breakfast", meal: {} },
-    { meal_time: "Lunch", meal: {} },
-    { meal_time: "Dinner", meal: {} },
-    { meal_time: "Snack", meal: {} },
+  const [mealTimes, setMealTimes] = useState([
+    { meal_time: "Breakfast", meal_id: "" },
+    { meal_time: "Lunch", meal_id: "" },
+    { meal_time: "Dinner", meal_id: "" },
+    { meal_time: "Snack", meal_id: "" },
   ]);
-
-  const [activeDateSchedule, setActiveDateSchedule] = useState({
-    breakfast: "",
-    lunch: "",
-    dinner: "",
-    snack: "",
-  });
   const [meals, setMeals] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [searchFilter, setSearchFilter] = useState("");
   const [activeMealClick, setActiveMealClick] = useState(false);
-  const [activeMeal, setActiveMeal] = useState({});
-  const [changes, setChanges] = useState([]);
+  const [activeMeal, setActiveMeal] = useState("");
+  const [allowSave, setAllowSave] = useState(false);
 
   const handleMealClick = (index) => {
     setActiveMealClick(!activeMealClick);
     if (activeMealClick) {
-      setActiveMeal({});
+      setActiveMeal("");
     } else {
-      setActiveMeal(meals[index]);
+      setActiveMeal(meals[index]._id);
     }
   };
 
   const handleMealRemoveClick = (index) => {
-    MEAL_TIMES[index].meal = {};
+    const updateMealTimes = mealTimes;
+    updateMealTimes[index].meal_id = "";
+    setMealTimes([...updateMealTimes]);
   };
 
   const handleMealDropClick = (index) => {
-    MEAL_TIMES[index].meal = { ...activeMeal };
+    const updateMealTimes = mealTimes;
+    updateMealTimes[index].meal_id = meals.filter(
+      (meal_) => meal_._id == activeMeal
+    )[0]._id;
+    setMealTimes([...updateMealTimes]);
     setActiveMealClick(false);
-    setActiveMeal({});
+    setActiveMeal("");
   };
 
   useEffect(async () => {
@@ -66,20 +58,50 @@ const Calendar = (props) => {
       })
       .then((resp) => {
         const schedule = resp.data.data;
+        const activeMealTimes = [
+          { meal_time: "Breakfast", meal_id: "" },
+          { meal_time: "Lunch", meal_id: "" },
+          { meal_time: "Dinner", meal_id: "" },
+          { meal_time: "Snack", meal_id: "" },
+        ];
         if (resp.status == 200) {
-          delete schedule.user_id;
-          setActiveDateSchedule(schedule);
+          activeMealTimes[0].meal_id = schedule.breakfast;
+          activeMealTimes[1].meal_id = schedule.lunch;
+          activeMealTimes[2].meal_id = schedule.dinner;
+          activeMealTimes[3].meal_id = schedule.snack;
+          setMealTimes([...activeMealTimes]);
+        } else {
+          activeMealTimes[0].meal_id = "";
+          activeMealTimes[1].meal_id = "";
+          activeMealTimes[2].meal_id = "";
+          activeMealTimes[3].meal_id = "";
+          setMealTimes([...activeMealTimes]);
         }
       });
+    return setAllowSave(true);
   }, [activeDate]);
 
-  // useEffect(async () => {
-  //   // await apis.saveCalendarChanges().then((resp) => );
-  //   return () => {
-  //     //save changes
-  //     console.log("SAVING CHANGES CHANGES");
-  //   };
-  // }, [changes]);
+  useEffect(async () => {
+    if (allowSave) {
+      const changes = {
+        breakfast: mealTimes[0].meal_id,
+        lunch: mealTimes[1].meal_id,
+        dinner: mealTimes[2].meal_id,
+        snack: mealTimes[3].meal_id,
+      };
+
+      await apis
+        .saveCalendarChanges({
+          date: activeDate,
+          user_id: "60ece421179a8f07a9f1d561",
+          changes,
+        })
+        .then((resp) => console.log(resp));
+      //Need to handle if changes weren't saved...
+      //I think it would be smart to make a save auto component that
+      //helps handle that along with saving
+    }
+  }, [mealTimes]);
 
   return (
     <div className="calendar-content-wrapper">
@@ -89,12 +111,17 @@ const Calendar = (props) => {
         </div>
         <div className="calendar-content-board-planner">
           {/* <button onClick={() => setChanges([])}>Save</button> */}
-          {MEAL_TIMES.map((meal, index) => {
+          {mealTimes.map((meal, index) => {
             return (
               <div className="calendar-content-board-planner-meal" key={index}>
                 <label>{meal.meal_time}</label>
                 <MealDrop
-                  meal={meal.meal}
+                  meal={
+                    meals.filter((meal_) => meal_._id == meal.meal_id).length ==
+                    0
+                      ? {}
+                      : meals.filter((meal_) => meal_._id == meal.meal_id)[0]
+                  }
                   activeMealClick={activeMealClick}
                   mealClickCallback={handleMealDropClick}
                   index={index}

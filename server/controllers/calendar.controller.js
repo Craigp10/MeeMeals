@@ -3,6 +3,7 @@ const Calendar = require("../models/calendar.model");
 updateChanges = async (req, res) => {
   try {
     const { user_id, changes, date } = req.body;
+    console.log("updateChanges", user_id, changes, date);
     const dateExist = await Calendar.findOne({ date: date }, (err, doc) => doc);
     if (!dateExist) {
       let newDateObj = {
@@ -25,6 +26,9 @@ updateChanges = async (req, res) => {
         (err, doc) => doc
       );
       if (userExist) {
+        // const existingData = userExist.users.filter(
+        //   (user) => user.user_id == user_id
+        // )[0];
         Calendar.update(
           { date: date, users: { $elemMatch: { user_id: user_id } } },
           { $set: { "users.$": { user_id: user_id, ...changes } } },
@@ -57,8 +61,6 @@ pullSingleDay = async (req, res) => {
     const date_ = await Calendar.findOne(
       { date: date, users: { $elemMatch: { user_id: user_id } } },
       (err, doc) => {
-        console.log("err doc", err, doc);
-
         if (err) {
           return res.status(400).json({ success: false, error: err });
         }
@@ -69,7 +71,6 @@ pullSingleDay = async (req, res) => {
       const data = date_.users.filter((user) => user.user_id == user_id)[0];
       return res.status(200).json({ success: true, data });
     } else {
-      console.log("else date_");
       return res.status(204).json({
         success: true,
         message: "No data for user on date",
