@@ -7,7 +7,11 @@ const MealDrop = (props) => {
       className={
         props.activeMealClick ? "mealdrop-wrapper active" : "mealdrop-wrapper"
       }
-      onClick={() => props.mealClickCallback(props.index)}
+      onClick={
+        props.activeMealClick
+          ? () => props.mealClickCallback(props.index)
+          : null
+      }
     >
       {Object.keys(props.meal).length != 0 ? (
         <div className="mealdrop-content">
@@ -15,6 +19,7 @@ const MealDrop = (props) => {
             <div className="mealdrop-content-displayname">
               {props.meal.display_name}
             </div>
+
             <span
               className="glyphicon glyphicon-remove"
               onClick={() => props.removeMeal(props.index)}
