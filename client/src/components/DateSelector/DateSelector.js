@@ -2,25 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./DateSelector.css";
 import dayjs from "dayjs";
 
-// const tmp_date = [
-//   { date: "7/8/2021", isActive: false },
-//   { date: "7/9/2021", isActive: false },
-//   { date: "7/10/2021", isActive: false },
-//   { date: "7/11/2021", isActive: false },
-//   { date: "7/12/2021", isActive: false },
-//   { date: "7/13/2021", isActive: false },
-//   { date: "7/14/2021", isActive: false },
-// ];
-
-// const generateDates = (activeDate) => {
-//   const dates = [activeDate];
-//   for (let i = 1; i < 4; i++) {
-//     dates.push(dayjs(activeDate).add(i, "days").format("M/D/YYYY"));
-//     dates.unshift(dayjs(activeDate).subtract(i, "days").format("M/D/YYYY"));
-//   }
-//   return dates;
-// };
-
 const DateSelector = (props) => {
   const initial_dates = [
     {
@@ -102,7 +83,6 @@ const DateSelector = (props) => {
   //   // }
   // }, dates);
 
-  console.log("dates", dates);
   return (
     <div className="date-selector-wrapper">
       <span
