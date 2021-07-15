@@ -1,5 +1,6 @@
 .calendar-content-wrapper {
   display: flex;
+  height: 100%;
 }
 
 .glyphicon-chevron-left .glyphicon-chevron-right {
@@ -12,8 +13,8 @@ span:hover {
 }
 
 .calendar-content-board {
+  border: 1px solid green;
   display: inline-block;
-  height: 100vh;
   width: 70%;
 }
 
@@ -27,7 +28,8 @@ span:hover {
 }
 
 .calendar-content-meal-selection {
-  height: 100vh;
+  height: calc(100vh - 75px);
+  /* Minus the top bar px */
   flex-grow: 1;
   overflow: hidden;
   border-left: 1px solid #02203c;
@@ -39,7 +41,7 @@ span:hover {
   padding: 0;
   list-style-type: none;
   overflow: scroll;
-  height: 85%;
+  height: calc(100vh - 195px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,7 +98,6 @@ span:hover {
 }
 
 .calendar-content-board-planner {
-  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,4 +110,5 @@ span:hover {
   align-items: center;
   justify-content: space-between;
   width: 60%;
+  padding: 25px 0;
 }

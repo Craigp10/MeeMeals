@@ -12,8 +12,8 @@
   margin-top: 5%;
   background-color: #fafafa;
   overflow-y: scroll;
-  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
-    0 18px 36px -18px rgb(0 0 0 / 30%);
+  /* box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%), */
+  box-shadow: 0 0px 36px -18px rgb(0 0 0 / 30%);
 }
 
 .meal-content-header {
