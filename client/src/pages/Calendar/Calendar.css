@@ -5,7 +5,7 @@
 
 .glyphicon-chevron-left .glyphicon-chevron-right {
   color: #02203c;
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
 span:hover {
@@ -34,7 +34,6 @@ span:hover {
   border-left: 1px solid #02203c;
   /* box-shadow: 0 0 20px 0.5px #000000; */
 }
-/* rgb(50 50 93 / 25%); */
 
 .calendar-content-meal-selection-scroll {
   padding: 0;
@@ -101,7 +100,7 @@ span:hover {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 50px 0;
+  padding: 15px 0;
 }
 
 .calendar-content-board-planner-meal {
@@ -109,5 +108,5 @@ span:hover {
   align-items: center;
   justify-content: space-between;
   width: 60%;
-  padding: 25px 0;
+  padding: 10px 0;
 }
