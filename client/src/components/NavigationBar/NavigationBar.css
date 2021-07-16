@@ -10,6 +10,7 @@
   right: 0;
   bottom: 0;
   box-shadow: 20px 0 36px -18px rgb(0 0 0 / 30%);
+  font-size: 18px;
 }
 
 ul {
@@ -28,11 +29,10 @@ ul {
   color: #02203c;
   width: 100%;
   text-align: center;
-
   padding: 20px 0;
 }
 .navigationbar-link-list li:hover {
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(206, 206, 206);
 }
 
 .navigationbar-link:hover {
