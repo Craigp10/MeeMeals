@@ -35,6 +35,7 @@ img {
 
 .topbar-icon {
   background-color: white;
+  border-radius: 50%;
   height: 75px;
   width: 75px;
   display: flex;
