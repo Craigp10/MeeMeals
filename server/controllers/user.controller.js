@@ -42,6 +42,24 @@ const getMeals = async (req, res) => {
   });
 };
 
+const newMeal = async (req, res) => {
+  const body = req.body;
+  console.log("newMeal", body);
+  const meal = body;
+  meal.display_name = body.meal.meal_name;
+  meal.date_created = "";
+  meal.ingredients = body.meal.meal_ingredients;
+  meal.description = body.meal.meal_description;
+  meal.category = body.meal.meal_category;
+  console.log(meal);
+  User.update(
+    { _id: body.user_id }, //body._id },
+    { $push: { meals: meal } }, //.meal } },
+    { new: true },
+    (err, doc) => doc
+  );
+};
+
 module.exports = {
   allAccess,
   userBoard,
@@ -49,4 +67,5 @@ module.exports = {
   moderatorBoard,
   pullDate,
   getMeals,
+  newMeal,
 };

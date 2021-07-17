@@ -56,7 +56,7 @@ function initial() {
   });
 
   User.find({ username: "Craigp10" }, (err, user) => {
-    if (!user[0].meals.length) {
+    if (!user[0]?.meals.length) {
       const new_meals = [
         {
           display_name: "Spinach Feta pasta w/ cherry tomatoes",

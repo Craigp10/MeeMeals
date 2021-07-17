@@ -20,6 +20,8 @@ router.get(
 
 router.post("/meals", controller.getMeals);
 
+router.post("/newMeal", controller.newMeal);
+
 router.post("/pullDate", controller.pullDate);
 
 module.exports = router;

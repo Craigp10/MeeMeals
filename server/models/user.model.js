@@ -17,7 +17,7 @@ const User = mongoose.model(
     meals: [
       {
         display_name: { type: String, required: true },
-        user_id: { type: String, required: true },
+        // user_id: { type: String, required: true },
         ingredients: { type: [String], required: false },
         date_created: { type: String, required: true },
         date_last_eaten: { type: String, required: false },
