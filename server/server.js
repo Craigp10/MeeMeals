@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   res.send("Hello Worlds!");
 });
 
-app.use("/api", mealsRouter);
+app.use("/meals", mealsRouter);
 app.use("/auth", authRouter); //currently get error with this... need to spend some time learning express more.
 app.use("/user", userRouter);
 app.use("/calendar", calendarRouter);
