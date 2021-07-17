@@ -14,10 +14,20 @@ const Meals = () => {
   }, []);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(!show);
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
     console.log("submiting data", data);
+    const requestObj = {
+      meal: data,
+      user_id: "60f336e85744947fcf6db8fe",
+    };
+
+    await apis
+      .createNewMeal(requestObj)
+      .then((resp) => setMeals(resp.data.meals));
   };
+
   console.log(show);
+
   return (
     <div className="meals-content-wrapper">
       <div className="meal-content-header">

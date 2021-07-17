@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import "./MealsModal.css";
 import { Modal, Button, Form } from "react-bootstrap";
 
-const tags = ["Breakfast", "Lunch", "Dinner", "Snacks"];
+const categories = ["Breakfast", "Lunch", "Dinner", "Snacks"];
 
 const MealsModal = (props) => {
   const [mealData, setMealData] = useState({
     meal_name: "",
     meal_ingredients: "", //[],
     meal_description: "",
-    meal_tag: "",
+    meal_category: "select",
   });
+
   const [validated, setValidation] = useState(false);
 
   const updateState = (e, field) => {
-    // console.log(e.target.value, field);
+    //console.log(e.target.value, field);
     const meal_data = mealData;
     meal_data[field] = e.target.value;
     setMealData({ ...meal_data });
@@ -25,7 +26,7 @@ const MealsModal = (props) => {
       mealData["meal_name"] != "" &&
       mealData["meal_ingredients"] != "" &&
       mealData["meal_description"] != "" &&
-      mealData["meal_tag"] != ""
+      mealData["meal_category"] != ""
     ) {
       console.log(true);
       setValidation(true);
@@ -52,7 +53,6 @@ const MealsModal = (props) => {
 
             <div className="meals-modal-body">
               <div className="meals-modal-form">
-                {/* <form className="meals-modal-form"> */}
                 <div className="meals-modal-form-field">
                   <label>Meal Name</label>
                   <input
@@ -72,13 +72,20 @@ const MealsModal = (props) => {
                   />
                 </div>
                 <div className="meals-modal-form-field">
-                  <label>Tag</label>
-                  <input
+                  <label>Category: &nbsp;</label>
+                  <select
                     type="text"
-                    id="meal_tag"
-                    value={mealData.meal_tag}
+                    id="meal_category"
+                    value={mealData.meal_category}
                     onChange={(e) => updateState(e, e.target.id)}
-                  />
+                  >
+                    <option value="select" disabled>
+                      Select a Category
+                    </option>
+                    {categories.map((category, idx) => {
+                      return <option value={idx}>{category}</option>;
+                    })}
+                  </select>
                 </div>
                 <div className="meals-modal-form-field">
                   <label>Ingredients</label>
@@ -94,65 +101,16 @@ const MealsModal = (props) => {
                   <button
                     id="submit"
                     className={validated ? "" : "disabled"}
-                    onClick={props.handleSubmit}
+                    onClick={() => props.handleSubmit(mealData)}
                   >
                     Create Meal
                   </button>
-                  {/* <button onClick={() => setValidation(!validated)}></button> */}
                 </div>
-                {/* </form> */}
               </div>
             </div>
           </div>
         </div>
       ) : null}
-      {/* <Modal
-        show={props.show}
-        onHide={() => props.handleClose()}
-        animation={false}
-        className="modal-wrapper"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Create Meal</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Group>
-            <Form.Label>Meal Name:</Form.Label>
-            <Form.Control
-              type="text"
-              id="meal_title"
-              onChange={(e) => updateState(e, e.target.id)}
-              value={mealData.meal_title}
-              placeholder="name input"
-            />
-            <Form.Label>Meal Ingredients:</Form.Label>
-            <Form.Control
-              type="text"
-              id="meal_title"
-              onChange={(e) => updateState(e, e.target.id)}
-              value={mealData.meal_title}
-              placeholder="name input"
-            />
-            <Form.Label>Meal Name:</Form.Label>
-            <Form.Control
-              type="text"
-              id="meal_title"
-              onChange={(e) => updateState(e, e.target.id)}
-              value={mealData.meal_title}
-              placeholder="name input"
-            />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="primary"
-            type="submit"
-            onClick={() => props.handleSubmit(mealData)}
-          >
-            Submit
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
     </div>
   );
 };

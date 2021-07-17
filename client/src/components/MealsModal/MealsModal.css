@@ -28,7 +28,6 @@
   width: 100%;
   height: 50px;
   align-items: center;
-  border: 1px solid pink;
   display: flex;
   justify-content: space-between;
 }
@@ -52,12 +51,11 @@
   color: lightgray;
 }
 
-.glyphicon:hover {
+.glyphicon-remove:hover {
   color: black;
 }
 
 .meals-modal-form {
-  border: 1px solid green;
   display: flex;
   margin: auto;
   width: 80%;
