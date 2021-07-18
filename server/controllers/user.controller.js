@@ -30,7 +30,7 @@ const getMeals = async (req, res) => {
   const body = req.body;
   const user = await User.findOne(
     {
-      username: "Craigp10",
+      _id: body.user_id,
     },
     (err, doc) => doc
   );
@@ -39,6 +39,22 @@ const getMeals = async (req, res) => {
     success: true,
     meals: user.meals,
     message: "Meals successfully pulled",
+  });
+};
+
+const deleteMeal = async (req, res) => {
+  const body = req.body;
+  console.log("deleteMeal", body);
+  const updatedRecord = await User.findOneAndUpdate(
+    { _id: body.user_id },
+    { $pull: { meals: { _id: body.meal_id } } },
+    (err, doc) => doc
+  );
+  console.log(updatedRecord);
+  return res.status(201).json({
+    success: true,
+    meals: updatedRecord.meals,
+    message: "successfully deleted meal",
   });
 };
 
@@ -52,12 +68,17 @@ const newMeal = async (req, res) => {
   meal.description = body.meal.meal_description;
   meal.category = body.meal.meal_category;
   console.log(meal);
-  User.update(
+  const updatedRecord = await User.findOneAndUpdate(
     { _id: body.user_id }, //body._id },
     { $push: { meals: meal } }, //.meal } },
-    { new: true },
     (err, doc) => doc
   );
+  console.log(updatedRecord);
+  return res.status(201).json({
+    success: true,
+    meals: updatedRecord.meals,
+    message: "Meal successfully created",
+  });
 };
 
 module.exports = {
@@ -68,4 +89,5 @@ module.exports = {
   pullDate,
   getMeals,
   newMeal,
+  deleteMeal,
 };

@@ -10,7 +10,9 @@ const Meals = () => {
   const [meals, setMeals] = useState([]);
   const [show, setShow] = useState(false);
   useEffect(async () => {
-    await apis.getUserMeals().then((resp) => setMeals(resp.data.meals));
+    await apis
+      .getUserMeals({ user_id: "60f4ade2701e6011d2b9329c" })
+      .then((resp) => setMeals(resp.data.meals));
   }, []);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(!show);
@@ -18,12 +20,22 @@ const Meals = () => {
     console.log("submiting data", data);
     const requestObj = {
       meal: data,
-      user_id: "60f336e85744947fcf6db8fe",
+      user_id: "60f4ade2701e6011d2b9329c",
     };
 
     await apis
       .createNewMeal(requestObj)
       .then((resp) => setMeals(resp.data.meals));
+  };
+
+  const handleDelete = async (meal_id) => {
+    //const userDoubleCheck await doubleCheckDeletePopup()
+    // if (!userDoubleCheck) return;
+    const requestObj = {
+      meal_id,
+      user_id: "60f4ade2701e6011d2b9329c",
+    };
+    await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };
 
   console.log(show);
@@ -54,7 +66,7 @@ const Meals = () => {
           <ul className="meals-content-mealboxes">
             {meals.map((meal) => (
               <li key={meal._id}>
-                <MealBox meal={meal} />
+                <MealBox meal={meal} deleteMeal={handleDelete} />
               </li>
             ))}
           </ul>

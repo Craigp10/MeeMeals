@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./MealBox.css";
 
 const MealBox = (props) => {
+  console.log(props);
   return (
     <div className="mealbox-wrapper grow">
       <div className="mealbox-content-header">
@@ -10,7 +11,10 @@ const MealBox = (props) => {
         </div>
         <div className="mealbox-content-header-options">
           <span className="glyphicon glyphicon-edit"></span>
-          <span className="glyphicon glyphicon-trash"></span>
+          <span
+            className="glyphicon glyphicon-trash"
+            onClick={() => props.deleteMeal(props.meal._id)}
+          ></span>
         </div>
       </div>
       <div className="mealbox-content-ingredients"></div>
