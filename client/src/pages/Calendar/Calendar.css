@@ -8,7 +8,7 @@
   /* font-size: 20px; */
 }
 
-span:hover {
+.calendar-content-wrapper span:hover {
   cursor: pointer;
 }
 
