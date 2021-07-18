@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./MealsModal.css";
-import { Modal, Button, Form } from "react-bootstrap";
 
 const categories = ["Breakfast", "Lunch", "Dinner", "Snacks"];
 
@@ -15,7 +14,6 @@ const MealsModal = (props) => {
   const [validated, setValidation] = useState(false);
 
   const updateState = (e, field) => {
-    //console.log(e.target.value, field);
     const meal_data = mealData;
     meal_data[field] = e.target.value;
     setMealData({ ...meal_data });
@@ -28,15 +26,12 @@ const MealsModal = (props) => {
       mealData["meal_description"] != "" &&
       mealData["meal_category"] != ""
     ) {
-      console.log(true);
       setValidation(true);
     } else {
       setValidation(false);
     }
   }, [mealData]);
 
-  console.log("mealData", mealData);
-  console.log("validated", validated);
   return (
     <div>
       {props.show ? (
@@ -60,6 +55,7 @@ const MealsModal = (props) => {
                     id="meal_name"
                     value={mealData.meal_name}
                     onChange={(e) => updateState(e, e.target.id)}
+                    autoComplete="off"
                   />
                 </div>
                 <div className="meals-modal-form-field">
@@ -69,6 +65,7 @@ const MealsModal = (props) => {
                     id="meal_description"
                     value={mealData.meal_description}
                     onChange={(e) => updateState(e, e.target.id)}
+                    autoComplete="off"
                   />
                 </div>
                 <div className="meals-modal-form-field">
@@ -83,7 +80,11 @@ const MealsModal = (props) => {
                       Select a Category
                     </option>
                     {categories.map((category, idx) => {
-                      return <option value={idx}>{category}</option>;
+                      return (
+                        <option value={category} key={idx}>
+                          {category}
+                        </option>
+                      );
                     })}
                   </select>
                 </div>
@@ -95,6 +96,7 @@ const MealsModal = (props) => {
                     id="meal_ingredients"
                     value={mealData.meal_ingredients}
                     onChange={(e) => updateState(e, e.target.id)}
+                    autoComplete="off"
                   />
                 </div>
                 <div className="meals-modal-btns">

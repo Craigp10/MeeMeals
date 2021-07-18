@@ -40,7 +40,7 @@ const Meals = () => {
       />
       <div className="meals-content-board">
         <button type="button" onClick={handleShow}>
-          Launch modal
+          Create Meal
         </button>
 
         <ul className="meals-content-mealboxes">
