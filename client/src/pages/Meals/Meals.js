@@ -69,16 +69,22 @@ const Meals = () => {
         </div>
         <div className="meals-board-scroll">
           <ul className="meals-content-mealboxes">
-            {meals.map((meal) => (
-              <li key={meal._id}>
-                <MealBox
-                  meal={meal}
-                  deleteMeal={handleDelete}
-                  handleShow={handleShow}
-                  disable={show}
-                />
-              </li>
-            ))}
+            {meals.length == 0 ? (
+              <div className="meals-content-no-meals">
+                You do not have any meals created!
+              </div>
+            ) : (
+              meals.map((meal) => (
+                <li key={meal._id}>
+                  <MealBox
+                    meal={meal}
+                    deleteMeal={handleDelete}
+                    handleShow={handleShow}
+                    disable={show}
+                  />
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </div>
