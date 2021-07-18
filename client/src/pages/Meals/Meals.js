@@ -30,26 +30,35 @@ const Meals = () => {
 
   return (
     <div className="meals-content-wrapper">
-      <div className="meal-content-header">
-        <h2>Your Meals</h2>
-      </div>
       <MealsModal
         show={show}
         handleClose={handleClose}
         handleSubmit={handleSubmit}
       />
       <div className="meals-content-board">
-        <button type="button" onClick={handleShow}>
-          Create Meal
-        </button>
-
-        <ul className="meals-content-mealboxes">
-          {meals.map((meal) => (
-            <li key={meal._id}>
-              <MealBox meal={meal} />
-            </li>
-          ))}
-        </ul>
+        <div className="meals-board-header">
+          <div>
+            {/* <saveComponentHandler/> */}
+            Save message
+          </div>
+          <div>
+            <h2>Your Meals</h2>
+          </div>
+          <div>
+            <button type="button" onClick={handleShow}>
+              Create A Meal
+            </button>
+          </div>
+        </div>
+        <div className="meals-board-scroll">
+          <ul className="meals-content-mealboxes">
+            {meals.map((meal) => (
+              <li key={meal._id}>
+                <MealBox meal={meal} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
