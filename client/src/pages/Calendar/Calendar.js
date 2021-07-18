@@ -47,14 +47,16 @@ const Calendar = (props) => {
   };
 
   useEffect(async () => {
-    await apis.getUserMeals().then((resp) => setMeals(resp.data.meals));
+    await apis
+      .getUserMeals({ user_id: "60f4ade2701e6011d2b9329c" })
+      .then((resp) => setMeals(resp.data.meals));
   }, []);
 
   useEffect(async () => {
     await apis
       .getDateMeals({
         date: activeDate,
-        user_id: "60ece421179a8f07a9f1d561",
+        user_id: "60f4ade2701e6011d2b9329c",
       })
       .then((resp) => {
         const schedule = resp.data.data;
@@ -93,7 +95,7 @@ const Calendar = (props) => {
       await apis
         .saveCalendarChanges({
           date: activeDate,
-          user_id: "60ece421179a8f07a9f1d561",
+          user_id: "60f4ade2701e6011d2b9329c",
           changes,
         })
         .then((resp) => console.log(resp));

@@ -1,5 +1,9 @@
-.grow:hover {
+/* .grow:hover {
   transform: scale(1.05);
+} */
+
+.glow:hover {
+  box-shadow: 0 0 10px 0.2px hsl(209, 94%, 12%);
 }
 
 .mealbox-wrapper {
