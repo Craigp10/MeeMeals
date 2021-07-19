@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Meals.css";
 import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
-import { Modal, Button, Form } from "react-bootstrap";
 import MealsModal from "../../components/MealsModal/MealsModal";
-import "bootstrap/dist/css/bootstrap.min.css";
+
+// Modal.setAppElement(".meals-content-wrapper");
 
 const Meals = () => {
+  let subtitle;
   const [meals, setMeals] = useState([]);
   const [show, setShow] = useState(false);
   const [modalAction, setModalAction] = useState("");
@@ -54,14 +55,15 @@ const Meals = () => {
       />
       <div className="meals-content-board">
         <div className="meals-board-header">
-          <div>
+          <div className="save-message">
             {/* <saveComponentHandler/> */}
-            Save message
+            {/* Save message */}
           </div>
-          <div>
-            <h2>Your Meals</h2>
+          <div className="title">
+            Your Meals
+            {/* Your Mealsa */}
           </div>
-          <div>
+          <div className="create">
             <button type="button" onClick={() => handleShow("create")}>
               Create A Meal
             </button>
