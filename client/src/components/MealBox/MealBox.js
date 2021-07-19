@@ -13,7 +13,7 @@ const MealBox = (props) => {
             <div className="mealbox-content-header-options">
               <span
                 className="glyphicon glyphicon-edit"
-                onClick={() => props.handleShow("edit")}
+                onClick={() => props.handleShow("edit", props.index)}
               ></span>
               <span
                 className="glyphicon glyphicon-trash"

@@ -48,7 +48,7 @@ const Calendar = (props) => {
 
   useEffect(async () => {
     await apis
-      .getUserMeals({ user_id: "60f4ade2701e6011d2b9329c" })
+      .getUserMeals({ user_id: "60f5ffcaf12aefb5c7942f63" })
       .then((resp) => setMeals(resp.data.meals));
   }, []);
 
@@ -56,7 +56,7 @@ const Calendar = (props) => {
     await apis
       .getDateMeals({
         date: activeDate,
-        user_id: "60f4ade2701e6011d2b9329c",
+        user_id: "60f5ffcaf12aefb5c7942f63",
       })
       .then((resp) => {
         const schedule = resp.data.data;

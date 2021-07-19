@@ -67,6 +67,9 @@ const newMeal = async (req, res) => {
   meal.ingredients = body.meal.meal_ingredients;
   meal.description = body.meal.meal_description;
   meal.category = body.meal.meal_category;
+  meal.tags = body.meal.meal_tags;
+  meal.ingredients = body.meal.meal_ingredients;
+  meal.instructions = body.meal.meal_instructions;
   console.log(meal);
   const updatedRecord = await User.findOneAndUpdate(
     { _id: body.user_id }, //body._id },

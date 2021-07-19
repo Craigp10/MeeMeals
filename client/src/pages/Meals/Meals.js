@@ -11,26 +11,39 @@ const Meals = () => {
   const [meals, setMeals] = useState([]);
   const [show, setShow] = useState(false);
   const [modalAction, setModalAction] = useState("");
+  const [editingMeal, setEdittingMeal] = useState({});
+
   useEffect(async () => {
     await apis
-      .getUserMeals({ user_id: "60f4ade2701e6011d2b9329c" })
+      .getUserMeals({ user_id: "60f5ffcaf12aefb5c7942f63" })
       .then((resp) => setMeals(resp.data.meals));
   }, []);
-  const handleClose = () => setShow(false);
-  const handleShow = (action) => {
-    setModalAction(action);
-    setShow(!show);
+
+  const handleClose = () => {
+    setEdittingMeal({});
+    setShow(false);
   };
+
+  const handleShow = (action, idx) => {
+    setModalAction(action);
+    if (action == "edit") {
+      setEdittingMeal({ ...meals[idx] });
+    }
+    setShow(true);
+  };
+
   const handleSubmit = async (data) => {
     console.log("submitting data", data);
     const requestObj = {
       meal: data,
-      user_id: "60f4ade2701e6011d2b9329c",
+      user_id: "60f5ffcaf12aefb5c7942f63",
     };
 
-    await apis
-      .createNewMeal(requestObj)
-      .then((resp) => setMeals(resp.data.meals));
+    await apis.createNewMeal(requestObj).then((resp) => {
+      setMeals(resp.data.meals);
+      //run saver component
+      setShow(false);
+    });
   };
 
   const handleDelete = async (meal_id) => {
@@ -38,12 +51,10 @@ const Meals = () => {
     // if (!userDoubleCheck) return;
     const requestObj = {
       meal_id,
-      user_id: "60f4ade2701e6011d2b9329c",
+      user_id: "60f5ffcaf12aefb5c7942f63",
     };
     await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };
-
-  console.log(show);
 
   return (
     <div className="meals-content-wrapper">
@@ -52,6 +63,7 @@ const Meals = () => {
         handleClose={handleClose}
         handleSubmit={handleSubmit}
         modalAction={modalAction}
+        mealEdit={editingMeal}
       />
       <div className="meals-content-board">
         <div className="meals-board-header">
@@ -76,9 +88,10 @@ const Meals = () => {
                 You do not have any meals created!
               </div>
             ) : (
-              meals.map((meal) => (
+              meals.map((meal, idx) => (
                 <li key={meal._id}>
                   <MealBox
+                    index={idx}
                     meal={meal}
                     deleteMeal={handleDelete}
                     handleShow={handleShow}
