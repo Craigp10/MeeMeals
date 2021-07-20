@@ -54,6 +54,8 @@ const MealsModal = (props) => {
     }
   }, [mealData]);
 
+  //validation logic... With character checjs
+
   const removeTag = (id, idx) => {
     mealData[id].splice(idx, 1);
     setMealData({ ...mealData });
@@ -63,6 +65,7 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
+
   return (
     <div>
       <Modal
@@ -96,7 +99,6 @@ const MealsModal = (props) => {
                 autoComplete="off"
               />
             </div>
-            <div className="testing"></div>
             <div className="meals-modal-form-field">
               <label>Meal Description</label>
               <input

@@ -18,25 +18,23 @@ updateChanges = async (req, res) => {
           },
         ],
       };
-
       new Calendar(newDateObj).save();
     } else {
       const userExist = await Calendar.findOne(
         { date: date, users: { $elemMatch: { user_id: user_id } } },
         (err, doc) => doc
       );
+      console.log(userExist);
       if (userExist) {
-        // const existingData = userExist.users.filter(
-        //   (user) => user.user_id == user_id
-        // )[0];
-        Calendar.update(
+        const results = await Calendar.findOneAndUpdate(
           { date: date, users: { $elemMatch: { user_id: user_id } } },
           { $set: { "users.$": { user_id: user_id, ...changes } } },
           { new: true },
-          (err, doc) => doc
+          (err, doc) => console.log(doc)
         );
+        console.log("results", results);
       } else {
-        Calendar.update(
+        Calendar.findOneAndUpdate(
           { date: date },
           { $push: { users: { user_id: user_id, ...changes } } },
           { new: true },

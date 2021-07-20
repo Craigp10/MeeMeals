@@ -53,6 +53,7 @@ const Calendar = (props) => {
   }, []);
 
   useEffect(async () => {
+    setAllowSave(false);
     await apis
       .getDateMeals({
         date: activeDate,
@@ -95,10 +96,14 @@ const Calendar = (props) => {
       await apis
         .saveCalendarChanges({
           date: activeDate,
-          user_id: "60f4ade2701e6011d2b9329c",
+          user_id: "60f5ffcaf12aefb5c7942f63",
           changes,
         })
-        .then((resp) => console.log(resp));
+        .then((resp) =>
+          resp.status == 200
+            ? console.log("Changes successfully Saved!")
+            : console.log("Error saving changes")
+        );
       //Need to handle if changes weren't saved...
       //I think it would be smart to make a save auto component that
       //helps handle that along with saving
@@ -112,7 +117,6 @@ const Calendar = (props) => {
           <DateSelector activeDate={activeDate} setActiveDate={setActiveDate} />
         </div>
         <div className="calendar-content-board-planner">
-          {/* <button onClick={() => setChanges([])}>Save</button> */}
           {mealTimes.map((meal, index) => {
             return (
               <div className="calendar-content-board-planner-meal" key={index}>
