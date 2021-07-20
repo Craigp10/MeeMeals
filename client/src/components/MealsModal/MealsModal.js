@@ -40,6 +40,21 @@ const MealsModal = (props) => {
   };
 
   useEffect(() => {
+    //Sets initial state values if the modal is editing
+    if (props.modalAction == "edit") {
+      console.log("editing");
+      const meal_data = mealData;
+      meal_data["meal_name"] = props.mealEdit.display_name;
+      meal_data["meal_ingredients"] = props.mealEdit.ingredients;
+      meal_data["meal_instructions"] = props.mealEdit.instructions;
+      meal_data["meal_tags"] = props.mealEdit.tags;
+      meal_data["meal_description"] = props.mealEdit.description;
+      meal_data["meal_category"] = props.mealEdit.category;
+
+      setMealData({ ...meal_data });
+    }
+  }, []);
+  useEffect(() => {
     if (
       mealData["meal_name"] != "" &&
       mealData["meal_ingredients"].length != 0 &&
@@ -65,7 +80,7 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
-
+  console.log(mealData);
   return (
     <div>
       <Modal
@@ -77,7 +92,7 @@ const MealsModal = (props) => {
         <div className="meals-modal-content">
           <div className="meals-modal-header">
             <span className="meals-modal-left"></span>
-            {true ? (
+            {props.modalAction == "create" ? (
               <span className="meals-modal-title"> New Meal</span>
             ) : (
               <span className="meals-modal-title"> Edit Meal</span>
@@ -211,14 +226,25 @@ const MealsModal = (props) => {
             </div>
           </div>
           <div className="meals-modal-btns">
-            <button
-              id="submit"
-              className={validated ? "" : "disabled"}
-              onClick={() => props.handleSubmit(mealData)}
-              disabled={!validated}
-            >
-              Create Meal
-            </button>
+            {props.modalAction == "create" ? (
+              <button
+                id="submit"
+                className={validated ? "" : "disabled"}
+                onClick={() => props.handleSubmit(mealData)}
+                disabled={!validated}
+              >
+                Create Meal
+              </button>
+            ) : (
+              <button
+                id="submit"
+                className={validated ? "" : "disabled"}
+                onClick={() => props.handleSubmit(mealData)}
+                disabled={!validated}
+              >
+                Save Meal
+              </button>
+            )}
           </div>
         </div>
       </Modal>

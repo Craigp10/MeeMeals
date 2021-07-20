@@ -36,6 +36,7 @@ const Meals = () => {
     console.log("submitting data", data);
     const requestObj = {
       meal: data,
+      // meal_action: editingMeal,
       user_id: "60f5ffcaf12aefb5c7942f63",
     };
 
@@ -55,7 +56,7 @@ const Meals = () => {
     };
     await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };
-
+  console.log("editing meal", editingMeal);
   return (
     <div className="meals-content-wrapper">
       <MealsModal

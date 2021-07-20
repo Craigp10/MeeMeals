@@ -15,7 +15,6 @@ const TopBar = (props) => (
     <div className="topbar-leftover">
       <div className="topbar-icon">
         <span className="glyphicon glyphicon-user"></span>
-        {/* <img src={logout} /> */}
       </div>
     </div>
   </div>
