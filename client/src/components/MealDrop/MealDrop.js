@@ -25,7 +25,9 @@ const MealDrop = (props) => {
               onClick={() => props.removeMeal(props.index)}
             ></span>
           </div>
-          <p>{props.meal.description}</p>
+          <div className="mealdrop-content-body">
+            <p>{props.meal.description}</p>
+          </div>
           <div className="mealdrop-content-footer">
             <span>Created On: 7/6/21</span>
             <span>Last scheduled: 7/5/21</span>

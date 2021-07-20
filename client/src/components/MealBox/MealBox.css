@@ -7,13 +7,19 @@
 }
 
 .mealbox-wrapper {
-  height: 250px;
-  width: 600px;
-  background-color: white;
+  margin: 10px;
+  border-radius: 25px;
+}
+
+.mealbox-content {
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 18px 36px -18px rgb(0 0 0 / 30%);
   border-radius: 25px;
-  margin: 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  width: 600px;
 }
 
 .mealbox-content-header {
@@ -41,7 +47,7 @@
 .mealbox-content-header-options {
   display: flex;
   align-items: flex-start;
-  padding: 5px 15px 5px 0;
+  padding: 5px 15px 5px 5px;
 }
 .mealbox-content-header-options span {
   padding: 5px;
@@ -50,6 +56,11 @@
   cursor: pointer;
 }
 
+.mealbox-content-body {
+  flex-grow: 1;
+  padding: 10px 5px 0px;
+  font-size: 1.2rem;
+}
 /* .mealbox-content-ingredients {
   text-align: left;
 } */
@@ -62,10 +73,7 @@
 .mealbox-content-footer {
   display: flex;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 0 15px 5px;
   bottom: 0;
   font-size: 1rem;
-  /* background-color: #02203c;
-  border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px; */
 }

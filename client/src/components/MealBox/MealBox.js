@@ -5,7 +5,7 @@ const MealBox = (props) => {
   return (
     <div className="mealbox-wrapper glow">
       {!props.disable ? (
-        <>
+        <div className="mealbox-content">
           <div className="mealbox-content-header">
             <div className="mealbox-content-displayname">
               {props.meal.display_name}
@@ -21,9 +21,10 @@ const MealBox = (props) => {
               ></span>
             </div>
           </div>
-          <div className="mealbox-content-ingredients"></div>
-          <div className="mealbox-content-description">
-            {/* {props.meal.ingredients.map((ingredient, idx) => {
+          <div className="mealbox-content-body">
+            <div className="mealbox-content-ingredients"></div>
+            <div className="mealbox-content-description">
+              {/* {props.meal.ingredients.map((ingredient, idx) => {
           return (
             <span
               className="ingredient"
@@ -34,13 +35,14 @@ const MealBox = (props) => {
             </span>
           );
         })} */}
-            {props.meal.description}
+              {props.meal.description}
+            </div>
           </div>
           <div className="mealbox-content-footer">
             <span>Created On: 7/6/21</span>
             <span>Last scheduled: 7/5/21</span>
           </div>
-        </>
+        </div>
       ) : null}
     </div>
   );

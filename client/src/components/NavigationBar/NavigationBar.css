@@ -24,12 +24,12 @@ ul {
 }
 .navigationbar-link {
   display: inline-block;
-  margin: 10px 0;
+  /* margin: 10px 0; */
   text-decoration: none !important;
   color: #02203c;
   width: 100%;
   text-align: center;
-  padding: 20px 0;
+  padding: 30px 0;
 }
 .navigationbar-link-list li:hover {
   background-color: rgb(206, 206, 206);

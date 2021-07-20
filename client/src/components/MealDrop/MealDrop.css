@@ -11,6 +11,7 @@
   flex-direction: column;
   border-radius: 25px;
   height: 120px;
+  border: 1px solid pink;
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 18px 36px -18px rgb(0 0 0 / 30%);
   /* background-color: white; since background is white, leave out and the background will change to .active:hover when hovering Definitely look into a better way to implement this*/
@@ -22,7 +23,8 @@
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 18px 36px -18px rgb(0 0 0 / 30%);
 }
-.mealdrop-content p {
+.mealdrop-content-body {
+  border: 1px solid green;
   padding: 10px 5px 0px;
   font-size: 1rem;
   flex-grow: 1;

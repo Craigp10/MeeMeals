@@ -5,7 +5,12 @@ import "./TopBar.css";
 const TopBar = (props) => (
   <div className="topbar-wrapper">
     <div className="topbar-title">
-      <span className="topbar-title-text">Mi Meals</span>
+      <span
+        className="topbar-title-text"
+        onClick={() => (window.location = "http://localhost:8000/")}
+      >
+        Mi Meals
+      </span>
     </div>
     <div className="topbar-leftover">
       <div className="topbar-icon">
