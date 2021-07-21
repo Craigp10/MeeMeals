@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const dayjs = require("dayjs");
 
 const allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -14,16 +15,6 @@ const adminBoard = (req, res) => {
 
 const moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
-};
-
-const pullDate = (req, res) => {
-  const body = req.body;
-  console.log("body", body);
-  const calendar = User.findOne({
-    _id: req._id,
-    calendar: { date: "7/12/21" },
-  });
-  console.log(calendar);
 };
 
 const getMeals = async (req, res) => {
@@ -50,7 +41,7 @@ const deleteMeal = async (req, res) => {
     { $pull: { meals: { _id: body.meal_id } } },
     (err, doc) => doc
   );
-  console.log(updatedRecord);
+  // console.log(updatedRecord);
   return res.status(201).json({
     success: true,
     meals: updatedRecord.meals,
@@ -60,23 +51,22 @@ const deleteMeal = async (req, res) => {
 
 const newMeal = async (req, res) => {
   const body = req.body;
-  console.log("newMeal", body);
-  const meal = body;
+  const meal = {};
   meal.display_name = body.meal.meal_name;
-  meal.date_created = "";
+  meal.date_created = dayjs().format("M/D/YYYY");
   meal.ingredients = body.meal.meal_ingredients;
   meal.description = body.meal.meal_description;
   meal.category = body.meal.meal_category;
   meal.tags = body.meal.meal_tags;
   meal.ingredients = body.meal.meal_ingredients;
   meal.instructions = body.meal.meal_instructions;
-  console.log(meal);
+  console.log("new meal", meal);
   const updatedRecord = await User.findOneAndUpdate(
-    { _id: body.user_id }, //body._id },
-    { $push: { meals: meal } }, //.meal } },
+    { _id: body.user_id },
+    { $addToSet: { meals: meal } }, //DO NOT USE $PUSH, it was pushing duplicate entries.
     (err, doc) => doc
   );
-  console.log(updatedRecord);
+  // console.log("updatedRecord", updatedRecord);
   return res.status(201).json({
     success: true,
     meals: updatedRecord.meals,
@@ -89,7 +79,6 @@ module.exports = {
   userBoard,
   adminBoard,
   moderatorBoard,
-  pullDate,
   getMeals,
   newMeal,
   deleteMeal,

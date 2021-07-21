@@ -41,7 +41,14 @@ const Meals = () => {
     };
 
     await apis.createNewMeal(requestObj).then((resp) => {
-      setMeals(resp.data.meals);
+      if (
+        typeof resp.data.meals != "object" ||
+        typeof resp.data.meals?.length != "number"
+      ) {
+        setMeals([]);
+      } else {
+        setMeals(resp.data.meals);
+      }
       //run saver component
       setShow(false);
     });
@@ -56,7 +63,7 @@ const Meals = () => {
     };
     await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };
-  console.log("editing meal", editingMeal);
+  console.log("meals", meals);
   return (
     <div className="meals-content-wrapper">
       <MealsModal
@@ -84,7 +91,7 @@ const Meals = () => {
         </div>
         <div className="meals-board-scroll">
           <ul className="meals-content-mealboxes">
-            {meals.length == 0 ? (
+            {meals?.length == 0 ? (
               <div className="meals-content-no-meals">
                 You do not have any meals created!
               </div>
