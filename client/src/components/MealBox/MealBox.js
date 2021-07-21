@@ -15,6 +15,7 @@ const MealBox = (props) => {
                 className="glyphicon glyphicon-edit"
                 onClick={() => props.handleShow("edit", props.index)}
               ></span>
+              &nbsp; &nbsp;
               <span
                 className="glyphicon glyphicon-trash"
                 onClick={() => props.deleteMeal(props.meal._id)}
@@ -22,20 +23,24 @@ const MealBox = (props) => {
             </div>
           </div>
           <div className="mealbox-content-body">
-            <div className="mealbox-content-ingredients"></div>
             <div className="mealbox-content-description">
-              {/* {props.meal.ingredients.map((ingredient, idx) => {
-          return (
-            <span
-              className="ingredient"
-              style={{ display: "block" }}
-              key={idx}
-            >
-              {ingredient}
-            </span>
-          );
-        })} */}
+              <h6>Description</h6>
               {props.meal.description}
+            </div>
+            <div className="mealbox-content-ingredients">
+              <h6>Ingredients</h6>
+
+              {props.meal.ingredients.map((ingredient, idx) => {
+                return (
+                  <span
+                    className="ingredient"
+                    style={{ display: "block" }}
+                    key={idx}
+                  >
+                    {ingredient}
+                  </span>
+                );
+              })}
             </div>
           </div>
           <div className="mealbox-content-footer">

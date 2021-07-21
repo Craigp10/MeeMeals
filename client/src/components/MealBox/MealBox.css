@@ -44,30 +44,40 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
 .mealbox-content-header-options {
   display: flex;
   align-items: flex-start;
   padding: 5px 15px 5px 5px;
 }
+
 .mealbox-content-header-options span {
+  border-radius: 4px;
   padding: 5px;
 }
+
 .mealbox-content-header-options span:hover {
+  background-color: white;
+  color: #02203c;
   cursor: pointer;
 }
 
 .mealbox-content-body {
   flex-grow: 1;
-  padding: 10px 5px 0px;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid green; */
+  padding: 5px 0;
   font-size: 1.2rem;
 }
-/* .mealbox-content-ingredients {
+.mealbox-content-body div {
+  padding: 5px 0px 0px 10px;
+  width: 100%;
   text-align: left;
-} */
+}
 
 .mealbox-content-description {
-  padding: 10px;
-  text-align: left;
+  border-right: 1px solid lightgray;
 }
 
 .mealbox-content-footer {
