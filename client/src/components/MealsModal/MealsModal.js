@@ -80,7 +80,6 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
-  console.log(mealData);
   return (
     <div>
       <Modal
@@ -137,7 +136,7 @@ const MealsModal = (props) => {
                 </option>
                 {categories.map((category, idx) => {
                   return (
-                    <option value={category} key={idx}>
+                    <option value={category.toLowerCase()} key={idx}>
                       {category}
                     </option>
                   );
@@ -230,7 +229,17 @@ const MealsModal = (props) => {
               <button
                 id="submit"
                 className={validated ? "" : "disabled"}
-                onClick={() => props.handleSubmit(mealData)}
+                onClick={() => {
+                  setMealData({
+                    meal_name: "",
+                    meal_ingredients: [],
+                    meal_description: "",
+                    meal_category: "select",
+                    meal_instructions: [],
+                    meal_tags: [],
+                  });
+                  props.handleSubmit(mealData);
+                }}
                 disabled={!validated}
               >
                 Create Meal
@@ -239,7 +248,17 @@ const MealsModal = (props) => {
               <button
                 id="submit"
                 className={validated ? "" : "disabled"}
-                onClick={() => props.handleSubmit(mealData)}
+                onClick={() => {
+                  setMealData({
+                    meal_name: "",
+                    meal_ingredients: [],
+                    meal_description: "",
+                    meal_category: "select",
+                    meal_instructions: [],
+                    meal_tags: [],
+                  });
+                  props.handleSubmit(mealData);
+                }}
                 disabled={!validated}
               >
                 Save Meal

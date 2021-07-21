@@ -29,7 +29,7 @@ const MealDrop = (props) => {
             <p>{props.meal.description}</p>
           </div>
           <div className="mealdrop-content-footer">
-            <span>Created On: 7/6/21</span>
+            <span>Created On: {props.meal.date_created}</span>
             <span>Last scheduled: 7/5/21</span>
           </div>
         </div>

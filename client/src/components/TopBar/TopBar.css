@@ -27,11 +27,6 @@
   justify-content: flex-end;
 }
 
-img {
-  width: 75px;
-  height: 75px;
-}
-
 .topbar-icon {
   background-color: white;
   border-radius: 50%;
