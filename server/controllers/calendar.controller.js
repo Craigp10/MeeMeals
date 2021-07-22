@@ -30,7 +30,7 @@ updateChanges = async (req, res) => {
           { date: date, users: { $elemMatch: { user_id: user_id } } },
           { $set: { "users.$": { user_id: user_id, ...changes } } },
           { new: true },
-          (err, doc) => console.log(doc)
+          (err, doc) => doc
         );
         console.log("results", results);
       } else {

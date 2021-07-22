@@ -60,17 +60,41 @@ const newMeal = async (req, res) => {
   meal.tags = body.meal.meal_tags;
   meal.ingredients = body.meal.meal_ingredients;
   meal.instructions = body.meal.meal_instructions;
-  console.log("new meal", meal);
   const updatedRecord = await User.findOneAndUpdate(
     { _id: body.user_id },
-    { $addToSet: { meals: meal } }, //DO NOT USE $PUSH, it was pushing duplicate entries.
+    { $addToSet: { meals: meal } }, //DO NOT USE $PUSH, it was pushing duplicate entr
+    { upsert: true },
     (err, doc) => doc
   );
-  // console.log("updatedRecord", updatedRecord);
   return res.status(201).json({
     success: true,
     meals: updatedRecord.meals,
     message: "Meal successfully created",
+  });
+};
+
+const editMeal = async (req, res) => {
+  const body = req.body;
+  const meal = {};
+  meal.display_name = body.meal.meal_name;
+  meal.date_created = dayjs().format("M/D/YYYY");
+  meal.ingredients = body.meal.meal_ingredients;
+  meal.description = body.meal.meal_description;
+  meal.category = body.meal.meal_category;
+  meal.tags = body.meal.meal_tags;
+  meal.ingredients = body.meal.meal_ingredients;
+  meal.instructions = body.meal.meal_instructions;
+  const updatedRecord = await User.findOneAndUpdate(
+    { _id: body.user_id, meals: { $elemMatch: { _id: body.meal._id } } },
+    { $set: { "meals.$": meal } }, //DO NOT USE $PUSH, it was pushing duplicate entries
+    { new: true },
+    (err, doc) => doc
+  );
+  newMeals = await User.findOne({ _id: body.user_id });
+  return res.status(201).json({
+    success: true,
+    meals: newMeals.meals,
+    message: "Meal successfully updated",
   });
 };
 
@@ -82,4 +106,5 @@ module.exports = {
   getMeals,
   newMeal,
   deleteMeal,
+  editMeal,
 };

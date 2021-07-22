@@ -36,22 +36,25 @@ const Meals = () => {
     console.log("submitting data", data);
     const requestObj = {
       meal: data,
-      // meal_action: editingMeal,
       user_id: "60f5ffcaf12aefb5c7942f63",
     };
-
-    await apis.createNewMeal(requestObj).then((resp) => {
-      if (
-        typeof resp.data.meals != "object" ||
-        typeof resp.data.meals?.length != "number"
-      ) {
-        setMeals([]);
-      } else {
-        setMeals(resp.data.meals);
-      }
-      //run saver component
-      setShow(false);
-    });
+    let resp = {};
+    if (modalAction == "edit") {
+      requestObj.meal._id = editingMeal._id;
+      resp = await apis.editMeal(requestObj);
+    } else {
+      resp = await apis.createNewMeal(requestObj);
+    }
+    if (
+      typeof resp.data.meals != "object" ||
+      typeof resp.data.meals?.length != "number"
+    ) {
+      setMeals([]);
+    } else {
+      setMeals(resp.data.meals);
+    }
+    //run saver component
+    setShow(false);
   };
 
   const handleDelete = async (meal_id) => {
@@ -63,16 +66,18 @@ const Meals = () => {
     };
     await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };
-  console.log("meals", meals);
+  console.log(meals, editingMeal);
   return (
     <div className="meals-content-wrapper">
-      <MealsModal
-        show={show}
-        handleClose={handleClose}
-        handleSubmit={handleSubmit}
-        modalAction={modalAction}
-        mealEdit={editingMeal}
-      />
+      {show ? (
+        <MealsModal
+          show={show}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+          modalAction={modalAction}
+          mealEdit={editingMeal}
+        />
+      ) : null}
       <div className="meals-content-board">
         <div className="meals-board-header">
           <div className="save-message">
