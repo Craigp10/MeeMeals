@@ -63,10 +63,11 @@
 }
 
 .mealbox-content-body {
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  height: 100%;
+  overflow: scroll;
   display: flex;
   justify-content: space-between;
-  /* border: 1px solid green; */
   padding: 5px 0;
   font-size: 1.2rem;
 }

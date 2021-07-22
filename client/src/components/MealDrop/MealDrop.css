@@ -25,7 +25,10 @@
 .mealdrop-content-body {
   padding: 10px 5px 0px;
   font-size: 1rem;
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  height: 100%;
+  overflow: scroll;
+  border: 1px solid pink;
 }
 
 .active {

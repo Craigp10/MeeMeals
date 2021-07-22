@@ -19,15 +19,12 @@ const MealDrop = (props) => {
             <div className="mealdrop-content-displayname">
               {props.meal.display_name}
             </div>
-
             <span
               className="glyphicon glyphicon-remove"
               onClick={() => props.removeMeal(props.index)}
             ></span>
           </div>
-          <div className="mealdrop-content-body">
-            <p>{props.meal.description}</p>
-          </div>
+          <div className="mealdrop-content-body">{props.meal.description}</div>
           <div className="mealdrop-content-footer">
             <span>Created On: {props.meal.date_created}</span>
             <span>Last scheduled: 7/5/21</span>
