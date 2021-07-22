@@ -42,7 +42,6 @@ const MealsModal = (props) => {
   useEffect(() => {
     //Sets initial state values if the modal is editing
     if (props.modalAction == "edit") {
-      console.log("editing");
       const meal_data = mealData;
       meal_data["meal_name"] = props.mealEdit.display_name;
       meal_data["meal_ingredients"] = props.mealEdit.ingredients;
@@ -50,10 +49,10 @@ const MealsModal = (props) => {
       meal_data["meal_tags"] = props.mealEdit.tags;
       meal_data["meal_description"] = props.mealEdit.description;
       meal_data["meal_category"] = props.mealEdit.category;
-
       setMealData({ ...meal_data });
     }
-  }, []);
+  }, [props.show]);
+
   useEffect(() => {
     if (
       mealData["meal_name"] != "" &&
@@ -80,6 +79,7 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
+
   return (
     <div>
       <Modal
