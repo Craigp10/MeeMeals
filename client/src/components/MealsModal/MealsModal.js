@@ -3,7 +3,7 @@ import "./MealsModal.css";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
-const categories = ["Breakfast", "Lunch", "Dinner", "Snacks"];
+const categories = ["Breakfast", "Lunch", "Dinner", "Snack"];
 const customStyles = {
   content: {
     top: "50%",
@@ -12,6 +12,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    backgroundColor: "#02203c",
   },
 };
 
@@ -20,7 +21,7 @@ const MealsModal = (props) => {
     meal_name: "",
     meal_ingredients: [],
     meal_description: "",
-    meal_category: "select",
+    meal_category: "",
     meal_instructions: [],
     meal_tags: [],
   });
@@ -131,7 +132,7 @@ const MealsModal = (props) => {
                 value={mealData.meal_category}
                 onChange={(e) => updateState(e, e.target.id)}
               >
-                <option value="select" disabled>
+                <option value="" disabled>
                   Select a Category
                 </option>
                 {categories.map((category, idx) => {
