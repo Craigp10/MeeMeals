@@ -13,6 +13,10 @@
   box-shadow: 0 0px 36px -18px rgb(0 0 0 / 30%);
 }
 
+.meals-board-scroll ul {
+  list-style-type: none;
+}
+
 .meals-board-header {
   display: grid;
   border-top-left-radius: 4px;
