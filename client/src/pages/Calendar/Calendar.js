@@ -109,7 +109,7 @@ const Calendar = (props) => {
       //helps handle that along with saving
     }
   }, [mealTimes]);
-
+  console.log("searchFilter", searchFilter);
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
@@ -150,9 +150,18 @@ const Calendar = (props) => {
           {meals
             .filter((meal) => {
               if (categoryFilter == "all") {
-                return meal.display_name
-                  .toLowerCase()
-                  .includes(searchFilter.toLowerCase());
+                let mealData = [
+                  meal.display_name.toLowerCase(),
+                  ...meal.tags.map((tag) => tag.toLowerCase()),
+                  ...meal.ingredients.map((ingredient) =>
+                    ingredient.toLowerCase()
+                  ),
+                ];
+                console.log(mealData);
+                return mealData.join(" ").includes(searchFilter.toLowerCase());
+                // return meal.display_name
+                //   .toLowerCase()
+                //   .includes(searchFilter.toLowerCase());
               } else {
                 return (
                   meal.display_name
@@ -172,6 +181,25 @@ const Calendar = (props) => {
                     <div className="calendar-content-meal-header">
                       <div className="calendar-content-meal-displayname">
                         {meal.display_name}
+                      </div>
+                    </div>
+                    <div className="calendar-content-meal-body">
+                      <label>Ingredients</label>
+                      <div className="calendar-content-meal-tags">
+                        {meal.ingredients.map((ingredients, idx) => (
+                          <span className="tag" key={idx}>
+                            {ingredients}
+                          </span>
+                        ))}
+                      </div>
+                      <hr />
+                      <label>Tags</label>
+                      <div className="calendar-content-meal-tags">
+                        {meal.tags.map((tag, idx) => (
+                          <span className="tag" key={idx}>
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </li>

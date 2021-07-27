@@ -52,7 +52,7 @@ const SelectionFilter = (props) => {
         <input
           id="search"
           value={props.searchFilter}
-          placeholder="Search for meals"
+          placeholder="Search by name, ingredients and tags"
           onChange={(e) => props.setSearchFilter(e.target.value)}
         />
       </span>
