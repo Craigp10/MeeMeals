@@ -15,7 +15,6 @@
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 18px 36px -18px rgb(0 0 0 / 30%);
   border-radius: 25px;
-  padding: 0;
   display: flex;
   flex-direction: column;
   height: 250px;
@@ -65,20 +64,23 @@
 .mealbox-content-body {
   /* flex-grow: 1; */
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
   display: flex;
   justify-content: space-between;
-  padding: 5px 0;
   font-size: 1.2rem;
 }
+
 .mealbox-content-body div {
-  padding: 5px 0px 0px 10px;
+  padding: 5px 5px 0px 10px;
+  overflow: scroll;
   width: 100%;
   text-align: left;
 }
 
 .mealbox-content-description {
-  border-right: 1px solid lightgray;
+  /* border-right: 1px solid #02203c; */
+  /* height: 400px; */
+  /* padding: 10px; */
 }
 
 .mealbox-content-footer {

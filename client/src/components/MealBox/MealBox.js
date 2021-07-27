@@ -29,7 +29,6 @@ const MealBox = (props) => {
             </div>
             <div className="mealbox-content-ingredients">
               <h6>Ingredients</h6>
-
               {props.meal.ingredients.map((ingredient, idx) => {
                 return (
                   <span

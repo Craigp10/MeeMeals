@@ -28,7 +28,6 @@
   /* flex-grow: 1; */
   height: 100%;
   overflow: scroll;
-  border: 1px solid pink;
 }
 
 .active {
@@ -67,8 +66,4 @@
   justify-content: space-between;
   padding: 0 15px 5px;
   font-size: 1rem;
-
-  /* background-color: #02203c;
-  border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px; */
 }
