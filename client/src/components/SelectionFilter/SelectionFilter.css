@@ -10,19 +10,28 @@
 }
 .filterBtn {
   display: flex;
-  border-radius: 25px;
+  border-radius: 20px;
   align-items: center;
   justify-content: center;
   background-color: white;
 }
 
 .filterBtn:hover {
-  background-color: #02203c;
-  color: white;
+  /* background-color: #02203c;
+  color: white; */
 }
+
 .activeCate {
   background-color: #02203c;
   color: white;
+  box-shadow: inset 100px 0 0 0 #02203c;
+  -webkit-transition: all ease 1s;
+  -moz-transition: all ease 1s;
+  transition: all ease 1s;
+  /* background: linear-gradient(to right, #02203c 50%, white 50%) left;
+  color: linear-gradient(to left, #02203c 50%, white 50%) right;
+  background-size: 200%;
+  transition: 1s ease-out; */
 }
 
 #all {
