@@ -130,17 +130,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 0;
+  padding: 20px 0;
 }
 
-.calendar-content-board-planner-meal {
+.calendar-planner-meal {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 40px;
+  padding: 10px 40px 10px 0;
 }
 
+.calendar-planner-meal label {
+  width: 100%;
+  text-align: center;
+}
 hr {
   margin: 10px 5px;
   border-top: 1px solid #02203c;

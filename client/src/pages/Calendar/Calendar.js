@@ -15,6 +15,7 @@ const Calendar = (props) => {
     { meal_time: "Dinner", meal_id: "" },
     { meal_time: "Snack", meal_id: "" },
   ]);
+
   const [meals, setMeals] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [searchFilter, setSearchFilter] = useState("");
@@ -22,7 +23,8 @@ const Calendar = (props) => {
   const [activeMeal, setActiveMeal] = useState("");
   const [allowSave, setAllowSave] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [saveStatus, setSaveStatus] = useState(""); //"", "success", "pending", "error"
+  const [saveStatus, setSaveStatus] = useState(""); // available values: ["", "success", "pending", "error"]
+  const [saveTimer, setSaveTimer] = useState(0);
 
   const handleMealClick = (index) => {
     setActiveMealClick(!activeMealClick);
@@ -57,6 +59,7 @@ const Calendar = (props) => {
 
   useEffect(async () => {
     setAllowSave(false);
+    setSaveStatus("");
     await apis
       .getDateMeals({
         date: activeDate,
@@ -86,8 +89,8 @@ const Calendar = (props) => {
   useEffect(async () => {
     if (allowSave) {
       setSaving(true);
-      console.log("change");
       setSaveStatus("pending");
+      setSaveTimer(0);
 
       const changes = {
         breakfast: mealTimes[0].meal_id,
@@ -103,34 +106,40 @@ const Calendar = (props) => {
           changes,
         })
         .then((resp) => {
-          console.log("resp.status", resp.status);
           resp.status == 200
             ? setSaveStatus("success")
             : setSaveStatus("error"); // Probably need more workflow logic for errors
-          console.log(saveStatus);
         })
         .catch((err) => {
           console.log(err);
           setSaveStatus("error");
         });
-
-      // return () => clearInterval(id);
-      //Need to handle if changes weren't saved...
-      //I think it would be smart to make a save auto component that
-      //helps handle that along with saving
     }
   }, [mealTimes]);
 
   useEffect(() => {
-    console.log("saveStatus change", saveStatus);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (saveStatus == "success" || saveStatus == "error") {
         setSaving(false);
       } else {
         setSaving(true);
       }
     }, 500);
+
+    return () => clearTimeout(timer);
   }, [saveStatus]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSaveTimer(saveTimer + 1);
+    }, 1000);
+    if (saveTimer == 5) {
+      // console.log("timer is 5");
+      setSaveStatus("");
+      clearTimeout(timer);
+    }
+    return () => clearTimeout(timer);
+  }, [saveTimer]);
 
   return (
     <div className="calendar-content-wrapper">
@@ -140,7 +149,9 @@ const Calendar = (props) => {
         </div>
         <div className="calendar-content-board-planner">
           <div className="calendar-planner-saver">
-            {saveStatus == "" ? null : saveStatus == "error" ? (
+            {saveStatus == "" ? (
+              <p className="fade"></p>
+            ) : saveStatus == "error" ? (
               <p
                 style={{
                   color: "red",
@@ -157,10 +168,7 @@ const Calendar = (props) => {
           <div className="calendar-planner-content">
             {mealTimes.map((meal, index) => {
               return (
-                <div
-                  className="calendar-content-board-planner-meal"
-                  key={index}
-                >
+                <div className="calendar-planner-meal" key={index}>
                   <label>{meal.meal_time}</label>
                   <MealDrop
                     meal={
@@ -201,9 +209,6 @@ const Calendar = (props) => {
                   ),
                 ];
                 return mealData.join(" ").includes(searchFilter.toLowerCase());
-                // return meal.display_name
-                //   .toLowerCase()
-                //   .includes(searchFilter.toLowerCase());
               } else {
                 return (
                   meal.display_name
