@@ -10,6 +10,8 @@ export const getDateMeals = (payload) =>
   api.post("/calendar/getDateMeals", payload);
 export const saveCalendarChanges = (payload) =>
   api.post("/calendar/changes", payload);
+export const pullCalendarWeek = (payload) =>
+  api.post("/calendar/schedule", payload);
 export const createNewMeal = (payload) => api.post("user/newMeal", payload);
 export const deleteMeal = (payload) => api.post("user/deleteMeal", payload);
 export const editMeal = (payload) => api.post("user/editMeal", payload);
@@ -19,6 +21,7 @@ const apis = {
   getUserMeals,
   getDateMeals,
   saveCalendarChanges,
+  pullCalendarWeek,
   createNewMeal,
   deleteMeal,
   editMeal,

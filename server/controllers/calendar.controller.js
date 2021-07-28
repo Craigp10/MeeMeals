@@ -84,7 +84,49 @@ pullSingleDay = async (req, res) => {
   }
 };
 
-pullSchedule = async (req, res) => {};
+pullSchedule = async (req, res) => {
+  const { week, user_id } = req.body;
+  // console.log(week, user_id);
+  const weekMeals = await Calendar.find(
+    {
+      date: { $in: week },
+    },
+    (err, doc) => {
+      if (err) console.log(err);
+      return doc;
+    }
+  );
+  // console.log(weekMeals);
+
+  const returnWeek = week.map((day) => {
+    const returned = weekMeals.filter((date) => {
+      return date.date == day;
+    });
+    if (returned.length) {
+      return {
+        breakfast: returned[0].users.filter(
+          (user) => user.user_id == user_id
+        )[0].breakfast,
+        lunch: returned[0].users.filter((user) => user.user_id == user_id)[0]
+          .lunch,
+        dinner: returned[0].users.filter((user) => user.user_id == user_id)[0]
+          .dinner,
+        snack: returned[0].users.filter((user) => user.user_id == user_id)[0]
+          .snack,
+        day,
+        pulled: true,
+      };
+    } else {
+      return { day, pulled: false };
+    }
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "No data for user on date",
+    meals: returnWeek,
+  });
+};
 
 module.exports = {
   pullSchedule,
