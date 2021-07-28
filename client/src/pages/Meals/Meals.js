@@ -11,7 +11,7 @@ const Meals = () => {
   const [meals, setMeals] = useState([]);
   const [show, setShow] = useState(false);
   const [modalAction, setModalAction] = useState("");
-  const [editingMeal, setEdittingMeal] = useState({});
+  const [activeMeal, setActiveMeal] = useState({});
 
   useEffect(async () => {
     await apis
@@ -20,15 +20,15 @@ const Meals = () => {
   }, []);
 
   const handleClose = () => {
-    setEdittingMeal({});
+    setActiveMeal({});
     setShow(false);
   };
 
   const handleShow = (action, idx) => {
-    setModalAction(action);
-    if (action == "edit") {
-      setEdittingMeal({ ...meals[idx] });
+    if (action == "edit" || action == "preview") {
+      setActiveMeal({ ...meals[idx] });
     }
+    setModalAction(action);
     setShow(true);
   };
 
@@ -40,7 +40,7 @@ const Meals = () => {
     };
     let resp = {};
     if (modalAction == "edit") {
-      requestObj.meal._id = editingMeal._id;
+      requestObj.meal._id = activeMeal._id;
       resp = await apis.editMeal(requestObj);
     } else {
       resp = await apis.createNewMeal(requestObj);
@@ -66,7 +66,6 @@ const Meals = () => {
     };
     await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };
-  console.log(meals, editingMeal);
   return (
     <div className="meals-content-wrapper">
       {show ? (
@@ -75,7 +74,7 @@ const Meals = () => {
           handleClose={handleClose}
           handleSubmit={handleSubmit}
           modalAction={modalAction}
-          mealEdit={editingMeal}
+          activeMeal={activeMeal}
         />
       ) : null}
       <div className="meals-content-board">
@@ -84,10 +83,7 @@ const Meals = () => {
             {/* <saveComponentHandler/> */}
             {/* Save message */}
           </div>
-          <div className="title">
-            Your Meals
-            {/* Your Mealsa */}
-          </div>
+          <div className="title">Your Meals</div>
           <div className="create">
             <button type="button" onClick={() => handleShow("create")}>
               Create A Meal
