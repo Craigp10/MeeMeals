@@ -116,7 +116,16 @@
   text-align: left;
 }
 
+.calendar-planner-saver {
+  padding: 20px;
+  text-align: center;
+}
+
 .calendar-content-board-planner {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+}
+.calendar-planner-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,8 +137,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 60%;
-  padding: 10px 0;
+  width: 100%;
+  padding: 10px 40px;
 }
 
 hr {

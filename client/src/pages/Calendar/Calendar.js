@@ -5,6 +5,7 @@ import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
+import SaveLoader from "../../components/SavingLoader/SavingLoader";
 
 const Calendar = (props) => {
   const [activeDate, setActiveDate] = useState(dayjs().format("M/D/YYYY"));
@@ -20,6 +21,8 @@ const Calendar = (props) => {
   const [activeMealClick, setActiveMealClick] = useState(false);
   const [activeMeal, setActiveMeal] = useState("");
   const [allowSave, setAllowSave] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState(""); //"", "success", "pending", "error"
 
   const handleMealClick = (index) => {
     setActiveMealClick(!activeMealClick);
@@ -74,10 +77,6 @@ const Calendar = (props) => {
           activeMealTimes[3].meal_id = schedule.snack;
           setMealTimes([...activeMealTimes]);
         } else {
-          activeMealTimes[0].meal_id = "";
-          activeMealTimes[1].meal_id = "";
-          activeMealTimes[2].meal_id = "";
-          activeMealTimes[3].meal_id = "";
           setMealTimes([...activeMealTimes]);
         }
       });
@@ -86,30 +85,53 @@ const Calendar = (props) => {
 
   useEffect(async () => {
     if (allowSave) {
+      setSaving(true);
+      console.log("change");
+      setSaveStatus("pending");
+
       const changes = {
         breakfast: mealTimes[0].meal_id,
         lunch: mealTimes[1].meal_id,
         dinner: mealTimes[2].meal_id,
         snack: mealTimes[3].meal_id,
       };
-
+      // const id = saveInterval();
       await apis
         .saveCalendarChanges({
           date: activeDate,
           user_id: "60f5ffcaf12aefb5c7942f63",
           changes,
         })
-        .then((resp) =>
+        .then((resp) => {
+          console.log("resp.status", resp.status);
           resp.status == 200
-            ? console.log("Changes successfully Saved!")
-            : console.log("Error saving changes")
-        );
+            ? setSaveStatus("success")
+            : setSaveStatus("error"); // Probably need more workflow logic for errors
+          console.log(saveStatus);
+        })
+        .catch((err) => {
+          console.log(err);
+          setSaveStatus("error");
+        });
+
+      // return () => clearInterval(id);
       //Need to handle if changes weren't saved...
       //I think it would be smart to make a save auto component that
       //helps handle that along with saving
     }
   }, [mealTimes]);
-  console.log("searchFilter", searchFilter);
+
+  useEffect(() => {
+    console.log("saveStatus change", saveStatus);
+    setTimeout(() => {
+      if (saveStatus == "success" || saveStatus == "error") {
+        setSaving(false);
+      } else {
+        setSaving(true);
+      }
+    }, 500);
+  }, [saveStatus]);
+
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
@@ -117,25 +139,46 @@ const Calendar = (props) => {
           <DateSelector activeDate={activeDate} setActiveDate={setActiveDate} />
         </div>
         <div className="calendar-content-board-planner">
-          {mealTimes.map((meal, index) => {
-            return (
-              <div className="calendar-content-board-planner-meal" key={index}>
-                <label>{meal.meal_time}</label>
-                <MealDrop
-                  meal={
-                    meals.filter((meal_) => meal_._id == meal.meal_id).length ==
-                    0
-                      ? {}
-                      : meals.filter((meal_) => meal_._id == meal.meal_id)[0]
-                  }
-                  activeMealClick={activeMealClick}
-                  mealClickCallback={handleMealDropClick}
-                  index={index}
-                  removeMeal={handleMealRemoveClick}
-                />
-              </div>
-            );
-          })}
+          <div className="calendar-planner-saver">
+            {saveStatus == "" ? null : saveStatus == "error" ? (
+              <p
+                style={{
+                  color: "red",
+                  fontStyle: "italic",
+                  fontSize: "1.2rem",
+                }}
+              >
+                Error saving changes
+              </p>
+            ) : (
+              <SaveLoader saving={saving} saveStatus={saveStatus} />
+            )}
+          </div>
+          <div className="calendar-planner-content">
+            {mealTimes.map((meal, index) => {
+              return (
+                <div
+                  className="calendar-content-board-planner-meal"
+                  key={index}
+                >
+                  <label>{meal.meal_time}</label>
+                  <MealDrop
+                    meal={
+                      meals.filter((meal_) => meal_._id == meal.meal_id)
+                        .length == 0
+                        ? {}
+                        : meals.filter((meal_) => meal_._id == meal.meal_id)[0]
+                    }
+                    activeMealClick={activeMealClick}
+                    mealClickCallback={handleMealDropClick}
+                    index={index}
+                    removeMeal={handleMealRemoveClick}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <></>
         </div>
       </div>
       <div className="calendar-content-meal-selection">
@@ -157,7 +200,6 @@ const Calendar = (props) => {
                     ingredient.toLowerCase()
                   ),
                 ];
-                console.log(mealData);
                 return mealData.join(" ").includes(searchFilter.toLowerCase());
                 // return meal.display_name
                 //   .toLowerCase()
