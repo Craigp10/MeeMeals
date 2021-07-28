@@ -27,13 +27,11 @@ const generateCurrentWeek = () => {
 const Home = () => {
   const [weekMeals, setWeekMeals] = useState([]);
   const [userMeals, setUserMeals] = useState([]);
-
+  const [week, setWeek] = useState(generateCurrentWeek());
   useEffect(async () => {
-    const week = generateCurrentWeek();
     await apis
       .pullCalendarWeek({ user_id: "60f5ffcaf12aefb5c7942f63", week })
       .then((resp) => {
-        console.log("resp", resp);
         setWeekMeals(resp.data.meals);
       });
 
@@ -43,7 +41,7 @@ const Home = () => {
 
     //fetch user meals for current week.
   }, []);
-  console.log("w", weekMeals, userMeals);
+  console.log("w", week, weekMeals, userMeals);
   return (
     <div className="home-content-wrapper">
       <div className="home-content-board">
@@ -55,17 +53,39 @@ const Home = () => {
             <div>
               <div></div>
             </div>
+            <div style={{ textAlign: "center", gridColumn: 2, gridRow: 1 }}>
+              <span>Sunday</span> <br />
+              <span>{dayjs(week[0]).format("M/D")}</span>
+            </div>
+            <div style={{ textAlign: "center", gridColumn: 3, gridRow: 1 }}>
+              <span>Monday</span> <br />
+              <span>{dayjs(week[1]).format("M/D")}</span>
+            </div>
+            <div style={{ textAlign: "center", gridColumn: 4, gridRow: 1 }}>
+              <span>Tuesday</span> <br />
+              <span>{dayjs(week[2]).format("M/D")}</span>
+            </div>
+            <div style={{ textAlign: "center", gridColumn: 5, gridRow: 1 }}>
+              <span>Wednesday</span> <br />
+              <span>{dayjs(week[3]).format("M/D")}</span>
+            </div>
+            <div style={{ textAlign: "center", gridColumn: 6, gridRow: 1 }}>
+              <span>Thursday</span> <br />
+              <span>{dayjs(week[4]).format("M/D")}</span>
+            </div>
+            <div style={{ textAlign: "center", gridColumn: 7, gridRow: 1 }}>
+              <span>Friday</span> <br />
+              <span>{dayjs(week[5]).format("M/D")}</span>
+            </div>
+            <div style={{ textAlign: "center", gridColumn: 8, gridRow: 1 }}>
+              <span>Saturday</span> <br />
+              <span>{dayjs(week[6]).format("M/D")}</span>
+            </div>
+
             <span style={{ gridColumn: 1, gridRow: 2 }}>Breakfast</span>
             <span style={{ gridColumn: 1, gridRow: 3 }}>Lunch</span>
             <span style={{ gridColumn: 1, gridRow: 4 }}>Dinner</span>
             <span style={{ gridColumn: 1, gridRow: 5 }}>Snack</span>
-            <span style={{ gridColumn: 2, gridRow: 1 }}>Sunday</span>
-            <span style={{ gridColumn: 3, gridRow: 1 }}>Monday</span>
-            <span style={{ gridColumn: 4, gridRow: 1 }}>Tuesday</span>
-            <span style={{ gridColumn: 5, gridRow: 1 }}>Wednesday</span>
-            <span style={{ gridColumn: 6, gridRow: 1 }}>Thursday</span>
-            <span style={{ gridColumn: 7, gridRow: 1 }}>Friday</span>
-            <span style={{ gridColumn: 8, gridRow: 1 }}>Saturday</span>
             {/* {GRID_LAYOUT.map((vert, idx) => (
               <div style={vert.style}>{vert.text}</div>
             ))} */}
@@ -78,7 +98,7 @@ const Home = () => {
                         ?.display_name ? (
                         <span
                           className="grid-meal"
-                          style={{ gridColumn: idx + 1, gridRow: 2 }}
+                          style={{ gridColumn: idx + 2, gridRow: 2 }}
                         >
                           <p>
                             {
@@ -93,7 +113,7 @@ const Home = () => {
                         ?.display_name ? (
                         <span
                           className="grid-meal"
-                          style={{ gridColumn: idx + 1, gridRow: 3 }}
+                          style={{ gridColumn: idx + 2, gridRow: 3 }}
                         >
                           <p>
                             {
@@ -108,7 +128,7 @@ const Home = () => {
                         ?.display_name ? (
                         <span
                           className="grid-meal"
-                          style={{ gridColumn: idx + 1, gridRow: 4 }}
+                          style={{ gridColumn: idx + 2, gridRow: 4 }}
                         >
                           <p>
                             {
@@ -123,7 +143,7 @@ const Home = () => {
                         ?.display_name ? (
                         <span
                           className="grid-meal"
-                          style={{ gridColumn: idx + 1, gridRow: 5 }}
+                          style={{ gridColumn: idx + 2, gridRow: 5 }}
                         >
                           <p>
                             {
@@ -135,8 +155,7 @@ const Home = () => {
                         </span>
                       ) : null}
                     </>
-                  ) : // <span>{day.day}</span>
-                  null;
+                  ) : null;
                 })
               : null}
           </div>
