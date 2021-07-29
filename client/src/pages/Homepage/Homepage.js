@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Homepage.css";
 import dayjs from "dayjs";
 import apis from "../../api/index";
+import { Redirect, Link, useHistory } from "react-router-dom";
 
 const GRID_LAYOUT = [
   { style: { gridColumn: 2, gridRow: 1 }, text: "Sunday", isDay: true },
@@ -28,6 +29,7 @@ const Home = () => {
   const [weekMeals, setWeekMeals] = useState([]);
   const [userMeals, setUserMeals] = useState([]);
   const [week, setWeek] = useState(generateCurrentWeek());
+  const history = useHistory();
 
   useEffect(async () => {
     await apis
@@ -70,6 +72,12 @@ const Home = () => {
                         ?.display_name ? (
                         <span
                           className="grid-meal"
+                          // onClick={() => Implementation to allow the user to preview a meal from homepage by clicking on it, currently routes to meal page, maybe just use a mealModal here
+                          //   history.push({
+                          //     pathname: "/meals",
+                          //     state: { mealPreview: day.breakfast },
+                          //   })
+                          // }
                           style={{ gridColumn: idx + 2, gridRow: 2 }}
                         >
                           <p>

@@ -4,10 +4,7 @@ import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 import MealsModal from "../../components/MealsModal/MealsModal";
 
-// Modal.setAppElement(".meals-content-wrapper");
-
-const Meals = () => {
-  let subtitle;
+const Meals = (props) => {
   const [meals, setMeals] = useState([]);
   const [show, setShow] = useState(false);
   const [modalAction, setModalAction] = useState("");
@@ -58,14 +55,19 @@ const Meals = () => {
   };
 
   const handleDelete = async (meal_id) => {
-    //const userDoubleCheck await doubleCheckDeletePopup()
-    // if (!userDoubleCheck) return;
     const requestObj = {
       meal_id,
       user_id: "60f5ffcaf12aefb5c7942f63",
     };
     await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };
+  // if (props.location.state?.mealPreview && !show) {
+  //   console.log("MEAL PREVIEW1", props.location.state.mealPreview);
+  //   handleShow(
+  //     "preview",
+  //     meals.filter((meal) => meal._id == props.location.state.mealPreview)[0]
+  //   );
+  // }
   return (
     <div className="meals-content-wrapper">
       {show ? (

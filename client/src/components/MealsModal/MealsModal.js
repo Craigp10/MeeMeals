@@ -57,9 +57,9 @@ const MealsModal = (props) => {
   useEffect(() => {
     if (
       mealData["meal_name"] != "" &&
-      mealData["meal_ingredients"].length != 0 &&
-      mealData["meal_instructions"].length != 0 &&
-      mealData["meal_tags"].length != 0 &&
+      mealData["meal_ingredients"]?.length != 0 &&
+      mealData["meal_instructions"]?.length != 0 &&
+      mealData["meal_tags"]?.length != 0 &&
       mealData["meal_description"] != "" &&
       mealData["meal_category"] != ""
     ) {
@@ -81,7 +81,6 @@ const MealsModal = (props) => {
     setInputText({ ...inputText });
   };
 
-  console.log("props.modalAction", props.modalAction);
   return (
     <div>
       <Modal

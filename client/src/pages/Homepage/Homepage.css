@@ -47,22 +47,24 @@
 .grid-meal:hover {
   transform: translateY(-10px);
   height: 100%;
+  color: white;
+  background: #02203c;
 }
+
 .grid-meal:hover p {
   white-space: normal;
   height: 100%;
   overflow: scroll;
-  /* text-align: center; */
 }
 
 ::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* make scrollbar transparent */
+  background: transparent;
 }
 
 .grid-meal {
   border-radius: 7px;
-  transition: all 250ms;
+  transition: all 0.4s;
   padding: 5px;
   background-color: #fafafa;
   width: 100%;
@@ -70,8 +72,6 @@
   overflow: hidden;
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 10px 36px -10px rgb(0 0 0 / 30%);
-  /* display: flex;
-  align-items: center; */
 }
 
 .grid-meal p {
