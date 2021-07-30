@@ -5,6 +5,7 @@ const dbConfig = require("../config/db.config");
 const Role = db_schema.role;
 const Meals = db_schema.meals;
 const User = db_schema.user;
+var bcrypt = require("bcryptjs");
 
 mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -19,7 +20,7 @@ mongoose
     process.exit();
   });
 
-function initial() {
+async function initial() {
   console.log("INITIAL CALLED");
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
@@ -55,7 +56,29 @@ function initial() {
     }
   });
 
-  User.find({ username: "Craigp10" }, (err, user) => {
+  // if (Users.findOne({username:"demo"}))
+  await User.findOne({ username: "demo" }, (err, user) => {
+    console.log(user);
+    if (!user) {
+      const user = new User({
+        username: "demo",
+        email: "demo@demo.com",
+        password: bcrypt.hashSync("demopassword", 8),
+      });
+      user.save((err, user) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+      });
+
+      console.log("DEMO USER CREATED", user);
+    } else {
+      console.log("DEMO USER FOUND", user._id);
+    }
+  });
+  await User.find({ username: "demo" }, (err, user) => {
+    console.log(user);
     if (!user[0]?.meals.length) {
       const new_meals = [
         {
@@ -130,7 +153,7 @@ function initial() {
             console.log("Something wrong when updating data!");
           }
 
-          console.log("Successfully updated user", doc);
+          console.log("Successfully updated user");
         }
       );
     }

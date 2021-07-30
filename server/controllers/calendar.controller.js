@@ -86,6 +86,7 @@ pullSingleDay = async (req, res) => {
 
 pullSchedule = async (req, res) => {
   const { week, user_id } = req.body;
+  console.log(week, user_id);
   // console.log(week, user_id);
   const weekMeals = await Calendar.find(
     {
@@ -104,15 +105,15 @@ pullSchedule = async (req, res) => {
     });
     if (returned.length) {
       return {
-        breakfast: returned[0].users.filter(
+        breakfast: returned[0]?.users.filter(
           (user) => user.user_id == user_id
-        )[0].breakfast,
-        lunch: returned[0].users.filter((user) => user.user_id == user_id)[0]
-          .lunch,
-        dinner: returned[0].users.filter((user) => user.user_id == user_id)[0]
-          .dinner,
-        snack: returned[0].users.filter((user) => user.user_id == user_id)[0]
-          .snack,
+        )[0]?.breakfast,
+        lunch: returned[0]?.users.filter((user) => user.user_id == user_id)[0]
+          ?.lunch,
+        dinner: returned[0]?.users.filter((user) => user.user_id == user_id)[0]
+          ?.dinner,
+        snack: returned[0]?.users.filter((user) => user.user_id == user_id)[0]
+          ?.snack,
         day,
         pulled: true,
       };
