@@ -52,10 +52,12 @@ const Calendar = (props) => {
   };
 
   useEffect(async () => {
-    await apis
-      .getUserMeals({ user_id: "60f5ffcaf12aefb5c7942f63" })
-      .then((resp) => setMeals(resp.data.meals));
-  }, []);
+    if (props.user?.id) {
+      await apis
+        .getUserMeals({ user_id: props.user.id })
+        .then((resp) => setMeals(resp.data.meals));
+    }
+  }, [props]);
 
   useEffect(async () => {
     setAllowSave(false);
@@ -63,7 +65,7 @@ const Calendar = (props) => {
     await apis
       .getDateMeals({
         date: activeDate,
-        user_id: "60f5ffcaf12aefb5c7942f63",
+        user_id: props.user.id,
       })
       .then((resp) => {
         const schedule = resp.data.data;
@@ -102,7 +104,7 @@ const Calendar = (props) => {
       await apis
         .saveCalendarChanges({
           date: activeDate,
-          user_id: "60f5ffcaf12aefb5c7942f63",
+          user_id: props.user.id,
           changes,
         })
         .then((resp) => {

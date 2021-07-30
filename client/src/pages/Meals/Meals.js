@@ -12,9 +12,9 @@ const Meals = (props) => {
 
   useEffect(async () => {
     await apis
-      .getUserMeals({ user_id: "60f5ffcaf12aefb5c7942f63" })
+      .getUserMeals({ user_id: props.user.id })
       .then((resp) => setMeals(resp.data.meals));
-  }, []);
+  }, [props]);
 
   const handleClose = () => {
     setActiveMeal({});

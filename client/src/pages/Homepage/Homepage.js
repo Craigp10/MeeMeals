@@ -25,24 +25,27 @@ const generateCurrentWeek = () => {
   return week;
 };
 
-const Home = () => {
+const Home = (props) => {
   const [weekMeals, setWeekMeals] = useState([]);
   const [userMeals, setUserMeals] = useState([]);
   const [week, setWeek] = useState(generateCurrentWeek());
   const history = useHistory();
 
   useEffect(async () => {
-    await apis
-      .pullCalendarWeek({ user_id: "60f5ffcaf12aefb5c7942f63", week })
-      .then((resp) => {
-        setWeekMeals(resp.data.meals);
-      });
+    if (props.user?.id) {
+      console.log("pulling for user", props.user);
+      await apis
+        .pullCalendarWeek({ user_id: props.user.id, week })
+        .then((resp) => {
+          setWeekMeals(resp.data.meals);
+        });
 
-    await apis
-      .getUserMeals({ user_id: "60f5ffcaf12aefb5c7942f63" })
-      .then((resp) => setUserMeals(resp.data.meals));
-  }, []);
-
+      await apis
+        .getUserMeals({ user_id: props.user.id })
+        .then((resp) => setUserMeals(resp.data.meals));
+    }
+  }, [props]);
+  console.log("home", weekMeals, userMeals);
   return (
     <div className="home-content-wrapper">
       <div className="home-content-board">

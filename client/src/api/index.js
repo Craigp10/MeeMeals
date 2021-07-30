@@ -15,6 +15,8 @@ export const pullCalendarWeek = (payload) =>
 export const createNewMeal = (payload) => api.post("user/newMeal", payload);
 export const deleteMeal = (payload) => api.post("user/deleteMeal", payload);
 export const editMeal = (payload) => api.post("user/editMeal", payload);
+export const demoLogin = () =>
+  api.post("auth/signin", { username: "demo", password: "demopassword" });
 
 const apis = {
   getAllMeals,
@@ -25,6 +27,7 @@ const apis = {
   createNewMeal,
   deleteMeal,
   editMeal,
+  demoLogin,
 };
 
 export default apis;
