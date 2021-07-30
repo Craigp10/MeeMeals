@@ -2,7 +2,7 @@ import React from "react";
 import logout from "../../images/logout.png";
 import "./TopBar.css";
 
-const TopBar = (props) => (
+const TopBar = () => (
   <div className="topbar-wrapper">
     <div className="topbar-title">
       <span
