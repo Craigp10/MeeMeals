@@ -49,6 +49,7 @@
   height: 100%;
   color: white;
   background: #02203c;
+  cursor: pointer;
 }
 
 .grid-meal:hover p {

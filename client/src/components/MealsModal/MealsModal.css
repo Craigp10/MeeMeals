@@ -79,7 +79,6 @@
 .extension {
   min-height: 40px;
   width: 60%;
-  border: 1px solid pink;
   user-select: none;
 }
 .extension span:hover {
