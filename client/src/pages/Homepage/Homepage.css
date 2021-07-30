@@ -49,7 +49,7 @@
   height: 100%;
   color: white;
   background: #02203c;
-  cursor: pointer;
+  /* cursor: pointer;  commented out because click workflow not implemented yet*/
 }
 
 .grid-meal:hover p {

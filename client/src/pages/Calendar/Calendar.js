@@ -26,12 +26,12 @@ const Calendar = (props) => {
   const [saveStatus, setSaveStatus] = useState(""); // available values: ["", "success", "pending", "error"]
   const [saveTimer, setSaveTimer] = useState(0);
 
-  const handleMealClick = (index) => {
+  const handleMealClick = (meal_id) => {
     setActiveMealClick(!activeMealClick);
     if (activeMealClick) {
       setActiveMeal("");
     } else {
-      setActiveMeal(meals[index]._id);
+      setActiveMeal(meal_id);
     }
   };
 
@@ -108,7 +108,7 @@ const Calendar = (props) => {
         .then((resp) => {
           resp.status == 200
             ? setSaveStatus("success")
-            : setSaveStatus("error"); // Probably need more workflow logic for errors
+            : setSaveStatus("error"); //Probably need more workflow logic for errors
         })
         .catch((err) => {
           console.log(err);
@@ -134,7 +134,6 @@ const Calendar = (props) => {
       setSaveTimer(saveTimer + 1);
     }, 1000);
     if (saveTimer == 5) {
-      // console.log("timer is 5");
       setSaveStatus("");
       clearTimeout(timer);
     }
@@ -223,7 +222,7 @@ const Calendar = (props) => {
                 <div key={index} className="selection-scroll-meal-wrapper">
                   <li
                     className="selection-scroll-meal"
-                    onClick={() => handleMealClick(index)}
+                    onClick={() => handleMealClick(meal._id)}
                   >
                     <div className="calendar-content-meal-header">
                       <div className="calendar-content-meal-displayname">
