@@ -1,81 +1,97 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import "./Login.css";
+import { Link, useHistory, withRouter } from "react-router-dom";
+import apis from "../../api/index";
+// import { ProvideAuth } from "./use-auth.js";
 
-export default class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.emailAddress = React.createRef();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.validate = this.validate.bind(this);
-  }
-
-  componentDidMount() {
-    const component = this;
-  }
-
-  validate = () => {};
-
-  handleSubmit = () => {
-    console.log("submitting");
-    this.setState({});
+const Login = (props) => {
+  const history = useHistory();
+  const handleSubmit = async () => {
+    await apis.demoLogin().then((resp) => {
+      console.log(resp);
+      if (resp.status == 200) {
+        console.log("Successful Login!");
+        props.setAuthenticated(true);
+        props.setUser(resp.data);
+        history.replace({ pathname: "/" });
+      }
+    });
   };
-
-  //handle login form change
-
-  //handle login form submit
-
-  //error handling
-
-  //Possible callback when successfully logged in called
-  render() {
-    console.log("emailAddress", this.emailAddress);
-    console.log("Login App");
-    return (
-      <div className="login-wrapper">
-        <h2> This is the login pages </h2>
-        <div className="login-wrapper-inner">
+  return (
+    <div className="login-wrapper">
+      {/* {!props.authenticated ? (
+        <> */}
+      <h2> Login Page </h2>
+      <div className="login-content-wrapper">
+        <div className="login-content-inner">
           <h4>Log In</h4>
           <form
-            ref={(form) => (this.form = form)}
+            // ref={(form) => (this.form = form)}
             className="login-form"
-            onSubmit={this.handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
           >
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group className="login-form-field" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              {/* <Form.Control type="email" placeholder="Enter email" /> */}
               <Form.Control
-                type="password"
-                placeholder="password"
-                ref={(emailAddress) => (this.emailAddress = emailAddress)}
+                type="email"
+                placeholder="Use Demo Login"
+                disabled
               />
             </Form.Group>
-            {/* <input
-              type="email"
-              name="emailAddress"
-              className="form-control"
-              placeholder="example@uoduckstore.com"
-            />
-            </FormGroup>
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              ref={(password) => (this.password = password)}
-              className="form-control"
-            />
-            */}
+            <Form.Group
+              className="login-form-field"
+              controlId="formBasicPassword"
+            >
+              <Form.Label>Password</Form.Label>
+              {/* <Form.Control
+                  type="password"
+                  placeholder="password"
+                  ref={(emailAddress) => (this.emailAddress = emailAddress)}
+                /> */}
+              <Form.Control
+                className="login-form-field"
+                type="password"
+                placeholder="Use Demo Login"
+                // ref={(emailAddress) => (this.emailAddress = emailAddress)}
+                disabled
+              />
+            </Form.Group>
+
             <hr />
-            {/* <p>
-              Forgot your password?{" "}
-              <Link to="/recover-password">Click here</Link>.
-            </p> */}
-            <Button type="submit">Log In</Button>
+            <div className="login-form-buttons">
+              <Button type="submit" disabled>
+                Log In
+              </Button>
+              <Button type="submit">Demo Log In</Button>
+            </div>
           </form>
+          <div className="login-content-recover">
+            Forgot your password?{" "}
+            <Link
+              style={{ textDecoration: "none", pointerEvents: "none" }}
+              to="/recover-password"
+            >
+              Click here
+            </Link>
+            .
+          </div>
         </div>
       </div>
-    );
-  }
-}
+      {/* </>
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/",
+          }}
+        />
+      )} */}
+    </div>
+  );
+};
+
+export default withRouter(Login);
