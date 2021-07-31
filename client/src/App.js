@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PublicRoute from "./components/PublicRoute/PublicRoute";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -15,7 +16,15 @@ const App = () => {
     <Router>
       <div className="app">
         <Switch>
-          <Route
+          <PublicRoute
+            path="/login"
+            component={Login}
+            setAuthenticated={setAuthenticated}
+            setUser={setUser}
+            authenticated={authenticated}
+          />
+
+          {/* <Route
             path="/login"
             render={() => (
               <Login
@@ -24,9 +33,8 @@ const App = () => {
                 authenticated={authenticated}
               />
             )}
-          />
-          <PrivateRoute
-            // <Route
+          /> */}
+          <PrivateRoute //Route component
             path="/"
             component={Dashboard}
             isAuthenticated={authenticated}

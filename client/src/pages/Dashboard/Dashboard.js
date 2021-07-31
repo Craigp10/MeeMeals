@@ -16,7 +16,7 @@ const Dashboard = (props) => {
       setUser(props.user);
     }
   }, [props]);
-  console.log(user);
+
   return (
     <div className="dashboard-wrapper">
       <Router>

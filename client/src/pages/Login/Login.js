@@ -17,6 +17,7 @@ const Login = (props) => {
       }
     });
   };
+  console.log(props);
   return (
     <div className="login-wrapper">
       <div className="login-content-wrapper">
