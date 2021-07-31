@@ -1,5 +1,5 @@
 .filter-selection-wrapper {
-  background-color: darkgray;
+  background-color: lightgray;
   height: 120px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -26,13 +26,9 @@
   background-color: #02203c;
   color: white;
   box-shadow: inset 100px 0 0 0 #02203c;
-  -webkit-transition: all ease 1s;
-  -moz-transition: all ease 1s;
-  transition: all ease 1s;
-  /* background: linear-gradient(to right, #02203c 50%, white 50%) left;
-  color: linear-gradient(to left, #02203c 50%, white 50%) right;
-  background-size: 200%;
-  transition: 1s ease-out; */
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  transition: all ease 0.5s;
 }
 
 #all {

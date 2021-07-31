@@ -22,10 +22,9 @@ const Login = (props) => {
     <div className="login-wrapper">
       {/* {!props.authenticated ? (
         <> */}
-      <h2> Login Page </h2>
       <div className="login-content-wrapper">
         <div className="login-content-inner">
-          <h4>Log In</h4>
+          <h3>Log In</h3>
           <form
             // ref={(form) => (this.form = form)}
             className="login-form"
