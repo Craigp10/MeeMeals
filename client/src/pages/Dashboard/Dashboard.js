@@ -11,7 +11,6 @@ import "./Dashboard.css";
 const Dashboard = (props) => {
   const [user, setUser] = useState({});
 
-  console.log("dashboard", props.user);
   useEffect(() => {
     if (props?.user) {
       setUser(props.user);

@@ -18,50 +18,50 @@ const customStyles = {
 
 const MealsModal = (props) => {
   const [mealData, setMealData] = useState({
-    meal_name: "",
-    meal_ingredients: [],
-    meal_description: "",
-    meal_category: "",
-    meal_instructions: [],
-    meal_tags: [],
+    mealName: "",
+    mealIngredients: [],
+    mealDescription: "",
+    mealCategory: "",
+    mealInstructions: [],
+    mealTags: [],
   });
 
   const [inputText, setInputText] = useState({
-    meal_tags: "",
-    meal_ingredients: "",
-    meal_instructions: "",
+    mealTags: "",
+    mealIngredients: "",
+    mealInstructions: "",
   });
 
   const [validated, setValidation] = useState(false);
 
   const updateState = (e, field) => {
-    const meal_data = mealData;
-    meal_data[field] = e.target.value;
-    setMealData({ ...meal_data });
+    const newMealData = mealData;
+    newMealData[field] = e.target.value;
+    setMealData({ ...newMealData });
   };
 
   useEffect(() => {
     //Sets initial state values if the modal is editing
     if (props.modalAction == "edit" || props.modalAction == "preview") {
-      const meal_data = mealData;
-      meal_data["meal_name"] = props.activeMeal.display_name;
-      meal_data["meal_ingredients"] = props.activeMeal.ingredients;
-      meal_data["meal_instructions"] = props.activeMeal.instructions;
-      meal_data["meal_tags"] = props.activeMeal.tags;
-      meal_data["meal_description"] = props.activeMeal.description;
-      meal_data["meal_category"] = props.activeMeal.category;
-      setMealData({ ...meal_data });
+      const newMealData = mealData;
+      newMealData["mealName"] = props.activeMeal.display_name;
+      newMealData["mealIngredients"] = props.activeMeal.ingredients;
+      newMealData["mealInstructions"] = props.activeMeal.instructions;
+      newMealData["mealTags"] = props.activeMeal.tags;
+      newMealData["mealDescription"] = props.activeMeal.description;
+      newMealData["mealCategory"] = props.activeMeal.category;
+      setMealData({ ...newMealData });
     }
   }, [props.show]);
 
   useEffect(() => {
     if (
-      mealData["meal_name"] != "" &&
-      mealData["meal_ingredients"]?.length != 0 &&
-      mealData["meal_instructions"]?.length != 0 &&
-      mealData["meal_tags"]?.length != 0 &&
-      mealData["meal_description"] != "" &&
-      mealData["meal_category"] != ""
+      mealData["mealName"] != "" &&
+      mealData["mealIngredients"]?.length != 0 &&
+      mealData["mealInstructions"]?.length != 0 &&
+      mealData["mealTags"]?.length != 0 &&
+      mealData["mealDescription"] != "" &&
+      mealData["mealCategory"] != ""
     ) {
       setValidation(true);
     } else {
@@ -106,8 +106,8 @@ const MealsModal = (props) => {
                   <label>Meal Name</label>
                   <input
                     type="text"
-                    id="meal_name"
-                    value={mealData.meal_name}
+                    id="mealName"
+                    value={mealData.mealName}
                     onChange={(e) => updateState(e, e.target.id)}
                     autoComplete="off"
                     disabled
@@ -117,8 +117,8 @@ const MealsModal = (props) => {
                   <label>Meal Description</label>
                   <input
                     type="text"
-                    id="meal_description"
-                    value={mealData.meal_description}
+                    id="mealDescription"
+                    value={mealData.mealDescription}
                     onChange={(e) => updateState(e, e.target.id)}
                     autoComplete="off"
                     disabled
@@ -128,18 +128,18 @@ const MealsModal = (props) => {
                   <label>Category: &nbsp;</label> <br />
                   <select
                     type="text"
-                    id="meal_category"
-                    value={mealData.meal_category}
+                    id="mealCategory"
+                    value={mealData.mealCategory}
                     onChange={(e) => updateState(e, e.target.id)}
                     disabled
                   >
-                    <option value="">{mealData.meal_category}</option>
+                    <option value="">{mealData.mealCategory}</option>
                   </select>
                 </div>
                 <div className="meals-modal-form-field">
                   <label>Ingredients</label>
                   <div className="extension">
-                    {mealData.meal_ingredients.map((ingredient, idx) => (
+                    {mealData.mealIngredients.map((ingredient, idx) => (
                       <span className="tag" key={idx}>
                         {ingredient}
                       </span>
@@ -147,8 +147,8 @@ const MealsModal = (props) => {
                   </div>
                   <input
                     type="text"
-                    id="meal_ingredients"
-                    value={inputText.meal_ingredients}
+                    id="mealIngredients"
+                    value={inputText.mealIngredients}
                     onChange={(e) => updateText(e.target.id, e.target.value)}
                     autoComplete="off"
                     disabled
@@ -157,16 +157,16 @@ const MealsModal = (props) => {
                 <div className="meals-modal-form-field">
                   <label>Instructions</label>
                   <ol className="extension">
-                    {mealData.meal_instructions.map((tag, idx) => (
-                      <li className="instruction_tag" key={idx}>
+                    {mealData.mealInstructions.map((tag, idx) => (
+                      <li className="instruction-tag" key={idx}>
                         {tag}
                       </li>
                     ))}
                   </ol>
                   <input
                     type="text"
-                    id="meal_instructions"
-                    value={inputText.meal_instructions}
+                    id="mealInstructions"
+                    value={inputText.mealInstructions}
                     onChange={(e) => updateText(e.target.id, e.target.value)}
                     autoComplete="off"
                     disabled
@@ -175,7 +175,7 @@ const MealsModal = (props) => {
                 <div className="meals-modal-form-field">
                   <label>Tags</label>
                   <div className="extension">
-                    {mealData.meal_tags.map((tag, idx) => (
+                    {mealData.mealTags.map((tag, idx) => (
                       <span className="tag" key={idx}>
                         {tag}
                       </span>
@@ -183,8 +183,8 @@ const MealsModal = (props) => {
                   </div>
                   <input
                     type="text"
-                    id="meal_tags"
-                    value={inputText.meal_tags}
+                    id="mealTags"
+                    value={inputText.mealTags}
                     onChange={(e) => updateText(e.target.id, e.target.value)}
                     autoComplete="off"
                     disabled
@@ -212,8 +212,8 @@ const MealsModal = (props) => {
                   <label>Meal Name</label>
                   <input
                     type="text"
-                    id="meal_name"
-                    value={mealData.meal_name}
+                    id="mealName"
+                    value={mealData.mealName}
                     onChange={(e) => updateState(e, e.target.id)}
                     autoComplete="off"
                   />
@@ -222,8 +222,8 @@ const MealsModal = (props) => {
                   <label>Meal Description</label>
                   <input
                     type="text"
-                    id="meal_description"
-                    value={mealData.meal_description}
+                    id="mealDescription"
+                    value={mealData.mealDescription}
                     onChange={(e) => updateState(e, e.target.id)}
                     autoComplete="off"
                   />
@@ -232,8 +232,8 @@ const MealsModal = (props) => {
                   <label>Category: &nbsp;</label> <br />
                   <select
                     type="text"
-                    id="meal_category"
-                    value={mealData.meal_category}
+                    id="mealCategory"
+                    value={mealData.mealCategory}
                     onChange={(e) => updateState(e, e.target.id)}
                   >
                     <option value="" disabled>
@@ -251,11 +251,11 @@ const MealsModal = (props) => {
                 <div className="meals-modal-form-field">
                   <label>Ingredients</label>
                   <div className="extension">
-                    {mealData.meal_ingredients.map((ingredient, idx) => (
+                    {mealData.mealIngredients.map((ingredient, idx) => (
                       <span
                         className="tag"
                         key={idx}
-                        onClick={(e) => removeTag("meal_ingredients", idx)}
+                        onClick={(e) => removeTag("mealIngredients", idx)}
                       >
                         {ingredient}
                       </span>
@@ -263,13 +263,13 @@ const MealsModal = (props) => {
                   </div>
                   <input
                     type="text"
-                    id="meal_ingredients"
-                    value={inputText.meal_ingredients}
+                    id="mealIngredients"
+                    value={inputText.mealIngredients}
                     onChange={(e) => updateText(e.target.id, e.target.value)}
                     autoComplete="off"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && e.target.value != "") {
-                        mealData["meal_ingredients"].push(e.target.value);
+                        mealData["mealIngredients"].push(e.target.value);
                         setMealData({ ...mealData });
                         updateText(e.target.id, "");
                       }
@@ -279,21 +279,21 @@ const MealsModal = (props) => {
                 <div className="meals-modal-form-field">
                   <label>Instructions</label>
                   <ol className="extension">
-                    {mealData.meal_instructions.map((tag, idx) => (
-                      <li className="instruction_tag" key={idx}>
+                    {mealData.mealInstructions.map((tag, idx) => (
+                      <li className="instruction-tag" key={idx}>
                         {tag}
                       </li>
                     ))}
                   </ol>
                   <input
                     type="text"
-                    id="meal_instructions"
-                    value={inputText.meal_instructions}
+                    id="mealInstructions"
+                    value={inputText.mealInstructions}
                     onChange={(e) => updateText(e.target.id, e.target.value)}
                     autoComplete="off"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && e.target.value != "") {
-                        mealData["meal_instructions"].push(e.target.value);
+                        mealData["mealInstructions"].push(e.target.value);
                         setMealData({ ...mealData });
                         updateText(e.target.id, "");
                       }
@@ -303,11 +303,11 @@ const MealsModal = (props) => {
                 <div className="meals-modal-form-field">
                   <label>Tags</label>
                   <div className="extension">
-                    {mealData.meal_tags.map((tag, idx) => (
+                    {mealData.mealTags.map((tag, idx) => (
                       <span
                         className="tag"
                         key={idx}
-                        onClick={() => removeTag("meal_tags", idx)}
+                        onClick={() => removeTag("mealTags", idx)}
                       >
                         {tag}
                       </span>
@@ -315,13 +315,13 @@ const MealsModal = (props) => {
                   </div>
                   <input
                     type="text"
-                    id="meal_tags"
-                    value={inputText.meal_tags}
+                    id="mealTags"
+                    value={inputText.mealTags}
                     onChange={(e) => updateText(e.target.id, e.target.value)}
                     autoComplete="off"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && e.target.value != "") {
-                        mealData["meal_tags"].push(e.target.value);
+                        mealData["mealTags"].push(e.target.value);
                         setMealData({ ...mealData });
                         updateText(e.target.id, "");
                       }
@@ -336,12 +336,12 @@ const MealsModal = (props) => {
                     className={validated ? "" : "disabled"}
                     onClick={() => {
                       setMealData({
-                        meal_name: "",
-                        meal_ingredients: [],
-                        meal_description: "",
-                        meal_category: "select",
-                        meal_instructions: [],
-                        meal_tags: [],
+                        mealName: "",
+                        mealIngredients: [],
+                        mealDescription: "",
+                        mealCategory: "select",
+                        mealInstructions: [],
+                        mealTags: [],
                       });
                       props.handleSubmit(mealData);
                     }}
@@ -355,12 +355,12 @@ const MealsModal = (props) => {
                     className={validated ? "" : "disabled"}
                     onClick={() => {
                       setMealData({
-                        meal_name: "",
-                        meal_ingredients: [],
-                        meal_description: "",
-                        meal_category: "select",
-                        meal_instructions: [],
-                        meal_tags: [],
+                        mealName: "",
+                        mealIngredients: [],
+                        mealDescription: "",
+                        mealCategory: "select",
+                        mealInstructions: [],
+                        mealTags: [],
                       });
                       props.handleSubmit(mealData);
                     }}

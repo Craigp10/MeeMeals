@@ -10,10 +10,10 @@ import SaveLoader from "../../components/SavingLoader/SavingLoader";
 const Calendar = (props) => {
   const [activeDate, setActiveDate] = useState(dayjs().format("M/D/YYYY"));
   const [mealTimes, setMealTimes] = useState([
-    { meal_time: "Breakfast", meal_id: "" },
-    { meal_time: "Lunch", meal_id: "" },
-    { meal_time: "Dinner", meal_id: "" },
-    { meal_time: "Snack", meal_id: "" },
+    { mealTime: "Breakfast", mealId: "" },
+    { mealTime: "Lunch", mealId: "" },
+    { mealTime: "Dinner", mealId: "" },
+    { mealTime: "Snack", mealId: "" },
   ]);
 
   const [meals, setMeals] = useState([]);
@@ -26,24 +26,24 @@ const Calendar = (props) => {
   const [saveStatus, setSaveStatus] = useState(""); // available values: ["", "success", "pending", "error"]
   const [saveTimer, setSaveTimer] = useState(0);
 
-  const handleMealClick = (meal_id) => {
+  const handleMealClick = (mealId) => {
     setActiveMealClick(!activeMealClick);
     if (activeMealClick) {
       setActiveMeal("");
     } else {
-      setActiveMeal(meal_id);
+      setActiveMeal(mealId);
     }
   };
 
   const handleMealRemoveClick = (index) => {
     const updateMealTimes = mealTimes;
-    updateMealTimes[index].meal_id = "";
+    updateMealTimes[index].mealId = "";
     setMealTimes([...updateMealTimes]);
   };
 
   const handleMealDropClick = (index) => {
     const updateMealTimes = mealTimes;
-    updateMealTimes[index].meal_id = meals.filter(
+    updateMealTimes[index].mealId = meals.filter(
       (meal_) => meal_._id == activeMeal
     )[0]._id;
     setMealTimes([...updateMealTimes]);
@@ -70,16 +70,16 @@ const Calendar = (props) => {
       .then((resp) => {
         const schedule = resp.data.data;
         const activeMealTimes = [
-          { meal_time: "Breakfast", meal_id: "" },
-          { meal_time: "Lunch", meal_id: "" },
-          { meal_time: "Dinner", meal_id: "" },
-          { meal_time: "Snack", meal_id: "" },
+          { mealTime: "Breakfast", mealId: "" },
+          { mealTime: "Lunch", mealId: "" },
+          { mealTime: "Dinner", mealId: "" },
+          { mealTime: "Snack", mealId: "" },
         ];
         if (resp.status == 200) {
-          activeMealTimes[0].meal_id = schedule.breakfast;
-          activeMealTimes[1].meal_id = schedule.lunch;
-          activeMealTimes[2].meal_id = schedule.dinner;
-          activeMealTimes[3].meal_id = schedule.snack;
+          activeMealTimes[0].mealId = schedule.breakfast;
+          activeMealTimes[1].mealId = schedule.lunch;
+          activeMealTimes[2].mealId = schedule.dinner;
+          activeMealTimes[3].mealId = schedule.snack;
           setMealTimes([...activeMealTimes]);
         } else {
           setMealTimes([...activeMealTimes]);
@@ -95,10 +95,10 @@ const Calendar = (props) => {
       setSaveTimer(0);
 
       const changes = {
-        breakfast: mealTimes[0].meal_id,
-        lunch: mealTimes[1].meal_id,
-        dinner: mealTimes[2].meal_id,
-        snack: mealTimes[3].meal_id,
+        breakfast: mealTimes[0].mealId,
+        lunch: mealTimes[1].mealId,
+        dinner: mealTimes[2].mealId,
+        snack: mealTimes[3].mealId,
       };
       // const id = saveInterval();
       await apis
@@ -170,13 +170,13 @@ const Calendar = (props) => {
             {mealTimes.map((meal, index) => {
               return (
                 <div className="calendar-planner-meal" key={index}>
-                  <label>{meal.meal_time}</label>
+                  <label>{meal.mealTime}</label>
                   <MealDrop
                     meal={
-                      meals.filter((meal_) => meal_._id == meal.meal_id)
+                      meals.filter((meal_) => meal_._id == meal.mealId)
                         .length == 0
                         ? {}
-                        : meals.filter((meal_) => meal_._id == meal.meal_id)[0]
+                        : meals.filter((meal_) => meal_._id == meal.mealId)[0]
                     }
                     activeMealClick={activeMealClick}
                     mealClickCallback={handleMealDropClick}

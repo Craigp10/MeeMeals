@@ -10,7 +10,7 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({});
 
-  console.log("Authenticated", authenticated);
+  console.log("User Authenticated", authenticated);
   return (
     <Router>
       <div className="app">

@@ -33,7 +33,6 @@ const Home = (props) => {
 
   useEffect(async () => {
     if (props.user?.id) {
-      console.log("pulling for user", props.user);
       await apis
         .pullCalendarWeek({ user_id: props.user.id, week })
         .then((resp) => {
@@ -45,7 +44,7 @@ const Home = (props) => {
         .then((resp) => setUserMeals(resp.data.meals));
     }
   }, [props]);
-  console.log("home", weekMeals, userMeals);
+  // console.log("home", weekMeals, userMeals);
   return (
     <div className="home-content-wrapper">
       <div className="home-content-board">

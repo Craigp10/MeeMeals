@@ -3,7 +3,6 @@ import { Form, Button } from "react-bootstrap";
 import "./Login.css";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
-// import { ProvideAuth } from "./use-auth.js";
 
 const Login = (props) => {
   const history = useHistory();
@@ -20,8 +19,6 @@ const Login = (props) => {
   };
   return (
     <div className="login-wrapper">
-      {/* {!props.authenticated ? (
-        <> */}
       <div className="login-content-wrapper">
         <div className="login-content-inner">
           <h3>Log In</h3>
@@ -60,7 +57,6 @@ const Login = (props) => {
                 disabled
               />
             </Form.Group>
-
             <hr />
             <div className="login-form-buttons">
               <Button type="submit" disabled>
@@ -81,14 +77,6 @@ const Login = (props) => {
           </div>
         </div>
       </div>
-      {/* </>
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/",
-          }}
-        />
-      )} */}
     </div>
   );
 };

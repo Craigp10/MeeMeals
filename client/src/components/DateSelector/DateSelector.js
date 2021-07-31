@@ -3,7 +3,7 @@ import "./DateSelector.css";
 import dayjs from "dayjs";
 
 const DateSelector = (props) => {
-  const initial_dates = [
+  const INITIAL_DATES = [
     {
       date: dayjs(props.activeDate).subtract(3, "days").format("M/D/YYYY"),
       isActive: false,
@@ -30,11 +30,9 @@ const DateSelector = (props) => {
       isActive: false,
     },
   ];
-
-  const [dates, setDates] = useState(initial_dates);
+  const [dates, setDates] = useState(INITIAL_DATES);
 
   const updateActiveDate = (workingDates, index) => {
-    // const updatedDates = dates;
     let activeDate = "";
     workingDates.forEach((date, idx) => {
       if (idx != index) {
@@ -68,20 +66,6 @@ const DateSelector = (props) => {
       updateActiveDate(newDates, 6);
     }
   };
-
-  // useEffect(() => {
-  //   console.log("useEffect triggered");
-  //   // if (!dates.length) {
-  //   //   setDates(generateDates(props.activeDate));
-  //   // } else {
-  //   const dateAdded = {
-  //     date: "",
-  //     isActive: true,
-  //   };
-
-  //   props.setActiveDate(dateAdded.date);
-  //   // }
-  // }, dates);
 
   return (
     <div className="date-selector-wrapper">
