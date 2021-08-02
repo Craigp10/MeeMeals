@@ -25,10 +25,9 @@ const getMeals = async (req, res) => {
     },
     (err, doc) => doc
   );
-
   return res.status(201).json({
     success: true,
-    meals: user.meals,
+    meals: user.meals.filter((meal) => meal.isActive),
     message: "Meals successfully pulled",
   });
 };
@@ -52,20 +51,20 @@ const deleteMeal = async (req, res) => {
 const newMeal = async (req, res) => {
   const body = req.body;
   const meal = {};
-  meal.display_name = body.meal.meal_name;
+  meal.display_name = body.meal.mealName;
   meal.date_created = dayjs().format("M/D/YYYY");
-  meal.ingredients = body.meal.meal_ingredients;
-  meal.description = body.meal.meal_description;
-  meal.category = body.meal.meal_category;
-  meal.tags = body.meal.meal_tags;
-  meal.ingredients = body.meal.meal_ingredients;
-  meal.instructions = body.meal.meal_instructions;
+  meal.ingredients = body.meal.mealIngredients;
+  meal.description = body.meal.mealDescription;
+  meal.category = body.meal.mealCategory;
+  meal.tags = body.meal.mealTags;
+  meal.instructions = body.meal.mealInstructions;
   const updatedRecord = await User.findOneAndUpdate(
     { _id: body.user_id },
-    { $addToSet: { meals: meal } }, //DO NOT USE $PUSH, it was pushing duplicate entr
+    { $addToSet: { meals: meal } }, //DO NOT USE $PUSH, it was pushing duplicate entries
     { upsert: true },
     (err, doc) => doc
   );
+  console.log(updatedRecord);
   return res.status(201).json({
     success: true,
     meals: updatedRecord.meals,
@@ -77,14 +76,13 @@ const editMeal = async (req, res) => {
   const body = req.body;
   const meal = {};
   meal._id = body.meal._id;
-  meal.display_name = body.meal.meal_name;
+  meal.display_name = body.meal.mealName;
   meal.date_created = dayjs().format("M/D/YYYY");
-  meal.ingredients = body.meal.meal_ingredients;
-  meal.description = body.meal.meal_description;
-  meal.category = body.meal.meal_category;
-  meal.tags = body.meal.meal_tags;
-  meal.ingredients = body.meal.meal_ingredients;
-  meal.instructions = body.meal.meal_instructions;
+  meal.ingredients = body.meal.mealIngredients;
+  meal.description = body.meal.mealDescription;
+  meal.category = body.meal.mealCategory;
+  meal.tags = body.meal.mealTags;
+  meal.instructions = body.meal.mealInstructions;
   const updatedRecord = await User.findOneAndUpdate(
     { _id: body.user_id, meals: { $elemMatch: { _id: body.meal._id } } },
     { $set: { "meals.$": meal } }, //DO NOT USE $PUSH, it was pushing duplicate entries
