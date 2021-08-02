@@ -23,18 +23,7 @@ const App = () => {
             setUser={setUser}
             authenticated={authenticated}
           />
-
-          {/* <Route
-            path="/login"
-            render={() => (
-              <Login
-                setAuthenticated={setAuthenticated}
-                setUser={setUser}
-                authenticated={authenticated}
-              />
-            )}
-          /> */}
-          <PrivateRoute //Route component
+          <PrivateRoute
             path="/"
             component={Dashboard}
             isAuthenticated={authenticated}

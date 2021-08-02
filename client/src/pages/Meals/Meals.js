@@ -33,7 +33,7 @@ const Meals = (props) => {
     console.log("submitting data", data);
     const requestObj = {
       meal: data,
-      user_id: "60f5ffcaf12aefb5c7942f63",
+      user_id: props.user.id,
     };
     let resp = {};
     if (modalAction == "edit") {
@@ -57,7 +57,7 @@ const Meals = (props) => {
   const handleDelete = async (meal_id) => {
     const requestObj = {
       meal_id,
-      user_id: "60f5ffcaf12aefb5c7942f63",
+      user_id: props.user.id,
     };
     await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
   };

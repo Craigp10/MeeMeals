@@ -7,7 +7,7 @@ const TopBar = () => (
     <div className="topbar-title">
       <span
         className="topbar-title-text"
-        onClick={() => (window.location = "http://localhost:8000/")}
+        onClick={() => (window.location = window.location.origin)}
       >
         Mi Meals
       </span>
