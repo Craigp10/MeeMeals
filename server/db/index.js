@@ -57,7 +57,7 @@ async function initial() {
   });
   const newMeals = [
     {
-      isActive: false,
+      isActive: true,
       display_name: "Spinach Feta pasta w/ cherry tomatoes",
       ingredients: [
         "Cherry Tomatoes",
@@ -73,7 +73,7 @@ async function initial() {
         "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
     },
     {
-      isActive: false,
+      isActive: true,
       display_name: "Sausage, Rice, Peppers dish",
       ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
       date_created: "7/10/2021",

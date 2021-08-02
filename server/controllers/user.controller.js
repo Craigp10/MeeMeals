@@ -64,7 +64,7 @@ const newMeal = async (req, res) => {
     { upsert: true },
     (err, doc) => doc
   );
-  console.log(updatedRecord);
+  // console.log(updatedRecord);
   return res.status(201).json({
     success: true,
     meals: updatedRecord.meals,
