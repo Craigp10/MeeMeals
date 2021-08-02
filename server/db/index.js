@@ -55,15 +55,95 @@ async function initial() {
       });
     }
   });
-
-  // if (Users.findOne({username:"demo"}))
+  const newMeals = [
+    {
+      isActive: false,
+      display_name: "Spinach Feta pasta w/ cherry tomatoes",
+      ingredients: [
+        "Cherry Tomatoes",
+        "Spinach",
+        "pasta of choice",
+        "Red Onion",
+        "mozzarella",
+      ],
+      tags: ["Baked Dish", "Tik Tok"],
+      date_created: "7/6/2021",
+      category: "dinner",
+      description:
+        "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
+    },
+    {
+      isActive: false,
+      display_name: "Sausage, Rice, Peppers dish",
+      ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
+      date_created: "7/10/2021",
+      category: "lunch",
+      description: "",
+      tags: ["1 Pot", "Simple"],
+    },
+    {
+      isActive: true,
+      display_name: "Cereal",
+      ingredients: ["almost milk", "cinnamon toast crunch"],
+      tags: [],
+      date_created: "7/1/2021",
+      category: "breakfast",
+      description: "Pour milk then pour in cereal",
+    },
+    {
+      isActive: true,
+      display_name: "Chicken Parm",
+      ingredients: [
+        "Chicken breast",
+        "basil",
+        "cheese",
+        "breadcrumbs",
+        "egg",
+        "pasta",
+      ],
+      tags: ["Italian", "Date Nate"],
+      date_created: "12/6/2020",
+      category: "dinner",
+      description:
+        "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
+    },
+    {
+      isActive: true,
+      display_name: "Pad Thai",
+      ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
+      tags: ["Nut Allergy", "Thai Food"],
+      date_created: "5/6/2019",
+      category: "dinner",
+      description: "",
+    },
+    {
+      isActive: true,
+      display_name: "Peanut Butter Toast",
+      ingredients: ["bread", "creamy peanut butter"],
+      tags: ["Nut Allergy", "Simple"],
+      date_created: "5/6/2019",
+      category: "snack",
+      description: "",
+    },
+    {
+      isActive: true,
+      display_name: "Spaghetti and Sausage",
+      ingredients: ["bread", "creamy peanut butter"],
+      instructions: ["Make sauce", "Simmer sauce", "Boil noodles", "Combine"],
+      tags: ["Italian", "Vegetarian", "Date night"],
+      date_created: "8/1/2021",
+      category: "dinner",
+      description:
+        "Delicious vegetarian Italian meal picked up fresh herbs and animal free protein",
+    },
+  ];
   await User.findOne({ username: "demo" }, (err, user) => {
-    console.log(user);
     if (!user) {
       const user = new User({
         username: "demo",
         email: "demo@demo.com",
         password: bcrypt.hashSync("demopassword", 8),
+        meals: newMeals,
       });
       user.save((err, user) => {
         if (err) {
@@ -71,82 +151,17 @@ async function initial() {
           return;
         }
       });
-
       console.log("DEMO USER CREATED", user);
     } else {
       console.log("DEMO USER FOUND", user._id);
     }
   });
+
   await User.find({ username: "demo" }, (err, user) => {
-    console.log(user);
-    if (!user[0]?.meals.length) {
-      const new_meals = [
-        {
-          isActive: true,
-          display_name: "Spinach Feta pasta w/ cherry tomatoes",
-          ingredients: [
-            "Cherry Tomatoes",
-            "Spinach",
-            "pasta of choice",
-            "onion",
-          ],
-          date_created: "7/6/2021",
-          category: "dinner",
-          description:
-            "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
-        },
-        {
-          isActive: true,
-          display_name: "Sausage, Rice, Peppers dish",
-          ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
-          date_created: "7/10/2021",
-          category: "lunch",
-          description: "",
-        },
-        {
-          isActive: true,
-          display_name: "Cereal",
-          ingredients: ["almost milk", "cinnamon toast crunch"],
-          date_created: "7/1/2021",
-          category: "breakfast",
-          description: "Pour milk then pour in cereal",
-        },
-        {
-          isActive: true,
-          display_name: "Chicken Parm",
-          ingredients: [
-            "Chicken breast",
-            "basil",
-            "cheese",
-            "breadcrumbs",
-            "egg",
-            "pasta",
-          ],
-          date_created: "12/6/2020",
-          category: "dinner",
-          description:
-            "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
-        },
-        {
-          isActive: true,
-          display_name: "Pad Thai",
-          ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
-          date_created: "5/6/2019",
-          category: "dinner",
-          description: "",
-        },
-        {
-          isActive: true,
-          display_name: "Peanut Butter Toast",
-          ingredients: ["bread", "creamy peanut butter"],
-          date_created: "5/6/2019",
-          category: "snack",
-          description: "",
-        },
-      ];
+    if (user[0] && user[0].meals.length == 0) {
       User.findOneAndUpdate(
         { _id: user[0]._id },
-        { $set: { meals: new_meals } },
+        { $set: { meals: newMeals } },
         { new: true },
         (err, doc) => {
           if (err) {
@@ -159,78 +174,78 @@ async function initial() {
     }
   });
 
-  Meals.find({}, (err, meals) => {
-    if (!meals.length) {
-      [
-        {
-          user_id: "60e61a2a2990e3bac72f35cc",
-          display_name: "Spinach Mozzerla pasta w/ cherry tomatoes",
-          ingredients: [
-            "Cherry Tomatoes",
-            "Spinach",
-            "pasta of choice",
-            "onion",
-          ],
-          date_created: "7/6/2021",
-          category: "dinner",
-          description:
-            "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
-        },
-        {
-          user_id: "60e61a2a2990e3bac72f35cc",
-          display_name: "Sausage, Rice, Peppers dish",
-          ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
-          date_created: "7/10/2021",
-          category: "lunch",
-          description: "",
-        },
-        {
-          user_id: "60e61a2a2990e3bac72f35cc",
-          display_name: "Cereal",
-          ingredients: ["almost milk", "cinnamon toast crunch"],
-          date_created: "7/1/2021",
-          category: "breakfast",
-          description: "Pour milk then pour in cereal",
-        },
-        {
-          user_id: "60e61a2a2990e3bac72f35cc",
-          display_name: "Chicken Parm",
-          ingredients: [
-            "Chicken breast",
-            "basil",
-            "cheese",
-            "breadcrumbs",
-            "egg",
-            "pasta",
-          ],
-          date_created: "12/6/2020",
-          category: "dinner",
-          description:
-            "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
-        },
-        {
-          user_id: "60e61a2a2990e3bac72f35cc",
-          display_name: "Pad Thai",
-          ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
-          date_created: "5/6/2019",
-          category: "dinner",
-          description: "",
-        },
-        {
-          user_id: "60e61a2a2990e3bac72f35cc",
-          display_name: "Peanut Butter Toast",
-          ingredients: ["bread", "creamy peanut butter"],
-          date_created: "5/6/2019",
-          category: "snack",
-          description: "",
-        },
-      ].forEach((meal) => {
-        new Meals(meal).save((err) =>
-          console.log(`added ${meal.display_name} to roles collection`)
-        );
-      });
-    }
-  });
+  // Meals.find({}, (err, meals) => {
+  //   if (!meals.length) {
+  //     [
+  //       {
+  //         user_id: "60e61a2a2990e3bac72f35cc",
+  //         display_name: "Spinach Mozzerla pasta w/ cherry tomatoes",
+  //         ingredients: [
+  //           "Cherry Tomatoes",
+  //           "Spinach",
+  //           "pasta of choice",
+  //           "onion",
+  //         ],
+  //         date_created: "7/6/2021",
+  //         category: "dinner",
+  //         description:
+  //           "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
+  //       },
+  //       {
+  //         user_id: "60e61a2a2990e3bac72f35cc",
+  //         display_name: "Sausage, Rice, Peppers dish",
+  //         ingredients: ["Sausage", "Rice", "Bell Peppers", "Yellow Onion"],
+  //         date_created: "7/10/2021",
+  //         category: "lunch",
+  //         description: "",
+  //       },
+  //       {
+  //         user_id: "60e61a2a2990e3bac72f35cc",
+  //         display_name: "Cereal",
+  //         ingredients: ["almost milk", "cinnamon toast crunch"],
+  //         date_created: "7/1/2021",
+  //         category: "breakfast",
+  //         description: "Pour milk then pour in cereal",
+  //       },
+  //       {
+  //         user_id: "60e61a2a2990e3bac72f35cc",
+  //         display_name: "Chicken Parm",
+  //         ingredients: [
+  //           "Chicken breast",
+  //           "basil",
+  //           "cheese",
+  //           "breadcrumbs",
+  //           "egg",
+  //           "pasta",
+  //         ],
+  //         date_created: "12/6/2020",
+  //         category: "dinner",
+  //         description:
+  //           "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
+  //       },
+  //       {
+  //         user_id: "60e61a2a2990e3bac72f35cc",
+  //         display_name: "Pad Thai",
+  //         ingredients: ["Peanut Butter", "egg", "pad thai sauce", "onion"],
+  //         date_created: "5/6/2019",
+  //         category: "dinner",
+  //         description: "",
+  //       },
+  //       {
+  //         user_id: "60e61a2a2990e3bac72f35cc",
+  //         display_name: "Peanut Butter Toast",
+  //         ingredients: ["bread", "creamy peanut butter"],
+  //         date_created: "5/6/2019",
+  //         category: "snack",
+  //         description: "",
+  //       },
+  //     ].forEach((meal) => {
+  //       new Meals(meal).save((err) =>
+  //         console.log(`added ${meal.display_name} to roles collection`)
+  //       );
+  //     });
+  //   }
+  // });
 }
 
 db = mongoose.connection;
