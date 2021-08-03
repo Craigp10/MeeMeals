@@ -27,10 +27,11 @@ const Calendar = (props) => {
   const [saveTimer, setSaveTimer] = useState(0);
 
   const handleMealClick = (mealId) => {
-    setActiveMealClick(!activeMealClick);
-    if (activeMealClick) {
+    if (mealId == activeMeal) {
+      setActiveMealClick(false);
       setActiveMeal("");
     } else {
+      setActiveMealClick(true);
       setActiveMeal(mealId);
     }
   };
