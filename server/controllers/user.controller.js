@@ -16,8 +16,7 @@ const getMeals = async (req, res) => {
       message: "Meals successfully pulled",
     });
   } catch (e) {
-    console.log(e);
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       meals: [],
       message: "Error pulling meals",
@@ -56,7 +55,6 @@ const newMeal = async (req, res) => {
     { upsert: true },
     (err, doc) => doc
   );
-  // console.log(updatedRecord);
   return res.status(201).json({
     success: true,
     meals: updatedRecord.meals,
@@ -91,10 +89,6 @@ const editMeal = async (req, res) => {
 };
 
 module.exports = {
-  allAccess,
-  userBoard,
-  adminBoard,
-  moderatorBoard,
   getMeals,
   newMeal,
   deleteMeal,
