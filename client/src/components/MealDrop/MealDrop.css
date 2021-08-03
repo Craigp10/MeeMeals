@@ -57,8 +57,8 @@
   white-space: nowrap;
 }
 
-.mealdrop-content-header span {
-  padding: 10px 15px 10px 10px;
+.mealdrop-content-header-options {
+  padding: 2px 20px;
 }
 
 .mealdrop-content-footer {
@@ -68,4 +68,15 @@
   justify-content: space-between;
   padding: 0 10px 5px;
   font-size: 1rem;
+}
+
+.mealdrop-content-header-options span {
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.mealdrop-content-header-options span:hover {
+  background-color: white;
+  color: #02203c;
+  cursor: pointer;
 }
