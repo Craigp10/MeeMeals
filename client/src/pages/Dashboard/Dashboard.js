@@ -5,11 +5,18 @@ import Home from "../Homepage/Homepage";
 import Meals from "../Meals/Meals";
 import Calendar from "../Calendar/Calendar";
 import NotFound from "../NotFound/NotFound";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 import "./Dashboard.css";
+import apis from "../../api/index";
 
 const Dashboard = (props) => {
   const [user, setUser] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     if (props?.user) {
@@ -17,12 +24,21 @@ const Dashboard = (props) => {
     }
   }, [props]);
 
+  const logout = () => {
+    console.log("logout clicked");
+    apis.logout().then((resp) => {
+      console.log(resp);
+      props.setAuthenticated(false);
+      history.push("/");
+    });
+  };
+  console.log("props", props);
   return (
     <div className="dashboard-wrapper">
       <Router>
         <div className="dashboard-content">
           <div className="dashboard-topbar">
-            <TopBar />
+            <TopBar logout={logout} />
           </div>
           <div className="dashboard-navigationbar">
             <NavigationBar />

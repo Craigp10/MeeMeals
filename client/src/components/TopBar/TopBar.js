@@ -2,7 +2,7 @@ import React from "react";
 import logout from "../../images/logout.png";
 import "./TopBar.css";
 
-const TopBar = () => (
+const TopBar = (props) => (
   <div className="topbar-wrapper">
     <div className="topbar-title">
       <span
@@ -14,7 +14,11 @@ const TopBar = () => (
     </div>
     <div className="topbar-leftover">
       <div className="topbar-icon">
-        <span className="glyphicon glyphicon-user"></span>
+        <span
+          className="glyphicon glyphicon-user"
+          alt="logout"
+          onClick={props.logout}
+        ></span>
       </div>
     </div>
   </div>

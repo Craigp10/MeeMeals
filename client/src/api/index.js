@@ -19,6 +19,7 @@ export const editMeal = (payload) => api.post("user/editMeal", payload);
 export const demoLogin = () =>
   api.post("auth/signin", { username: "demo", password: "demopassword" });
 export const checkSession = () => api.get("auth/checkSession");
+export const logout = () => api.get("/auth/logout");
 
 const apis = {
   getAllMeals,
@@ -31,6 +32,7 @@ const apis = {
   editMeal,
   demoLogin,
   checkSession,
+  logout,
 };
 
 export default apis;
