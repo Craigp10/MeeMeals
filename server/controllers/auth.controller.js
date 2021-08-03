@@ -3,7 +3,6 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
-let jwt = require("jsonwebtoken");
 let bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
@@ -61,7 +60,6 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  console.log("SIGNIN", req.sessionID);
   User.findOne({
     username: req.body.username,
   })
@@ -83,41 +81,33 @@ exports.signin = (req, res) => {
 
       if (!passwordIsValid) {
         return res.status(401).send({
-          accessToken: null,
           message: "Invalid Password!",
         });
       }
 
       req.session.isAuth = true;
-      // let token = jwt.sign({ id: user.id }, config.secret, {
-      //   expiresIn: 86400, // 24 hours
-      // });
 
-      let authorities = [];
-
-      // for (let i = 0; i < user.roles.length; i++) {
-      //   authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      // }
+      req.session.user = {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      };
 
       res.status(200).send({
         id: user._id,
         username: user.username,
         email: user.email,
-        // roles: authorities,
-        // accessToken: token,
       });
     });
 };
 
 exports.getSession = (req, res) => {
   console.log("Check Session", req.sessionID, req.session.isAuth);
-  // if (req.session.isAuth) {
-  //   console.log(req.session.isAuth);
-  //   res.redirect("/");
-  // }
+
   return res.status(200).send({
     sessionID: req.sessionID,
     isAuth: req.session.isAuth,
+    user: req.session.user,
     a: "hello",
   });
 };

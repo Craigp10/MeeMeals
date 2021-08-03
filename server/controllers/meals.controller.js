@@ -2,7 +2,6 @@ const Meals = require("../models/meals.model");
 
 getMeals = async (req, res) => {
   await Meals.find({}, (err, meals) => {
-    console.log("meals", meals);
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }

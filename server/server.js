@@ -63,7 +63,7 @@ app.all("*", (req, res, next) => {
   if (!req.session.isAuth) {
     req.session.isAuth = false;
   }
-  console.log("sesionID", req.sessionID, req.session.isAuth);
+  // console.log("sesionID", req.sessionID, req.session.isAuth);
 
   next();
 });
