@@ -13,15 +13,21 @@ const calendarRouter = require("./routes/calendar.router");
 const Redis = require("ioredis");
 const apiPort = 3000;
 
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:8000",
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 app.use(bodyParser.json());
 
 const redis = new Redis({
   //client to our redis store
-  port: Number(process.env.REDIS_PORT),
-  host: process.env.REDIS_HOST,
-  password: process.env.REDIS_PASSWORD,
+  port: Number(sessionConfig.REDIS_PORT),
+  host: sessionConfig.REDIS_HOST,
+  password: sessionConfig.REDIS_PASSWORD,
 });
 const RedisStore = connectRedis(session);
 const redisStore = new RedisStore({
@@ -31,26 +37,35 @@ const redisStore = new RedisStore({
 app.use(
   session({
     //data store for express session
-    store: redisStore, //stored in our redis store
-    name: sessionConfig.COOKIE_NAME,
+    store: redisStore, //stores session in our redis store
+    name: sessionConfig.COOKIE_NAME, //Cookie name
     sameSite: "Strict", //security implementation so that our session doesn't hold cookies from other domains
-    secret: sessionConfig.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    secret: sessionConfig.SESSION_SECRET, //Secret to validate/save
+    resave: false, //Creates new session every request if true
+    saveUninitialized: false, //If session isn't modified we don't want to save
     cookie: {
       path: "/",
       httpOnly: true, //this allows JS from accessing cookie, avoids attacks in the browser
       secure: false,
-      maxAge: 1000 * 60 * 60 * 8,
+      maxAge: 1000 * 60 * 60 * 8, //expires in 8 hours
     },
   })
 );
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-app.get("/", (req, res) => {
-  res.send("Hello Worlds!");
-  console.log("SESSION", req.session);
+app.all("*", (req, res, next) => {
+  // if (!req.session.views) {
+  //   req.session.views = 0;
+  // }
+
+  // req.session.views += 1;
+  if (!req.session.isAuth) {
+    req.session.isAuth = false;
+  }
+  console.log("sesionID", req.sessionID, req.session.isAuth);
+
+  next();
 });
 
 app.use("/meals", mealsRouter);

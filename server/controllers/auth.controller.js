@@ -3,8 +3,8 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+let jwt = require("jsonwebtoken");
+let bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   const user = new User({
@@ -29,14 +29,12 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: err });
             return;
           }
-
           user.roles = roles.map((role) => role._id);
           user.save((err) => {
             if (err) {
               res.status(500).send({ message: err });
               return;
             }
-
             res.send({ message: "User was registered successfully!" });
           });
         }
@@ -63,6 +61,7 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+  console.log("SIGNIN", req.sessionID);
   User.findOne({
     username: req.body.username,
   })
@@ -77,7 +76,7 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "User Not found." });
       }
 
-      var passwordIsValid = bcrypt.compareSync(
+      let passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -89,21 +88,36 @@ exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
-      });
+      req.session.isAuth = true;
+      // let token = jwt.sign({ id: user.id }, config.secret, {
+      //   expiresIn: 86400, // 24 hours
+      // });
 
-      var authorities = [];
+      let authorities = [];
 
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
+      // for (let i = 0; i < user.roles.length; i++) {
+      //   authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
+      // }
+
       res.status(200).send({
         id: user._id,
         username: user.username,
         email: user.email,
-        roles: authorities,
-        accessToken: token,
+        // roles: authorities,
+        // accessToken: token,
       });
     });
+};
+
+exports.getSession = (req, res) => {
+  console.log("Check Session", req.sessionID, req.session.isAuth);
+  // if (req.session.isAuth) {
+  //   console.log(req.session.isAuth);
+  //   res.redirect("/");
+  // }
+  return res.status(200).send({
+    sessionID: req.sessionID,
+    isAuth: req.session.isAuth,
+    a: "hello",
+  });
 };
