@@ -26,7 +26,16 @@ const App = () => {
 
   return (
     <Router>
-      <div className="app">
+      <div
+        className="app"
+        onKeyDown={(e) => {
+          var code = e.which || e.keyCode; //Get key code
+          if ((e.ctrlKey || e.metaKey) && code == 83) {
+            e.preventDefault();
+            return;
+          }
+        }}
+      >
         {!isLoading ? (
           <Switch>
             <PublicRoute
