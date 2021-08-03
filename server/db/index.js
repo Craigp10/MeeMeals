@@ -55,6 +55,7 @@ async function initial() {
       });
     }
   });
+
   const newMeals = [
     {
       isActive: true,

@@ -9,5 +9,4 @@ router.post("/newMeal", controller.newMeal);
 
 router.post("/deleteMeal", controller.deleteMeal);
 router.post("/editMeal", controller.editMeal);
-
 module.exports = router;
