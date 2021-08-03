@@ -16,5 +16,6 @@ router.post(
 router.post("/signin", controller.signin);
 
 router.get("/checkSession", controller.getSession);
+router.get("/logout", controller.logout);
 
 module.exports = router;

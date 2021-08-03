@@ -111,3 +111,17 @@ exports.getSession = (req, res) => {
     a: "hello",
   });
 };
+
+exports.logout = async (req, res) => {
+  console.log("logout called");
+  await req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log("session destoryed");
+  });
+  return res.status(200).clearCookie("Demo-Session").send({
+    success: true,
+    message: "Successful logout",
+  });
+};

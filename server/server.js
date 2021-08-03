@@ -47,7 +47,7 @@ app.use(
       path: "/",
       httpOnly: true, //this allows JS from accessing cookie, avoids attacks in the browser
       secure: false,
-      maxAge: 1000 * 60 * 60 * 8, //expires in 8 hours
+      maxAge: 1000 * 60 * 30, //30minutes //60 * 8, //expires in 8 hours
     },
   })
 );
@@ -55,15 +55,9 @@ app.use(
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.all("*", (req, res, next) => {
-  // if (!req.session.views) {
-  //   req.session.views = 0;
-  // }
-
-  // req.session.views += 1;
   if (!req.session.isAuth) {
     req.session.isAuth = false;
   }
-  // console.log("sesionID", req.sessionID, req.session.isAuth);
 
   next();
 });
