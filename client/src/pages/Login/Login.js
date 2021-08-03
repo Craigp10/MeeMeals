@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./Login.css";
 import { Link, useHistory, withRouter } from "react-router-dom";
@@ -6,9 +6,15 @@ import apis from "../../api/index";
 
 const Login = (props) => {
   const history = useHistory();
+
+  useEffect(() => {
+    if (props.authenticated) {
+      history.replace({ pathname: "/" });
+    }
+  }, [props]);
+
   const handleSubmit = async () => {
     await apis.demoLogin().then((resp) => {
-      console.log(resp);
       if (resp.status == 200) {
         console.log("Successful Login!");
         props.setAuthenticated(true);
@@ -17,7 +23,6 @@ const Login = (props) => {
       }
     });
   };
-  console.log(props);
   return (
     <div className="login-wrapper">
       <div className="login-content-wrapper">
