@@ -203,7 +203,7 @@ const Calendar = (props) => {
           {meals
             .filter((meal) => {
               if (categoryFilter == "all") {
-                let mealData = [
+                const mealData = [
                   meal.display_name,
                   ...meal.tags.map((tag) => tag),
                   ...meal.ingredients.map((ingredient) => ingredient),

@@ -32,7 +32,6 @@ const Dashboard = (props) => {
       history.push("/");
     });
   };
-  console.log("props", props);
   return (
     <div className="dashboard-wrapper">
       <Router>
