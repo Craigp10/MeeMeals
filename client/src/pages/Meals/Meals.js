@@ -9,7 +9,7 @@ const Meals = (props) => {
   const [show, setShow] = useState(false);
   const [modalAction, setModalAction] = useState("");
   const [activeMeal, setActiveMeal] = useState({});
-
+  const [searchFilter, setSearchFilter] = useState("");
   useEffect(async () => {
     await apis
       .getUserMeals({ user_id: props.user.id })
@@ -59,8 +59,12 @@ const Meals = (props) => {
       meal_id,
       user_id: props.user.id,
     };
-    await apis.deleteMeal(requestObj).then((resp) => setMeals(resp.data.meals));
+    await apis.deleteMeal(requestObj).then((resp) => {
+      console.log(resp.data.meals);
+      setMeals(resp.data.meals);
+    });
   };
+
   // if (props.location.state?.mealPreview && !show) {
   //   console.log("MEAL PREVIEW1", props.location.state.mealPreview);
   //   handleShow(
@@ -81,12 +85,19 @@ const Meals = (props) => {
       ) : null}
       <div className="meals-content-board">
         <div className="meals-board-header">
-          <div className="save-message">
-            {/* <saveComponentHandler/> */}
-            {/* Save message */}
+          <div className="meals-header-search">
+            <span className="search glyphicon glyphicon-search">
+              <input
+                id="search"
+                value={props.searchFilter}
+                placeholder="Search Meals"
+                onChange={(e) => setSearchFilter(e.target.value)}
+                autoComplete={"off"}
+              />
+            </span>
           </div>
-          <div className="title">Your Meals</div>
-          <div className="create">
+          <div className="meals-header-title">Your Meals</div>
+          <div className="meals-header-create">
             <button type="button" onClick={() => handleShow("create")}>
               Create A Meal
             </button>
@@ -99,17 +110,29 @@ const Meals = (props) => {
                 You do not have any meals created!
               </div>
             ) : (
-              meals.map((meal, idx) => (
-                <li key={meal._id}>
-                  <MealBox
-                    index={idx}
-                    meal={meal}
-                    deleteMeal={handleDelete}
-                    handleShow={handleShow}
-                    disable={show}
-                  />
-                </li>
-              ))
+              meals
+                .filter((meal, idx) => {
+                  const mealData = [
+                    meal.display_name,
+                    ...meal.tags.map((tag) => tag),
+                    ...meal.ingredients.map((ingredient) => ingredient),
+                  ];
+                  return mealData
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(searchFilter.toLowerCase());
+                })
+                .map((meal, idx) => (
+                  <li key={meal._id}>
+                    <MealBox
+                      index={idx}
+                      meal={meal}
+                      deleteMeal={handleDelete}
+                      handleShow={handleShow}
+                      disable={show}
+                    />
+                  </li>
+                ))
             )}
           </ul>
         </div>

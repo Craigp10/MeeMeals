@@ -204,16 +204,23 @@ const Calendar = (props) => {
             .filter((meal) => {
               if (categoryFilter == "all") {
                 let mealData = [
-                  meal.display_name.toLowerCase(),
-                  ...meal.tags.map((tag) => tag.toLowerCase()),
-                  ...meal.ingredients.map((ingredient) =>
-                    ingredient.toLowerCase()
-                  ),
+                  meal.display_name,
+                  ...meal.tags.map((tag) => tag),
+                  ...meal.ingredients.map((ingredient) => ingredient),
                 ];
-                return mealData.join(" ").includes(searchFilter.toLowerCase());
+                return mealData
+                  .join(" ")
+                  .toLowerCase()
+                  .includes(searchFilter.toLowerCase());
               } else {
+                const mealData = [
+                  meal.display_name,
+                  ...meal.tags.map((tag) => tag),
+                  ...meal.ingredients.map((ingredient) => ingredient),
+                ];
                 return (
-                  meal.display_name
+                  mealData
+                    .join(" ")
                     .toLowerCase()
                     .includes(searchFilter.toLowerCase()) &&
                   meal.category == categoryFilter

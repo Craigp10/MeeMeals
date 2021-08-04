@@ -3,6 +3,10 @@
   height: 80px;
 }
 
+.date-selector-wrapper .glyphicon {
+  color: #02203c;
+}
+
 .date-selector-wrapper {
   display: flex;
   justify-content: center;

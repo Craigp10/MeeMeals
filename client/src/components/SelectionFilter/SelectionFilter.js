@@ -54,6 +54,7 @@ const SelectionFilter = (props) => {
           value={props.searchFilter}
           placeholder="Search by name, ingredients and tags"
           onChange={(e) => props.setSearchFilter(e.target.value)}
+          autoComplete={"off"}
         />
       </span>
     </div>

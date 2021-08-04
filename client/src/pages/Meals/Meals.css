@@ -28,27 +28,54 @@
 
 .meals-board-header div {
   text-align: center;
-  padding-top: 20px;
 }
 
 .meals-board-scroll {
   overflow: scroll;
   height: calc(100% - 100px);
 }
-
 .meals-content-header {
   text-align: center;
 }
 
-.meals-board-header .title {
-  font-weight: bold;
-  font-size: 24px;
+.meals-header-search {
+  display: flex;
+  justify-content: center;
+  padding: 10px 5px;
 }
 
-.meals-board-header button {
+.meals-content-wrapper .search {
+  width: 95%;
+  height: 100%;
+  /* border: 1px solid green; */
+
+  padding: 0 10px;
+  display: flex;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0 0px 36px -18px rgb(0 0 0 / 30%);
+}
+
+.meals-content-wrapper #search {
+  border: none;
+  font-size: 18px;
+}
+
+.meals-header-title {
+  font-weight: bold;
+  font-size: 24px;
+  padding-top: 15px;
+}
+
+.meals-header-create {
+  padding: 15px;
+}
+.meals-header-create button {
   border-radius: 25px;
   color: #02203c;
-  background: white;
+  background: none;
   font-weight: bold;
   padding: 5px;
   border: none;

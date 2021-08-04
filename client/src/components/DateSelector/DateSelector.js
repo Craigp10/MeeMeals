@@ -42,7 +42,6 @@ const DateSelector = (props) => {
         activeDate = date.date;
       }
     });
-    console.log(activeDate);
     setDates([...workingDates]);
     props.setActiveDate(activeDate);
   };

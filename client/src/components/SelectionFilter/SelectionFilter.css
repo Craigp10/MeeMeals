@@ -18,7 +18,7 @@
 }
 
 .filterBtn:hover {
-  /* background-color: #02203c;
+  /* background-color: .filter-selection-wrapper #02203c;
   color: white; */
 }
 
@@ -31,34 +31,34 @@
   transition: all ease 0.5s;
 }
 
-#all {
+.filter-selection-wrapper #all {
   grid-column: 2 / 4;
   grid-row: 1;
   width: 70%;
   margin: 0 auto;
 }
 
-#breakfast {
+.filter-selection-wrapper #breakfast {
   grid-column: 1;
   grid-row: 2;
 }
 
-#lunch {
+.filter-selection-wrapper #lunch {
   grid-column: 2;
   grid-row: 2;
 }
 
-#dinner {
+.filter-selection-wrapper #dinner {
   grid-column: 3;
   grid-row: 2;
 }
 
-#snack {
+.filter-selection-wrapper #snack {
   grid-column: 4;
   grid-row: 2;
 }
 
-#search {
+.filter-selection-wrapper #search {
   border: none;
 }
 
@@ -66,7 +66,7 @@
   text-decoration: none;
 }
 
-.glyphicon-search {
+.filter-selection-wrapper .glyphicon-search {
   grid-column: 1/5;
   grid-row: 3;
   padding: 0 10px;
@@ -78,7 +78,6 @@
 }
 
 .glyphicon-search input {
-  /* appearance: none; */
   outline: none;
   width: 100%;
   padding: 0 20px;
