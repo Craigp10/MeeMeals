@@ -71,7 +71,7 @@ async function initial() {
       date_created: "7/6/2021",
       category: "dinner",
       description:
-        "First seer the tomatoes with a hot pan, once seered for color lower heat and add oil. Add the onions and garlic, once those are fraguent then everything else. After bake for 30mins.",
+        "First seer the tomatoes with a hot pan, once seared for color lower heat and add oil. Add the onions and garlic, once those are good then everything else. After bake for 30mins.",
     },
     {
       isActive: true,

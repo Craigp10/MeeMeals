@@ -26,15 +26,17 @@ const getMeals = async (req, res) => {
 
 const deleteMeal = async (req, res) => {
   const body = req.body;
+  console.log(body);
   const updatedRecord = await User.findOneAndUpdate(
-    { _id: body.user_id },
-    { $pull: { meals: { _id: body.meal_id } } },
+    { _id: body.user_id, meals: { $elemMatch: { _id: body.meal_id } } },
+    { $set: { "meals.$.isActive": false } },
+    { new: true },
     (err, doc) => doc
   );
-
+  console.log(updatedRecord.meals);
   return res.status(201).json({
     success: true,
-    meals: updatedRecord.meals,
+    meals: updatedRecord.meals.filter((meal) => meal.isActive),
     message: "successfully deleted meal",
   });
 };
@@ -76,7 +78,7 @@ const editMeal = async (req, res) => {
   const updatedRecord = await User.findOneAndUpdate(
     { _id: body.user_id, meals: { $elemMatch: { _id: body.meal._id } } },
     { $set: { "meals.$": meal } }, //DO NOT USE $PUSH, it was pushing duplicate entries
-    // { new: true },
+    { new: true },
     (err, doc) => doc
   );
 
