@@ -15,7 +15,6 @@ const Calendar = (props) => {
     { mealTime: "Dinner", mealId: "" },
     { mealTime: "Snack", mealId: "" },
   ]);
-
   const [meals, setMeals] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [searchFilter, setSearchFilter] = useState("");
@@ -101,7 +100,7 @@ const Calendar = (props) => {
         dinner: mealTimes[2].mealId,
         snack: mealTimes[3].mealId,
       };
-      // const id = saveInterval();
+
       await apis
         .saveCalendarChanges({
           date: activeDate,
@@ -128,7 +127,6 @@ const Calendar = (props) => {
         setSaving(true);
       }
     }, 500);
-
     return () => clearTimeout(timer);
   }, [saveStatus]);
 
@@ -146,11 +144,11 @@ const Calendar = (props) => {
   return (
     <div className="calendar-content-wrapper">
       <div className="calendar-content-board">
-        <div className="calendar-content-board-dates">
+        <div className="calendar-content-board__dates">
           <DateSelector activeDate={activeDate} setActiveDate={setActiveDate} />
         </div>
-        <div className="calendar-content-board-planner">
-          <div className="calendar-planner-saver">
+        <div className="calendar-content-board__planner">
+          <div className="calendar__planner-saver">
             {saveStatus == "" ? (
               <p className="fade"></p>
             ) : saveStatus == "error" ? (
@@ -167,10 +165,10 @@ const Calendar = (props) => {
               <SaveLoader saving={saving} saveStatus={saveStatus} />
             )}
           </div>
-          <div className="calendar-planner-content">
+          <div className="calendar__planner-content">
             {mealTimes.map((meal, index) => {
               return (
-                <div className="calendar-planner-meal" key={index}>
+                <div className="calendar__planner-meal" key={index}>
                   <label>{meal.mealTime}</label>
                   <MealDrop
                     meal={
@@ -191,7 +189,7 @@ const Calendar = (props) => {
           <></>
         </div>
       </div>
-      <div className="calendar-content-meal-selection">
+      <div className="calendar-content__selection">
         <FilterSelection
           setSearchFilter={setSearchFilter}
           searchFilter={searchFilter}
@@ -199,7 +197,7 @@ const Calendar = (props) => {
           categoryFilter={categoryFilter}
         />
 
-        <ul className="calendar-content-meal-selection-scroll">
+        <ul className="calendar-content__selection-scroll">
           {meals
             .filter((meal) => {
               if (categoryFilter == "all") {
@@ -229,30 +227,30 @@ const Calendar = (props) => {
             })
             .map((meal, index) => {
               return (
-                <div key={index} className="selection-scroll-meal-wrapper">
+                <div key={index} className="calendar__selection__meal-wrapper">
                   <li
-                    className="selection-scroll-meal"
+                    className="calendar__selection__meal"
                     onClick={() => handleMealClick(meal._id)}
                   >
-                    <div className="calendar-content-meal-header">
-                      <div className="calendar-content-meal-displayname">
+                    <div className="calendar__selection__meal-header">
+                      <div className="calendar__selection__meal-displayname">
                         {meal.display_name}
                       </div>
                     </div>
-                    <div className="calendar-content-meal-body">
+                    <div className="calendar__selection__meal-body">
                       <label>Ingredients</label>
-                      <div className="calendar-content-meal-tags">
+                      <div className="calendar__selection__meal-tags">
                         {meal.ingredients.map((ingredients, idx) => (
-                          <span className="tag" key={idx}>
+                          <span className="__meal-tag" key={idx}>
                             {ingredients}
                           </span>
                         ))}
                       </div>
                       <hr />
                       <label>Tags</label>
-                      <div className="calendar-content-meal-tags">
+                      <div className="calendar__selection__meal-tags">
                         {meal.tags.map((tag, idx) => (
-                          <span className="tag" key={idx}>
+                          <span className="__meal-tag" key={idx}>
                             {tag}
                           </span>
                         ))}

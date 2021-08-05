@@ -3,7 +3,7 @@
   height: 100%;
 }
 
-.glyphicon-chevron-left .glyphicon-chevron-right {
+.calendar-content-wrapper .glyphicon-chevron-left .glyphicon-chevron-right {
   color: #02203c;
 }
 
@@ -16,7 +16,7 @@
   width: 70%;
 }
 
-.calendar-content-board-dates {
+.calendar-content-board__dates {
   background-color: rgb(236, 236, 236);
   width: 100%;
   height: 80px;
@@ -25,31 +25,25 @@
   align-items: flex-end;
 }
 
-.calendar-content-meal-selection {
+.calendar-content__selection {
   height: calc(100vh - 75px);
-  /* Minus the top bar px */
   flex-grow: 1;
   overflow: hidden;
   border-left: 1px solid #02203c;
-  /* box-shadow: 0 0 20px 0.5px #000000; */
 }
 
-.calendar-content-meal-selection-scroll {
+.calendar-content__selection-scroll {
   padding: 0;
   overflow: scroll;
   height: calc(100vh - 195px);
   display: flex;
   flex-direction: column;
-  /* list-style-type: none; */
+  list-style-type: none;
   align-items: center;
+  border: 1px solid green;
 }
 
-.selection-scroll-meal:hover {
-  cursor: pointer;
-  background-color: rgb(230, 230, 230);
-}
-
-.selection-scroll-meal-wrapper {
+.calendar__selection__meal-wrapper {
   border-bottom: 1px solid rgba(156, 156, 156, 0.2);
   width: 100%;
   padding: 20px 0;
@@ -57,7 +51,8 @@
   justify-content: center;
   align-items: center;
 }
-.selection-scroll-meal {
+
+.calendar__selection__meal {
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -68,14 +63,18 @@
     0 18px 36px -18px rgb(0 0 0 / 30%);
 }
 
-.calendar-content-meal-header {
+.calendar__selection__meal:hover {
+  cursor: pointer;
+  background-color: rgb(230, 230, 230);
+}
+.calendar__selection__meal-header {
   background-color: #02203c;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
   color: white;
 }
 
-.calendar-content-meal-displayname {
+.calendar__selection__meal-displayname {
   font-weight: bold;
   font-size: 1.2rem;
   padding: 5px 0 0 15px;
@@ -86,7 +85,7 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.tag {
+.__meal-tag {
   display: inline-block;
   padding: 5px;
   border-radius: 4px;
@@ -96,7 +95,7 @@
   margin-bottom: 2px;
 }
 
-.calendar-content-meal-body {
+.calendar__selection__meal-body {
   padding: 0px 5px;
   text-align: left;
   overflow: hidden;
@@ -105,27 +104,28 @@
   height: 0px;
   background: transparent; /* make scrollbar transparent */
 }
-.calendar-content-meal-tags {
+.calendar__selection__meal-tags {
   display: flex;
   overflow: auto;
   white-space: nowrap;
 }
 
-.calendar-content-meal-selection-scroll li p {
+.calendar-content__selection-scroll li p {
   padding: 7px;
   text-align: left;
 }
 
-.calendar-planner-saver {
+.calendar-content-board__planner {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+}
+
+.calendar__planner-saver {
   padding: 20px;
   text-align: center;
 }
 
-.calendar-content-board-planner {
-  display: grid;
-  grid-template-columns: 15% 70% 15%;
-}
-.calendar-planner-content {
+.calendar__planner-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,7 +133,7 @@
   padding: 20px 0;
 }
 
-.calendar-planner-meal {
+.calendar__planner-meal {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -141,10 +141,11 @@
   padding: 10px 40px 10px 0;
 }
 
-.calendar-planner-meal label {
+.calendar__planner-meal label {
   width: 100%;
   text-align: center;
 }
+
 hr {
   margin: 10px 5px;
   border-top: 1px solid #02203c;

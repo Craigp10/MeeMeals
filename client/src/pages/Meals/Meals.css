@@ -47,11 +47,9 @@
 .meals-content-wrapper .search {
   width: 95%;
   height: 100%;
-  /* border: 1px solid green; */
-
   padding: 0 10px;
   display: flex;
-  border-radius: 25px;
+  border-radius: 10px;
   align-items: center;
   justify-content: center;
   background-color: white;
@@ -73,7 +71,8 @@
   padding: 15px;
 }
 .meals-header-create button {
-  border-radius: 25px;
+  border-radius: 10px;
+  /* border-radius: 4px; */
   color: #02203c;
   background: none;
   font-weight: bold;
