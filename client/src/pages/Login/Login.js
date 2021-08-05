@@ -74,7 +74,7 @@ const Login = (props) => {
               <Button type="submit">Demo Log In</Button>
             </div>
           </form>
-          <div className="login-content-recover">
+          <div className="login__board__content-recover">
             Forgot your password?{" "}
             <Link
               style={{ textDecoration: "none", pointerEvents: "none" }}
