@@ -73,7 +73,7 @@ const Meals = (props) => {
   //   );
   // }
   return (
-    <div className="meals-content-wrapper">
+    <div className="meals-wrapper">
       {show ? (
         <MealsModal
           show={show}
@@ -83,10 +83,10 @@ const Meals = (props) => {
           activeMeal={activeMeal}
         />
       ) : null}
-      <div className="meals-content-board">
-        <div className="meals-board-header">
-          <div className="meals-header-search">
-            <span className="search glyphicon glyphicon-search">
+      <div className="meals__board">
+        <div className="meals__board__header">
+          <div className="meals__board__header-search">
+            <span className="meals__board__header-search glyphicon glyphicon-search">
               <input
                 id="search"
                 value={props.searchFilter}
@@ -96,17 +96,17 @@ const Meals = (props) => {
               />
             </span>
           </div>
-          <div className="meals-header-title">Your Meals</div>
-          <div className="meals-header-create">
+          <div className="meals__board__header-title">Your Meals</div>
+          <div className="meals__board__header-create">
             <button type="button" onClick={() => handleShow("create")}>
               Create A Meal
             </button>
           </div>
         </div>
-        <div className="meals-board-scroll">
-          <ul className="meals-content-mealboxes">
+        <div className="meals__board__scroll">
+          <ul className="meals__board__scroll-mealboxes">
             {meals?.length == 0 ? (
-              <div className="meals-content-no-meals">
+              <div className="meals__board__scroll-mealboxes-none">
                 You do not have any meals created!
               </div>
             ) : (

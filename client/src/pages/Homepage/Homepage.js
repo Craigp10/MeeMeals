@@ -46,21 +46,25 @@ const Home = (props) => {
   }, [props]);
   // console.log("home", weekMeals, userMeals);
   return (
-    <div className="home-content-wrapper">
-      <div className="home-content-board">
-        <div className="home-board-header">
+    <div className="home-wrapper">
+      <div className="home__content__board">
+        <div className="home__content__board-header">
           <h2>Meals for the Week!</h2>
         </div>
-        <div className="home-board-body">
-          <div className="home-body-grid">
+        <div className="home__content__board__body">
+          <div className="home__content__board__body__grid">
             {GRID_LAYOUT.map((vert, idx) => {
               return vert.isDay ? (
-                <div style={vert.style} className="grid-layout-top" key={idx}>
+                <div style={vert.style} className="__grid-layout-top" key={idx}>
                   <span>{vert.text}</span>
                   <span>{dayjs(week[idx]).format("M/D")}</span>
                 </div>
               ) : (
-                <div style={vert.style} className="grid-layout-left" key={idx}>
+                <div
+                  style={vert.style}
+                  className="__grid-layout-left"
+                  key={idx}
+                >
                   <span>{vert.text}</span>
                 </div>
               );
@@ -73,7 +77,7 @@ const Home = (props) => {
                       {userMeals.filter((meal) => meal._id == day?.breakfast)[0]
                         ?.display_name ? (
                         <span
-                          className="grid-meal"
+                          className="__grid-meal"
                           // onClick={() => Implementation to allow the user to preview a meal from homepage by clicking on it, currently routes to meal page, maybe just use a mealModal here
                           //   history.push({
                           //     pathname: "/meals",
@@ -94,7 +98,7 @@ const Home = (props) => {
                       {userMeals.filter((meal) => meal._id == day?.lunch)[0]
                         ?.display_name ? (
                         <span
-                          className="grid-meal"
+                          className="__grid-meal"
                           style={{ gridColumn: idx + 2, gridRow: 3 }}
                         >
                           <p>
@@ -109,7 +113,7 @@ const Home = (props) => {
                       {userMeals.filter((meal) => meal._id == day?.dinner)[0]
                         ?.display_name ? (
                         <span
-                          className="grid-meal"
+                          className="__grid-meal"
                           style={{ gridColumn: idx + 2, gridRow: 4 }}
                         >
                           <p>
@@ -124,7 +128,7 @@ const Home = (props) => {
                       {userMeals.filter((meal) => meal._id == day?.snack)[0]
                         ?.display_name ? (
                         <span
-                          className="grid-meal"
+                          className="__grid-meal"
                           style={{ gridColumn: idx + 2, gridRow: 5 }}
                         >
                           <p>

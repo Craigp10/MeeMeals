@@ -1,10 +1,10 @@
-.home-content-wrapper {
+.home-wrapper {
   height: 100%;
   color: #02203c;
   padding-top: 50px;
 }
 
-.home-content-board {
+.home__content__board {
   border-radius: 4px;
   background-color: #fafafa;
   height: 95%;
@@ -15,17 +15,17 @@
   flex-direction: column;
 }
 
-.home-board-header {
+.home__content__board-header {
   padding: 10px;
   text-align: center;
 }
 
-.home-board-body {
+.home__content__board__body {
   overflow: hidden;
   flex-grow: 1;
 }
 
-.home-body-grid {
+.home__content__board__body__grid {
   padding: 0px 5px 0px 0px;
   width: 100%;
   height: 100%;
@@ -38,13 +38,13 @@
   align-items: center;
 }
 
-.grid-layout-top {
+.__grid-layout-top {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.grid-meal:hover {
+.__grid-meal:hover {
   transform: translateY(-10px);
   height: 100%;
   color: white;
@@ -52,7 +52,7 @@
   /* cursor: pointer;  commented out because click workflow not implemented yet*/
 }
 
-.grid-meal:hover p {
+.__grid-meal:hover p {
   white-space: normal;
   height: 100%;
   overflow: scroll;
@@ -63,7 +63,7 @@
   background: transparent;
 }
 
-.grid-meal {
+.__grid-meal {
   border-radius: 7px;
   transition: all 0.4s;
   padding: 5px;
@@ -75,7 +75,7 @@
     0 10px 36px -10px rgb(0 0 0 / 30%);
 }
 
-.grid-meal p {
+.__grid-meal p {
   text-align: center;
   margin: auto;
   overflow: hidden;

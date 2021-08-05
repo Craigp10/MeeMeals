@@ -25,18 +25,21 @@ const Login = (props) => {
   };
   return (
     <div className="login-wrapper">
-      <div className="login-content-wrapper">
-        <div className="login-content-inner">
+      <div className="login__board">
+        <div className="login__board__content">
           <h3>Log In</h3>
           <form
             // ref={(form) => (this.form = form)}
-            className="login-form"
+            className="login__board__content__form"
             onSubmit={(e) => {
               e.preventDefault();
               handleSubmit();
             }}
           >
-            <Form.Group className="login-form-field" controlId="formBasicEmail">
+            <Form.Group
+              className="login__board__content__form-field"
+              controlId="formBasicEmail"
+            >
               <Form.Label>Email address</Form.Label>
               {/* <Form.Control type="email" placeholder="Enter email" /> */}
               <Form.Control
@@ -46,7 +49,7 @@ const Login = (props) => {
               />
             </Form.Group>
             <Form.Group
-              className="login-form-field"
+              className="login__board__content__form-field"
               controlId="formBasicPassword"
             >
               <Form.Label>Password</Form.Label>
@@ -56,7 +59,7 @@ const Login = (props) => {
                   ref={(emailAddress) => (this.emailAddress = emailAddress)}
                 /> */}
               <Form.Control
-                className="login-form-field"
+                className="login__board__content__form-field"
                 type="password"
                 placeholder="Use Demo Login"
                 // ref={(emailAddress) => (this.emailAddress = emailAddress)}
@@ -64,7 +67,7 @@ const Login = (props) => {
               />
             </Form.Group>
             <hr />
-            <div className="login-form-buttons">
+            <div className="login__board__content__form-buttons">
               <Button type="submit" disabled>
                 Log In
               </Button>
