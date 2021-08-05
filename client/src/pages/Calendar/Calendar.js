@@ -22,10 +22,11 @@ const Calendar = (props) => {
   const [activeMeal, setActiveMeal] = useState("");
   const [allowSave, setAllowSave] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [saveStatus, setSaveStatus] = useState(""); // available values: ["", "success", "pending", "error"]
+  const [saveStatus, setSaveStatus] = useState(""); // available values: ["", "success", "pending", "error"];
   const [saveTimer, setSaveTimer] = useState(0);
 
   const handleMealClick = (mealId) => {
+    //Handles clicking a meal from the scroll wheel
     if (mealId == activeMeal) {
       setActiveMealClick(false);
       setActiveMeal("");
@@ -36,12 +37,14 @@ const Calendar = (props) => {
   };
 
   const handleMealRemoveClick = (index) => {
+    //Handles removing a meal from one of the meal times
     const updateMealTimes = mealTimes;
     updateMealTimes[index].mealId = "";
     setMealTimes([...updateMealTimes]);
   };
 
   const handleMealDropClick = (index) => {
+    //Handles when user is 'dropping' a meal on to one of the meal times
     const updateMealTimes = mealTimes;
     updateMealTimes[index].mealId = meals.filter(
       (meal_) => meal_._id == activeMeal
@@ -52,14 +55,20 @@ const Calendar = (props) => {
   };
 
   useEffect(async () => {
+    //When props change pull meals by user id
     if (props.user?.id) {
       await apis
         .getUserMeals({ user_id: props.user.id })
-        .then((resp) => setMeals(resp.data.meals));
+        .then((resp) => setMeals(resp.data.meals))
+        .catch((err) => {
+          console.log(err);
+          setMeals([]);
+        });
     }
   }, [props]);
 
   useEffect(async () => {
+    //Remove ability to save and pull new dates data
     setAllowSave(false);
     setSaveStatus("");
     await apis
@@ -90,7 +99,8 @@ const Calendar = (props) => {
 
   useEffect(async () => {
     if (allowSave) {
-      setSaving(true);
+      //avoids saving with empty meal times
+      setSaving(true); //Set saving states
       setSaveStatus("pending");
       setSaveTimer(0);
 
@@ -110,7 +120,7 @@ const Calendar = (props) => {
         .then((resp) => {
           resp.status == 200
             ? setSaveStatus("success")
-            : setSaveStatus("error"); //Probably need more workflow logic for errors
+            : setSaveStatus("error");
         })
         .catch((err) => {
           console.log(err);
@@ -120,6 +130,7 @@ const Calendar = (props) => {
   }, [mealTimes]);
 
   useEffect(() => {
+    //Timer to update displayed saving status to user
     const timer = setTimeout(() => {
       if (saveStatus == "success" || saveStatus == "error") {
         setSaving(false);
@@ -131,6 +142,7 @@ const Calendar = (props) => {
   }, [saveStatus]);
 
   useEffect(() => {
+    //Timer that counts and removes saved message from user display after 5 seconds of no new saves
     const timer = setTimeout(() => {
       setSaveTimer(saveTimer + 1);
     }, 1000);

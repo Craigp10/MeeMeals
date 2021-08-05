@@ -19,13 +19,14 @@ const Dashboard = (props) => {
   const history = useHistory();
 
   useEffect(() => {
+    //When props change setUser from props
     if (props?.user) {
       setUser(props.user);
     }
   }, [props]);
 
   const logout = () => {
-    console.log("logout clicked");
+    //Logs user out
     apis.logout().then((resp) => {
       console.log(resp);
       props.setAuthenticated(false);

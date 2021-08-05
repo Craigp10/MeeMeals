@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import apis from "../../api/index";
 import { Redirect, Link, useHistory } from "react-router-dom";
 
+//grid structure, styling with css grid
 const GRID_LAYOUT = [
   { style: { gridColumn: 2, gridRow: 1 }, text: "Sunday", isDay: true },
   { style: { gridColumn: 3, gridRow: 1 }, text: "Monday", isDay: true },
@@ -19,6 +20,7 @@ const GRID_LAYOUT = [
 ];
 
 const generateCurrentWeek = () => {
+  //Generate the current week of dates
   const week = new Array(7)
     .fill(0)
     .map((day, idx) => dayjs().day(idx).format("M/D/YYYY")); //dayjs().format("M/D/YYYY");
@@ -32,6 +34,7 @@ const Home = (props) => {
   const history = useHistory();
 
   useEffect(async () => {
+    //When props change, pull the current week of meals for that user
     if (props.user?.id) {
       await apis
         .pullCalendarWeek({ user_id: props.user.id, week })
@@ -44,7 +47,7 @@ const Home = (props) => {
         .then((resp) => setUserMeals(resp.data.meals));
     }
   }, [props]);
-  // console.log("home", weekMeals, userMeals);
+
   return (
     <div className="home-wrapper">
       <div className="home__content__board">
@@ -78,7 +81,8 @@ const Home = (props) => {
                         ?.display_name ? (
                         <span
                           className="__grid-meal"
-                          // onClick={() => Implementation to allow the user to preview a meal from homepage by clicking on it, currently routes to meal page, maybe just use a mealModal here
+                          // onClick={() =>
+                          //   //Implementation to allow the user to preview a meal from homepage by clicking on it, currently routes to meal page, maybe just use a mealModal here
                           //   history.push({
                           //     pathname: "/meals",
                           //     state: { mealPreview: day.breakfast },

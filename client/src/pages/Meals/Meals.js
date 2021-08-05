@@ -10,18 +10,22 @@ const Meals = (props) => {
   const [modalAction, setModalAction] = useState("");
   const [activeMeal, setActiveMeal] = useState({});
   const [searchFilter, setSearchFilter] = useState("");
+
   useEffect(async () => {
+    //when props change pull user meals by user id
     await apis
       .getUserMeals({ user_id: props.user.id })
       .then((resp) => setMeals(resp.data.meals));
   }, [props]);
 
   const handleClose = () => {
+    //close modal, remove active meal state
     setActiveMeal({});
     setShow(false);
   };
 
   const handleShow = (action, idx) => {
+    //show modal, set activeMeal if preview or edit action
     if (action == "edit" || action == "preview") {
       setActiveMeal({ ...meals[idx] });
     }
@@ -30,6 +34,7 @@ const Meals = (props) => {
   };
 
   const handleSubmit = async (data) => {
+    //Submit modal data
     console.log("submitting data", data);
     const requestObj = {
       meal: data,
@@ -55,6 +60,7 @@ const Meals = (props) => {
   };
 
   const handleDelete = async (meal_id) => {
+    //handle deleting a meal on click
     const requestObj = {
       meal_id,
       user_id: props.user.id,
@@ -65,8 +71,9 @@ const Meals = (props) => {
     });
   };
 
-  // if (props.location.state?.mealPreview && !show) {
-  //   console.log("MEAL PREVIEW1", props.location.state.mealPreview);
+  // console.log("MEAL PREVIEW1", props);
+  // if (props.location?.state?.mealPreview && !show) {
+  //   //This would handle if a meal on the homepage was clicked to display on this page.
   //   handleShow(
   //     "preview",
   //     meals.filter((meal) => meal._id == props.location.state.mealPreview)[0]
