@@ -4,20 +4,20 @@ import "./NavigationBar.css";
 
 const navigationbar = (props) => (
   <div className="navigationbar-wrapper">
-    <ul className="navigationbar-link-list">
+    <ul className="navigationbar__linklist">
       <React.Fragment>
         <li>
-          <Link className="navigationbar-link" to="/">
+          <Link className="navigationbar__linklist-link" to="/">
             Home
           </Link>
         </li>
         <li>
-          <Link className="navigationbar-link" to="/meals">
+          <Link className="navigationbar__linklist-link" to="/meals">
             Meals
           </Link>
         </li>
         <li>
-          <Link className="navigationbar-link" to="/calendar">
+          <Link className="navigationbar__linklist-link" to="/calendar">
             Calendar
           </Link>
         </li>

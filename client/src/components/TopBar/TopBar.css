@@ -7,11 +7,7 @@
   position: relative;
 }
 
-.topbar-wrapper span:hover {
-  cursor: pointer;
-}
-
-.topbar-title {
+.topbar__title {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,13 +17,13 @@
   font-size: 2rem;
 }
 
-.topbar-leftover {
+.topbar__leftover {
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;
 }
 
-.topbar-icon {
+.topbar__leftover-icon {
   background-color: white;
   /* border-radius: 50%; */
   height: 75px;
@@ -37,4 +33,8 @@
   align-items: center;
   font-size: 40px;
   color: #02203c;
+}
+
+.topbar__leftover-icon:hover {
+  cursor: pointer;
 }

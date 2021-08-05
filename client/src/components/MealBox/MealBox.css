@@ -11,7 +11,7 @@
   border-radius: 25px;
 }
 
-.mealbox-content {
+.mealbox__content {
   box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
     0 18px 36px -18px rgb(0 0 0 / 30%);
   border-radius: 25px;
@@ -21,7 +21,7 @@
   width: 600px;
 }
 
-.mealbox-content-header {
+.mealbox__content__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,7 +31,7 @@
   color: white;
 }
 
-.mealbox-content-displayname {
+.mealbox__content__header-displayname {
   font-weight: bold;
   font-size: 1.5rem;
   padding-left: 15px;
@@ -44,24 +44,24 @@
   white-space: nowrap;
 }
 
-.mealbox-content-header-options {
+.mealbox__content__header-options {
   display: flex;
   align-items: flex-start;
   padding: 5px 15px 5px 5px;
 }
 
-.mealbox-content-header-options span {
+.mealbox__content__header-options span {
   border-radius: 4px;
   padding: 5px;
 }
 
-.mealbox-content-header-options span:hover {
+.mealbox__content__header-options span:hover {
   background-color: white;
   color: #02203c;
   cursor: pointer;
 }
 
-.mealbox-content-body {
+.mealbox__content__body {
   /* flex-grow: 1; */
   height: 100%;
   overflow: auto;
@@ -70,17 +70,17 @@
   font-size: 1.2rem;
 }
 
-.mealbox-content-body div {
+.mealbox__content__body div {
   padding: 5px 5px 0px 10px;
   overflow: scroll;
   width: 100%;
   text-align: left;
 }
 
-.mealbox-content-description {
+.mealbox__content__description {
 }
 
-.mealbox-content-footer {
+.mealbox__content__footer {
   display: flex;
   justify-content: space-between;
   padding: 0 15px 5px;

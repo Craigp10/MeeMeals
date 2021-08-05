@@ -4,16 +4,16 @@ import "./TopBar.css";
 
 const TopBar = (props) => (
   <div className="topbar-wrapper">
-    <div className="topbar-title">
+    <div className="topbar__title">
       <span
-        className="topbar-title-text"
+        className="topbar__title-text"
         onClick={() => (window.location = window.location.origin)}
       >
         Mi Meals
       </span>
     </div>
-    <div className="topbar-leftover">
-      <div className="topbar-icon">
+    <div className="topbar__leftover">
+      <div className="topbar__leftover-icon">
         <span
           className="glyphicon glyphicon-user"
           alt="logout"

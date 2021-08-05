@@ -5,7 +5,7 @@
 .active:hover {
   background-color: #aec6dd !important;
 }
-.mealdrop-content {
+.mealdrop__content {
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -15,27 +15,13 @@
     0 18px 36px -18px rgb(0 0 0 / 30%);
   /* background-color: white; since background is white, leave out and the background will change to .active:hover when hovering Definitely look into a better way to implement this*/
 }
-.mealdrop-content-no-meal {
-  width: 400px;
-  border-radius: 25px;
-  height: 120px;
-  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
-    0 18px 36px -18px rgb(0 0 0 / 30%);
-}
-.mealdrop-content-body {
-  padding: 10px 5px 0px;
-  font-size: 1rem;
-  /* flex-grow: 1; */
-  height: 100%;
-  overflow: scroll;
-}
 
 .active {
   box-shadow: 0 0 10px 0.2px hsl(209, 94%, 12%);
   cursor: pointer;
 }
 
-.mealdrop-content-header {
+.mealdrop__content__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +31,7 @@
   color: white;
 }
 
-.mealdrop-content-displayname {
+.mealdrop__content__header-displayname {
   font-weight: bold;
   font-size: 1.5rem;
   padding-left: 15px;
@@ -57,11 +43,26 @@
   white-space: nowrap;
 }
 
-.mealdrop-content-header-options {
+.mealdrop__content__header-options {
   padding: 2px 20px;
 }
 
-.mealdrop-content-footer {
+.mealdrop__content__body {
+  padding: 10px 5px 0px;
+  font-size: 1rem;
+  /* flex-grow: 1; */
+  height: 100%;
+  overflow: scroll;
+}
+.mealdrop__content-no-meal {
+  width: 400px;
+  border-radius: 25px;
+  height: 120px;
+  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
+    0 18px 36px -18px rgb(0 0 0 / 30%);
+}
+
+.mealdrop__content__footer {
   border-top: 1px solid lightgray;
   margin: 0 5px;
   display: flex;
@@ -70,12 +71,12 @@
   font-size: 1rem;
 }
 
-.mealdrop-content-header-options span {
+.mealdrop__content__header-options span {
   border-radius: 4px;
   padding: 2px;
 }
 
-.mealdrop-content-header-options span:hover {
+.mealdrop__content__header-options span:hover {
   background-color: white;
   color: #02203c;
   cursor: pointer;

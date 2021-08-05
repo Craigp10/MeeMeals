@@ -5,12 +5,12 @@ const MealBox = (props) => {
   return (
     <div className="mealbox-wrapper glow">
       {!props.disable ? (
-        <div className="mealbox-content">
-          <div className="mealbox-content-header">
-            <div className="mealbox-content-displayname">
+        <div className="mealbox__content">
+          <div className="mealbox__content__header">
+            <div className="mealbox__content__header-displayname">
               {props.meal.display_name}
             </div>
-            <div className="mealbox-content-header-options">
+            <div className="mealbox__content__header-options">
               <span
                 className="glyphicon glyphicon-resize-full"
                 onClick={() => props.handleShow("preview", props.index)}
@@ -27,12 +27,12 @@ const MealBox = (props) => {
               ></span>
             </div>
           </div>
-          <div className="mealbox-content-body">
-            <div className="mealbox-content-description">
+          <div className="mealbox__content__body">
+            <div className="mealbox__content__body__description">
               <h6>Description</h6>
               {props.meal.description}
             </div>
-            <div className="mealbox-content-ingredients">
+            <div className="mealbox__content__body__ingredients">
               <h6>Ingredients</h6>
               {props.meal.ingredients.map((ingredient, idx) => {
                 return (
@@ -47,7 +47,7 @@ const MealBox = (props) => {
               })}
             </div>
           </div>
-          <div className="mealbox-content-footer">
+          <div className="mealbox__content__footer">
             <span>Created On: 7/6/21</span>
             <span>Last scheduled: 7/5/21</span>
           </div>

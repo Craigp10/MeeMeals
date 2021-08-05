@@ -31,7 +31,7 @@ const CATEGORY_FILTERS = [
 
 const SelectionFilter = (props) => {
   return (
-    <div className="filter-selection-wrapper">
+    <div className="selection-filter-wrapper">
       {CATEGORY_FILTERS.map((category, index) => {
         return (
           <span
