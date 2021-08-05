@@ -35,14 +35,14 @@ const Dashboard = (props) => {
   return (
     <div className="dashboard-wrapper">
       <Router>
-        <div className="dashboard-content">
-          <div className="dashboard-topbar">
+        <div className="dashboard__content">
+          <div className="dashboard__content-topbar">
             <TopBar logout={logout} />
           </div>
-          <div className="dashboard-navigationbar">
+          <div className="dashboard__content-navigationbar">
             <NavigationBar />
           </div>
-          <div className="dashboard-content-inner">
+          <div className="dashboard__content-inner">
             <Switch>
               <Route exact path="/" render={() => <Home user={user} />} />
               <Route exact path="/meals" render={() => <Meals user={user} />} />
