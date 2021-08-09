@@ -5,10 +5,12 @@ const MealDrop = (props) => {
   return (
     <div
       className={
-        props.activeMealClick ? "mealdrop-wrapper active" : "mealdrop-wrapper"
+        props.activeMealIsActive
+          ? "mealdrop-wrapper active"
+          : "mealdrop-wrapper"
       }
       onClick={
-        props.activeMealClick
+        props.activeMealIsActive
           ? () => props.mealClickCallback(props.index)
           : null
       }
