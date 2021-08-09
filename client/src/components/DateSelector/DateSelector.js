@@ -44,7 +44,7 @@ const DateSelector = (props) => {
       }
     });
     setDates([...workingDates]);
-    props.setActiveDate(activeDate);
+    props.handleActiveDateChange(activeDate);
   };
 
   const handleDatesChangeClick = (direction) => {

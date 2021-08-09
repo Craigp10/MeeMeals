@@ -1,22 +1,22 @@
-.calendar-content-wrapper {
+.calendar-wrapper {
   display: flex;
   height: 100%;
 }
 
-.calendar-content-wrapper .glyphicon-chevron-left .glyphicon-chevron-right {
+.calendar-wrapper .glyphicon-chevron-left .glyphicon-chevron-right {
   color: #02203c;
 }
 
-.calendar-content-wrapper span:hover {
+.calendar-wrapper span:hover {
   cursor: pointer;
 }
 
-.calendar-content-board {
+.calendar__board {
   display: inline-block;
   width: 70%;
 }
 
-.calendar-content-board__dates {
+.calendar__board__dates {
   background-color: rgb(236, 236, 236);
   width: 100%;
   height: 80px;
@@ -115,7 +115,7 @@
   text-align: left;
 }
 
-.calendar-content-board__planner {
+.calendar__board__planner {
   display: grid;
   grid-template-columns: 15% 70% 15%;
 }
