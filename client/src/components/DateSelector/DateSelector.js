@@ -5,34 +5,35 @@ import dayjs from "dayjs";
 const DateSelector = (props) => {
   const INITIAL_DATES = [
     {
-      date: dayjs(props.activeDate).subtract(3, "days").format("M/D/YYYY"),
+      date: dayjs(props.activeDate).subtract(3, "days").format("M/D/YYYY"), //Subtract 3 days from todays date
       isActive: false,
     },
     {
-      date: dayjs(props.activeDate).subtract(2, "days").format("M/D/YYYY"),
+      date: dayjs(props.activeDate).subtract(2, "days").format("M/D/YYYY"), //Subtract 2 days from todays date
       isActive: false,
     },
     {
-      date: dayjs(props.activeDate).subtract(1, "days").format("M/D/YYYY"),
+      date: dayjs(props.activeDate).subtract(1, "days").format("M/D/YYYY"), //Subtract 1 days from todays date
       isActive: false,
     },
     { date: dayjs(props.activeDate).format("M/D/YYYY"), isActive: false },
     {
-      date: dayjs(props.activeDate).add(1, "days").format("M/D/YYYY"),
+      date: dayjs(props.activeDate).add(1, "days").format("M/D/YYYY"), //Add 1 days from todays date
       isActive: false,
     },
     {
-      date: dayjs(props.activeDate).add(2, "days").format("M/D/YYYY"),
+      date: dayjs(props.activeDate).add(2, "days").format("M/D/YYYY"), //Add 2 days from todays date
       isActive: false,
     },
     {
-      date: dayjs(props.activeDate).add(3, "days").format("M/D/YYYY"),
+      date: dayjs(props.activeDate).add(3, "days").format("M/D/YYYY"), //Add 3 days from todays date
       isActive: false,
     },
   ];
   const [dates, setDates] = useState(INITIAL_DATES);
 
   const updateActiveDate = (workingDates, index) => {
+    //Update dates array and sets activeDate state in parent (Calendar) component.
     let activeDate = "";
     workingDates.forEach((date, idx) => {
       if (idx != index) {
@@ -49,6 +50,7 @@ const DateSelector = (props) => {
   const handleDatesChangeClick = (direction) => {
     const newDates = dates;
     if (direction == "prev") {
+      //Remove last day in array and add new day at beginning, day before first day in array
       newDates.unshift({
         date: dayjs(newDates[0].date).subtract(1, "days").format("M/D/YYYY"),
         isActive: false,
@@ -56,7 +58,7 @@ const DateSelector = (props) => {
       newDates.pop();
       updateActiveDate(newDates, 0);
     } else {
-      //direction == "next"
+      //direction == "next" ... Remove first day element of array and push new ending day, next day on calendar from last day in array
       newDates.push({
         date: dayjs(newDates[6].date).add(1, "days").format("M/D/YYYY"),
         isActive: false,
