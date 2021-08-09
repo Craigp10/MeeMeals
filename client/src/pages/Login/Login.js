@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./Login.css";
 import { Link, useHistory, withRouter } from "react-router-dom";
@@ -6,32 +6,23 @@ import apis from "../../api/index";
 
 const Login = (props) => {
   const history = useHistory();
-  const [loginSuccess, setLoginSuccess] = useState(true);
 
   useEffect(() => {
-    //When props change
     if (props.authenticated) {
       history.replace({ pathname: "/" });
     }
   }, [props]);
 
   const handleSubmit = async () => {
-    //Handle user log in submit
     await apis.demoLogin().then((resp) => {
       if (resp.status == 200) {
         console.log("Successful Login!");
-        setLoginSuccess(true);
         props.setAuthenticated(true);
         props.setUser(resp.data);
         history.replace({ pathname: "/" });
-      } else {
-        //Unable to log in
-        console.log("Unsuccessful Login!");
-        setLoginSuccess(false);
       }
     });
   };
-  console.log(loginSuccess);
   return (
     <div className="login-wrapper">
       <div className="login__board">
@@ -83,15 +74,6 @@ const Login = (props) => {
               <Button type="submit">Demo Log In</Button>
             </div>
           </form>
-          <span
-            className={
-              loginSuccess
-                ? "login__board__content-failed inActive"
-                : "login__board__content-failed"
-            }
-          >
-            Failed to login.
-          </span>
           <div className="login__board__content-recover">
             Forgot your password?{" "}
             <Link

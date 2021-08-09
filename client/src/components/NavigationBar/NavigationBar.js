@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./NavigationBar.css";
 
-const navigationbar = () => (
+const navigationbar = (props) => (
   <div className="navigationbar-wrapper">
     <ul className="navigationbar__linklist">
       <React.Fragment>

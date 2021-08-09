@@ -1,5 +1,5 @@
 // import "./SavingLoader.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
 const SavingLoader = (props) => {

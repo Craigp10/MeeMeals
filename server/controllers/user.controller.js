@@ -51,6 +51,7 @@ const newMeal = async (req, res) => {
   meal.category = body.meal.mealCategory;
   meal.tags = body.meal.mealTags;
   meal.instructions = body.meal.mealInstructions;
+  meal.isActive = true;
   const updatedRecord = await User.findOneAndUpdate(
     { _id: body.user_id },
     { $addToSet: { meals: meal } }, //DO NOT USE $PUSH, it was pushing duplicate entries
