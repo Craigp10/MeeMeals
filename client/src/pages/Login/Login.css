@@ -16,11 +16,10 @@
 }
 
 .login__board__content {
-  height: 80%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 }
 
 form {
@@ -49,19 +48,9 @@ form {
   color: white;
 }
 
-.login__board__content-failed {
-  align-self: center;
-  font-style: italic;
-  font-size: 1rem;
-  color: red;
-}
-.inActive {
-  visibility: hidden;
-}
 .login__board__content-recover {
   padding-top: 20px;
   text-decoration: line-through;
-  justify-self: flex-end;
 }
 
 .login__board__content-recover:link {
