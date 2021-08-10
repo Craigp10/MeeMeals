@@ -7,15 +7,15 @@ import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
 import SaveLoader from "../../components/SavingLoader/SavingLoader";
 
-// const SAVING_STATUSES = {
-//   initialize: "",
-//   pending: "pending",
-//   success: "success",
-//   error: "error",
-// };
+const SAVING_STATUSES = {
+  initialize: "",
+  pending: "pending",
+  success: "success",
+  error: "error",
+};
 
 const Calendar = (props) => {
-  const [activeDate, setActiveDate] = useState(""); //dayjs().format("M/D/YYYY"));
+  const [activeDate, setActiveDate] = useState(dayjs().format("M/D/YYYY"));
   const [mealTimes, setMealTimes] = useState([
     { mealTime: "Breakfast", mealId: "" },
     { mealTime: "Lunch", mealId: "" },
@@ -31,10 +31,10 @@ const Calendar = (props) => {
   });
   const [activeMeal, setActiveMeal] = useState("");
   const [allowSave, setAllowSave] = useState(false);
-  // const [saveObject, setSaveObject] = useState({
-  //   saving: false,
-  //   status: SAVING_STATUSES.initialize,
-  // });
+  const [saveObject, setSaveObject] = useState({
+    saving: false,
+    status: SAVING_STATUSES.initialize,
+  });
 
   const handleMealClick = (mealId) => {
     //Handles clicking a meal from the scroll wheel
@@ -56,7 +56,7 @@ const Calendar = (props) => {
     const updateMealTimes = mealTimes;
     updateMealTimes[index].mealId = "";
     setMealTimes([...updateMealTimes]);
-    // handleSave();
+    handleSave();
   };
 
   const handleMealDropClick = (index) => {
@@ -70,23 +70,15 @@ const Calendar = (props) => {
       activeMealID: "",
     });
     setMealTimes([...updateMealTimes]);
-    // handleSave();
+    handleSave();
   };
 
-  // const handleSave = () => {
-  //   console.log("handle save called");
-  //   setSaveObject({
-  //     saving: true,
-  //     status: SAVING_STATUSES.pending,
-  //   });
-  // };
-
-  // const saveChangeCallback = (status) => {
-  //   setSaveObject({
-  //     saving: false,
-  //     status: SAVING_STATUSES.status,
-  //   });
-  // };
+  const handleSave = () => {
+    setSaveObject({
+      saving: true,
+      status: SAVING_STATUSES.pending,
+    });
+  };
 
   useEffect(async () => {
     //On mount, pull meals and any meal times for current user
@@ -118,7 +110,6 @@ const Calendar = (props) => {
   }, []);
 
   const handleActiveDateChange = async (newActiveDate) => {
-    console.log("handleActiveDateChange");
     setAllowSave(false);
     setActiveDate(newActiveDate);
   };
@@ -126,7 +117,6 @@ const Calendar = (props) => {
   useEffect(async () => {
     if (allowSave) {
       //avoids saving with empty meal times
-      console.log("mealTimes changed w/ save", allowSave);
 
       const changes = {
         breakfast: mealTimes[0].mealId,
@@ -142,71 +132,68 @@ const Calendar = (props) => {
           changes,
         })
         .then((resp) => {
-          //Add more error handling
-          // setSaveObject({
-          //   saving: saveObject.saving,
-          //   status: SAVING_STATUSES.success,
-          // });
+          setSaveObject({
+            ...{
+              saving: saveObject.saving,
+              status: SAVING_STATUSES.success,
+            },
+          });
         })
         .catch((err) => {
           console.log(err);
-          // setSaveObject({
-          //   saving: saveObject.saving,
-          //   status: SAVING_STATUSES.error,
-          // });
+          setSaveObject({
+            ...{
+              saving: saveObject.saving,
+              status: SAVING_STATUSES.error,
+            },
+          });
         });
     }
   }, [mealTimes]);
 
   useEffect(async () => {
-    console.log("ActiveDate changed", activeDate, allowSave);
     //Remove ability to save and pull new dates data
-    // setstatus("");
-    // await apis
-    //   .getDateMeals({
-    //     date: activeDate,
-    //     user_id: props.user.id,
-    //   })
-    //   .then((resp) => {
-    //     const schedule = resp.data.data;
-    //     const activeMealTimes = [
-    //       { mealTime: "Breakfast", mealId: "" },
-    //       { mealTime: "Lunch", mealId: "" },
-    //       { mealTime: "Dinner", mealId: "" },
-    //       { mealTime: "Snack", mealId: "" },
-    //     ];
-    //     if (resp.status == 200) {
-    //       activeMealTimes[0].mealId = schedule?.breakfast;
-    //       activeMealTimes[1].mealId = schedule?.lunch;
-    //       activeMealTimes[2].mealId = schedule?.dinner;
-    //       activeMealTimes[3].mealId = schedule?.snack;
-    //     }
-    //     setMealTimes([...activeMealTimes]);
-    //     setAllowSave(true);
-    //   });
+    await apis
+      .getDateMeals({
+        date: activeDate,
+        user_id: props.user.id,
+      })
+      .then((resp) => {
+        const schedule = resp.data.data;
+        const activeMealTimes = [
+          { mealTime: "Breakfast", mealId: "" },
+          { mealTime: "Lunch", mealId: "" },
+          { mealTime: "Dinner", mealId: "" },
+          { mealTime: "Snack", mealId: "" },
+        ];
+        if (resp.status == 200) {
+          activeMealTimes[0].mealId = schedule?.breakfast;
+          activeMealTimes[1].mealId = schedule?.lunch;
+          activeMealTimes[2].mealId = schedule?.dinner;
+          activeMealTimes[3].mealId = schedule?.snack;
+        }
+        setMealTimes([...activeMealTimes]);
+        setAllowSave(true);
+      });
   }, [activeDate]);
 
-  // useEffect(() => {
-  //   console.log("save timer called");
-  //   //Timer to update displayed saving status to user
-  //   const timer = setTimeout(() => {
-  //     console.log(saveObject.status);
-  //     let saving;
-  //     const status = saveObject.status;
-  //     if (["success", "error", ""].includes(status)) {
-  //       saving = false;
-  //     } else {
-  //       saving = true;
-  //     }
-  //     setSaveObject({
-  //       saving,
-  //       status,
-  //     });
-  //   }, 500);
-  //   return () => clearTimeout(timer);
-  // }, [saveObject.status]);
-
-  // console.log("new render", saveObject);
+  useEffect(() => {
+    //Timer to update displayed saving status to user
+    const timer = setTimeout(() => {
+      let saving;
+      const status = saveObject.status;
+      if (["success", "error", ""].includes(status)) {
+        saving = false;
+      } else {
+        saving = true;
+      }
+      setSaveObject({
+        saving,
+        status,
+      });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [saveObject.status]);
   return (
     <div className="calendar-wrapper">
       <div className="calendar__board">
@@ -218,7 +205,7 @@ const Calendar = (props) => {
         </div>
         <div className="calendar__board__planner">
           <div className="calendar__planner-saver">
-            {/* {saveObject.status == "" ? null : saveObject.status == "error" ? (
+            {saveObject.status == "" ? null : saveObject.status == "error" ? (
               <p
                 style={{
                   color: "red",
@@ -234,7 +221,7 @@ const Calendar = (props) => {
                 status={saveObject.status}
                 setSaveObject={setSaveObject}
               />
-            )} */}
+            )}
           </div>
           <div className="calendar__planner-content">
             {mealTimes.map((meal, index) => {
