@@ -40,7 +40,6 @@
   flex-direction: column;
   list-style-type: none;
   align-items: center;
-  border: 1px solid green;
 }
 
 .calendar__selection__meal-wrapper {

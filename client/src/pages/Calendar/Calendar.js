@@ -109,11 +109,6 @@ const Calendar = (props) => {
       });
   }, []);
 
-  const handleActiveDateChange = async (newActiveDate) => {
-    setAllowSave(false);
-    setActiveDate(newActiveDate);
-  };
-
   useEffect(async () => {
     if (allowSave) {
       //avoids saving with empty meal times
@@ -150,6 +145,11 @@ const Calendar = (props) => {
         });
     }
   }, [mealTimes]);
+
+  const handleActiveDateChange = async (newActiveDate) => {
+    setAllowSave(false);
+    setActiveDate(newActiveDate);
+  };
 
   useEffect(async () => {
     //Remove ability to save and pull new dates data

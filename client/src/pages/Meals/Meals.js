@@ -73,71 +73,73 @@ const Meals = (props) => {
   };
 
   return (
-    <div className="meals-wrapper">
-      {show ? (
-        <MealsModal
-          show={show}
-          handleClose={handleClose}
-          handleSubmit={handleSubmit}
-          modalAction={modalAction}
-          activeMeal={activeMeal}
-        />
-      ) : null}
-      <div className="meals__board">
-        <div className="meals__board__header">
-          <div className="meals__board__header-search">
-            <div className="glyphicon glyphicon-search">
-              <input
-                id="search"
-                value={props.searchFilter}
-                placeholder="Search Meals"
-                onChange={(e) => setSearchFilter(e.target.value)}
-                autoComplete={"off"}
-              />
+    <>
+      <div className="meals-wrapper">
+        {show ? (
+          <MealsModal
+            show={show}
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+            modalAction={modalAction}
+            activeMeal={activeMeal}
+          />
+        ) : null}
+        <div className="meals__board">
+          <div className="meals__board__header">
+            <div className="meals__board__header-search">
+              <div className="glyphicon glyphicon-search">
+                <input
+                  id="search"
+                  value={props.searchFilter}
+                  placeholder="Search Meals"
+                  onChange={(e) => setSearchFilter(e.target.value)}
+                  autoComplete={"off"}
+                />
+              </div>
+            </div>
+            <div className="meals__board__header-title">Your Meals</div>
+            <div className="meals__board__header-create">
+              <button type="button" onClick={() => handleShow("create")}>
+                Create A Meal
+              </button>
             </div>
           </div>
-          <div className="meals__board__header-title">Your Meals</div>
-          <div className="meals__board__header-create">
-            <button type="button" onClick={() => handleShow("create")}>
-              Create A Meal
-            </button>
+          <div className="meals__board__scroll">
+            <ul className="meals__board__scroll-mealboxes">
+              {meals?.length == 0 ? (
+                <div className="meals__board__scroll-mealboxes-none">
+                  You do not have any meals created!
+                </div>
+              ) : (
+                meals
+                  .filter((meal, idx) => {
+                    const mealData = [
+                      meal.display_name,
+                      ...meal.tags.map((tag) => tag),
+                      ...meal.ingredients.map((ingredient) => ingredient),
+                    ];
+                    return mealData
+                      .join(" ")
+                      .toLowerCase()
+                      .includes(searchFilter.toLowerCase());
+                  })
+                  .map((meal, idx) => (
+                    <li key={meal._id}>
+                      <MealBox
+                        index={idx}
+                        meal={meal}
+                        deleteMeal={handleDelete}
+                        handleShow={handleShow}
+                        disable={show}
+                      />
+                    </li>
+                  ))
+              )}
+            </ul>
           </div>
         </div>
-        <div className="meals__board__scroll">
-          <ul className="meals__board__scroll-mealboxes">
-            {meals?.length == 0 ? (
-              <div className="meals__board__scroll-mealboxes-none">
-                You do not have any meals created!
-              </div>
-            ) : (
-              meals
-                .filter((meal, idx) => {
-                  const mealData = [
-                    meal.display_name,
-                    ...meal.tags.map((tag) => tag),
-                    ...meal.ingredients.map((ingredient) => ingredient),
-                  ];
-                  return mealData
-                    .join(" ")
-                    .toLowerCase()
-                    .includes(searchFilter.toLowerCase());
-                })
-                .map((meal, idx) => (
-                  <li key={meal._id}>
-                    <MealBox
-                      index={idx}
-                      meal={meal}
-                      deleteMeal={handleDelete}
-                      handleShow={handleShow}
-                      disable={show}
-                    />
-                  </li>
-                ))
-            )}
-          </ul>
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 

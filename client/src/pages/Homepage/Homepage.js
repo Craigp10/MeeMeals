@@ -3,7 +3,7 @@ import "./Homepage.css";
 import dayjs from "dayjs";
 import apis from "../../api/index";
 import { Redirect, Link, useHistory } from "react-router-dom";
-
+import DragDropTest from "../../components/dragdroptest.js";
 //grid structure, styling with css grid
 const GRID_LAYOUT = [
   { style: { gridColumn: 2, gridRow: 1 }, text: "Sunday", isDay: true },
@@ -148,6 +148,7 @@ const Home = (props) => {
                   ) : null;
                 })
               : null}
+            {/* <DragDropTest /> */}
           </div>
         </div>
       </div>
