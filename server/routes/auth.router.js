@@ -9,8 +9,13 @@ router.get("/", (req, res) => {
 
 router.post(
   "/signup",
-  [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
+  verifySignUp.checkDuplicateUsernameOrEmail,
   controller.signup
+);
+router.post(
+  "/demoSignup",
+  verifySignUp.checkDuplicateUsernameOrEmail,
+  controller.demoSignup
 );
 
 router.post("/signin", controller.signin);

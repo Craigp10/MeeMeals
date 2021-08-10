@@ -15,7 +15,7 @@ const Login = (props) => {
     }
   }, [props]);
 
-  const handleSubmit = async () => {
+  const demoSubmit = async (e) => {
     //Handle user log in submit
     await apis.demoLogin().then((resp) => {
       if (resp.status == 200) {
@@ -42,7 +42,7 @@ const Login = (props) => {
             className="login__board__content__form"
             onSubmit={(e) => {
               e.preventDefault();
-              handleSubmit();
+              // demoSubmit();
             }}
           >
             <Form.Group
@@ -77,10 +77,17 @@ const Login = (props) => {
             </Form.Group>
             <hr />
             <div className="login__board__content__form-buttons">
-              <Button type="submit" disabled>
+              <Button type="submit" id="none-demo" disabled>
                 Log In
               </Button>
-              <Button type="submit">Demo Log In</Button>
+              <Button
+                type="submit"
+                id="demo"
+                name="demo"
+                onClick={(e) => demoSubmit()}
+              >
+                Demo Log In
+              </Button>
             </div>
           </form>
           <span
