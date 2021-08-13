@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./MealsModal.css";
 import Modal from "react-modal";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import DragDropTags from "../DragDropTags/DragDropTags";
 Modal.setAppElement("#root");
 
 const categories = ["Breakfast", "Lunch", "Dinner", "Snack"];
@@ -52,9 +54,10 @@ const MealsModal = (props) => {
       newMealData["mealCategory"] = props.activeMeal.category;
       setMealData({ ...newMealData });
     }
-  }, [props.show]);
+  }, []);
 
   useEffect(() => {
+    console.log("changed");
     if (
       mealData["mealName"] != "" &&
       mealData["mealIngredients"]?.length != 0 &&
@@ -69,7 +72,11 @@ const MealsModal = (props) => {
     }
   }, [mealData]);
 
-  //validation logic... With character checjs
+  const reorderInstructions = (newOrder) => {
+    const newMealData = mealData;
+    newMealData.mealInstructions = newOrder;
+    setMealData({ ...newMealData });
+  };
 
   const removeTag = (id, idx) => {
     mealData[id].splice(idx, 1);
@@ -80,7 +87,7 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
-
+  console.log("render", mealData);
   return (
     <div>
       <Modal
@@ -115,7 +122,7 @@ const MealsModal = (props) => {
                 </div>
                 <div className="meals-modal-form-field">
                   <label>Meal Description</label>
-                  <input
+                  <textarea
                     type="text"
                     id="mealDescription"
                     value={mealData.mealDescription}
@@ -156,7 +163,7 @@ const MealsModal = (props) => {
                 </div>
                 <div className="meals-modal-form-field">
                   <label>Instructions</label>
-                  <ol className="extension">
+                  <ol className="instruction-extension">
                     {mealData.mealInstructions.map((tag, idx) => (
                       <li className="instruction-tag" key={idx}>
                         {tag}
@@ -220,8 +227,8 @@ const MealsModal = (props) => {
                 </div>
                 <div className="meals-modal-form-field">
                   <label>Meal Description</label>
-                  <input
-                    type="text"
+                  <textarea
+                    // type="text"
                     id="mealDescription"
                     value={mealData.mealDescription}
                     onChange={(e) => updateState(e, e.target.id)}
@@ -278,13 +285,10 @@ const MealsModal = (props) => {
                 </div>
                 <div className="meals-modal-form-field">
                   <label>Instructions</label>
-                  <ol className="extension">
-                    {mealData.mealInstructions.map((tag, idx) => (
-                      <li className="instruction-tag" key={idx}>
-                        {tag}
-                      </li>
-                    ))}
-                  </ol>
+                  <DragDropTags
+                    instructions={mealData.mealInstructions}
+                    reorderInstructions={reorderInstructions}
+                  />
                   <input
                     type="text"
                     id="mealInstructions"
