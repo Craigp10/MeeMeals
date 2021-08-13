@@ -77,12 +77,12 @@ const Login = (props) => {
             </Form.Group>
             <hr />
             <div className="login__board__content__form-buttons">
-              <Button type="submit" id="none-demo" disabled>
+              <Button type="submit" id="user-login" name="user" disabled>
                 Log In
               </Button>
               <Button
                 type="submit"
-                id="demo"
+                id="demo-login"
                 name="demo"
                 onClick={(e) => demoSubmit()}
               >
