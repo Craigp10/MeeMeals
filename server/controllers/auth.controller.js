@@ -1,7 +1,9 @@
 const config = require("../config/auth.config");
 const db = require("../models");
+const dayjs = require("dayjs");
 const User = db.user;
 const Role = db.role;
+const Calendar = db.calendar;
 
 let bcrypt = require("bcryptjs");
 exports.demoSignup = async (req, res) => {
@@ -107,7 +109,26 @@ exports.demoSignup = async (req, res) => {
       if (err) {
         res.status(500).send({ message: err });
       }
-      console.log("New Demo user created", user);
+      console.log("New Demo user created", user.meals);
+      const newCalendar = new Calendar({
+        date: dayjs().format("M/D/YYYY"),
+        users: [
+          {
+            user_id: user._id,
+            breakfast: user.meals[2]._id,
+            lunch: user.meals[3]._id,
+            dinner: user.meals[0]._id,
+            snack: user.meals[5]._id,
+          },
+        ],
+      });
+
+      newCalendar.save((err, date) => {
+        if (err) {
+          res.status(500).send({ message: err });
+        }
+        console.log("New Demo date created", date.users);
+      });
     });
   }
 
@@ -235,6 +256,7 @@ exports.getSession = (req, res) => {
 exports.logout = async (req, res) => {
   if (req.session.isDemo) {
     await User.deleteOne({ username: "demo" + req.sessionID.slice(1, 5) });
+    await Calendar.collection.drop();
   }
 
   await req.session.destroy((err) => {
