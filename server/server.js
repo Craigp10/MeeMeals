@@ -16,7 +16,7 @@ const apiPort = 3000;
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:8000", "http://52.2.53.62/"],
+    origin: ["http://localhost:8000", "http://52.2.53.62"],
   })
 );
 
@@ -29,6 +29,7 @@ const redis = new Redis({
   host: sessionConfig.REDIS_HOST,
   password: sessionConfig.REDIS_PASSWORD,
 });
+
 const RedisStore = connectRedis(session);
 const redisStore = new RedisStore({
   client: redis,
@@ -62,9 +63,9 @@ app.all("*", (req, res, next) => {
   next();
 });
 
-app.use("/meals", mealsRouter);
-app.use("/auth", authRouter); //currently get error with this... need to spend some time learning express more.
-app.use("/user", userRouter);
-app.use("/calendar", calendarRouter);
+app.use("/api/meals", mealsRouter);
+app.use("/api/auth", authRouter); //currently get error with this... need to spend some time learning express more.
+app.use("/api/user", userRouter);
+app.use("/api/calendar", calendarRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
