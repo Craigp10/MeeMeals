@@ -35,6 +35,6 @@
   color: #02203c;
 }
 
-.topbar__leftover-icon:hover {
+.topbar-wrapper span:hover {
   cursor: pointer;
 }
