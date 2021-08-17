@@ -110,25 +110,47 @@ exports.demoSignup = async (req, res) => {
         res.status(500).send({ message: err });
       }
       console.log("New Demo user created", user.meals);
-      const newCalendar = new Calendar({
-        date: dayjs().format("M/D/YYYY"),
-        users: [
-          {
-            user_id: user._id,
-            breakfast: user.meals[2]._id,
-            lunch: user.meals[3]._id,
-            dinner: user.meals[0]._id,
-            snack: user.meals[5]._id,
-          },
-        ],
-      });
-
-      newCalendar.save((err, date) => {
-        if (err) {
-          res.status(500).send({ message: err });
+      Calendar.findOne(
+        { date: dayjs().format("M/D/YYYY") },
+        async (err, date) => {
+          if (date) {
+            await Calendar.findOneAndUpdate(
+              { date: date, users: { $elemMatch: { user_id: user._id } } },
+              {
+                $push: {
+                  users: {
+                    user_id: user._id,
+                    breakfast: user.meals[2]._id,
+                    lunch: user.meals[0]._id,
+                    dinner: user.meals[3]._id,
+                    snack: user.meals[5]._id,
+                  },
+                },
+              },
+              { new: true },
+              (err, doc) => doc
+            );
+          } else {
+            await new Calendar({
+              date: dayjs().format("M/D/YYYY"),
+              users: [
+                {
+                  user_id: user._id,
+                  breakfast: user.meals[2]._id,
+                  lunch: user.meals[0]._id,
+                  dinner: user.meals[3]._id,
+                  snack: user.meals[5]._id,
+                },
+              ],
+            }).save((err, date) => {
+              if (err) {
+                res.status(500).send({ message: err });
+              }
+              console.log("New Demo date created", date.users);
+            });
+          }
         }
-        console.log("New Demo date created", date.users);
-      });
+      );
     });
   }
 

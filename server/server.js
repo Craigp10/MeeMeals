@@ -16,7 +16,7 @@ const apiPort = 3000;
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:8000",
+    origin: ["http://localhost:8000", "http://52.2.53.62/"],
   })
 );
 
