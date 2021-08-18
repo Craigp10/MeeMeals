@@ -12,9 +12,9 @@ router.post(
   verifySignUp.checkDuplicateUsernameOrEmail,
   controller.signup
 );
-router.post(
+router.get(
   "/demoSignup",
-  verifySignUp.checkDuplicateUsernameOrEmail,
+  // verifySignUp.checkDuplicateUsernameOrEmail,
   controller.demoSignup
 );
 
