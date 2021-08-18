@@ -13,7 +13,7 @@ mongoose
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
-    initial();
+    // initial();
   })
   .catch((err) => {
     console.error("Connection error", err);
@@ -138,25 +138,25 @@ async function initial() {
         "Delicious vegetarian Italian meal picked up fresh herbs and animal free protein",
     },
   ];
-  await User.findOne({ username: "demo" }, (err, user) => {
-    if (!user) {
-      const user = new User({
-        username: "demo",
-        email: "demo@demo.com",
-        password: bcrypt.hashSync("demopassword", 8),
-        meals: newMeals,
-      });
-      user.save((err, user) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-      });
-      console.log("DEMO USER CREATED", user);
-    } else {
-      console.log("DEMO USER FOUND", user._id);
-    }
-  });
+  // await User.findOne({ username: "demo" }, (err, user) => {
+  //   if (!user) {
+  //     const user = new User({
+  //       username: "demo",
+  //       email: "demo@demo.com",
+  //       password: bcrypt.hashSync("demopassword", 8),
+  //       meals: newMeals,
+  //     });
+  //     user.save((err, user) => {
+  //       if (err) {
+  //         res.status(500).send({ message: err });
+  //         return;
+  //       }
+  //     });
+  //     console.log("DEMO USER CREATED", user);
+  //   } else {
+  //     console.log("DEMO USER FOUND", user._id);
+  //   }
+  // });
 
   await User.find({ username: "demo" }, (err, user) => {
     if (user[0] && user[0].meals.length == 0) {
