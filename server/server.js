@@ -23,18 +23,20 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+console.log("pre-redis");
 const redis = new Redis({
   //client to our redis store
   port: Number(sessionConfig.REDIS_PORT),
   host: sessionConfig.REDIS_HOST,
   password: sessionConfig.REDIS_PASSWORD,
 });
+console.log("redis", redis);
 
 const RedisStore = connectRedis(session);
 const redisStore = new RedisStore({
   client: redis,
 });
-
+console.log("redisStore", redisStore);
 app.use(
   session({
     //data store for express session
