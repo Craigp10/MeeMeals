@@ -34,6 +34,7 @@ const RedisStore = connectRedis(session);
 const redisStore = new RedisStore({
   client: redis,
 });
+
 app.use(
   session({
     //data store for express session
