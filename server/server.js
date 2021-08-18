@@ -63,9 +63,9 @@ app.all("*", (req, res, next) => {
   next();
 });
 
-app.use("/api/meals", mealsRouter);
-app.use("/api/auth", authRouter); //currently get error with this... need to spend some time learning express more.
-app.use("/api/user", userRouter);
-app.use("/api/calendar", calendarRouter);
+app.use("/meals", mealsRouter);
+app.use("/auth", authRouter); //currently get error with this... need to spend some time learning express more.
+app.use("/user", userRouter);
+app.use("/calendar", calendarRouter);
 console.log("Finished");
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
