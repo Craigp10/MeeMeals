@@ -11,6 +11,7 @@ exports.demoSignup = async (req, res) => {
     { email: "demo" + req.sessionID.slice(1, 5) },
     (err, doc) => doc
   );
+  console.log("DEMO SIGNUP", demoUser);
   if (!demoUser) {
     demoUser = new User({
       username: "demo" + req.sessionID.slice(1, 5),
