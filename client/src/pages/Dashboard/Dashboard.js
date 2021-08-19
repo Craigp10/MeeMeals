@@ -25,6 +25,14 @@ const Dashboard = (props) => {
     }
   }, [props]);
 
+  useEffect(async () => {
+    //When props change setUser from props
+    console.log("MOUNTING DASH");
+    return () => {
+      logout();
+    };
+  }, []);
+
   const logout = () => {
     //Logs user out
     apis.logout().then((resp) => {

@@ -16,7 +16,7 @@ const apiPort = 3000;
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:8000", "http://52.2.53.62"],
+    origin: ["http://localhost:8000"], // "http://52.2.53.62" on AWS
   })
 );
 
@@ -59,7 +59,7 @@ app.all("*", (req, res, next) => {
   if (!req.session.isAuth) {
     req.session.isAuth = false;
   }
-  console.log("session * ", req.session);
+  // console.log("session * ", req.session);
   next();
 });
 
@@ -67,5 +67,5 @@ app.use("/api/meals", mealsRouter);
 app.use("/api/auth", authRouter); //currently get error with this... need to spend some time learning express more.
 app.use("/api/user", userRouter);
 app.use("/api/calendar", calendarRouter);
-console.log("Finished");
+
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
