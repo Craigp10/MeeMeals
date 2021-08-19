@@ -57,7 +57,6 @@ const MealsModal = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("changed");
     if (
       mealData["mealName"] != "" &&
       mealData["mealIngredients"]?.length != 0 &&
@@ -87,7 +86,7 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
-  console.log("render", mealData);
+
   return (
     <div>
       <Modal
@@ -96,20 +95,23 @@ const MealsModal = (props) => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <div className="meals-modal-content">
+        <div className="meals-modal__content">
           {props.modalAction == "preview" ? (
             <>
-              <div className="meals-modal-header">
-                <span className="meals-modal-left"></span>
-                <span className="meals-modal-title"> Preview Meal</span>
+              <div className="meals-modal__content__header">
+                <span className="meals-modal__content__header-left"></span>
+                <span className="meals-modal__content__header-title">
+                  {" "}
+                  Preview Meal
+                </span>
                 <span
-                  className="meals-modal-right glyphicon glyphicon-remove"
+                  className="meals-modal__content__header-right glyphicon glyphicon-remove"
                   onClick={props.handleClose}
                 ></span>
               </div>
 
-              <div className="meals-modal-form">
-                <div className="meals-modal-form-field">
+              <div className="meals-modal__content__form">
+                <div className="meals-modal__content__form-field">
                   <label>Meal Name</label>
                   <input
                     type="text"
@@ -120,7 +122,7 @@ const MealsModal = (props) => {
                     disabled
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Meal Description</label>
                   <textarea
                     type="text"
@@ -131,7 +133,7 @@ const MealsModal = (props) => {
                     disabled
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Category: &nbsp;</label> <br />
                   <select
                     type="text"
@@ -139,11 +141,12 @@ const MealsModal = (props) => {
                     value={mealData.mealCategory}
                     onChange={(e) => updateState(e, e.target.id)}
                     disabled
+                    style={{ appearance: "none" }}
                   >
                     <option value="">{mealData.mealCategory}</option>
                   </select>
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Ingredients</label>
                   <div className="extension">
                     {mealData.mealIngredients.map((ingredient, idx) => (
@@ -161,7 +164,7 @@ const MealsModal = (props) => {
                     disabled
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Instructions</label>
                   <ol className="instruction-extension">
                     {mealData.mealInstructions.map((tag, idx) => (
@@ -179,7 +182,7 @@ const MealsModal = (props) => {
                     disabled
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Tags</label>
                   <div className="extension">
                     {mealData.mealTags.map((tag, idx) => (
@@ -201,21 +204,27 @@ const MealsModal = (props) => {
             </>
           ) : (
             <>
-              <div className="meals-modal-header">
-                <span className="meals-modal-left"></span>
+              <div className="meals-modal__content__header">
+                <span className="meals-modal__content__header-left"></span>
                 {props.modalAction == "create" ? (
-                  <span className="meals-modal-title"> New Meal</span>
+                  <span className="meals-modal__content__header-title">
+                    {" "}
+                    New Meal
+                  </span>
                 ) : (
-                  <span className="meals-modal-title"> Edit Meal</span>
+                  <span className="meals-modal__content__header-title">
+                    {" "}
+                    Edit Meal
+                  </span>
                 )}
                 <span
-                  className="meals-modal-right glyphicon glyphicon-remove"
+                  className="meals-modal__content__header-right glyphicon glyphicon-remove"
                   onClick={props.handleClose}
                 ></span>
               </div>
 
-              <div className="meals-modal-form">
-                <div className="meals-modal-form-field">
+              <div className="meals-modal__content__form">
+                <div className="meals-modal__content__form-field">
                   <label>Meal Name</label>
                   <input
                     type="text"
@@ -225,7 +234,7 @@ const MealsModal = (props) => {
                     autoComplete="off"
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Meal Description</label>
                   <textarea
                     // type="text"
@@ -235,7 +244,7 @@ const MealsModal = (props) => {
                     autoComplete="off"
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Category: &nbsp;</label> <br />
                   <select
                     type="text"
@@ -255,7 +264,7 @@ const MealsModal = (props) => {
                     })}
                   </select>
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Ingredients</label>
                   <div className="extension">
                     {mealData.mealIngredients.map((ingredient, idx) => (
@@ -283,7 +292,7 @@ const MealsModal = (props) => {
                     }}
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Instructions</label>
                   <DragDropTags
                     instructions={mealData.mealInstructions}
@@ -304,7 +313,7 @@ const MealsModal = (props) => {
                     }}
                   />
                 </div>
-                <div className="meals-modal-form-field">
+                <div className="meals-modal__content__form-field">
                   <label>Tags</label>
                   <div className="extension">
                     {mealData.mealTags.map((tag, idx) => (
@@ -333,7 +342,7 @@ const MealsModal = (props) => {
                   />
                 </div>
               </div>
-              <div className="meals-modal-btns">
+              <div className="meals-modal__content-btns">
                 {props.modalAction == "create" ? (
                   <button
                     id="submit"
