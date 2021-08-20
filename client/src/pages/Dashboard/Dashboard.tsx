@@ -33,6 +33,7 @@ const Dashboard = (props: Props) => {
     username:"",
     email:"",
   });
+  const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   
   useEffect(() => {
@@ -54,10 +55,9 @@ const Dashboard = (props: Props) => {
       } 
     });
   };
-
   return (
     <div className="dashboard-wrapper">
-      {Object.keys(user).length ? (
+      {user.id != "" ? (
         <Router>
           <div className="dashboard__content">
             <div className="dashboard__content-topbar">

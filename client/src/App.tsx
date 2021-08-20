@@ -8,20 +8,34 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import "./App.css";
 import apis from "./api/index";
 
+
+interface User {
+  id: string,
+  username: string,
+  email: string,
+}
+
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser] = useState({
-    user_id: "",
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<User>({
+    id: "",
+    username: "",
+    email: "",
   });
+
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(async () => {
-    await apis.checkSession().then((resp) => {
+
+  useEffect(() => {
+    const checkCurrentSession = async () => await apis.checkSession().then((resp) => {
+      console.log(resp.data.user);
       if (resp.data.isAuth) {
         setAuthenticated(true);
         setUser(resp.data.user);
       }
       setIsLoading(false);
     });
+
+    checkCurrentSession();
   }, []);
 
   return (

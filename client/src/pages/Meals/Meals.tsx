@@ -4,63 +4,89 @@ import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 import MealsModal from "../../components/MealsModal/MealsModal";
 
-const Meals = (props) => {
-  const [meals, setMeals] = useState([]);
-  const [show, setShow] = useState(false);
-  const [modalAction, setModalAction] = useState("");
-  const [activeMeal, setActiveMeal] = useState({});
-  const [searchFilter, setSearchFilter] = useState("");
 
-  useEffect(async () => {
+type meal = {
+  category: string,
+  date_created: string,
+  description: string,
+  display_name: string
+  ingredients: string[],
+  instructions: string[],
+  isActive: boolean,
+  tags: string[],
+  _id: string,
+}
+
+type activeMealObj = {
+  isActive:boolean,
+  activeMealID:string
+}
+
+const Meals = (props:any) => {
+  const [meals, setMeals] = useState<meal[]>([]);
+  const [show, setShow] = useState<boolean>(false);
+  const [modalAction, setModalAction] = useState<string>("");
+  const [activeMeal, setActiveMeal] = useState<activeMealObj>({
+    isActive:false,
+    activeMealID:"",
+  });
+  const [searchFilter, setSearchFilter] = useState<string>("");
+
+  useEffect(() => {
     //When props change pull user meals by user id
-    await apis.getUserMeals({ user_id: props.user.id }).then((resp) => {
+    const getUserMealsFunc = async () => await apis.getUserMeals({ user_id: props.user.id }).then((resp) => {
       console.log(resp.data.meals);
       setMeals(resp.data.meals);
     });
+
+    getUserMealsFunc();
   }, []);
 
   const handleClose = () => {
     //close modal, remove active meal state
-    setActiveMeal({});
+    setActiveMeal({
+      isActive:false,
+      activeMealID:"",
+    });
     setShow(false);
   };
 
-  const handleShow = (action, idx) => {
+  const handleShow = (action: string, idx: number) => {
     //show modal, set activeMeal if preview or edit action
     if (action == "edit" || action == "preview") {
-      setActiveMeal({ ...meals[idx] });
+      // setActiveMeal({ ...meals[idx] });
     }
     setModalAction(action);
     setShow(true);
   };
 
-  const handleSubmit = async (data) => {
-    //Submit modal data
-    console.log("submitting data", data);
-    const requestObj = {
-      meal: data,
-      user_id: props.user.id,
-    };
-    let resp = {};
-    if (modalAction == "edit") {
-      requestObj.meal._id = activeMeal._id;
-      resp = await apis.editMeal(requestObj);
-    } else {
-      resp = await apis.createNewMeal(requestObj);
-    }
-    if (
-      typeof resp.data.meals != "object" ||
-      typeof resp.data.meals?.length != "number"
-    ) {
-      setMeals([]);
-    } else {
-      setMeals(resp.data.meals);
-    }
-    //run saver component
-    setShow(false);
-  };
+  // const handleSubmit = async (data: meal) => {
+  //   //Submit modal data
+  //   console.log("submitting data", data);
+  //   const requestObj = {
+  //     meal: data,
+  //     user_id: props.user.id,
+  //   };
+  //   let resp = {};
+  //   if (modalAction == "edit") {
+  //     requestObj.meal._id = activeMeal.activeMealID;
+  //     resp = await apis.editMeal(requestObj);
+  //   } else {
+  //     resp = await apis.createNewMeal(requestObj);
+  //   }
+  //   if (
+  //     typeof resp?.data.meals != "object" ||
+  //     typeof resp?.data.meals?.length != "number"
+  //   ) {
+  //     setMeals([]);
+  //   } else {
+  //     setMeals(resp.data.meals);
+  //   }
+  //   //run saver component
+  //   setShow(false);
+  // };
 
-  const handleDelete = async (meal_id) => {
+  const handleDelete = async (meal_id:string) => {
     //handle deleting a meal on click
     const requestObj = {
       meal_id,
@@ -79,7 +105,7 @@ const Meals = (props) => {
           <MealsModal
             show={show}
             handleClose={handleClose}
-            handleSubmit={handleSubmit}
+            // handleSubmit={handleSubmit}
             modalAction={modalAction}
             activeMeal={activeMeal}
           />
@@ -99,7 +125,9 @@ const Meals = (props) => {
             </div>
             <div className="meals__board__header-title">Your Meals</div>
             <div className="meals__board__header-create">
-              <button type="button" onClick={() => handleShow("create")}>
+              <button type="button" onClick={() => null
+              //handleShow("create")}>
+              }>
                 Create A Meal
               </button>
             </div>

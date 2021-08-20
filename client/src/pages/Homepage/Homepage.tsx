@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Homepage.css";
 import dayjs from "dayjs";
 import apis from "../../api/index";
-import { Redirect, Link, useHistory } from "react-router-dom";
+// import { Redirect, Link, useHistory } from "react-router-dom";
 //grid structure, styling with css grid
 const GRID_LAYOUT = [
   { style: { gridColumn: 2, gridRow: 1 }, text: "Sunday", isDay: true },
@@ -26,27 +26,51 @@ const generateCurrentWeek = () => {
   return week;
 };
 
-const Home = (props) => {
-  const [weekMeals, setWeekMeals] = useState([]);
-  const [userMeals, setUserMeals] = useState([]);
-  const [week, setWeek] = useState(generateCurrentWeek());
-  const history = useHistory();
+type meal = {
+  category: string,
+  date_created: string,
+  description: string,
+  display_name: string
+  ingredients: string[],
+  instructions: string[],
+  isActive: boolean,
+  tags: string[],
+  _id: string,
+}
 
-  useEffect(async () => {
+type weekMeal = {
+  breakfast: string
+  lunch: string
+  dinner: string
+  snack: string
+  day: string,
+  pulled: boolean,
+}
+
+const Home = (props: any) => {
+  const [weekMeals, setWeekMeals] = useState<weekMeal[]>([]);
+  const [userMeals, setUserMeals] = useState<meal[]>([]);
+  const [week, setWeek] = useState(generateCurrentWeek());
+  
+  useEffect(() => {
     //When props change, pull the current week of meals for that user
-    if (props.user?.id) {
-      await apis
+    console.log(props);
+    if (props.user.id != "") {
+      const getCalendarWeek = async () => await apis
         .pullCalendarWeek({ user_id: props.user.id, week })
         .then((resp) => {
           setWeekMeals(resp.data.meals);
         });
 
-      await apis
+      const getUserMealsFunc = async () => await apis
         .getUserMeals({ user_id: props.user.id })
         .then((resp) => setUserMeals(resp.data.meals));
-    }
-  }, [props]);
+    
+        getCalendarWeek();
+        getUserMealsFunc();
+      }
 
+  }, [props]);
   return (
     <div className="home-wrapper">
       <div className="home__content__board">
@@ -147,7 +171,6 @@ const Home = (props) => {
                   ) : null;
                 })
               : null}
-            {/* <DragDropTest /> */}
           </div>
         </div>
       </div>

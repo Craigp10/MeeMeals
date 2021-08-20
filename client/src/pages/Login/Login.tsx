@@ -4,9 +4,9 @@ import "./Login.css";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
 
-const Login = (props) => {
+const Login = (props:any) => {
   const history = useHistory();
-  const [loginSuccess, setLoginSuccess] = useState(true);
+  const [loginSuccess, setLoginSuccess] = useState<boolean>(true);
 
   useEffect(() => {
     //When props change
@@ -15,7 +15,7 @@ const Login = (props) => {
     }
   }, [props]);
 
-  const demoSubmit = async (e) => {
+  const demoSubmit = async () => {
     //Handle user log in submit
     await apis.demoLogin().then((resp) => {
       if (resp.status == 200) {
@@ -42,7 +42,6 @@ const Login = (props) => {
             className="login__board__content__form"
             onSubmit={(e) => {
               e.preventDefault();
-              // demoSubmit();
             }}
           >
             <Form.Group
@@ -84,7 +83,7 @@ const Login = (props) => {
                 type="submit"
                 id="demo-login"
                 name="demo"
-                onClick={(e) => demoSubmit()}
+                onClick={demoSubmit}
               >
                 Demo Log In
               </Button>
