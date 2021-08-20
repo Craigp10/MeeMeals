@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {FC, useState, useEffect } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import TopBar from "../../components/TopBar/TopBar";
 import Home from "../Homepage/Homepage";
@@ -14,31 +14,44 @@ import {
 import "./Dashboard.css";
 import apis from "../../api/index";
 
-const Dashboard = (props) => {
-  const [user, setUser] = useState({});
-  const history = useHistory();
 
+
+interface User {
+  id: string,
+  username: string,
+  email: string,
+}
+
+interface Props {
+  user: User,
+  setAuthenticated: (isAuthenticated:boolean) => void,
+}
+
+const Dashboard = (props: Props) => {
+  const [user, setUser] = useState<User>({
+    id:"",
+    username:"",
+    email:"",
+  });
+  const history = useHistory();
+  
   useEffect(() => {
     //When props change setUser from props
     if (props?.user) {
-      setUser(props.user);
+      const newUser: User = props.user
+      setUser(newUser);
     }
   }, [props]);
-
-  useEffect(async () => {
-    //When props change setUser from props
-    console.log("MOUNTING DASH");
-    return () => {
-      logout();
-    };
-  }, []);
 
   const logout = () => {
     //Logs user out
     apis.logout().then((resp) => {
-      console.log(resp);
-      props.setAuthenticated(false);
-      history.push("/");
+      if (resp.status == 200){
+        props.setAuthenticated(false)
+        history.push("/")
+      } else {
+        console.log("Unable to logout");
+      } 
     });
   };
 
