@@ -9,7 +9,7 @@ const TopBar = (props) => (
         className="topbar__title-text"
         onClick={() => (window.location = window.location.origin)}
       >
-        Mi Meals
+        MeeMeals
       </span>
     </div>
     <div className="topbar__leftover">
