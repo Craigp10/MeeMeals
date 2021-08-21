@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: center;
   background-color: $white;
-  // box-shadow: 0 0px 36px -18px rgb(0 0 0 / 30%);
+  box-shadow: 0 0px 36px -10px $darker-gray; //rgb(0 0 0 / 30%);
 }
 
 .meals__board {
@@ -24,7 +24,7 @@
   width: 90%;
   margin: auto;
   background-color: $faded-white;
-  // box-shadow: 0 0px 36px -18px rgb(0 0 0 / 30%);
+  box-shadow: 0 0px 20px -1px $darker-gray;
 }
 
 .meals__board__header {

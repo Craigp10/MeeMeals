@@ -38,5 +38,6 @@
   color: $primary-blue;
   height: 70px;
   border-bottom: none;
-  box-shadow: 12px 0 15px -4px $dark-gray, -12px 0 8px -4px $dark-gray;
+  box-shadow: 1px 0 5px white;
+  z-index: 99;
 }

@@ -8,13 +8,14 @@
 }
 
 .login__board {
-  border: 2px solid $primary-blue;
+  border: 0.5px solid $primary-blue;
   border-radius: 4px;
   height: 60vh;
   width: 60vw;
   margin: 100px auto 0;
-  // box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
-  //   0 10px 36px -10px rgb(0 0 0 / 30%);
+  box-shadow: 0 30px 60px -12px $dark-gray,
+    //gb(50 50 93 / 25%),
+    0 10px 36px -10px $darker-gray; //rgb(0 0 0 / 30%);
 }
 
 .login__board__content {
