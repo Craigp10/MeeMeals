@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./MealDrop.css";
 
-const MealDrop = (props) => {
+const MealDrop = (props:any) => {
   return (
     <div
       className={
@@ -9,6 +9,7 @@ const MealDrop = (props) => {
           ? "mealdrop-wrapper active"
           : "mealdrop-wrapper"
       }
+       // @ts-ignore 
       onClick={
         props.activeMealIsActive
           ? () => props.mealClickCallback(props.index)

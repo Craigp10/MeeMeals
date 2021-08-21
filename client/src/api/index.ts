@@ -6,16 +6,16 @@ const api = axios.create({
 });
 
 export const getAllMeals = () => api.get("/meals/getAll");
-export const getUserMeals = (payload) => api.post(`/user/meals`, payload);
-export const getDateMeals = (payload) =>
+export const getUserMeals = (payload:any) => api.post(`/user/meals`, payload);
+export const getDateMeals = (payload:any) =>
   api.post("/calendar/getDateMeals", payload);
-export const saveCalendarChanges = (payload) =>
+export const saveCalendarChanges = (payload:any) =>
   api.post("/calendar/changes", payload);
-export const pullCalendarWeek = (payload) =>
+export const pullCalendarWeek = (payload:any) =>
   api.post("/calendar/schedule", payload);
-export const createNewMeal = (payload) => api.post("/user/newMeal", payload);
-export const deleteMeal = (payload) => api.post("/user/deleteMeal", payload);
-export const editMeal = (payload) => api.post("/user/editMeal", payload);
+export const createNewMeal = (payload:any) => api.post("/user/newMeal", payload);
+export const deleteMeal = (payload:any) => api.post("/user/deleteMeal", payload);
+export const editMeal = (payload:any) => api.post("/user/editMeal", payload);
 export const demoLogin = () => api.get("/auth/demoSignup");
 export const checkSession = () => api.get("/auth/checkSession");
 export const logout = () => api.get("/auth/logout");

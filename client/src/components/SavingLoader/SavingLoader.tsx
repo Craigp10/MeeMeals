@@ -2,7 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
-const SavingLoader = (props) => {
+
+const clipStyler = {
+  display: "block",
+  margin: "0 auto",
+  cursor: "default",
+  // color: "lightGray",
+};
+
+const SavingLoader = (props: any) => {
   const [saveTimer, setSaveTimer] = useState(0);
 
   useEffect(() => {
@@ -11,7 +19,7 @@ const SavingLoader = (props) => {
 
   useEffect(() => {
     //Timer that counts and removes saved message from user display after 5 seconds of no new saves
-    const timer = setTimeout(() => {
+    const timer: NodeJS.Timer = setTimeout(() => {
       setSaveTimer(saveTimer + 1);
     }, 1000);
     if (saveTimer == 5) {
@@ -28,12 +36,8 @@ const SavingLoader = (props) => {
     <div className="saving-loader-wrapper">
       {props.saving ? (
         <ClipLoader
-          css={{
-            display: "block",
-            margin: "0 auto",
-            cursor: "default",
-            // color: "lightGray",
-          }}
+          // @ts-ignore 
+          css={clipStyler}
           loading={props.saving}
           size={30}
           color={"lightGray"}
