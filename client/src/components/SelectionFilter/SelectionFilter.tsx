@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./SelectionFilter.css";
 
-const CATEGORY_FILTERS = [
+
+type category_filter = {
+  id:string,
+  text:string,
+  isActive:boolean,
+}
+
+const CATEGORY_FILTERS: category_filter[] = [
   {
     id: "all",
     text: "All",
@@ -29,10 +36,10 @@ const CATEGORY_FILTERS = [
   },
 ];
 
-const SelectionFilter = (props) => {
+const SelectionFilter = (props: any) => {
   return (
     <div className="selection-filter-wrapper">
-      {CATEGORY_FILTERS.map((category, index) => {
+      {CATEGORY_FILTERS.map((category: category_filter, index: number) => {
         return (
           <span
             key={index}
