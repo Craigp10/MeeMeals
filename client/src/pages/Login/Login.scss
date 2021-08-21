@@ -1,18 +1,20 @@
+@import "../../style/colors.scss";
+
 .login-wrapper {
-  border: 1px solid green;
+  // border: 1px solid green;
   height: 100vh;
   width: 100vw;
-  color: #02203c;
+  color: $primary-blue;
 }
 
 .login__board {
-  border: 2px solid #02203c;
+  border: 2px solid $primary-blue;
   border-radius: 4px;
   height: 60vh;
   width: 60vw;
   margin: 100px auto 0;
-  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
-    0 10px 36px -10px rgb(0 0 0 / 30%);
+  // box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
+  //   0 10px 36px -10px rgb(0 0 0 / 30%);
 }
 
 .login__board__content {
@@ -38,15 +40,15 @@ form {
 }
 
 .login__board__content__form-buttons button {
-  color: #02203c;
-  background-color: white;
-  border: 1px solid #02203c;
+  color: $primary-blue;
+  background-color: $white;
+  border: 1px solid $primary-blue;
 }
 
 .login__board__content__form-buttons button:hover {
-  border: 1px solid #02203c;
-  background-color: #02203c;
-  color: white;
+  border: 1px solid $primary-blue;
+  background-color: $primary-blue;
+  color: $white;
 }
 
 .login__board__content-failed {

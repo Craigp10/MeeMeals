@@ -1,5 +1,5 @@
 import React, {FC, useState, useEffect } from "react";
-import "./Calendar.css";
+import "./Calendar.scss";
 import apis, { getDateMeals } from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
