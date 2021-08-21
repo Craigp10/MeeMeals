@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./MealsModal.css";
+import "./MealsModal.scss";
 import Modal from "react-modal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DragDropTags from "../DragDropTags/DragDropTags";

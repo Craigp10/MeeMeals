@@ -1,12 +1,10 @@
 @import "./style/colors.scss";
 @import "./style/functions.scss";
 @import "./style/mixins.scss";
-@import "./style/variables.scss";
 
 body {
   margin: 0;
-  background: #ffffff;
-  background-color: #fff;
+  background: $white;
 }
 
 .app {

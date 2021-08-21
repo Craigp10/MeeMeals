@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./SelectionFilter.css";
+import "./SelectionFilter.scss";
 
 
 type category_filter = {

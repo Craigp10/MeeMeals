@@ -1,9 +1,10 @@
+@import "../../style/colors.scss";
 .mealdrop-wrapper {
   border-radius: 25px;
 }
 
 .active:hover {
-  background-color: #aec6dd !important;
+  background-color: $highlight-blue !important;
 }
 .mealdrop__content {
   width: 400px;
@@ -11,13 +12,13 @@
   flex-direction: column;
   border-radius: 25px;
   height: 120px;
-  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
-    0 18px 36px -18px rgb(0 0 0 / 30%);
-  /* background-color: white; since background is white, leave out and the background will change to .active:hover when hovering Definitely look into a better way to implement this*/
+  // box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
+  //   0 18px 36px -18px rgb(0 0 0 / 30%);
+  /* background-color: $white; since background is $white, leave out and the background will change to .active:hover when hovering Definitely look into a better way to implement this*/
 }
 
 .active {
-  box-shadow: 0 0 10px 0.2px hsl(209, 94%, 12%);
+  box-shadow: 0 0 10px 0.2px $primary-blue;
   cursor: pointer;
 }
 
@@ -25,10 +26,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #02203c;
+  background-color: $primary-blue;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
-  color: white;
+  color: $white;
 }
 
 .mealdrop__content__header-displayname {
@@ -40,7 +41,7 @@
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  $white-space: nowrap;
 }
 
 .mealdrop__content__header-options {
@@ -58,12 +59,11 @@
   width: 400px;
   border-radius: 25px;
   height: 120px;
-  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
-    0 18px 36px -18px rgb(0 0 0 / 30%);
+  box-shadow: 0 5px 20px -5px $primary-blue, 0 18px 36px -18px $white;
 }
 
 .mealdrop__content__footer {
-  border-top: 1px solid lightgray;
+  border-top: 1px solid $light-gray;
   margin: 0 5px;
   display: flex;
   justify-content: space-between;
@@ -77,7 +77,7 @@
 }
 
 .mealdrop__content__header-options span:hover {
-  background-color: white;
-  color: #02203c;
+  background-color: $white;
+  color: $primary-blue;
   cursor: pointer;
 }

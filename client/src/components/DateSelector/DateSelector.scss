@@ -1,10 +1,12 @@
+@import "../../style/colors.scss";
+
 .date-selector-wrapper {
   width: 100%;
   height: 80px;
 }
 
 .date-selector-wrapper .glyphicon {
-  color: #02203c;
+  color: $primary-blue;
 }
 
 .date-selector-wrapper {
@@ -17,15 +19,14 @@
   padding: 10px 20px;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
-  box-shadow: 0 -30px 60px -12px rgb(50 50 93 / 25%);
 }
 
 .dates {
   width: 400px;
   transition: 0.2s ease-in-out;
   text-align: center;
-  background-color: #02203c;
-  color: white;
+  background-color: $primary-blue;
+  color: $white;
 }
 
 .notActive {
@@ -33,8 +34,9 @@
 }
 
 .isActive {
-  background-color: white;
-  color: #02203c;
+  background-color: $white;
+  color: $primary-blue;
   height: 70px;
   border-bottom: none;
+  box-shadow: 12px 0 15px -4px $dark-gray, -12px 0 8px -4px $dark-gray;
 }

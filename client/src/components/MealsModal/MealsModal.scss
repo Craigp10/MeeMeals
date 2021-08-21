@@ -1,13 +1,14 @@
+@import "../../style/colors.scss";
 .glyphicon-remove:hover {
   cursor: pointer;
 }
 
 .meals-modal__content {
-  background: white;
+  background: $white;
   height: 700px;
   width: 800px;
   opacity: 1;
-  box-shadow: 0 0 60px 10px rgb(50 50 93 / 25%);
+  box-shadow: 0 0 60px 10px $dark-gray; //rgb(50 50 93 / 25%);
   border-radius: 4px;
 }
 
@@ -18,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid $light-gray;
 }
 
 .meals-modal__content__header-left {
@@ -38,7 +39,7 @@
   text-align: center;
   padding: 0 10px 0 0;
   font-size: 20px;
-  color: lightgray;
+  color: $light-gray;
 }
 
 .meals-modal__content__header .glyphicon:hover {
@@ -56,7 +57,7 @@
 }
 
 .meals-modal__content__form-field {
-  background-color: rgb(233, 233, 233);
+  background-color: $faded-white;
   background: none;
   outline: none;
   width: 100%;
@@ -68,7 +69,7 @@
 
 #mealCategory {
   /* appearance: none; */
-  border: 1px solid #02203c;
+  border: 1px solid $primary-blue;
   padding: 5px;
   /* background-color: red; */
   border-radius: 4px;
@@ -102,9 +103,9 @@ textarea {
   padding: 5px;
   margin: 0;
   border-radius: 4px;
-  color: #02203c;
-  background: white;
-  border: 1px solid #02203c;
+  color: $primary-blue;
+  background: $white;
+  border: 1px solid $primary-blue;
   margin-bottom: 2px;
 }
 
@@ -112,8 +113,8 @@ textarea {
   display: inline-block;
   padding: 5px;
   border-radius: 4px;
-  background: #02203c;
-  color: white;
+  background: $primary-blue;
+  color: $white;
   margin-right: 2px;
   margin-bottom: 2px;
 }
@@ -127,7 +128,7 @@ textarea {
   outline: none;
   border: none;
   width: 100%;
-  border-bottom: 1px solid #02203c;
+  border-bottom: 1px solid $primary-blue;
 }
 
 :focus {
@@ -143,23 +144,23 @@ textarea {
 
 #submit {
   padding: 10px;
-  background-color: white;
-  color: #02203c;
-  border: 1px solid #02203c;
+  background-color: $white;
+  color: $primary-blue;
+  border: 1px solid $primary-blue;
   font-weight: bold;
   border-radius: 25px;
   box-sizing: border-box;
 }
 
 .disabled {
-  background: #e0e0e0 !important;
-  border: 1px solid #e0e0e0 !important;
+  background: $dark-white !important;
+  border: 1px solid $dark-white !important;
   cursor: not-allowed !important;
   color: black !important;
 }
 
 #submit:hover {
   cursor: pointer;
-  background-color: #02203c;
-  color: white;
+  background-color: $primary-blue;
+  color: $white;
 }
