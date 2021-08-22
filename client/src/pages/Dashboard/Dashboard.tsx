@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect } from "react";
+import React, {FC, useState, useEffect,useContext } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import TopBar from "../../components/TopBar/TopBar";
 import Home from "../Homepage/Homepage";
@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 import "./Dashboard.scss";
 import apis from "../../api/index";
-
+import {userContext} from "../../App";
 
 
 interface User {
@@ -28,21 +28,22 @@ interface Props {
 }
 
 const Dashboard = (props: Props) => {
-  const [user, setUser] = useState<User>({
-    id:"",
-    username:"",
-    email:"",
-  });
+  // const [user, setUser] = useState<User>({
+  //   id:"",
+  //   username:"",
+  //   email:"",
+  // });
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
-  
-  useEffect(() => {
-    //When props change setUser from props
-    if (props?.user) {
-      const newUser: User = props.user
-      setUser(newUser);
-    }
-  }, [props]);
+  const user = useContext(userContext);
+
+  // useEffect(() => {
+  //   //When props change setUser from props
+  //   if (props?.user) {
+  //     const newUser: User = user
+  //     setUser(newUser);
+  //   }
+  // }, [props]);
 
   const logout = () => {
     //Logs user out
@@ -68,16 +69,16 @@ const Dashboard = (props: Props) => {
             </div>
             <div className="dashboard__content-inner">
               <Switch>
-                <Route exact path="/" render={() => <Home user={user} />} />
+                <Route exact path="/" render={() => <Home />} />
                 <Route
                   exact
                   path="/meals"
-                  render={() => <Meals user={user} />}
+                  render={() => <Meals />}
                 />
                 <Route
                   exact
                   path="/calendar"
-                  render={() => <Calendar user={user} />}
+                  render={() => <Calendar />}
                 />
                 <Route component={NotFound} />
               </Switch>

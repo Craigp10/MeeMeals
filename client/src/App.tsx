@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
@@ -7,12 +7,18 @@ import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import "./App.scss";
 import apis from "./api/index";
+// import UserContent from "./"
 
 interface User {
   id: string,
   username: string,
   email: string,
 }
+export const userContext = createContext<User>({
+  id: "",
+  username: "",
+  email: "",
+});
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
@@ -38,6 +44,7 @@ const App = () => {
   }, []);
 
   return (
+    
     <Router>
       <div
         className="app"
@@ -50,6 +57,7 @@ const App = () => {
         }}
       >
         {!isLoading ? (
+            <userContext.Provider value = {user}>
           <Switch>
             <PublicRoute
               path="/login"
@@ -67,6 +75,7 @@ const App = () => {
             />
             <Route component={NotFound} />
           </Switch>
+        </userContext.Provider>
         ) : null}
       </div>
     </Router>

@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect } from "react";
+import React, {FC, useState, useEffect,useContext } from "react";
 import "./Calendar.scss";
 import apis, { getDateMeals } from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
@@ -6,6 +6,7 @@ import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
 import SaveLoader from "../../components/SavingLoader/SavingLoader";
+import {userContext} from "../../App";
 
 const SAVING_STATUSES = {
   initialize: "",
@@ -47,12 +48,7 @@ interface User {
   email: string,
 }
 
-interface Props {
-  user: User,
-}
-
-
-const Calendar = (props: Props) => {
+const Calendar = (props: any) => {
   const [activeDate, setActiveDate] = useState<string>(dayjs().format("M/D/YYYY"));
   const [mealTimes, setMealTimes] =useState<mealTime[]>([
       { mealTime: "Breakfast", mealId: "" },
@@ -72,6 +68,7 @@ const Calendar = (props: Props) => {
     saving: false,
     status: SAVING_STATUSES.initialize,
   });
+  const user = useContext(userContext);
 
   const handleMealClick = (mealId:string) => {
     //Handles clicking a meal from the scroll wheel
@@ -122,7 +119,7 @@ const Calendar = (props: Props) => {
   useEffect(() => {
     //On mount, pull meals and any meal times for current user
     const setMealsFunc = async () => await apis
-      .getUserMeals({ user_id: props.user.id })
+      .getUserMeals({ user_id: user.id })
       .then((resp) => setMeals(resp.data.meals))
       .catch((err) => {
         console.log(err);
@@ -131,7 +128,7 @@ const Calendar = (props: Props) => {
     const pullDateMeals = async () => await apis
       .getDateMeals({
         date: activeDate,
-        user_id: props.user.id,
+        user_id: user.id,
       })
       .then((resp) => {
         const schedule = resp.data.data;
@@ -164,7 +161,7 @@ const Calendar = (props: Props) => {
       const saveChanges = async () => await apis
         .saveCalendarChanges({
           date: activeDate,
-          user_id: props.user.id,
+          user_id: user.id,
           changes,
         })
         .then((resp) => {
@@ -199,7 +196,7 @@ const Calendar = (props: Props) => {
     const getDateMealsFunc = async () => await apis
       .getDateMeals({
         date: activeDate,
-        user_id: props.user.id,
+        user_id: user.id,
       })
       .then((resp) => {
         const schedule = resp.data.data;
@@ -241,7 +238,7 @@ const Calendar = (props: Props) => {
   }, [saveObject.status]);
 
 
-  console.log(meals);
+  console.log(user);
   return (
     <div className="calendar-wrapper">
       <div className="calendar__board">

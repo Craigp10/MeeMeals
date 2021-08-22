@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import "./Meals.scss";
 import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 import MealsModal from "../../components/MealsModal/MealsModal";
-
+import {userContext} from "../../App";
 
 type meal = {
   category: string,
@@ -31,10 +31,11 @@ const Meals = (props:any) => {
     activeMealID:"",
   });
   const [searchFilter, setSearchFilter] = useState<string>("");
-
+  const user = useContext(userContext);
+  
   useEffect(() => {
     //When props change pull user meals by user id
-    const getUserMealsFunc = async () => await apis.getUserMeals({ user_id: props.user.id }).then((resp) => {
+    const getUserMealsFunc = async () => await apis.getUserMeals({ user_id: user.id }).then((resp) => {
       console.log(resp.data.meals);
       setMeals(resp.data.meals);
     });
@@ -65,7 +66,7 @@ const Meals = (props:any) => {
   //   console.log("submitting data", data);
   //   const requestObj = {
   //     meal: data,
-  //     user_id: props.user.id,
+  //     user_id: user.id,
   //   };
   //   let resp = {};
   //   if (modalAction == "edit") {
@@ -90,7 +91,7 @@ const Meals = (props:any) => {
     //handle deleting a meal on click
     const requestObj = {
       meal_id,
-      user_id: props.user.id,
+      user_id: user.id,
     };
     await apis.deleteMeal(requestObj).then((resp) => {
       console.log(resp.data.meals);

@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Homepage.scss";
 import dayjs from "dayjs";
 import apis from "../../api/index";
+import {userContext} from "../../App";
+
 // import { Redirect, Link, useHistory } from "react-router-dom";
+
 //grid structure, styling with css grid
+
 const GRID_LAYOUT = [
   { style: { gridColumn: 2, gridRow: 1 }, text: "Sunday", isDay: true },
   { style: { gridColumn: 3, gridRow: 1 }, text: "Monday", isDay: true },
@@ -51,19 +55,20 @@ const Home = (props: any) => {
   const [weekMeals, setWeekMeals] = useState<weekMeal[]>([]);
   const [userMeals, setUserMeals] = useState<meal[]>([]);
   const [week, setWeek] = useState(generateCurrentWeek());
-  
+  const user = useContext(userContext);
+
   useEffect(() => {
     //When props change, pull the current week of meals for that user
     console.log(props);
-    if (props.user.id != "") {
+    if (user.id != "") {
       const getCalendarWeek = async () => await apis
-        .pullCalendarWeek({ user_id: props.user.id, week })
+        .pullCalendarWeek({ user_id: user.id, week })
         .then((resp) => {
           setWeekMeals(resp.data.meals);
         });
 
       const getUserMealsFunc = async () => await apis
-        .getUserMeals({ user_id: props.user.id })
+        .getUserMeals({ user_id: user.id })
         .then((resp) => setUserMeals(resp.data.meals));
     
         getCalendarWeek();
