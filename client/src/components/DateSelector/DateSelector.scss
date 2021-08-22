@@ -7,6 +7,7 @@
 
 .date-selector-wrapper .glyphicon {
   color: $primary-blue;
+  padding-bottom: 20px;
 }
 
 .date-selector-wrapper {
@@ -37,7 +38,7 @@
   background-color: $white;
   color: $primary-blue;
   height: 70px;
+  // width: 500px;
   border-bottom: none;
-  box-shadow: 1px 0 5px white;
   z-index: 99;
 }
