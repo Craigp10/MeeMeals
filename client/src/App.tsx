@@ -7,7 +7,6 @@ import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import "./App.scss";
 import apis from "./api/index";
-// import UserContent from "./"
 
 interface User {
   id: string,
@@ -44,7 +43,6 @@ const App = () => {
   }, []);
 
   return (
-    
     <Router>
       <div
         className="app"
@@ -57,25 +55,25 @@ const App = () => {
         }}
       >
         {!isLoading ? (
-            <userContext.Provider value = {user}>
-          <Switch>
-            <PublicRoute
-              path="/login"
-              component={Login}
-              setAuthenticated={setAuthenticated}
-              setUser={setUser}
-              authenticated={authenticated}
-            />
-            <PrivateRoute
-              path="/"
-              component={Dashboard}
-              isAuthenticated={authenticated}
-              setAuthenticated={setAuthenticated}
-              user={user}
-            />
-            <Route component={NotFound} />
-          </Switch>
-        </userContext.Provider>
+          <userContext.Provider value = {user}>
+            <Switch>
+              <PublicRoute
+                path="/login"
+                component={Login}
+                setAuthenticated={setAuthenticated}
+                setUser={setUser}
+                authenticated={authenticated}
+              />
+              <PrivateRoute
+                path="/"
+                component={Dashboard}
+                isAuthenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+                user={user}
+              />
+              <Route component={NotFound} />
+            </Switch>
+          </userContext.Provider>
         ) : null}
       </div>
     </Router>
