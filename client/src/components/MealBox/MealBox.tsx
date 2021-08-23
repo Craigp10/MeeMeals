@@ -13,12 +13,12 @@ const MealBox = (props:any) => {
             <div className="mealbox__content__header-options">
               <span
                 className="glyphicon glyphicon-resize-full"
-                onClick={() => props.handleShow("preview", props.index)}
+                onClick={() => props.handleShow("preview", props.meal._id)}
               ></span>
               &nbsp; &nbsp;
               <span
                 className="glyphicon glyphicon-edit"
-                onClick={() => props.handleShow("edit", props.index)}
+                onClick={() => props.handleShow("edit", props.meal._id)}
               ></span>
               &nbsp; &nbsp;
               <span
