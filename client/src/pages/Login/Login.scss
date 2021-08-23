@@ -1,0 +1,72 @@
+@import "../../style/colors.scss";
+
+.login-wrapper {
+  // border: 1px solid green;
+  height: 100vh;
+  width: 100vw;
+  color: $primary-blue;
+
+  .login__board {
+    border: 0.5px solid $primary-blue;
+    border-radius: 4px;
+    height: 60vh;
+    width: 60vw;
+    margin: 100px auto 0;
+    box-shadow: 0 30px 60px -12px $dark-gray,
+      //gb(50 50 93 / 25%),
+      0 10px 36px -10px $darker-gray; //rgb(0 0 0 / 30%);
+  }
+
+  .login__board__content {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  form {
+    width: 60%;
+    padding: 20px 40px;
+  }
+
+  .login__board__content__form-buttons {
+    text-align: center;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    width: 60%;
+    padding-top: 20px;
+
+    button {
+      color: $primary-blue;
+      background-color: $white;
+      border: 1px solid $primary-blue;
+    }
+
+    button:hover {
+      border: 1px solid $primary-blue;
+      background-color: $primary-blue;
+      color: $white;
+    }
+  }
+
+  .login__board__content-failed {
+    align-self: center;
+    font-style: italic;
+    font-size: 1rem;
+    color: red;
+  }
+  .inActive {
+    visibility: hidden;
+  }
+  .login__board__content-recover {
+    padding-top: 20px;
+    text-decoration: line-through;
+    justify-self: flex-end;
+  }
+
+  .login__board__content-recover:link {
+    text-decoration: none;
+  }
+}
