@@ -4,9 +4,9 @@ import "./TopBar.scss";
 
 type Props = {
   logout: () => void;
-}
+};
 
-const TopBar = (props:Props) => (
+const TopBar = (props: Props) => (
   <div className="topbar-wrapper">
     <div className="topbar__title">
       <span

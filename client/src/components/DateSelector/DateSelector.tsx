@@ -2,13 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./DateSelector.scss";
 import dayjs from "dayjs";
 
-
 type dates = {
-  date:string,
-  isActive:boolean
-}
+  date: string;
+  isActive: boolean;
+};
 
-const DateSelector = (props:any) => {
+const DateSelector = (props: any) => {
   const INITIAL_DATES: dates[] = [
     {
       date: dayjs(props.activeDate).subtract(3, "days").format("M/D/YYYY"), //Subtract 3 days from todays date
@@ -38,7 +37,7 @@ const DateSelector = (props:any) => {
   ];
   const [dates, setDates] = useState(INITIAL_DATES);
 
-  const updateActiveDate = (workingDates: dates[], index:number) => {
+  const updateActiveDate = (workingDates: dates[], index: number) => {
     //Update dates array and sets activeDate state in parent (Calendar) component.
     let activeDate = "";
     workingDates.forEach((date: dates, idx: number) => {
@@ -53,7 +52,7 @@ const DateSelector = (props:any) => {
     props.handleActiveDateChange(activeDate);
   };
 
-  const handleDatesChangeClick = (direction:string) => {
+  const handleDatesChangeClick = (direction: string) => {
     const newDates = dates;
     if (direction == "prev") {
       //Remove last day in array and add new day at beginning, day before first day in array

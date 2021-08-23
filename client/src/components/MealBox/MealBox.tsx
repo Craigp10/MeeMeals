@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./MealBox.scss";
 
-const MealBox = (props:any) => {
+const MealBox = (props: any) => {
   return (
     <div className="mealbox-wrapper glow">
       {!props.disable ? (
@@ -34,7 +34,7 @@ const MealBox = (props:any) => {
             </div>
             <div className="mealbox__content__body__ingredients">
               <h6>Ingredients</h6>
-              {props.meal.ingredients.map((ingredient:string, idx:number) => {
+              {props.meal.ingredients.map((ingredient: string, idx: number) => {
                 return (
                   <span
                     className="ingredient"

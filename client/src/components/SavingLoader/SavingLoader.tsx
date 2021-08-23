@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
-
 const clipStyler = {
   display: "block",
   margin: "0 auto",
@@ -36,7 +35,7 @@ const SavingLoader = (props: any) => {
     <div className="saving-loader-wrapper">
       {props.saving ? (
         <ClipLoader
-          // @ts-ignore 
+          // @ts-ignore
           css={clipStyler}
           loading={props.saving}
           size={30}
