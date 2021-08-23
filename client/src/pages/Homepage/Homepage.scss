@@ -45,25 +45,6 @@
   align-items: center;
 }
 
-.__grid-meal:hover {
-  transform: translateY(-10px);
-  height: 100%;
-  color: $white;
-  background: $primary-blue;
-  /* cursor: pointer;  commented out because click workflow not implemented yet*/
-}
-
-.__grid-meal:hover p {
-  $white-space: normal;
-  height: 100%;
-  overflow: scroll;
-}
-
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
 .__grid-meal {
   border-radius: 7px;
   transition: all 0.4s;
@@ -73,12 +54,30 @@
   height: 40%;
   overflow: hidden;
   box-shadow: 0 0 30px -10px $darker-gray, 0 10px 20px -5px $darker-gray;
+
+  p {
+    text-align: center;
+    margin: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
-.__grid-meal p {
-  text-align: center;
-  margin: auto;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.__grid-meal:hover {
+  transform: translateY(-10px);
+  height: 100%;
+  color: $white;
+  background: $primary-blue;
+  /* cursor: pointer;  commented out because click workflow not implemented yet*/
+  p {
+    white-space: normal;
+    height: 100%;
+    overflow: scroll;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }

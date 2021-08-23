@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import "./Homepage.scss";
 import dayjs from "dayjs";
 import apis from "../../api/index";
-import {userContext} from "../../App";
+import { userContext } from "../../App";
 
 // import { Redirect, Link, useHistory } from "react-router-dom";
 
@@ -31,25 +31,25 @@ const generateCurrentWeek = () => {
 };
 
 type meal = {
-  category: string,
-  date_created: string,
-  description: string,
-  display_name: string
-  ingredients: string[],
-  instructions: string[],
-  isActive: boolean,
-  tags: string[],
-  _id: string,
-}
+  category: string;
+  date_created: string;
+  description: string;
+  display_name: string;
+  ingredients: string[];
+  instructions: string[];
+  isActive: boolean;
+  tags: string[];
+  _id: string;
+};
 
 type weekMeal = {
-  breakfast: string
-  lunch: string
-  dinner: string
-  snack: string
-  day: string,
-  pulled: boolean,
-}
+  breakfast: string;
+  lunch: string;
+  dinner: string;
+  snack: string;
+  day: string;
+  pulled: boolean;
+};
 
 const Home = (props: any) => {
   const [weekMeals, setWeekMeals] = useState<weekMeal[]>([]);
@@ -59,23 +59,24 @@ const Home = (props: any) => {
 
   useEffect(() => {
     //When props change, pull the current week of meals for that user
-    console.log(props);
-    if (user.id != "") {
-      const getCalendarWeek = async () => await apis
-        .pullCalendarWeek({ user_id: user.id, week })
-        .then((resp) => {
-          setWeekMeals(resp.data.meals);
-        });
+    console.log({ user, props });
+    const getCalendarWeek = async () =>
+      await apis.pullCalendarWeek({ user_id: user.id, week }).then((resp) => {
+        console.log(resp.data.meals);
+        setWeekMeals(resp.data.meals);
+      });
 
-      const getUserMealsFunc = async () => await apis
-        .getUserMeals({ user_id: user.id })
-        .then((resp) => setUserMeals(resp.data.meals));
-    
-        getCalendarWeek();
-        getUserMealsFunc();
-      }
+    const getUserMealsFunc = async () =>
+      await apis.getUserMeals({ user_id: user.id }).then((resp) => {
+        console.log(resp.data.meals);
+        setUserMeals(resp.data.meals);
+      });
 
-  }, [props]);
+    getCalendarWeek();
+    getUserMealsFunc();
+  }, []);
+
+  console.log({ userMeals, weekMeals, user });
   return (
     <div className="home-wrapper">
       <div className="home__content__board">
