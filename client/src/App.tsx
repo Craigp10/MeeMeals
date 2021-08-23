@@ -9,9 +9,9 @@ import "./App.scss";
 import apis from "./api/index";
 
 interface User {
-  id: string,
-  username: string,
-  email: string,
+  id: string;
+  username: string;
+  email: string;
 }
 export const userContext = createContext<User>({
   id: "",
@@ -30,14 +30,15 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkCurrentSession = async () => await apis.checkSession().then((resp) => {
-      console.log(resp.data.user);
-      if (resp.data.isAuth) {
-        setAuthenticated(true);
-        setUser(resp.data.user);
-      }
-      setIsLoading(false);
-    });
+    const checkCurrentSession = async () =>
+      await apis.checkSession().then((resp) => {
+        console.log(resp.data.user);
+        if (resp.data.isAuth) {
+          setAuthenticated(true);
+          setUser(resp.data.user);
+        }
+        setIsLoading(false);
+      });
 
     checkCurrentSession();
   }, []);
@@ -55,7 +56,7 @@ const App = () => {
         }}
       >
         {!isLoading ? (
-          <userContext.Provider value = {user}>
+          <userContext.Provider value={user}>
             <Switch>
               <PublicRoute
                 path="/login"
@@ -69,7 +70,6 @@ const App = () => {
                 component={Dashboard}
                 isAuthenticated={authenticated}
                 setAuthenticated={setAuthenticated}
-                user={user}
               />
               <Route component={NotFound} />
             </Switch>

@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect,useContext } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import TopBar from "../../components/TopBar/TopBar";
 import Home from "../Homepage/Homepage";
@@ -13,18 +13,17 @@ import {
 } from "react-router-dom";
 import "./Dashboard.scss";
 import apis from "../../api/index";
-import {userContext} from "../../App";
-
+import { userContext } from "../../App";
 
 interface User {
-  id: string,
-  username: string,
-  email: string,
+  id: string;
+  username: string;
+  email: string;
 }
 
 interface Props {
-  user: User,
-  setAuthenticated: (isAuthenticated:boolean) => void,
+  user: User;
+  setAuthenticated: (isAuthenticated: boolean) => void;
 }
 
 const Dashboard = (props: Props) => {
@@ -48,14 +47,15 @@ const Dashboard = (props: Props) => {
   const logout = () => {
     //Logs user out
     apis.logout().then((resp) => {
-      if (resp.status == 200){
-        props.setAuthenticated(false)
-        history.push("/")
+      if (resp.status == 200) {
+        props.setAuthenticated(false);
+        history.push("/");
       } else {
         console.log("Unable to logout");
-      } 
+      }
     });
   };
+  console.log("user", user);
   return (
     <div className="dashboard-wrapper">
       {user.id != "" ? (
@@ -69,16 +69,23 @@ const Dashboard = (props: Props) => {
             </div>
             <div className="dashboard__content-inner">
               <Switch>
-                <Route exact path="/" render={() => <Home />} />
+                <Route
+                  exact
+                  path="/"
+                  // render={() => <Home />}
+                  component={Home}
+                />
                 <Route
                   exact
                   path="/meals"
-                  render={() => <Meals />}
+                  // render={() => <Meals />}
+                  component={Meals}
                 />
                 <Route
                   exact
                   path="/calendar"
-                  render={() => <Calendar />}
+                  // render={() => <Calendar />}
+                  component={Calendar}
                 />
                 <Route component={NotFound} />
               </Switch>
