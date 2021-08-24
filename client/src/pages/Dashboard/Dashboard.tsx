@@ -11,7 +11,7 @@ import {
   Switch,
   useHistory,
 } from "react-router-dom";
-import "./Dashboard.scss";
+import "./Dashboard.css";
 import apis from "../../api/index";
 import { userContext } from "../../App";
 

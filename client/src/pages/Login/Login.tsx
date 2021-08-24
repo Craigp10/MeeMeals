@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./Login.scss";
+import "./Login.css";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
 

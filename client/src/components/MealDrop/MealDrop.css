@@ -1,0 +1,82 @@
+.active {
+  box-shadow: 0 0 10px 0.2px #02203c;
+  cursor: pointer;
+}
+
+.active:hover {
+  background-color: #aec6dd !important;
+}
+
+.mealdrop-wrapper {
+  border-radius: 25px;
+}
+.mealdrop__content {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 25px;
+  height: 120px;
+  box-shadow: 0 5px 20px -5px rgba(51, 51, 51, 0.2),
+    0 18px 36px -18px rgba(156, 156, 156, 0.2);
+  /* background-color: #ffffff; since background is #ffffff, leave out and the background will change to .active:hover when hovering Definitely look into a better way to implement this*/
+}
+
+.mealdrop__content__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #02203c;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  color: #ffffff;
+}
+
+.mealdrop__content__header-displayname {
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding-left: 15px;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.mealdrop__content__header-options {
+  padding: 2px 20px;
+}
+.mealdrop__content__header-options span {
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.mealdrop__content__header-options span:hover {
+  background-color: #ffffff;
+  color: #02203c;
+  cursor: pointer;
+}
+
+.mealdrop__content__body {
+  padding: 10px 5px 0px;
+  font-size: 1rem;
+  /* flex-grow: 1; */
+  height: 100%;
+  overflow: scroll;
+}
+.mealdrop__content-no-meal {
+  width: 400px;
+  border-radius: 25px;
+  height: 120px;
+  box-shadow: 0 5px 20px -5px rgba(51, 51, 51, 0.2),
+    0 18px 36px -18px rgba(156, 156, 156, 0.2);
+}
+
+.mealdrop__content__footer {
+  border-top: 1px solid rgb(212, 212, 212);
+  margin: 0 5px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px 5px;
+  font-size: 1rem;
+}

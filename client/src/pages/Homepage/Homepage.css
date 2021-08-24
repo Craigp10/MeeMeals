@@ -1,17 +1,16 @@
-@import "../../style/colors.scss";
 .home-wrapper {
   height: 100%;
-  color: $primary-blue;
+  color: #02203c;
   padding-top: 50px;
 }
 
 .home__content__board {
   border-radius: 4px;
-  background-color: $faded-white;
+  background-color: #fafafa;
   height: 95%;
   width: 90%;
   margin: auto;
-  box-shadow: 0 0px 36px -10px $darker-gray;
+  box-shadow: 0 0px 36px -10px rgba(51, 51, 51, 0.2);
   display: flex;
   flex-direction: column;
 }
@@ -49,32 +48,34 @@
   border-radius: 7px;
   transition: all 0.4s;
   padding: 5px;
-  background-color: $faded-white;
+  background-color: #fafafa;
   width: 100%;
   height: 40%;
   overflow: hidden;
-  box-shadow: 0 0 30px -10px $darker-gray, 0 10px 20px -5px $darker-gray;
+  box-shadow: 0 0 30px -10px rgba(51, 51, 51, 0.2),
+    0 10px 20px -5px rgba(51, 51, 51, 0.2);
+}
 
-  p {
-    text-align: center;
-    margin: auto;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+.__grid-meal p {
+  text-align: center;
+  margin: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .__grid-meal:hover {
   transform: translateY(-10px);
   height: 100%;
-  color: $white;
-  background: $primary-blue;
+  color: #ffffff;
+  background: #02203c;
   /* cursor: pointer;  commented out because click workflow not implemented yet*/
-  p {
-    white-space: normal;
-    height: 100%;
-    overflow: scroll;
-  }
+}
+
+.__grid-meal:hover p {
+  white-space: normal;
+  height: 100%;
+  overflow: scroll;
 }
 
 ::-webkit-scrollbar {

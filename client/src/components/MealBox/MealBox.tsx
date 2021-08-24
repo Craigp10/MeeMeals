@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./MealBox.scss";
+import "./MealBox.css";
 
 const MealBox = (props: any) => {
   return (

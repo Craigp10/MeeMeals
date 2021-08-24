@@ -1,6 +1,6 @@
 import React from "react";
 import logout from "../../images/logout.png";
-import "./TopBar.scss";
+import "./TopBar.css";
 
 type Props = {
   logout: () => void;

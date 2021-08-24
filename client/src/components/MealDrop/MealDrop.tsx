@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./MealDrop.scss";
+import "./MealDrop.css";
 
 const MealDrop = (props: any) => {
   console.log(props.activeMealIsActive);
