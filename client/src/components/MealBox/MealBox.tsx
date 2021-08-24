@@ -54,17 +54,23 @@ const MealBox = (props: Props) => {
             </div>
             <div className="mealbox__content__body__ingredients">
               <h6>Ingredients</h6>
-              {props.meal.ingredients.map((ingredient: string, idx: number) => {
-                return (
-                  <span
-                    className="ingredient"
-                    style={{ display: "block" }}
-                    key={idx}
-                  >
-                    {ingredient}
-                  </span>
-                );
-              })}
+              <ol>
+                {props.meal.ingredients.map(
+                  (ingredient: string, idx: number) => {
+                    return (
+                      <li
+                        className="ingredient"
+                        // style={{ display: "block" }}
+                        key={idx}
+                      >
+                        {/* <p> */}
+                        {ingredient}
+                        {/* </p> */}
+                      </li>
+                    );
+                  }
+                )}
+              </ol>
             </div>
           </div>
           <div className="mealbox__content__footer">

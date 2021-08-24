@@ -73,12 +73,26 @@
   width: 100%;
   text-align: left;
 }
+.mealbox__content__body__description {
+  word-wrap: break-word;
+}
+.mealbox__content__body__ingredients ol {
+  padding: 0;
+  list-style-type: decimal;
+  list-style-position: inside;
+  width: 100%;
+}
+
+.mealbox__content__body__ingredients ol li {
+  word-break: break-all;
+}
 
 .mealbox__content__footer {
   border-top: 1px solid lightgray;
   margin: 0 5px;
   display: flex;
   justify-content: space-between;
+  padding: 5px 15px;
   bottom: 0;
   font-size: 1rem;
 }

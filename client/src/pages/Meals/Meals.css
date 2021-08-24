@@ -79,10 +79,6 @@
   height: calc(100% - 100px);
 }
 
-.meals__board__scroll ul {
-  list-style-type: none;
-}
-
 .meals__board__scroll-mealboxes {
   padding-top: 10px;
   display: flex;

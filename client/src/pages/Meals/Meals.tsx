@@ -125,7 +125,7 @@ const Meals = (props: any) => {
               <div className="glyphicon glyphicon-search">
                 <input
                   id="search"
-                  value={props.searchFilter}
+                  value={searchFilter}
                   placeholder="Search Meals"
                   onChange={(e) => setSearchFilter(e.target.value)}
                   autoComplete={"off"}
@@ -140,7 +140,7 @@ const Meals = (props: any) => {
             </div>
           </div>
           <div className="meals__board__scroll">
-            <ul className="meals__board__scroll-mealboxes">
+            <div className="meals__board__scroll-mealboxes">
               {meals?.length == 0 ? (
                 <div className="meals__board__scroll-mealboxes-none">
                   You do not have any meals created!
@@ -159,7 +159,7 @@ const Meals = (props: any) => {
                       .includes(searchFilter.toLowerCase());
                   })
                   .map((meal, idx) => (
-                    <li key={meal._id}>
+                    <div key={meal._id}>
                       <MealBox
                         index={idx}
                         meal={meal}
@@ -167,10 +167,10 @@ const Meals = (props: any) => {
                         handleShow={handleShow}
                         disable={show}
                       />
-                    </li>
+                    </div>
                   ))
               )}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
