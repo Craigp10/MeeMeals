@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./NavigationBar.scss";
+import "./NavigationBar.css";
 
 const navigationbar = () => (
   <div className="navigationbar-wrapper">

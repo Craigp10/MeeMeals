@@ -1,12 +1,12 @@
 import React from "react";
 import logout from "../../images/logout.png";
-import "./TopBar.scss";
+import "./TopBar.css";
 
 type Props = {
   logout: () => void;
-};
+}
 
-const TopBar = (props: Props) => (
+const TopBar = (props:Props) => (
   <div className="topbar-wrapper">
     <div className="topbar__title">
       <span
