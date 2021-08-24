@@ -35,11 +35,11 @@ exports.demoSignup = async (req, res) => {
             "Boil pasta and strain, save a little bit of pasta water for sauce",
             "When finished baking add pasta and pasta waster to dish, mix and serve!",
           ],
-          tags: ["Baked Dish", "Tik Tok"],
+          tags: ["Baked Dish", "Tik Tok", "Vegetarian"],
           date_created: "6/3/2021",
           category: "dinner",
           description:
-            "First seer the tomatoes with a hot pan, once seared for color lower heat and add oil. Add the onions and garlic, once those are good then everything else. After bake for 30mins.",
+            "Simple pasta delicious vegetarian dish. Can add any vegatables of choice.",
         },
         {
           isActive: true,
@@ -63,7 +63,8 @@ exports.demoSignup = async (req, res) => {
           ],
           date_created: "7/10/2021",
           category: "lunch",
-          description: "",
+          description:
+            "One pot dish where can we slowly cook each ingredient then throw in the next!",
           tags: ["1 Pot", "Simple"],
         },
         {
@@ -77,7 +78,8 @@ exports.demoSignup = async (req, res) => {
           ],
           date_created: "7/1/2021",
           category: "breakfast",
-          description: "Pour milk then pour in cereal",
+          description:
+            "Cereal of choice, make sure you pour in the milk first!",
         },
         {
           isActive: true,
@@ -99,7 +101,7 @@ exports.demoSignup = async (req, res) => {
           date_created: "12/6/2020",
           category: "dinner",
           description:
-            "Bread the chicken breast, fry them, make your sauce and pasta, bake everything at 350 for 30 minutes",
+            "Chicken Parmesan (also called Chicken Parmigiana). Simple oven baked dish served with garlic bread and pasta!",
         },
         {
           isActive: true,
@@ -115,10 +117,10 @@ exports.demoSignup = async (req, res) => {
             "Pour in sauce and cook for 2-3 minutes, then serve",
           ],
           tags: ["Nut Allergy", "Thai Food"],
-          instructions: [],
           date_created: "5/6/2019",
           category: "dinner",
-          description: "",
+          description:
+            "Stir dish that includes vegatables of chioce, peanuts, egg and a chioce of protein!",
         },
         {
           isActive: true,
@@ -131,17 +133,28 @@ exports.demoSignup = async (req, res) => {
           ],
           date_created: "5/6/2019",
           category: "snack",
-          description: "",
+          description:
+            "Quick and easy snack that can be made in a couple of minutes",
         },
         {
           isActive: true,
           display_name: "Spaghetti and Sausage",
-          ingredients: ["bread", "creamy peanut butter"],
           instructions: [
-            "Make sauce",
+            "Carmelize Onion in large frying pan.",
+            "Toss in Beyond Meat Sausage and break up.",
+            "Add additional oil and toss in garlic.",
+            "Pour in 28oz Can of tomatoes and break up with spatula.",
+            "Make sauce by ",
             "Simmer sauce",
             "Boil noodles",
             "Combine",
+          ],
+          ingredients: [
+            "Pasta of choice",
+            "28oz Can Whole peeled tomatoes",
+            "herbs of choice",
+            "Beyond Meat Sausage",
+            "Yellow Onion",
           ],
           tags: ["Italian", "Vegetarian", "Date night"],
           date_created: "8/1/2021",
