@@ -1,43 +1,45 @@
-import React, { useEffect, useState } from "react";
-import "./Meals.css";
+import React, { useEffect, useState, useContext } from "react";
+import "./Meals.scss";
 import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 import MealsModal from "../../components/MealsModal/MealsModal";
-
+import { userContext } from "../../App";
 
 type meal = {
-  category: string,
-  date_created: string,
-  description: string,
-  display_name: string
-  ingredients: string[],
-  instructions: string[],
-  isActive: boolean,
-  tags: string[],
-  _id: string,
-}
+  category: string;
+  date_created: string;
+  description: string;
+  display_name: string;
+  ingredients: string[];
+  instructions: string[];
+  isActive: boolean;
+  tags: string[];
+  _id: string;
+};
 
 type activeMealObj = {
-  isActive:boolean,
-  activeMealID:string
-}
+  isActive: boolean;
+  activeMealID: string;
+};
 
-const Meals = (props:any) => {
+const Meals = (props: any) => {
   const [meals, setMeals] = useState<meal[]>([]);
   const [show, setShow] = useState<boolean>(false);
   const [modalAction, setModalAction] = useState<string>("");
   const [activeMeal, setActiveMeal] = useState<activeMealObj>({
-    isActive:false,
-    activeMealID:"",
+    isActive: false,
+    activeMealID: "",
   });
   const [searchFilter, setSearchFilter] = useState<string>("");
+  const user = useContext(userContext);
 
   useEffect(() => {
     //When props change pull user meals by user id
-    const getUserMealsFunc = async () => await apis.getUserMeals({ user_id: props.user.id }).then((resp) => {
-      console.log(resp.data.meals);
-      setMeals(resp.data.meals);
-    });
+    const getUserMealsFunc = async () =>
+      await apis.getUserMeals({ user_id: user.id }).then((resp) => {
+        console.log(resp.data.meals);
+        setMeals(resp.data.meals);
+      });
 
     getUserMealsFunc();
   }, []);
@@ -45,59 +47,64 @@ const Meals = (props:any) => {
   const handleClose = () => {
     //close modal, remove active meal state
     setActiveMeal({
-      isActive:false,
-      activeMealID:"",
+      isActive: false,
+      activeMealID: "",
     });
     setShow(false);
   };
 
-  const handleShow = (action: string, idx: number) => {
+  const handleShow = (action: string, id: string | null) => {
     //show modal, set activeMeal if preview or edit action
     if (action == "edit" || action == "preview") {
-      // setActiveMeal({ ...meals[idx] });
+      setActiveMeal({ isActive: true, activeMealID: id });
     }
     setModalAction(action);
     setShow(true);
   };
 
-  // const handleSubmit = async (data: meal) => {
-  //   //Submit modal data
-  //   console.log("submitting data", data);
-  //   const requestObj = {
-  //     meal: data,
-  //     user_id: props.user.id,
-  //   };
-  //   let resp = {};
-  //   if (modalAction == "edit") {
-  //     requestObj.meal._id = activeMeal.activeMealID;
-  //     resp = await apis.editMeal(requestObj);
-  //   } else {
-  //     resp = await apis.createNewMeal(requestObj);
-  //   }
-  //   if (
-  //     typeof resp?.data.meals != "object" ||
-  //     typeof resp?.data.meals?.length != "number"
-  //   ) {
-  //     setMeals([]);
-  //   } else {
-  //     setMeals(resp.data.meals);
-  //   }
-  //   //run saver component
-  //   setShow(false);
-  // };
+  const handleSubmit = async (data: meal) => {
+    //Submit modal data
+    console.log("submitting data", data);
 
-  const handleDelete = async (meal_id:string) => {
+    const requestObj = {
+      meal: data,
+      user_id: user.id,
+      _id: activeMeal.activeMealID,
+    };
+
+    const resp =
+      modalAction == "edit"
+        ? await apis.editMeal(requestObj)
+        : await apis.createNewMeal(requestObj);
+
+    if (
+      typeof resp?.data.meals != "object" ||
+      typeof resp?.data.meals?.length != "number"
+    ) {
+      setMeals([]);
+    } else {
+      setMeals(resp.data.meals);
+    }
+    setShow(false);
+    //run saver component
+  };
+
+  const handleDelete = async (meal_id: string) => {
     //handle deleting a meal on click
     const requestObj = {
       meal_id,
-      user_id: props.user.id,
+      user_id: user.id,
     };
     await apis.deleteMeal(requestObj).then((resp) => {
       console.log(resp.data.meals);
       setMeals(resp.data.meals);
     });
   };
-
+  console.log(
+    meals,
+    activeMeal,
+    meals.filter((meal) => meal._id == activeMeal.activeMealID)[0]
+  );
   return (
     <>
       <div className="meals-wrapper">
@@ -105,9 +112,11 @@ const Meals = (props:any) => {
           <MealsModal
             show={show}
             handleClose={handleClose}
-            // handleSubmit={handleSubmit}
+            handleSubmit={handleSubmit}
             modalAction={modalAction}
-            activeMeal={activeMeal}
+            mealData={
+              meals.filter((meal) => meal._id == activeMeal.activeMealID)[0]
+            }
           />
         ) : null}
         <div className="meals__board">
@@ -125,9 +134,7 @@ const Meals = (props:any) => {
             </div>
             <div className="meals__board__header-title">Your Meals</div>
             <div className="meals__board__header-create">
-              <button type="button" onClick={() => null
-              //handleShow("create")}>
-              }>
+              <button type="button" onClick={() => handleShow("create", null)}>
                 Create A Meal
               </button>
             </div>

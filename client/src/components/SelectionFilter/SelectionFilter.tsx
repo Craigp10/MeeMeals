@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./SelectionFilter.css";
-
+import "./SelectionFilter.scss";
 
 type category_filter = {
-  id:string,
-  text:string,
-  isActive:boolean,
-}
+  id: string;
+  text: string;
+  isActive: boolean;
+};
 
 const CATEGORY_FILTERS: category_filter[] = [
   {
