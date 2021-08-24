@@ -3,7 +3,8 @@
 } */
 
 .glow:hover {
-  box-shadow: 0 0 10px 0.2px hsl(209, 94%, 12%);
+
+  box-shadow: 0 0 10px 0.2px #02203c;
 }
 
 .mealbox-wrapper {
@@ -75,9 +76,6 @@
   overflow: scroll;
   width: 100%;
   text-align: left;
-}
-
-.mealbox__content__description {
 }
 
 .mealbox__content__footer {

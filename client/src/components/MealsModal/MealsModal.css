@@ -1,4 +1,10 @@
-.glyphicon-remove:hover {
+
+.meals-modal__content .glyphicon-remove:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.meals-modal__content .glyphicon-remove:hover {
   cursor: pointer;
 }
 
@@ -11,6 +17,7 @@
   border-radius: 4px;
 }
 
+
 .meals-modal__content__header {
   width: 100%;
   height: 50px;
@@ -18,8 +25,8 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 1px solid lightgray;
-}
+
+  border-bottom: 1px solid rgb(212, 212, 212);
 
 .meals-modal__content__header-left {
   width: 10%;
@@ -38,11 +45,7 @@
   text-align: center;
   padding: 0 10px 0 0;
   font-size: 20px;
-  color: lightgray;
-}
-
-.meals-modal__content__header .glyphicon:hover {
-  color: black;
+  color: rgb(212, 212, 212);
 }
 
 .meals-modal__content__form {
@@ -56,6 +59,7 @@
 }
 
 .meals-modal__content__form-field {
+  background-color: #fafafa;
   background-color: rgb(233, 233, 233);
   background: none;
   outline: none;
@@ -66,7 +70,14 @@
   height: auto;
 }
 
-#mealCategory {
+.meals-modal__content__form-field input {
+  outline: none;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid #02203c;
+}
+
+.meals-modal__content__form-field #mealCategory {
   /* appearance: none; */
   border: 1px solid #02203c;
   padding: 5px;
@@ -74,7 +85,9 @@
   border-radius: 4px;
 }
 
-textarea {
+
+.meals-modal__content__form-field textarea {
+
   width: 100%;
   height: 100px;
   /* border: none; */
@@ -82,16 +95,24 @@ textarea {
   resize: none;
 }
 
+
+
 .extension {
   min-height: 40px;
   width: 60%;
   user-select: none;
-}
-
+  }
+  
 .extension span:hover {
   cursor: pointer;
 }
 
+
+.extension span:hover li {
+  display: inline-block;
+  overflow-wrap: normal;
+}
+  
 .instruction-extension {
   min-height: 40px;
   width: 80%;
@@ -103,7 +124,9 @@ textarea {
   margin: 0;
   border-radius: 4px;
   color: #02203c;
+
   background: white;
+
   border: 1px solid #02203c;
   margin-bottom: 2px;
 }
@@ -113,11 +136,11 @@ textarea {
   padding: 5px;
   border-radius: 4px;
   background: #02203c;
+
   color: white;
   margin-right: 2px;
   margin-bottom: 2px;
-}
-
+  }
 .extention li {
   display: inline-block;
   overflow-wrap: normal;

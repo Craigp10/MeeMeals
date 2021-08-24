@@ -1,23 +1,22 @@
 .date-selector-wrapper {
   width: 100%;
   height: 80px;
-}
 
-.date-selector-wrapper .glyphicon {
-  color: #02203c;
-}
-
-.date-selector-wrapper {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+}
+.date-selector-wrapper .glyphicon {
+  color: #02203c;
+  padding-bottom: 20px;
 }
 
 .date-selector-wrapper span {
   padding: 10px 20px;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
-  box-shadow: 0 -30px 60px -12px rgb(50 50 93 / 25%);
+box-shadow: 0 -30px 60px -12px rgb(50 50 93 / 25%);
+
 }
 
 .dates {
@@ -33,8 +32,9 @@
 }
 
 .isActive {
+  border-bottom: none;
+  z-index: 99;
   background-color: white;
   color: #02203c;
   height: 70px;
-  border-bottom: none;
 }

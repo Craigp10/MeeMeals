@@ -1,4 +1,5 @@
-import React, {FC, useState, useEffect } from "react";
+
+import React, { FC, useState, useEffect, useContext } from "react";
 import "./Calendar.css";
 import apis, { getDateMeals } from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
