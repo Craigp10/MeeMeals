@@ -1,4 +1,3 @@
-
 import React, { FC, useState, useEffect, useContext } from "react";
 import "./Calendar.css";
 import apis, { getDateMeals } from "../../api/index";
@@ -7,6 +6,7 @@ import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
 import SaveLoader from "../../components/SavingLoader/SavingLoader";
+import { userContext } from "../../App";
 
 const SAVING_STATUSES = {
   initialize: "",
@@ -16,50 +16,47 @@ const SAVING_STATUSES = {
 };
 
 type mealTime = {
-  mealTime: string,
-  mealId: string,
+  mealTime: string;
+  mealId: string;
 };
 
 type meals = {
-  category: string,
-  date_created: string,
-  description: string,
-  display_name: string
-  ingredients: string[],
-  instructions: string[],
-  isActive: boolean,
-  tags: string[],
-  _id: string,
-}
+  category: string;
+  date_created: string;
+  description: string;
+  display_name: string;
+  ingredients: string[];
+  instructions: string[];
+  isActive: boolean;
+  tags: string[];
+  _id: string;
+};
 
 type activeMeal = {
-  isActive:boolean,
-  activeMealID:string
-}
+  isActive: boolean;
+  activeMealID: string;
+};
 
 type saveObj = {
-  saving:boolean,
-  status: string,
-}
+  saving: boolean;
+  status: string;
+};
 
 interface User {
-  id: string,
-  username: string,
-  email: string,
+  id: string;
+  username: string;
+  email: string;
 }
 
-interface Props {
-  user: User,
-}
-
-
-const Calendar = (props: Props) => {
-  const [activeDate, setActiveDate] = useState<string>(dayjs().format("M/D/YYYY"));
-  const [mealTimes, setMealTimes] =useState<mealTime[]>([
-      { mealTime: "Breakfast", mealId: "" },
-      { mealTime: "Lunch", mealId: "" },
-      { mealTime: "Dinner", mealId: "" },
-      { mealTime: "Snack", mealId: "" },
+const Calendar = (props: any) => {
+  const [activeDate, setActiveDate] = useState<string>(
+    dayjs().format("M/D/YYYY")
+  );
+  const [mealTimes, setMealTimes] = useState<mealTime[]>([
+    { mealTime: "Breakfast", mealId: "" },
+    { mealTime: "Lunch", mealId: "" },
+    { mealTime: "Dinner", mealId: "" },
+    { mealTime: "Snack", mealId: "" },
   ]);
   const [meals, setMeals] = useState<meals[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
@@ -73,8 +70,9 @@ const Calendar = (props: Props) => {
     saving: false,
     status: SAVING_STATUSES.initialize,
   });
+  const user = useContext(userContext);
 
-  const handleMealClick = (mealId:string) => {
+  const handleMealClick = (mealId: string) => {
     //Handles clicking a meal from the scroll wheel
     if (mealId == activeMeal.activeMealID) {
       setActiveMeal({
@@ -89,19 +87,19 @@ const Calendar = (props: Props) => {
     }
   };
 
-  const handleMealRemoveClick = (index:number) => {
+  const handleMealRemoveClick = (index: number) => {
     //Handles removing a meal from one of the meal times
     const updateMealTimes: mealTime[] = mealTimes;
     updateMealTimes[index].mealId = "";
     setMealTimes([...updateMealTimes]);
     handleSave();
   };
-  
-  const handleMealDropClick = (index:number) => {
+
+  const handleMealDropClick = (index: number) => {
     //Handles when user is 'dropping' a meal on to one of the meal times
     const updateMealTimes = mealTimes;
     updateMealTimes[index].mealId = meals.filter(
-      (meal_:any) => meal_._id == activeMeal.activeMealID
+      (meal_: any) => meal_._id == activeMeal.activeMealID
     )[0]._id;
 
     setActiveMeal({
@@ -110,7 +108,6 @@ const Calendar = (props: Props) => {
     });
     setMealTimes([...updateMealTimes]);
     handleSave();
-
   };
 
   const handleSave = () => {
@@ -122,34 +119,36 @@ const Calendar = (props: Props) => {
 
   useEffect(() => {
     //On mount, pull meals and any meal times for current user
-    const setMealsFunc = async () => await apis
-      .getUserMeals({ user_id: props.user.id })
-      .then((resp) => setMeals(resp.data.meals))
-      .catch((err) => {
-        console.log(err);
-        setMeals([]);
-      });
-    const pullDateMeals = async () => await apis
-      .getDateMeals({
-        date: activeDate,
-        user_id: props.user.id,
-      })
-      .then((resp) => {
-        const schedule = resp.data.data;
-        const activeMealTimes = mealTimes;
-        activeMealTimes[0].mealId = schedule?.breakfast;
-        activeMealTimes[1].mealId = schedule?.lunch;
-        activeMealTimes[2].mealId = schedule?.dinner;
-        activeMealTimes[3].mealId = schedule?.snack;
-        setMealTimes([...activeMealTimes]);
-      })
-      .catch((err) => {
-        console.log(err);
-        setMealTimes([]);
-      });
+    const setMealsFunc = async () =>
+      await apis
+        .getUserMeals({ user_id: user.id })
+        .then((resp) => setMeals(resp.data.meals))
+        .catch((err) => {
+          console.log(err);
+          setMeals([]);
+        });
+    const pullDateMeals = async () =>
+      await apis
+        .getDateMeals({
+          date: activeDate,
+          user_id: user.id,
+        })
+        .then((resp) => {
+          const schedule = resp.data.data;
+          const activeMealTimes = mealTimes;
+          activeMealTimes[0].mealId = schedule?.breakfast;
+          activeMealTimes[1].mealId = schedule?.lunch;
+          activeMealTimes[2].mealId = schedule?.dinner;
+          activeMealTimes[3].mealId = schedule?.snack;
+          setMealTimes([...activeMealTimes]);
+        })
+        .catch((err) => {
+          console.log(err);
+          setMealTimes([]);
+        });
 
-      setMealsFunc();
-      pullDateMeals();
+    setMealsFunc();
+    pullDateMeals();
   }, []);
 
   useEffect(() => {
@@ -162,31 +161,32 @@ const Calendar = (props: Props) => {
         snack: mealTimes[3].mealId,
       };
 
-      const saveChanges = async () => await apis
-        .saveCalendarChanges({
-          date: activeDate,
-          user_id: props.user.id,
-          changes,
-        })
-        .then((resp) => {
-          setSaveObject({
-            ...{
-              saving: saveObject.saving,
-              status: SAVING_STATUSES.success,
-            },
+      const saveChanges = async () =>
+        await apis
+          .saveCalendarChanges({
+            date: activeDate,
+            user_id: user.id,
+            changes,
+          })
+          .then((resp) => {
+            setSaveObject({
+              ...{
+                saving: saveObject.saving,
+                status: SAVING_STATUSES.success,
+              },
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            setSaveObject({
+              ...{
+                saving: saveObject.saving,
+                status: SAVING_STATUSES.error,
+              },
+            });
           });
-        })
-        .catch((err) => {
-          console.log(err);
-          setSaveObject({
-            ...{
-              saving: saveObject.saving,
-              status: SAVING_STATUSES.error,
-            },
-          });
-        });
 
-        saveChanges();
+      saveChanges();
     }
   }, [mealTimes]);
 
@@ -197,52 +197,50 @@ const Calendar = (props: Props) => {
 
   useEffect(() => {
     //Remove ability to save and pull new dates data
-    const getDateMealsFunc = async () => await apis
-      .getDateMeals({
-        date: activeDate,
-        user_id: props.user.id,
-      })
-      .then((resp) => {
-        const schedule = resp.data.data;
-        const activeMealTimes: mealTime[] = [
-          { mealTime: "Breakfast", mealId: "" },
-          { mealTime: "Lunch", mealId: "" },
-          { mealTime: "Dinner", mealId: "" },
-          { mealTime: "Snack", mealId: "" },
-        ];
-        if (resp.status == 200) {
-          activeMealTimes[0].mealId = schedule?.breakfast;
-          activeMealTimes[1].mealId = schedule?.lunch;
-          activeMealTimes[2].mealId = schedule?.dinner;
-          activeMealTimes[3].mealId = schedule?.snack;
-        }
-        setMealTimes([...activeMealTimes]);
-        setAllowSave(true);
-      });
+    const getDateMealsFunc = async () =>
+      await apis
+        .getDateMeals({
+          date: activeDate,
+          user_id: user.id,
+        })
+        .then((resp) => {
+          const schedule = resp.data.data;
+          const activeMealTimes: mealTime[] = [
+            { mealTime: "Breakfast", mealId: "" },
+            { mealTime: "Lunch", mealId: "" },
+            { mealTime: "Dinner", mealId: "" },
+            { mealTime: "Snack", mealId: "" },
+          ];
+          if (resp.status == 200) {
+            activeMealTimes[0].mealId = schedule?.breakfast;
+            activeMealTimes[1].mealId = schedule?.lunch;
+            activeMealTimes[2].mealId = schedule?.dinner;
+            activeMealTimes[3].mealId = schedule?.snack;
+          }
+          setMealTimes([...activeMealTimes]);
+          setAllowSave(true);
+        });
 
-      getDateMealsFunc();
+    getDateMealsFunc();
   }, [activeDate]);
 
   useEffect(() => {
     //Timer to update displayed saving status to user
     const timer = setTimeout(() => {
       const status = saveObject.status;
-    // let saving
-    // ["success", "error", ""].includes(status) ? saving = false : saving = true;
-      
+      // let saving
+      // ["success", "error", ""].includes(status) ? saving = false : saving = true;
+
       setSaveObject({
-        saving:["success", "error", ""].includes(status) ? false : true,
+        saving: ["success", "error", ""].includes(status) ? false : true,
         status,
       });
-
     }, 500);
 
     return () => clearTimeout(timer);
-
   }, [saveObject.status]);
 
-
-  console.log(meals);
+  console.log(activeMeal);
   return (
     <div className="calendar-wrapper">
       <div className="calendar__board">
