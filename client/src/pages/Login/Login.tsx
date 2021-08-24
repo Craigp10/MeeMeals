@@ -34,7 +34,7 @@ const Login = (props: any) => {
       }
     });
   };
-  console.log(loginSuccess);
+
   return (
     <div className="login-wrapper">
       <div className="login__board">

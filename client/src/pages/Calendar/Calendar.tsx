@@ -20,6 +20,17 @@ type mealTime = {
   mealId: string;
 };
 
+const EMPTY_MEAL = {
+  category: "",
+  date_created: "",
+  description: "",
+  display_name: "",
+  ingredients: [""],
+  instructions: [""],
+  isActive: false,
+  tags: [""],
+  _id: "",
+};
 type meals = {
   category: string;
   date_created: string;
@@ -70,7 +81,7 @@ const Calendar = (props: any) => {
     saving: false,
     status: SAVING_STATUSES.initialize,
   });
-  const user = useContext(userContext);
+  const user = useContext<User>(userContext);
 
   const handleMealClick = (mealId: string) => {
     //Handles clicking a meal from the scroll wheel
@@ -279,7 +290,7 @@ const Calendar = (props: any) => {
                     meal={
                       meals.filter((meal_) => meal_._id == meal.mealId)
                         .length == 0
-                        ? {}
+                        ? EMPTY_MEAL
                         : meals.filter((meal_) => meal_._id == meal.mealId)[0]
                     }
                     activeMealIsActive={activeMeal.isActive}

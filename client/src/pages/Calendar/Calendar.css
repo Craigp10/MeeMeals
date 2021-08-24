@@ -7,7 +7,7 @@
   color: #02203c;
 }
 
-span:hover {
+.calendar-wrapper span:hover {
   cursor: pointer;
 }
 

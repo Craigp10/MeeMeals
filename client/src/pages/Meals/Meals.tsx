@@ -22,6 +22,12 @@ type activeMealObj = {
   activeMealID: string;
 };
 
+interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
 const Meals = (props: any) => {
   const [meals, setMeals] = useState<meal[]>([]);
   const [show, setShow] = useState<boolean>(false);
@@ -31,7 +37,7 @@ const Meals = (props: any) => {
     activeMealID: "",
   });
   const [searchFilter, setSearchFilter] = useState<string>("");
-  const user = useContext(userContext);
+  const user = useContext<User>(userContext);
 
   useEffect(() => {
     //When props change pull user meals by user id

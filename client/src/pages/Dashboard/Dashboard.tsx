@@ -27,22 +27,9 @@ interface Props {
 }
 
 const Dashboard = (props: Props) => {
-  // const [user, setUser] = useState<User>({
-  //   id:"",
-  //   username:"",
-  //   email:"",
-  // });
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   const user = useContext(userContext);
-
-  // useEffect(() => {
-  //   //When props change setUser from props
-  //   if (props?.user) {
-  //     const newUser: User = user
-  //     setUser(newUser);
-  //   }
-  // }, [props]);
 
   const logout = () => {
     //Logs user out
@@ -55,7 +42,7 @@ const Dashboard = (props: Props) => {
       }
     });
   };
-  console.log("user", user);
+  //console.log("user", user);
   return (
     <div className="dashboard-wrapper">
       {user.id != "" ? (
