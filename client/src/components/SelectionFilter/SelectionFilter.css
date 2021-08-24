@@ -9,7 +9,6 @@
   padding: 10px;
 }
 
-
 .selection-filter-wrapper .filterBtn {
   display: flex;
   border-radius: 20px;
@@ -26,60 +25,44 @@
 .selection-filter-wrapper .activeCate {
   background-color: #02203c;
   color: #ffffff;
-  background-color: white;
-}
-
-.filterBtn:hover {
-  /* background-color: .filter-selection-wrapper #02203c;
-  color: white; */
-}
-
-.activeCate {
-  background-color: #02203c;
-  color: white;
   box-shadow: inset 100px 0 0 0 #02203c;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
 }
 
-
-.selection-filter-wrapper #all {
+#all {
   grid-column: 2 / 4;
   grid-row: 1;
   width: 70%;
   margin: 0 auto;
 }
 
-
-.selection-filter-wrapper #breakfast {
+#breakfast {
   grid-column: 1;
   grid-row: 2;
 }
-.selection-filter-wrapper #lunch {
+
+#lunch {
   grid-column: 2;
   grid-row: 2;
 }
 
-
-.selection-filter-wrapper #dinner {
+#dinner {
   grid-column: 3;
   grid-row: 2;
 }
 
-
-.selection-filter-wrapper #snack {
-
+#snack {
   grid-column: 4;
   grid-row: 2;
 }
 
-.selection-filter-wrapper #search {
+#search {
   border: none;
 }
 
-.selection-filter-wrapper .glyphicon-search {
-
+.glyphicon-search {
   grid-column: 1/5;
   grid-row: 3;
   padding: 0 10px;
@@ -87,11 +70,10 @@
   border-radius: 25px;
   align-items: center;
   justify-content: center;
-
+  background-color: #ffffff;
 }
 .glyphicon-search span:hover {
   text-decoration: none;
-  background-color: white;
 }
 
 .glyphicon-search input {

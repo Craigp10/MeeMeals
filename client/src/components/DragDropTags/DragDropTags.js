@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -86,7 +86,6 @@ const DragDropTags = (props) => {
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
-  console.log(items);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
