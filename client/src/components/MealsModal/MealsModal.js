@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./MealsModal.scss";
+import "./MealsModal.css";
 import Modal from "react-modal";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DragDropTags from "../DragDropTags/DragDropTags";
 Modal.setAppElement("#root");
 
@@ -45,12 +46,12 @@ const MealsModal = (props) => {
     //Sets initial state values if the modal is editing
     if (props.modalAction == "edit" || props.modalAction == "preview") {
       const newMealData = mealData;
-      newMealData["mealName"] = props.mealData.display_name;
-      newMealData["mealIngredients"] = props.mealData.ingredients;
-      newMealData["mealInstructions"] = props.mealData.instructions;
-      newMealData["mealTags"] = props.mealData.tags;
-      newMealData["mealDescription"] = props.mealData.description;
-      newMealData["mealCategory"] = props.mealData.category;
+      newMealData["mealName"] = props.activeMeal.display_name;
+      newMealData["mealIngredients"] = props.activeMeal.ingredients;
+      newMealData["mealInstructions"] = props.activeMeal.instructions;
+      newMealData["mealTags"] = props.activeMeal.tags;
+      newMealData["mealDescription"] = props.activeMeal.description;
+      newMealData["mealCategory"] = props.activeMeal.category;
       setMealData({ ...newMealData });
     }
   }, []);
@@ -85,7 +86,7 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
-  console.log("mealData", mealData);
+
   return (
     <div>
       <Modal
