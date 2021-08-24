@@ -7,7 +7,8 @@
   color: #02203c;
 }
 
-span:hover {
+
+.calendar-wrapper span:hover {
   cursor: pointer;
 }
 
@@ -18,6 +19,7 @@ span:hover {
 
 .calendar__board__dates {
   background-color: rgb(212, 212, 212);
+
   width: 100%;
   height: 80px;
   display: flex;
@@ -42,6 +44,7 @@ span:hover {
   align-items: center;
 }
 
+
 .calendar-content__selection-scroll p {
   padding: 7px;
   text-align: left;
@@ -65,18 +68,19 @@ span:hover {
   font-size: 12px;
   box-shadow: 0 0px 60px -5px rgba(182, 182, 182, 0.2),
     0 0px 36px -10px rgba(51, 51, 51, 0.2);
+
 }
 
 .calendar__selection__meal:hover {
   cursor: pointer;
+
   background-color: rgb(212, 212, 212);
 }
-
 .calendar__selection__meal-header {
   background-color: #02203c;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
-  color: #ffffff;
+  color: white;
 }
 
 .calendar__selection__meal-displayname {
@@ -92,11 +96,11 @@ span:hover {
 }
 
 .__meal-tag {
-  display: inline;
+  display: inline-block;
   padding: 5px;
   border-radius: 4px;
   background: #02203c;
-  color: #ffffff;
+  color: white;
   margin-right: 2px;
   margin-bottom: 2px;
 }
@@ -117,6 +121,13 @@ span:hover {
   overflow: auto;
   white-space: nowrap;
 }
+
+
+.calendar-content__selection-scroll li p {
+  padding: 7px;
+  text-align: left;
+}
+
 
 .calendar__board__planner {
   display: grid;

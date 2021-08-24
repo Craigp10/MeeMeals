@@ -14,6 +14,7 @@
   justify-content: center;
   background-color: #ffffff;
   box-shadow: 0 0px 36px -10px rgba(51, 51, 51, 0.2);
+
 }
 
 .meals__board {
@@ -23,6 +24,7 @@
   margin: auto;
   background-color: #fafafa;
   box-shadow: 0 0px 20px -1px rgba(51, 51, 51, 0.2);
+
 }
 
 .meals__board__header {
@@ -32,6 +34,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   height: 70px;
   border-bottom: 1px solid rgb(212, 212, 212);
+
 }
 
 .meals__board__header div {
@@ -44,7 +47,8 @@
   padding: 10px 5px;
 }
 
-#search {
+
+.meals-wrapper #search {
   border: none;
   width: 100%;
   font-size: 18px;
@@ -70,7 +74,8 @@
 }
 
 .meals__board__header-create button:hover {
-  color: #ffffff;
+
+  color: white;
   background: #02203c;
 }
 
@@ -89,3 +94,20 @@
   flex-direction: column;
   align-items: center;
 }
+
+.search:focus ~ .border {
+  width: 100%;
+  transition: 1.5s;
+}
+.search ~ .border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+}
+
+.border {
+  border-top: 1px solid #4285f4 !important;
+}
+

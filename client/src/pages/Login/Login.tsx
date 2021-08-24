@@ -4,7 +4,7 @@ import "./Login.css";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
 
-const Login = (props: any) => {
+const Login = (props:any) => {
   const history = useHistory();
   const [loginSuccess, setLoginSuccess] = useState<boolean>(true);
 
@@ -21,12 +21,9 @@ const Login = (props: any) => {
       if (resp.status == 200) {
         console.log("Successful Login!");
         setLoginSuccess(true);
-        setTimeout(() => {
-          //Setting timeout to give backend time to set up the demo user workflow
-          props.setAuthenticated(true);
-          props.setUser(resp.data);
-          history.replace({ pathname: "/" });
-        }, 500);
+        props.setAuthenticated(true);
+        props.setUser(resp.data);
+        history.replace({ pathname: "/" });
       } else {
         //Unable to log in
         console.log("Unsuccessful Login!");

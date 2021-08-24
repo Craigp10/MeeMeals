@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useContext } from "react";
+import React, {FC, useState, useEffect } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import TopBar from "../../components/TopBar/TopBar";
 import Home from "../Homepage/Homepage";
@@ -13,49 +13,48 @@ import {
 } from "react-router-dom";
 import "./Dashboard.css";
 import apis from "../../api/index";
-import { userContext } from "../../App";
+
+
 
 interface User {
-  id: string;
-  username: string;
-  email: string;
+  id: string,
+  username: string,
+  email: string,
 }
 
 interface Props {
-  user: User;
-  setAuthenticated: (isAuthenticated: boolean) => void;
+  user: User,
+  setAuthenticated: (isAuthenticated:boolean) => void,
 }
 
 const Dashboard = (props: Props) => {
-  // const [user, setUser] = useState<User>({
-  //   id:"",
-  //   username:"",
-  //   email:"",
-  // });
+  const [user, setUser] = useState<User>({
+    id:"",
+    username:"",
+    email:"",
+  });
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
-  const user = useContext(userContext);
-
-  // useEffect(() => {
-  //   //When props change setUser from props
-  //   if (props?.user) {
-  //     const newUser: User = user
-  //     setUser(newUser);
-  //   }
-  // }, [props]);
+  
+  useEffect(() => {
+    //When props change setUser from props
+    if (props?.user) {
+      const newUser: User = props.user
+      setUser(newUser);
+    }
+  }, [props]);
 
   const logout = () => {
     //Logs user out
     apis.logout().then((resp) => {
-      if (resp.status == 200) {
-        props.setAuthenticated(false);
-        history.push("/");
+      if (resp.status == 200){
+        props.setAuthenticated(false)
+        history.push("/")
       } else {
         console.log("Unable to logout");
-      }
+      } 
     });
   };
-  console.log("user", user);
   return (
     <div className="dashboard-wrapper">
       {user.id != "" ? (
@@ -69,23 +68,16 @@ const Dashboard = (props: Props) => {
             </div>
             <div className="dashboard__content-inner">
               <Switch>
-                <Route
-                  exact
-                  path="/"
-                  // render={() => <Home />}
-                  component={Home}
-                />
+                <Route exact path="/" render={() => <Home user={user} />} />
                 <Route
                   exact
                   path="/meals"
-                  // render={() => <Meals />}
-                  component={Meals}
+                  render={() => <Meals user={user} />}
                 />
                 <Route
                   exact
                   path="/calendar"
-                  // render={() => <Calendar />}
-                  component={Calendar}
+                  render={() => <Calendar user={user} />}
                 />
                 <Route component={NotFound} />
               </Switch>

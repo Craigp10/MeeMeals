@@ -12,6 +12,7 @@
   margin: 100px auto 0;
   box-shadow: 0 30px 60px -12px rgba(156, 156, 156, 0.2),
     0 10px 36px -10px rgba(51, 51, 51, 0.2);
+
 }
 
 .login__board__content {
@@ -38,14 +39,16 @@ form {
 
 .login__board__content__form-buttons button {
   color: #02203c;
-  background-color: #ffffff;
+
+  background-color: white;
+
   border: 1px solid #02203c;
 }
 
 .login__board__content__form-buttons button:hover {
   border: 1px solid #02203c;
   background-color: #02203c;
-  color: #ffffff;
+  color: white;
 }
 
 .login__board__content-failed {

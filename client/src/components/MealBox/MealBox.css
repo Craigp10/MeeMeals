@@ -3,15 +3,18 @@
 } */
 
 .glow:hover {
+
   box-shadow: 0 0 10px 0.2px #02203c;
 }
 
 .mealbox-wrapper {
   margin: 10px;
   border-radius: 25px;
-  box-shadow: 0 0 10px 2px rgba(156, 156, 156, 0.2);
 }
+
 .mealbox__content {
+  box-shadow: 0 30px 60px -12px rgb(50 50 93 / 25%),
+    0 18px 36px -18px rgb(0 0 0 / 30%);
   border-radius: 25px;
   display: flex;
   flex-direction: column;
@@ -26,7 +29,7 @@
   background-color: #02203c;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
-  color: #ffffff;
+  color: white;
 }
 
 .mealbox__content__header-displayname {
@@ -47,13 +50,14 @@
   align-items: flex-start;
   padding: 5px 15px 5px 5px;
 }
+
 .mealbox__content__header-options span {
   border-radius: 4px;
   padding: 5px;
 }
 
 .mealbox__content__header-options span:hover {
-  background-color: #ffffff;
+  background-color: white;
   color: #02203c;
   cursor: pointer;
 }
