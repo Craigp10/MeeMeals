@@ -1,7 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./MealBox.css";
 
-const MealBox = (props: any) => {
+type Meal = {
+  _id: string;
+  display_name: string;
+  date_created: string;
+  ingredients: string[];
+  description: string;
+  category: string;
+  tags: string[];
+  instructions: string[];
+  isActive: boolean;
+};
+
+interface Props {
+  index: number;
+  meal: Meal;
+  deleteMeal(meal_id: string): void;
+  handleShow(action: string, id: string | null): void;
+  disable: boolean;
+}
+
+const MealBox = (props: Props) => {
   return (
     <div className="mealbox-wrapper glow">
       {!props.disable ? (
@@ -48,8 +68,8 @@ const MealBox = (props: any) => {
             </div>
           </div>
           <div className="mealbox__content__footer">
-            <span>Created On: 7/6/21</span>
-            <span>Last scheduled: 7/5/21</span>
+            <span>Created On: {props.meal.date_created}</span>
+            <span>Last scheduled: -Not implemented-</span>
           </div>
         </div>
       ) : null}
