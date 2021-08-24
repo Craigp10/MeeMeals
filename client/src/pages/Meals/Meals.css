@@ -44,7 +44,8 @@
   padding: 10px 5px;
 }
 
-#search {
+.meals__board__header-search #search {
+  padding-left: 20px;
   border: none;
   width: 100%;
   font-size: 18px;
