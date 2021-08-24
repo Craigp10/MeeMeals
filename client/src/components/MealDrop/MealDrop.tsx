@@ -37,7 +37,7 @@ const MealDrop = (props: Props) => {
           : null
       }
     >
-      {Object.keys(props.meal).length != 0 ? (
+      {props.meal.isActive ? (
         <div className="mealdrop__content">
           <div className="mealdrop__content__header">
             <div className="mealdrop__content__header-displayname">
