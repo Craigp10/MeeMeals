@@ -7,7 +7,12 @@ type dates = {
   isActive: boolean;
 };
 
-const DateSelector = (props: any) => {
+interface Props {
+  activeDate: string; // "M/D/YYYY"
+  handleActiveDateChange(newActiveDate: string): void;
+}
+
+const DateSelector = (props: Props) => {
   const INITIAL_DATES: dates[] = [
     {
       date: dayjs(props.activeDate).subtract(3, "days").format("M/D/YYYY"), //Subtract 3 days from todays date

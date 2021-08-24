@@ -35,7 +35,14 @@ const CATEGORY_FILTERS: category_filter[] = [
   },
 ];
 
-const SelectionFilter = (props: any) => {
+interface Props {
+  setCategoryFilter(id: string): void;
+  setSearchFilter(searchFilter: string): void;
+  categoryFilter: string;
+  searchFilter: string;
+}
+
+const SelectionFilter = (props: Props) => {
   return (
     <div className="selection-filter-wrapper">
       {CATEGORY_FILTERS.map((category: category_filter, index: number) => {

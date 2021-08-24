@@ -1,7 +1,27 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./MealDrop.css";
 
-const MealDrop = (props: any) => {
+type Meal = {
+  _id: string;
+  display_name: string;
+  date_created: string;
+  ingredients: string[];
+  description: string;
+  category: string;
+  tags: string[];
+  instructions: string[];
+  isActive: boolean;
+};
+
+interface Props {
+  activeMealIsActive: boolean;
+  index: number;
+  mealClickCallback(index: number): void;
+  meal: Meal;
+  removeMeal(index: number): void;
+}
+
+const MealDrop = (props: Props) => {
   console.log(props.activeMealIsActive);
   return (
     <div
