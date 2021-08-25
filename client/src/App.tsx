@@ -4,6 +4,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
+import CreateAccount from "./pages/CreateAccount/CreateAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import "./App.css";
 import apis from "./api/index";
@@ -61,6 +62,13 @@ const App = () => {
               <PublicRoute
                 path="/login"
                 component={Login}
+                setAuthenticated={setAuthenticated}
+                setUser={setUser}
+                authenticated={authenticated}
+              />
+              <PublicRoute
+                path="/create-account"
+                component={CreateAccount}
                 setAuthenticated={setAuthenticated}
                 setUser={setUser}
                 authenticated={authenticated}
