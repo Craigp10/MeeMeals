@@ -101,15 +101,18 @@ const Login = (props: any) => {
           >
             Failed to login.
           </span>
-          <div className="login__board__content-recover">
-            Forgot your password?{" "}
-            <Link
-              style={{ textDecoration: "none", pointerEvents: "none" }}
-              to="/recover-password"
-            >
-              Click here
-            </Link>
-            .
+          <div className="login__board__content-account-options">
+            <p style={{ textDecoration: "line-through" }}>
+              Forgot your password?{" "}
+              <Link style={{ pointerEvents: "none" }} to="/recover-password">
+                Click here
+              </Link>
+              .
+            </p>
+            <p>
+              Don't have an account?{" "}
+              <Link to="/create-account">Create an account</Link>.
+            </p>
           </div>
         </div>
       </div>

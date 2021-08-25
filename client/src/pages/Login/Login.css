@@ -59,12 +59,11 @@ form {
   visibility: hidden;
 }
 
-.login__board__content-recover {
+.login__board__content-account-options {
   padding-top: 20px;
-  text-decoration: line-through;
   justify-self: flex-end;
 }
 
-.login__board__content-recover:link {
-  text-decoration: none;
+.login__board__content-account-options:link {
+  /* text-decoration: none; */
 }

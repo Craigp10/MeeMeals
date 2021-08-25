@@ -4,17 +4,27 @@ import "./CreateAccount.css";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
 
-type PersonalInfo = {
-  email: string;
-  password: string;
+type validationError = {
+  errorType: number;
+  errorMessage: string;
 };
 
 const badPasswords: (string | null)[] = ["", null];
 const badUsernames: (string | null)[] = ["", "demo", null];
+const badEmails: (string | null)[] = ["", "demo@gmail.com", null];
 
 const CreateAccount = (props: any) => {
   const history = useHistory();
-  const [createSuccess, setcreateSuccess] = useState<Boolean | null>(null);
+  const [createSuccess, setCreateSuccess] = useState<boolean | null>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [validationErrorArray, setValidationErrorArray] = useState<
+    validationError[]
+  >([
+    { errorType: 0, errorMessage: "" },
+    { errorType: 0, errorMessage: "" },
+    { errorType: 0, errorMessage: "" },
+  ]);
+  const [validationError, setValidationError] = useState<boolean>(false);
   let usernameRef = useRef<HTMLInputElement>(null);
   let emailRef = useRef<HTMLInputElement>(null);
   let passwordRef = useRef<HTMLInputElement>(null);
@@ -24,6 +34,9 @@ const CreateAccount = (props: any) => {
     if (validateCreateAccount()) {
       console.log("Validated!");
       //make api request
+      setCreateSuccess(false);
+    } else {
+      setValidationError(false);
     }
   };
 
@@ -33,12 +46,12 @@ const CreateAccount = (props: any) => {
 
   const validateCreateAccount = () => {
     return badPasswords.includes(passwordRef.current.value) ||
-      badUsernames.includes(usernameRef.current.value)
+      badUsernames.includes(usernameRef.current.value) ||
+      badEmails.includes(emailRef.current.value)
       ? false
       : true;
   };
 
-  console.log("ref", usernameRef.current?.value);
   return (
     <div className="create-account-wrapper">
       <div className="create-account__board">
@@ -86,16 +99,13 @@ const CreateAccount = (props: any) => {
             </Form.Group>
             <hr />
             <div className="create-account__board__content__form-buttons">
-              <Button type="submit" id="user-login" name="user" disabled>
-                Log In
-              </Button>
               <Button
                 type="submit"
-                id="demo-login"
-                name="demo"
-                onClick={createAccountLogin}
+                name="createBtn"
+                onClick={!isLoading ? createAccountLogin : null}
+                disabled={isLoading}
               >
-                Demo Log In
+                Create Account!
               </Button>
             </div>
           </form>
@@ -111,7 +121,7 @@ const CreateAccount = (props: any) => {
           <div className="create-account__board__content-recover">
             Already have an account?{" "}
             <Link
-              style={{ textDecoration: "none", pointerEvents: "none" }}
+              // style={{ textDecoration: "none", pointerEvents: "none" }}
               to="/Login"
             >
               Sign in
