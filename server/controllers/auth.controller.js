@@ -226,6 +226,7 @@ exports.demoSignup = async (req, res) => {
     email: demoUser.email,
   });
 };
+
 exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
@@ -239,88 +240,47 @@ exports.signup = (req, res) => {
       return;
     }
 
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles },
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-          user.roles = roles.map((role) => role._id);
-          user.save((err) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            res.send({ message: "User was registered successfully!" });
-          });
-        }
-      );
-    } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-
-        user.roles = [role._id];
-        user.save((err) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          res.send({ message: "User was registered successfully!" });
-        });
-      });
-    }
+    return res
+      .status(200)
+      .send({ message: "User was registered successfully!", user });
   });
 };
 
-exports.signin = (req, res) => {
-  User.findOne({
-    username: req.body.username,
-  })
-    .populate("roles", "-__v")
-    .exec((err, user) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
+exports.signin = async (req, res) => {
+  const user = await User.findOne(
+    {
+      username: req.body.username,
+    },
+    (err, doc) => doc
+  );
 
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
-      }
+  if (!user) {
+    return res.status(202).send({ message: "User Not found.", error_code: 0 });
+  }
 
-      let passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
+  let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          message: "Invalid Password!",
-        });
-      }
-
-      req.session.isAuth = true;
-      req.session.isDemo = false;
-
-      req.session.user = {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-      };
-
-      res.status(200).send({
-        id: user._id,
-        username: user.username,
-        email: user.email,
-      });
+  if (!passwordIsValid) {
+    return res.status(202).send({
+      message: "Invalid Password!",
+      error_code: 1,
     });
+  }
+
+  req.session.isAuth = true;
+  req.session.isDemo = false;
+
+  req.session.user = {
+    id: user._id,
+    username: user.username,
+    email: user.email,
+  };
+
+  res.status(200).send({
+    id: user._id,
+    username: user.username,
+    email: user.email,
+  });
 };
 
 exports.getSession = (req, res) => {
