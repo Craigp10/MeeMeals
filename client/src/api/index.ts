@@ -16,6 +16,8 @@ export const pullCalendarWeek = (payload:any) =>
 export const createNewMeal = (payload:any) => api.post("/user/newMeal", payload);
 export const deleteMeal = (payload:any) => api.post("/user/deleteMeal", payload);
 export const editMeal = (payload:any) => api.post("/user/editMeal", payload);
+export const signupNewUser = (payload:any) => api.post("/auth/signup", payload);
+export const signinUser = (payload:any) => api.post("/auth/signin", payload);
 export const demoLogin = () => api.get("/auth/demoSignup");
 export const checkSession = () => api.get("/auth/checkSession");
 export const logout = () => api.get("/auth/logout");
@@ -32,6 +34,8 @@ const apis = {
   demoLogin,
   checkSession,
   logout,
+  signupNewUser,
+  signinUser
 };
 
 export default apis;

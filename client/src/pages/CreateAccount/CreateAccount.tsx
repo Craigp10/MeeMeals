@@ -29,11 +29,44 @@ const CreateAccount = (props: any) => {
   let emailRef = useRef<HTMLInputElement>(null);
   let passwordRef = useRef<HTMLInputElement>(null);
 
-  const createAccountLogin = () => {
+  const createAccountLogin = async () => {
     console.log("Create account clicked", passwordRef);
     if (validateCreateAccount()) {
       console.log("Validated!");
       //make api request
+      await apis
+        .signupNewUser({
+          password: passwordRef.current.value,
+          username: usernameRef.current.value,
+          email: emailRef.current.value,
+        })
+        .then(async (resp) => {
+          if (resp.status == 200) {
+            await apis
+              .signinUser({
+                username: usernameRef.current.value,
+                password: passwordRef.current.value,
+              })
+              .then((resp) => {
+                if (resp.status == 200) {
+                  console.log("Successful Login!");
+                  setTimeout(() => {
+                    //Setting timeout to give backend time to set up the demo user workflow
+                    props.setAuthenticated(true);
+                    props.setUser(resp.data);
+                    history.replace({ pathname: "/" });
+                  }, 500);
+                } else {
+                  //Unable to log in
+                  console.log("Unsuccessful Login!");
+                }
+              });
+          } else {
+            console.log("Error creating user", resp);
+          }
+        })
+        .catch((err) => console.log(err));
+
       setCreateSuccess(false);
     } else {
       setValidationError(false);
