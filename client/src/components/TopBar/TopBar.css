@@ -5,16 +5,23 @@
   box-sizing: border-box;
   margin: 0;
   position: relative;
+  /* justify-content: space-between; */
+  color: #ffffff;
 }
 .topbar__title {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 200px;
-  color: #ffffff;
   font-weight: bold;
   font-size: 2rem;
 }
+
+/* .topbar__user {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+} */
 
 .topbar__leftover {
   flex-grow: 1;
