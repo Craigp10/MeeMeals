@@ -28,7 +28,7 @@ const SavingLoader = (props: any) => {
       });
       clearTimeout(timer);
     }
-    return () => clearTimeout(timer);
+    // return () => clearTimeout(timer);
   }, [saveTimer]);
 
   return (
