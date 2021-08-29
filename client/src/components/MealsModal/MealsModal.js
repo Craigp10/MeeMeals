@@ -264,7 +264,12 @@ const MealsModal = (props) => {
                   </select>
                 </div>
                 <div className="meals-modal__content__form-field">
-                  <label>Ingredients</label>
+                  <label>
+                    Ingredients{" "}
+                    <p style={{ display: "inline", fontSize: ".8rem" }}>
+                      &nbsp;(Click tag to remove it.)
+                    </p>
+                  </label>
                   <div className="extension">
                     {mealData.mealIngredients.map((ingredient, idx) => (
                       <span
@@ -292,7 +297,12 @@ const MealsModal = (props) => {
                   />
                 </div>
                 <div className="meals-modal__content__form-field">
-                  <label>Instructions</label>
+                  <label>
+                    Instructions &nbsp;
+                    <p style={{ display: "inline", fontSize: ".8rem" }}>
+                      (Drag and drop to reorganize steps.)
+                    </p>
+                  </label>
                   <DragDropTags
                     instructions={mealData.mealInstructions}
                     reorderInstructions={reorderInstructions}
@@ -313,7 +323,12 @@ const MealsModal = (props) => {
                   />
                 </div>
                 <div className="meals-modal__content__form-field">
-                  <label>Tags</label>
+                  <label>
+                    Tags{" "}
+                    <p style={{ display: "inline", fontSize: ".8rem" }}>
+                      &nbsp; (Click tag to remove it.)
+                    </p>
+                  </label>
                   <div className="extension">
                     {mealData.mealTags.map((tag, idx) => (
                       <span
