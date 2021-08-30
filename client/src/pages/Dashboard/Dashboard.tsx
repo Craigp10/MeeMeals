@@ -49,7 +49,7 @@ const Dashboard = (props: Props) => {
         <Router>
           <div className="dashboard__content">
             <div className="dashboard__content-topbar">
-              <TopBar logout={logout} />
+              <TopBar logout={logout} user={user} />
             </div>
             <div className="dashboard__content-navigationbar">
               <NavigationBar />

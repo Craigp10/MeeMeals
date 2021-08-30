@@ -1,10 +1,10 @@
-.login-wrapper {
+.create-account-wrapper {
   height: 100vh;
   width: 100vw;
   color: #02203c;
 }
 
-.login__board {
+.create-account__board {
   border: 0.5px solid #02203c;
   border-radius: 4px;
   height: 60vh;
@@ -14,7 +14,7 @@
     0 10px 36px -10px rgba(51, 51, 51, 0.2);
 }
 
-.login__board__content {
+.create-account__board__content {
   height: 80%;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@ form {
   padding: 20px 40px;
 }
 
-.login__board__content__form-buttons {
+.create-account__board__content__form-buttons {
   text-align: center;
   margin: auto;
   display: flex;
@@ -36,19 +36,19 @@ form {
   padding-top: 20px;
 }
 
-.login__board__content__form-buttons button {
+.create-account__board__content__form-buttons button {
   color: #02203c;
   background-color: #ffffff;
   border: 1px solid #02203c;
 }
 
-.login__board__content__form-buttons button:hover {
+.create-account__board__content__form-buttons button:hover {
   border: 1px solid #02203c;
   background-color: #02203c;
   color: #ffffff;
 }
 
-.login__board__content-failed {
+.create-account__board__content-failed {
   align-self: center;
   font-style: italic;
   font-size: 1rem;
@@ -59,11 +59,11 @@ form {
   visibility: hidden;
 }
 
-.login__board__content-account-options {
+.create-account__board__content-recover {
   padding-top: 20px;
   justify-self: flex-end;
 }
 
-.login__board__content-account-options:link {
-  /* text-decoration: none; */
+.create-account__board__content-recover:link {
+  text-decoration: none;
 }
