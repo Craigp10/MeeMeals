@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./CreateAccount.css";
+import "./CreateAccount.scss";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
 
