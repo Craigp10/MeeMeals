@@ -55,7 +55,7 @@ const CreateAccount = (props: any) => {
                     props.setAuthenticated(true);
                     props.setUser(resp.data);
                     history.replace({ pathname: "/" });
-                  }, 500);
+                  }, 1000);
                 } else {
                   //Unable to log in
                   console.log("Unsuccessful Login!");
