@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./MealBox.css";
+import "./MealBox.scss";
 
 type Meal = {
   _id: string;
