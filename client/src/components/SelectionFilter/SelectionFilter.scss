@@ -1,5 +1,6 @@
+@import "../../style/colors.scss";
 .selection-filter-wrapper {
-  background-color: rgb(212, 212, 212);
+  background-color: $light-gray;
   height: 120px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -14,18 +15,18 @@
   border-radius: 20px;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: $white;
 }
 
 /* .selection-filter-wrapper .filterBtn:hover {
-  background-color:#02203c;
-  color: #ffffff;
+  background-color:$primary-blue;
+  color: $white;
 } */
 
 .selection-filter-wrapper .activeCate {
-  background-color: #02203c;
-  color: #ffffff;
-  box-shadow: inset 100px 0 0 0 #02203c;
+  background-color: $primary-blue;
+  color: $white;
+  box-shadow: inset 100px 0 0 0 $primary-blue;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
@@ -71,7 +72,7 @@
   border-radius: 25px;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: $white;
 }
 .selection-filter-wrapper .glyphicon-search span:hover {
   text-decoration: none;

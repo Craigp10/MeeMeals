@@ -1,9 +1,10 @@
+@import "../../style/colors.scss";
 .meals-modal__content {
-  background: #ffffff;
+  background: $white;
   height: 700px;
   width: 800px;
   opacity: 1;
-  box-shadow: 0 0 60px 10px rgba(156, 156, 156, 0.2);
+  box-shadow: 0 0 60px 10px $dark-gray;
   border-radius: 4px;
 }
 
@@ -19,7 +20,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 1px solid rgb(212, 212, 212);
+  border-bottom: 1px solid $light-gray;
 }
 
 .meals-modal__content__header-left {
@@ -39,7 +40,7 @@
   text-align: center;
   padding: 0 10px 0 0;
   font-size: 20px;
-  color: rgb(212, 212, 212);
+  color: $light-gray;
 }
 
 .meals-modal__content__form {
@@ -53,7 +54,7 @@
 }
 
 .meals-modal__content__form-field {
-  background-color: #fafafa;
+  background-color: $faded-white;
   background: none;
   outline: none;
   width: 100%;
@@ -66,12 +67,12 @@
   outline: none;
   border: none;
   width: 100%;
-  border-bottom: 1px solid #02203c;
+  border-bottom: 1px solid $primary-blue;
 }
 
 .meals-modal__content__form-field #mealCategory {
   /* appearance: none; */
-  border: 1px solid #02203c;
+  border: 1px solid $primary-blue;
   padding: 5px;
   /* background-color: red; */
   border-radius: 4px;
@@ -108,9 +109,9 @@
   padding: 5px;
   margin: 0;
   border-radius: 4px;
-  color: #02203c;
-  background: #ffffff;
-  border: 1px solid #02203c;
+  color: $primary-blue;
+  background: $white;
+  border: 1px solid $primary-blue;
   margin-bottom: 2px;
 }
 
@@ -118,8 +119,8 @@
   display: inline-block;
   padding: 5px;
   border-radius: 4px;
-  background: #02203c;
-  color: #ffffff;
+  background: $primary-blue;
+  color: $white;
   margin-right: 2px;
   margin-bottom: 2px;
 }
@@ -137,9 +138,9 @@
 
 #submit {
   padding: 10px;
-  background-color: #ffffff;
-  color: #02203c;
-  border: 1px solid #02203c;
+  background-color: $white;
+  color: $primary-blue;
+  border: 1px solid $primary-blue;
   font-weight: bold;
   border-radius: 25px;
   box-sizing: border-box;
@@ -147,13 +148,13 @@
 
 #submit:hover {
   cursor: pointer;
-  background-color: #02203c;
-  color: #ffffff;
+  background-color: $primary-blue;
+  color: $white;
 }
 
 .disabled {
-  background: #e9e8e8 !important;
-  border: 1px solid #e9e8e8 !important;
+  background: $dark-white !important;
+  border: 1px solid $dark-white !important;
   cursor: not-allowed !important;
   color: black !important;
 }

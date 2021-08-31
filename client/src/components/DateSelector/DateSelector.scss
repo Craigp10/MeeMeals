@@ -8,7 +8,7 @@
   align-items: flex-end;
 }
 .date-selector-wrapper .glyphicon {
-  color: #02203c;
+  color: $primary-blue;
   padding-bottom: 20px;
 }
 
@@ -22,8 +22,8 @@
   width: 400px;
   transition: 0.2s ease-in-out;
   text-align: center;
-  background-color: #02203c;
-  color: #ffffff;
+  background-color: $primary-blue;
+  color: $white;
 }
 
 .notActive {
@@ -31,8 +31,8 @@
 }
 
 .isActive {
-  background-color: #ffffff;
-  color: #02203c;
+  background-color: $white;
+  color: $primary-blue;
   height: 70px;
   /* // width: 500px; */
   border-bottom: none;

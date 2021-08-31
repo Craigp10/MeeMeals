@@ -1,17 +1,17 @@
+@import "../../style/colors.scss";
 .create-account-wrapper {
   height: 100vh;
   width: 100vw;
-  color: #02203c;
+  color: $primary-blue;
 }
 
 .create-account__board {
-  border: 0.5px solid #02203c;
+  border: 0.5px solid $primary-blue;
   border-radius: 4px;
   height: 60vh;
   width: 60vw;
   margin: 100px auto 0;
-  box-shadow: 0 30px 60px -12px rgba(156, 156, 156, 0.2),
-    0 10px 36px -10px rgba(51, 51, 51, 0.2);
+  box-shadow: 0 30px 60px -12px $dark-gray, 0 10px 36px -10px $darker-gray;
 }
 
 .create-account__board__content {
@@ -37,15 +37,15 @@ form {
 }
 
 .create-account__board__content__form-buttons button {
-  color: #02203c;
-  background-color: #ffffff;
-  border: 1px solid #02203c;
+  color: $primary-blue;
+  background-color: $white;
+  border: 1px solid $primary-blue;
 }
 
 .create-account__board__content__form-buttons button:hover {
-  border: 1px solid #02203c;
-  background-color: #02203c;
-  color: #ffffff;
+  border: 1px solid $primary-blue;
+  background-color: $primary-blue;
+  color: $white;
 }
 
 .create-account__board__content-failed {

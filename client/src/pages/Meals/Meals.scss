@@ -1,6 +1,7 @@
+@import "../../style/colors.scss";
 .meals-wrapper {
   height: 100%;
-  color: #02203c;
+  color: $primary-blue;
   padding-top: 50px;
 }
 
@@ -12,8 +13,8 @@
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
-  box-shadow: 0 0px 36px -10px rgba(51, 51, 51, 0.2);
+  background-color: $white;
+  box-shadow: 0 0px 36px -10px $darker-gray;
 }
 
 .meals__board {
@@ -21,8 +22,8 @@
   height: 95%;
   width: 90%;
   margin: auto;
-  background-color: #fafafa;
-  box-shadow: 0 0px 20px -1px rgba(51, 51, 51, 0.2);
+  background-color: $faded-white;
+  box-shadow: 0 0px 20px -1px $darker-gray;
 }
 
 .meals__board__header {
@@ -31,7 +32,7 @@
   border-top-right-radius: 4px;
   grid-template-columns: 1fr 1fr 1fr;
   height: 70px;
-  border-bottom: 1px solid rgb(212, 212, 212);
+  border-bottom: 1px solid $light-gray;
 }
 
 .meals__board__header div {
@@ -63,7 +64,7 @@
 
 .meals__board__header-create button {
   border-radius: 10px;
-  color: #02203c;
+  color: $primary-blue;
   background: none;
   font-weight: bold;
   padding: 5px;
@@ -71,8 +72,8 @@
 }
 
 .meals__board__header-create button:hover {
-  color: #ffffff;
-  background: #02203c;
+  color: $white;
+  background: $primary-blue;
 }
 
 .meals__board__scroll {
