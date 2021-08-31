@@ -8,78 +8,77 @@
   row-gap: 5px;
   column-gap: 5px;
   padding: 10px;
-}
 
-.selection-filter-wrapper .filterBtn {
-  display: flex;
-  border-radius: 20px;
-  align-items: center;
-  justify-content: center;
-  background-color: $white;
-}
+  .filterBtn {
+    display: flex;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+  }
 
-/* .selection-filter-wrapper .filterBtn:hover {
+  /* .selection-filter-wrapper .filterBtn:hover {
   background-color:$primary-blue;
   color: $white;
 } */
 
-.selection-filter-wrapper .activeCate {
-  background-color: $primary-blue;
-  color: $white;
-  box-shadow: inset 100px 0 0 0 $primary-blue;
-  -webkit-transition: all ease 0.5s;
-  -moz-transition: all ease 0.5s;
-  transition: all ease 0.5s;
-}
+  .activeCate {
+    background-color: $primary-blue;
+    color: $white;
+    box-shadow: inset 100px 0 0 0 $primary-blue;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+  }
 
-.selection-filter-wrapper #all {
-  grid-column: 2 / 4;
-  grid-row: 1;
-  width: 70%;
-  margin: 0 auto;
-}
+  #all {
+    grid-column: 2 / 4;
+    grid-row: 1;
+    width: 70%;
+    margin: 0 auto;
+  }
 
-.selection-filter-wrapper #breakfast {
-  grid-column: 1;
-  grid-row: 2;
-}
+  #breakfast {
+    grid-column: 1;
+    grid-row: 2;
+  }
 
-.selection-filter-wrapper #lunch {
-  grid-column: 2;
-  grid-row: 2;
-}
+  #lunch {
+    grid-column: 2;
+    grid-row: 2;
+  }
 
-.selection-filter-wrapper #dinner {
-  grid-column: 3;
-  grid-row: 2;
-}
+  #dinner {
+    grid-column: 3;
+    grid-row: 2;
+  }
 
-.selection-filter-wrapper #snack {
-  grid-column: 4;
-  grid-row: 2;
-}
+  #snack {
+    grid-column: 4;
+    grid-row: 2;
+  }
 
-#search {
-  border: none;
-  font-size: 1.5rem;
-}
+  #search {
+    border: none;
+    font-size: 1.5rem;
+  }
 
-.selection-filter-wrapper .glyphicon-search {
-  grid-column: 1/5;
-  grid-row: 3;
-  padding: 0 10px;
-  display: flex;
-  border-radius: 25px;
-  align-items: center;
-  justify-content: center;
-  background-color: $white;
-}
-.selection-filter-wrapper .glyphicon-search span:hover {
-  text-decoration: none;
-}
-
-.selection-filter-wrapper .glyphicon-search input {
-  outline: none;
-  width: 100%;
-  padding: 0 20px;
+  .glyphicon-search {
+    grid-column: 1/5;
+    grid-row: 3;
+    padding: 0 10px;
+    display: flex;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+  }
+  .glyphicon-search span:hover {
+    text-decoration: none;
+  }
+  .glyphicon-search input {
+    outline: none;
+    width: 100%;
+    padding: 0 20px;
+  }
 }
