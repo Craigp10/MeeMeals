@@ -13,7 +13,6 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "dayjs": "^1.10.6",
-    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-bootstrap": "^1.6.1",
@@ -54,6 +53,7 @@
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.1.1",
     "@types/react-modal": "^3.12.1",
-    "@types/react-router-dom": "^5.1.8"
+    "@types/react-router-dom": "^5.1.8",
+    "node-sass": "^6.0.1"
   }
 }
