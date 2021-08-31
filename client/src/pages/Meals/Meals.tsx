@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import "./Meals.css";
+import "./Meals.scss";
 import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 import MealsModal from "../../components/MealsModal/MealsModal";

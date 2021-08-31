@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./DateSelector.css";
+import "./DateSelector.scss";
 import dayjs from "dayjs";
 
 type dates = {

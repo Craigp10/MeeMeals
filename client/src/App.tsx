@@ -6,7 +6,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import CreateAccount from "./pages/CreateAccount/CreateAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import "./App.css";
+import "./App.scss";
 import apis from "./api/index";
 
 interface User {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./Login.css";
+import "./Login.scss";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
 
@@ -70,7 +70,7 @@ const Login = (props: any) => {
     <div className="login-wrapper">
       <div className="login__board">
         <div className="login__board__content">
-          <h3>Log In</h3>
+          <h3>Log In to MeeMeals</h3>
           <form
             // ref={(form) => (this.form = form)}
             className="login__board__content__form"

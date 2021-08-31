@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./MealDrop.css";
+import "./MealDrop.scss";
 
 type Meal = {
   _id: string;
