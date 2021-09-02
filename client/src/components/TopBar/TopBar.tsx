@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import logout from "../../images/logout.png";
-import "./TopBar.scss";
+import "./scss/compiled.scss";
+import { windowSizeContext } from "../../App";
 
 interface User {
   id: string;
@@ -10,30 +11,52 @@ interface User {
 
 type Props = {
   logout: () => void;
+  setShow: (show: boolean) => void;
   user: User;
 };
 
 const TopBar = (props: Props) => {
-  console.log("topbar", props.user.username);
+  const windowSize = useContext(windowSizeContext);
   return (
     <div className="topbar-wrapper">
-      <div className="topbar__title">
-        <span
-          className="topbar__title-text"
-          onClick={() => (window.location.href = window.location.origin)}
-        >
-          MeeMeals
-        </span>
-      </div>
-      {/* <div className="topbar__user">Hello, {props.user.username}</div> */}
-      <div className="topbar__leftover">
-        <div className="topbar__leftover-icon">
-          <span
-            className="glyphicon glyphicon-user"
-            onClick={props.logout}
-          ></span>
-        </div>
-      </div>
+      {windowSize.width <= 768 ? (
+        <>
+          <div className="topbar__menu">
+            <span
+              className="glyphicon glyphicon-th-list"
+              onClick={() => props.setShow(true)}
+            ></span>
+          </div>
+          <div className="topbar__title">
+            <span
+              className="topbar__title-text"
+              onClick={() => (window.location.href = window.location.origin)}
+            >
+              MeeMeals
+            </span>
+          </div>
+          <div className="topbar__leftover"></div>
+        </>
+      ) : (
+        <>
+          <div className="topbar__title">
+            <span
+              className="topbar__title-text"
+              onClick={() => (window.location.href = window.location.origin)}
+            >
+              MeeMeals
+            </span>
+          </div>
+          <div className="topbar__leftover">
+            <div className="topbar__leftover-icon">
+              <span
+                className="glyphicon glyphicon-user"
+                onClick={props.logout}
+              ></span>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

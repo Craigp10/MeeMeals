@@ -1,0 +1,24 @@
+@import "../../../style/colors.scss";
+
+.topbar-wrapper {
+  .topbar__title {
+    width: 17.5%;
+  }
+
+  .topbar__leftover {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .topbar__leftover-icon {
+    background-color: $white;
+    height: 75px;
+    width: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: $primary-blue;
+  }
+}

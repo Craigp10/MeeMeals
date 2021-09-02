@@ -1,0 +1,34 @@
+@import "../../../style/colors.scss";
+
+.topbar-wrapper {
+  background-color: $primary-blue;
+  display: flex;
+  height: 75px;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  justify-content: space-between;
+  color: $white;
+
+  span:hover {
+    cursor: pointer;
+  }
+  .topbar__menu {
+    width: 100%;
+    font-size: 2rem;
+    margin: auto;
+    padding-left: 30px;
+  }
+  .topbar__title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .topbar__leftover {
+    width: 100%;
+  }
+}
