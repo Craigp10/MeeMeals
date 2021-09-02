@@ -1,0 +1,26 @@
+@import "../../../style/colors.scss";
+
+.create-account-wrapper {
+  font-size: 1.7rem;
+
+  .create-account__board {
+    height: 60vh;
+    width: 60vw;
+
+    box-shadow: 0 30px 60px -12px $dark-gray, 0 10px 36px -10px $darker-gray;
+  }
+
+  form {
+    width: 60%;
+    padding: 20px 40px;
+  }
+
+  .create-account__board__content__form-buttons {
+    width: 70%;
+  }
+
+  .create-account__board__content-account-options {
+    width: 60%;
+    margin: auto;
+  }
+}
