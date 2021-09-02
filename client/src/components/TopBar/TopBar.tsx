@@ -35,7 +35,14 @@ const TopBar = (props: Props) => {
               MeeMeals
             </span>
           </div>
-          <div className="topbar__leftover"></div>
+          <div className="topbar__leftover">
+            <div className="topbar__leftover-icon">
+              <span
+                className="glyphicon glyphicon-user"
+                onClick={props.logout}
+              ></span>
+            </div>
+          </div>
         </>
       ) : (
         <>
