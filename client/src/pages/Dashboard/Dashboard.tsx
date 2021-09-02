@@ -11,10 +11,10 @@ import {
   Switch,
   useHistory,
 } from "react-router-dom";
-import "./Dashboard.scss";
+import "./scss/compiled.scss";
 import apis from "../../api/index";
 import { userContext } from "../../App";
-
+import { windowSizeContext } from "../../App";
 interface User {
   id: string;
   username: string;
@@ -28,8 +28,10 @@ interface Props {
 
 const Dashboard = (props: Props) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [show, setShow] = useState(true);
   const history = useHistory();
   const user = useContext(userContext);
+  const windowSize = useContext(windowSizeContext);
 
   const logout = () => {
     //Logs user out
@@ -42,17 +44,19 @@ const Dashboard = (props: Props) => {
       }
     });
   };
-  //console.log("user", user);
+
   return (
     <div className="dashboard-wrapper">
       {user.id != "" ? (
         <Router>
           <div className="dashboard__content">
             <div className="dashboard__content-topbar">
-              <TopBar logout={logout} user={user} />
+              <TopBar logout={logout} user={user} setShow={setShow} />
             </div>
             <div className="dashboard__content-navigationbar">
-              <NavigationBar />
+              {show ? (
+                <NavigationBar show={show} setShow={setShow} logout={logout} />
+              ) : null}
             </div>
             <div className="dashboard__content-inner">
               <Switch>
