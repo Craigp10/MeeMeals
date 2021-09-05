@@ -18,6 +18,15 @@
     font-size: 2rem;
     margin: auto;
     padding-left: 30px;
+
+    .glyphicon-th-list {
+      padding: 5px;
+      border-radius: 4px;
+    }
+    .glyphicon-th-list:hover {
+      background-color: white;
+      color: $primary-blue;
+    }
   }
   .topbar__title {
     width: 100%;
