@@ -1,4 +1,5 @@
-@import "../../style/colors.scss";
+@import "../../../style/colors.scss";
+
 .meals-wrapper {
   height: 100%;
   color: $primary-blue;
@@ -32,7 +33,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     height: 70px;
     border-bottom: 1px solid $light-gray;
-
     div {
       text-align: center;
     }
@@ -47,18 +47,21 @@
       padding-left: 20px;
       border: none;
       width: 100%;
-      font-size: 18px;
+      font-size: 1rem;
     }
   }
 
   .meals__board__header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
-    font-size: 24px;
-    padding-top: 15px;
+    font-size: 2rem;
   }
 
   .meals__board__header-create {
     padding: 15px;
+    font-size: 2rem;
     button {
       border-radius: 10px;
       color: $primary-blue;

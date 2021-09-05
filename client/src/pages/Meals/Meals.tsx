@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import "./Meals.scss";
+import "./scss/compiled.scss";
 import apis from "../../api/index";
 import MealBox from "../../components/MealBox/MealBox";
 import MealsModal from "../../components/MealsModal/MealsModal";
-import { userContext } from "../../App";
+import { userContext, windowSizeContext } from "../../App";
 
 type meal = {
   category: string;
@@ -38,12 +38,13 @@ const Meals = (props: any) => {
   });
   const [searchFilter, setSearchFilter] = useState<string>("");
   const user = useContext<User>(userContext);
+  const windowSize = useContext(windowSizeContext);
+  const MOBILE_VIEW = windowSize.width < 768 ? true : false;
 
   useEffect(() => {
     //When props change pull user meals by user id
     const getUserMealsFunc = async () =>
       await apis.getUserMeals({ user_id: user.id }).then((resp) => {
-        console.log(resp.data.meals);
         setMeals(resp.data.meals);
       });
 
@@ -102,15 +103,11 @@ const Meals = (props: any) => {
       user_id: user.id,
     };
     await apis.deleteMeal(requestObj).then((resp) => {
-      console.log(resp.data.meals);
       setMeals(resp.data.meals);
     });
   };
-  console.log(
-    meals,
-    activeMeal,
-    meals.filter((meal) => meal._id == activeMeal.activeMealID)[0]
-  );
+  console.log("MOBILE_VIEW", MOBILE_VIEW);
+
   return (
     <>
       <div className="meals-wrapper">
@@ -128,20 +125,26 @@ const Meals = (props: any) => {
         <div className="meals__board">
           <div className="meals__board__header">
             <div className="meals__board__header-search">
-              <div className="glyphicon glyphicon-search">
-                <input
-                  id="search"
-                  value={searchFilter}
-                  placeholder="Search Meals"
-                  onChange={(e) => setSearchFilter(e.target.value)}
-                  autoComplete={"off"}
-                />
-              </div>
+              {!MOBILE_VIEW ? (
+                <div className="glyphicon glyphicon-search">
+                  <input
+                    id="search"
+                    value={searchFilter}
+                    placeholder="Search Meals"
+                    onChange={(e) => setSearchFilter(e.target.value)}
+                    autoComplete={"off"}
+                  />
+                </div>
+              ) : null}
             </div>
             <div className="meals__board__header-title">Your Meals</div>
             <div className="meals__board__header-create">
-              <button type="button" onClick={() => handleShow("create", null)}>
-                Create A Meal
+              <button
+                type="button"
+                onClick={() => handleShow("create", null)}
+                className={MOBILE_VIEW ? "glyphicon glyphicon-plus" : ""}
+              >
+                {!MOBILE_VIEW ? <span>Create A Meal</span> : null}
               </button>
             </div>
           </div>
