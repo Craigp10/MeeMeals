@@ -5,18 +5,6 @@
   color: $primary-blue;
   padding-top: 50px;
 
-  .glyphicon-search {
-    width: 95%;
-    height: 100%;
-    padding: 0 10px;
-    display: flex;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    background-color: $white;
-    box-shadow: 0 0px 36px -10px $darker-gray;
-  }
-
   .meals__board {
     border-radius: 4px;
     height: 95%;
@@ -43,11 +31,25 @@
     justify-content: center;
     padding: 10px 5px;
 
+    .glyphicon-search {
+      width: 95%;
+      height: 100%;
+      padding: 0 10px;
+      display: flex;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
+      box-shadow: 0 0px 36px -10px $darker-gray;
+    }
+
     #search {
+      border: 1px solid green;
       padding-left: 20px;
       border: none;
       width: 100%;
-      font-size: 1rem;
+      font-size: 1.5rem;
+      outline: none;
     }
   }
 
@@ -61,13 +63,15 @@
 
   .meals__board__header-create {
     padding: 15px;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+
     button {
       border-radius: 10px;
       color: $primary-blue;
       background: none;
       font-weight: bold;
-      padding: 5px;
       border: none;
     }
     button:hover {

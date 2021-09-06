@@ -36,18 +36,18 @@ const useDraggableInPortal = () => {
   const self = useRef({}).current;
 
   useEffect(() => {
-    const li = document.createElement("li");
-    li.style.position = "absolute";
-    li.style.pointerEvents = "none";
-    li.style.top = "0";
-    li.style.width = "100%";
-    li.style.height = "100%";
-    li.style.listStyleType = "none";
+    const div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.pointerEvents = "none";
+    div.style.top = "0";
+    div.style.width = "100%";
+    div.style.height = "100%";
+    div.style.listStyleType = "none";
 
-    self.elt = li;
-    document.body.appendChild(li);
+    self.elt = div;
+    document.body.appendChild(div);
     return () => {
-      document.body.removeChild(li);
+      document.body.removeChild(div);
     };
   }, [self]);
 
