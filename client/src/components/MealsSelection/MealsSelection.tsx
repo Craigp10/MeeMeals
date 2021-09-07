@@ -28,8 +28,7 @@ const MealSelection = (props: Props) => {
   const isMobileView = windowSize.width < 768 ? true : false;
 
   return (
-    <div className="meal-selection-meal-selection-wrapper">
-      {/* {!isMobileView || (isMobileView && props.showSelection) ? ( */}
+    <div className="meal-selection-wrapper">
       <div className="meal-selection-content__selection">
         <ul className="meal-selection-content__selection-scroll">
           {props.meals
@@ -47,7 +46,7 @@ const MealSelection = (props: Props) => {
               } else {
                 const mealData = [
                   meal.display_name,
-                  ...meal.tags.map((tag) => tag),
+                  ...meal.tags.map((tag: string) => tag),
                   ...meal.ingredients.map((ingredient) => ingredient),
                 ];
                 return (
@@ -77,16 +76,18 @@ const MealSelection = (props: Props) => {
                     <div className="meal-selection__selection__meal-body">
                       <label>Ingredients</label>
                       <div className="meal-selection__selection__meal-tags">
-                        {meal.ingredients.map((ingredients, idx) => (
-                          <span className="__meal-tag" key={idx}>
-                            {ingredients}
-                          </span>
-                        ))}
+                        {meal.ingredients.map(
+                          (ingredients: string, idx: number) => (
+                            <span className="__meal-tag" key={idx}>
+                              {ingredients}
+                            </span>
+                          )
+                        )}
                       </div>
                       <hr />
                       <label>Tags</label>
                       <div className="meal-selection__selection__meal-tags">
-                        {meal.tags.map((tag, idx) => (
+                        {meal.tags.map((tag: string, idx: number) => (
                           <span className="__meal-tag" key={idx}>
                             {tag}
                           </span>

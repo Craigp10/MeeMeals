@@ -398,14 +398,16 @@ const Calendar = (props: any) => {
             setCategoryFilter={setCategoryFilter}
             categoryFilter={categoryFilter}
           />
-          <MealSelection
-            meals={meals}
-            handleMealClick={handleMealClick}
-            activeMeal={activeMeal.isActive}
-            showSelection={true}
-            categoryFilter={categoryFilter}
-            searchFilter={searchFilter}
-          />
+          {!isMobileView || (isMobileView && props.showSelection) ? (
+            <MealSelection
+              meals={meals}
+              handleMealClick={handleMealClick}
+              activeMeal={activeMeal.isActive}
+              showSelection={true}
+              categoryFilter={categoryFilter}
+              searchFilter={searchFilter}
+            />
+          ) : null}
           {/* <ul className="calendar-content__selection-scroll">
             {meals
               .filter((meal) => {
