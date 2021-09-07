@@ -22,7 +22,6 @@ interface Props {
 }
 
 const MealDrop = (props: Props) => {
-  console.log(props.activeMealIsActive);
   return (
     <div
       className={

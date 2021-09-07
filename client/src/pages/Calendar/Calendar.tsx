@@ -1,12 +1,12 @@
 import React, { FC, useState, useEffect, useContext } from "react";
-import "./Calendar.scss";
+import "./scss/compiled.scss";
 import apis, { getDateMeals } from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
 import SaveLoader from "../../components/SavingLoader/SavingLoader";
-import { userContext } from "../../App";
+import { userContext, windowSizeContext } from "../../App";
 
 const SAVING_STATUSES = {
   initialize: "",
@@ -31,6 +31,7 @@ const EMPTY_MEAL = {
   tags: [""],
   _id: "",
 };
+
 type meals = {
   category: string;
   date_created: string;
@@ -81,7 +82,10 @@ const Calendar = (props: any) => {
     saving: false,
     status: SAVING_STATUSES.initialize,
   });
+  const [showSelection, setShowSelection] = useState<boolean>(false);
   const user = useContext<User>(userContext);
+  const windowSize = useContext(windowSizeContext);
+  const isMobileView = windowSize.width < 768 ? true : false;
 
   const handleMealClick = (mealId: string) => {
     //Handles clicking a meal from the scroll wheel
@@ -251,7 +255,6 @@ const Calendar = (props: any) => {
     return () => clearTimeout(timer);
   }, [saveObject.status]);
 
-  console.log(activeMeal);
   return (
     <div className="calendar-wrapper">
       <div className="calendar__board">
@@ -259,28 +262,38 @@ const Calendar = (props: any) => {
           <DateSelector
             activeDate={activeDate}
             handleActiveDateChange={handleActiveDateChange}
+            isMobileView={windowSize.width < 768 ? true : false}
           />
         </div>
         <div className="calendar__board__planner">
-          <div className="calendar__planner-saver">
-            {saveObject.status == "" ? null : saveObject.status == "error" ? (
-              <p
-                style={{
-                  color: "red",
-                  fontStyle: "italic",
-                  fontSize: "1.2rem",
-                }}
-              >
-                Error saving changes
-              </p>
-            ) : (
-              <SaveLoader
-                saving={saveObject.saving}
-                status={saveObject.status}
-                setSaveObject={setSaveObject}
-              />
-            )}
-          </div>
+          {isMobileView ? (
+            <div className="calendar__board__planner_mobile-menu">
+              <span
+                className="glyphicon glyphicon-menu-left"
+                onClick={() => setShowSelection(true)}
+              ></span>
+            </div>
+          ) : (
+            <div className="calendar__planner-saver">
+              {saveObject.status == "" ? null : saveObject.status == "error" ? (
+                <p
+                  style={{
+                    color: "red",
+                    fontStyle: "italic",
+                    fontSize: "1.2rem",
+                  }}
+                >
+                  Error saving changes
+                </p>
+              ) : (
+                <SaveLoader
+                  saving={saveObject.saving}
+                  status={saveObject.status}
+                  setSaveObject={setSaveObject}
+                />
+              )}
+            </div>
+          )}
           <div className="calendar__planner-content">
             {mealTimes.map((meal, index) => {
               return (
@@ -304,79 +317,156 @@ const Calendar = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="calendar-content__selection">
-        <FilterSelection
-          setSearchFilter={setSearchFilter}
-          searchFilter={searchFilter}
-          setCategoryFilter={setCategoryFilter}
-          categoryFilter={categoryFilter}
-        />
+      {isMobileView ? (
+        showSelection ? (
+          <div className="calendar-content__selection">
+            <ul className="calendar-content__selection-scroll">
+              {meals
+                .filter((meal) => {
+                  if (categoryFilter == "all") {
+                    const mealData = [
+                      meal.display_name,
+                      ...meal.tags.map((tag) => tag),
+                      ...meal.ingredients.map((ingredient) => ingredient),
+                    ];
+                    return mealData
+                      .join(" ")
+                      .toLowerCase()
+                      .includes(searchFilter.toLowerCase());
+                  } else {
+                    const mealData = [
+                      meal.display_name,
+                      ...meal.tags.map((tag) => tag),
+                      ...meal.ingredients.map((ingredient) => ingredient),
+                    ];
+                    return (
+                      mealData
+                        .join(" ")
+                        .toLowerCase()
+                        .includes(searchFilter.toLowerCase()) &&
+                      meal.category == categoryFilter
+                    );
+                  }
+                })
+                .map((meal, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="calendar__selection__meal-wrapper"
+                    >
+                      <li
+                        className="calendar__selection__meal"
+                        onClick={() => handleMealClick(meal._id)}
+                      >
+                        <div className="calendar__selection__meal-header">
+                          <div className="calendar__selection__meal-displayname">
+                            {meal.display_name}
+                          </div>
+                        </div>
+                        <div className="calendar__selection__meal-body">
+                          <label>Ingredients</label>
+                          <div className="calendar__selection__meal-tags">
+                            {meal.ingredients.map((ingredients, idx) => (
+                              <span className="__meal-tag" key={idx}>
+                                {ingredients}
+                              </span>
+                            ))}
+                          </div>
+                          <hr />
+                          <label>Tags</label>
+                          <div className="calendar__selection__meal-tags">
+                            {meal.tags.map((tag, idx) => (
+                              <span className="__meal-tag" key={idx}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </li>
+                    </div>
+                  );
+                })}
+            </ul>
+          </div>
+        ) : null
+      ) : (
+        <div className="calendar-content__selection">
+          <FilterSelection
+            setSearchFilter={setSearchFilter}
+            searchFilter={searchFilter}
+            setCategoryFilter={setCategoryFilter}
+            categoryFilter={categoryFilter}
+          />
 
-        <ul className="calendar-content__selection-scroll">
-          {meals
-            .filter((meal) => {
-              if (categoryFilter == "all") {
-                const mealData = [
-                  meal.display_name,
-                  ...meal.tags.map((tag) => tag),
-                  ...meal.ingredients.map((ingredient) => ingredient),
-                ];
-                return mealData
-                  .join(" ")
-                  .toLowerCase()
-                  .includes(searchFilter.toLowerCase());
-              } else {
-                const mealData = [
-                  meal.display_name,
-                  ...meal.tags.map((tag) => tag),
-                  ...meal.ingredients.map((ingredient) => ingredient),
-                ];
-                return (
-                  mealData
+          <ul className="calendar-content__selection-scroll">
+            {meals
+              .filter((meal) => {
+                if (categoryFilter == "all") {
+                  const mealData = [
+                    meal.display_name,
+                    ...meal.tags.map((tag) => tag),
+                    ...meal.ingredients.map((ingredient) => ingredient),
+                  ];
+                  return mealData
                     .join(" ")
                     .toLowerCase()
-                    .includes(searchFilter.toLowerCase()) &&
-                  meal.category == categoryFilter
-                );
-              }
-            })
-            .map((meal, index) => {
-              return (
-                <div key={index} className="calendar__selection__meal-wrapper">
-                  <li
-                    className="calendar__selection__meal"
-                    onClick={() => handleMealClick(meal._id)}
+                    .includes(searchFilter.toLowerCase());
+                } else {
+                  const mealData = [
+                    meal.display_name,
+                    ...meal.tags.map((tag) => tag),
+                    ...meal.ingredients.map((ingredient) => ingredient),
+                  ];
+                  return (
+                    mealData
+                      .join(" ")
+                      .toLowerCase()
+                      .includes(searchFilter.toLowerCase()) &&
+                    meal.category == categoryFilter
+                  );
+                }
+              })
+              .map((meal, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="calendar__selection__meal-wrapper"
                   >
-                    <div className="calendar__selection__meal-header">
-                      <div className="calendar__selection__meal-displayname">
-                        {meal.display_name}
+                    <li
+                      className="calendar__selection__meal"
+                      onClick={() => handleMealClick(meal._id)}
+                    >
+                      <div className="calendar__selection__meal-header">
+                        <div className="calendar__selection__meal-displayname">
+                          {meal.display_name}
+                        </div>
                       </div>
-                    </div>
-                    <div className="calendar__selection__meal-body">
-                      <label>Ingredients</label>
-                      <div className="calendar__selection__meal-tags">
-                        {meal.ingredients.map((ingredients, idx) => (
-                          <span className="__meal-tag" key={idx}>
-                            {ingredients}
-                          </span>
-                        ))}
+                      <div className="calendar__selection__meal-body">
+                        <label>Ingredients</label>
+                        <div className="calendar__selection__meal-tags">
+                          {meal.ingredients.map((ingredients, idx) => (
+                            <span className="__meal-tag" key={idx}>
+                              {ingredients}
+                            </span>
+                          ))}
+                        </div>
+                        <hr />
+                        <label>Tags</label>
+                        <div className="calendar__selection__meal-tags">
+                          {meal.tags.map((tag, idx) => (
+                            <span className="__meal-tag" key={idx}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <hr />
-                      <label>Tags</label>
-                      <div className="calendar__selection__meal-tags">
-                        {meal.tags.map((tag, idx) => (
-                          <span className="__meal-tag" key={idx}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </li>
-                </div>
-              );
-            })}
-        </ul>
-      </div>
+                    </li>
+                  </div>
+                );
+              })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

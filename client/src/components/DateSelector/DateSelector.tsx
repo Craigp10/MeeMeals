@@ -10,6 +10,7 @@ type dates = {
 interface Props {
   activeDate: string; // "M/D/YYYY"
   handleActiveDateChange(newActiveDate: string): void;
+  isMobileView: boolean;
 }
 
 const DateSelector = (props: Props) => {
@@ -57,7 +58,8 @@ const DateSelector = (props: Props) => {
     props.handleActiveDateChange(activeDate);
   };
 
-  const handleDatesChangeClick = (direction: string) => {
+  const handleDatesChangeDesktop = (direction: string) => {
+    //Used in desktop view to that date selector changes dates by week end/beginning
     const newDates = dates;
     if (direction == "prev") {
       //Remove last day in array and add new day at beginning, day before first day in array
@@ -77,29 +79,81 @@ const DateSelector = (props: Props) => {
       updateActiveDate(newDates, 6);
     }
   };
+  const handleDatesChangeMobile = (direction: string) => {
+    //Used in mobile views so the date selector scrolls dates one date at a time
+    const newDates = dates;
+    const activeDateIndex = dates.findIndex(
+      (elem) => props.activeDate == elem.date
+    );
+    if (direction == "prev") {
+      //Remove last day in array and add new day at beginning, day before first day in array
+      newDates.unshift({
+        date: dayjs(newDates[0].date).subtract(1, "days").format("M/D/YYYY"),
+        isActive: false,
+      });
+      newDates.pop();
+    } else {
+      //direction == "next" ... Remove first day element of array and push new ending day, next day on calendar from last day in array
+      newDates.push({
+        date: dayjs(newDates[6].date).add(1, "days").format("M/D/YYYY"),
+        isActive: false,
+      });
+      newDates.shift();
+    }
+    updateActiveDate(newDates, activeDateIndex);
+  };
 
+  console.log(dates);
   return (
-    <div className="date-selector-wrapper">
-      <span
-        className="glyphicon glyphicon-chevron-left"
-        onClick={() => handleDatesChangeClick("prev")}
-      ></span>
-      {dates.map((date, index) => (
-        <span
-          key={index}
-          className={
-            date.date == props.activeDate ? "dates isActive" : "dates notActive"
-          }
-          onClick={() => updateActiveDate(dates, index)}
-        >
-          {date.date}
-        </span>
-      ))}
-      <span
-        className="glyphicon glyphicon-chevron-right"
-        onClick={() => handleDatesChangeClick("next")}
-      ></span>
-    </div>
+    <>
+      {props.isMobileView ? (
+        <div className="date-selector-wrapper">
+          <span
+            className="glyphicon glyphicon-chevron-left"
+            onClick={() => handleDatesChangeMobile("prev")}
+          ></span>
+          {dates
+            .filter((date, index) => date.date == props.activeDate)
+            .map((date, index) => (
+              <span
+                key={index}
+                className="dates isActive"
+                onClick={() => updateActiveDate(dates, index)}
+              >
+                {date.date}
+              </span>
+            ))}
+          <span
+            className="glyphicon glyphicon-chevron-right"
+            onClick={() => handleDatesChangeMobile("next")}
+          ></span>
+        </div>
+      ) : (
+        <div className="date-selector-wrapper">
+          <span
+            className="glyphicon glyphicon-chevron-left"
+            onClick={() => handleDatesChangeDesktop("prev")}
+          ></span>
+          {dates.map((date, index) => (
+            <span
+              key={index}
+              className={
+                date.date == props.activeDate
+                  ? "dates isActive"
+                  : "dates notActive"
+              }
+              onClick={() => updateActiveDate(dates, index)}
+            >
+              {date.date}
+            </span>
+          ))}
+          <span
+            className="glyphicon glyphicon-chevron-right"
+            onClick={() => handleDatesChangeDesktop("next")}
+          ></span>
+        </div>
+      )}
+    </>
   );
 };
 
