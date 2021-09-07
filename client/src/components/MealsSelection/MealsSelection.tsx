@@ -100,7 +100,6 @@ const MealSelection = (props: Props) => {
             })}
         </ul>
       </div>
-      {/* ) : null} */}
     </div>
   );
 };
