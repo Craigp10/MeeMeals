@@ -67,7 +67,7 @@ const App = () => {
   useEffect(() => {
     const checkCurrentSession = async () =>
       await apis.checkSession().then((resp) => {
-        console.log(resp.data.user);
+        // console.log(resp.data.user);
         if (resp.data.isAuth) {
           setAuthenticated(true);
           setUser(resp.data.user);
