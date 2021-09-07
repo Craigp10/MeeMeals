@@ -6,6 +6,7 @@ import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
 import SaveLoader from "../../components/SavingLoader/SavingLoader";
+import MealSelection from "../../components/MealsSelection/MealsSelection";
 import { userContext, windowSizeContext } from "../../App";
 
 const SAVING_STATUSES = {
@@ -270,7 +271,7 @@ const Calendar = (props: any) => {
             <div className="calendar__board__planner_mobile-menu">
               <span
                 className="glyphicon glyphicon-menu-left"
-                onClick={() => setShowSelection(true)}
+                onClick={() => setShowSelection(!showSelection)}
               ></span>
             </div>
           ) : (
@@ -397,8 +398,15 @@ const Calendar = (props: any) => {
             setCategoryFilter={setCategoryFilter}
             categoryFilter={categoryFilter}
           />
-
-          <ul className="calendar-content__selection-scroll">
+          <MealSelection
+            meals={meals}
+            handleMealClick={handleMealClick}
+            activeMeal={activeMeal.isActive}
+            showSelection={true}
+            categoryFilter={categoryFilter}
+            searchFilter={searchFilter}
+          />
+          {/* <ul className="calendar-content__selection-scroll">
             {meals
               .filter((meal) => {
                 if (categoryFilter == "all") {
@@ -464,7 +472,7 @@ const Calendar = (props: any) => {
                   </div>
                 );
               })}
-          </ul>
+          </ul> */}
         </div>
       )}
     </div>
