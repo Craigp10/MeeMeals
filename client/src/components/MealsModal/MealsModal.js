@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./MealsModal.scss";
+import "./scss/compiled.scss";
 import Modal from "react-modal";
 import DragDropTags from "../DragDropTags/DragDropTags";
 Modal.setAppElement("#root");

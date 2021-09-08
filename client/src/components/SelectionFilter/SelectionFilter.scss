@@ -8,7 +8,7 @@
   row-gap: 5px;
   column-gap: 5px;
   padding: 10px;
-
+  border: 1px solid $primary-blue;
   .filterBtn {
     display: flex;
     border-radius: 20px;
@@ -16,11 +16,6 @@
     justify-content: center;
     background-color: $white;
   }
-
-  /* .selection-filter-wrapper .filterBtn:hover {
-  background-color:$primary-blue;
-  color: $white;
-} */
 
   .activeCate {
     background-color: $primary-blue;
@@ -80,5 +75,16 @@
     outline: none;
     width: 100%;
     padding: 0 20px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .selection-filter-wrapper {
+    font-size: 1rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .selection-filter-wrapper {
+    font-size: 1.5rem;
   }
 }

@@ -1,4 +1,4 @@
-@import "../../style/colors.scss";
+@import "../../../style/colors.scss";
 
 .home-wrapper {
   height: 100%;
@@ -22,7 +22,8 @@
   }
 
   .home__content__board__body {
-    overflow: hidden;
+    // overflow: hidden;
+    overflow-x: scroll;
     flex-grow: 1;
   }
 
@@ -33,7 +34,7 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    column-gap: 10px;
+    column-gap: 30px;
     font-weight: bold;
     justify-items: center;
     align-items: center;
@@ -60,7 +61,7 @@
       margin: auto;
       overflow: hidden;
       white-space: nowrap;
-      text-overflow: ellipsis;
+      // text-overflow: ellipsis;
     }
 
     &:hover {
@@ -68,7 +69,7 @@
       height: 100%;
       color: $white;
       background: $primary-blue;
-      /* cursor: pointer;  commented out because click workflow not implemented yet*/
+
       p {
         white-space: normal;
         height: 100%;

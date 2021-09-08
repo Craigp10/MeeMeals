@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import "./Homepage.scss";
+import "./scss/compiled.scss";
 import dayjs from "dayjs";
 import apis from "../../api/index";
 import { userContext } from "../../App";

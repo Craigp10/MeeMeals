@@ -1,0 +1,54 @@
+@import "../../../style/colors.scss";
+
+.topbar-wrapper {
+  background-color: $primary-blue;
+  display: flex;
+  height: 75px;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  justify-content: space-between;
+  color: $white;
+
+  span:hover {
+    cursor: pointer;
+  }
+  .topbar__menu {
+    width: 100%;
+    font-size: 2rem;
+    margin: auto;
+    padding-left: 30px;
+    .glyphicon-th-list {
+      padding: 5px;
+      border-radius: 4px;
+    }
+    .glyphicon-th-list:hover {
+      background-color: white;
+      color: $primary-blue;
+    }
+  }
+  .topbar__title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .topbar__leftover {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .topbar__leftover-icon {
+      background-color: $white;
+      height: 75px;
+      width: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      color: $primary-blue;
+    }
+  }
+}

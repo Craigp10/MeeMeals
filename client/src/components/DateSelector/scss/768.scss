@@ -1,0 +1,10 @@
+@import "../../../style/colors.scss";
+
+.date-selector-wrapper {
+  justify-content: center;
+
+  .dates {
+    width: 120px;
+    align-items: flex-start;
+  }
+}

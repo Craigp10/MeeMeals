@@ -1,0 +1,60 @@
+@import "../../../style/colors.scss";
+
+.notShown {
+  width: 0;
+  transition: 0.5s;
+}
+.shown {
+  width: 60%;
+  transition: 0.5s;
+}
+.navigationbar-wrapper {
+  box-sizing: border-box;
+  // border: 1px solid green;
+  overflow-x: hidden;
+  height: calc(100% - 75px);
+  background-color: $faded-white;
+  text-align: center;
+  position: absolute;
+  top: 75px;
+  box-shadow: 20px 0 36px -18px $darker-gray;
+  font-size: 18px;
+  z-index: 99;
+
+  ul {
+    text-align: center;
+  }
+
+  .navigationbar__linklist {
+    padding: 0px;
+    margin: 0;
+  }
+
+  .navigationbar__linklist li:hover {
+    background-color: rgba(182, 182, 182, 0.5);
+  }
+
+  .navigationbar__linklist-link {
+    display: inline-block;
+    /* margin: 10px 0; */
+    text-decoration: none !important;
+    color: $primary-blue;
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+  }
+
+  .navigationbar-mobile {
+    padding: 5px;
+    transition: 1s;
+    span {
+      display: flex;
+      justify-content: flex-end;
+      padding: 5px;
+    }
+  }
+
+  .glyphicon-remove {
+    font-size: 2rem;
+  }
+}

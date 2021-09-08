@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./Login.scss";
+import "./scss/compiled.scss";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
+import { windowSizeContext } from "../../App";
 
 const Login = (props: any) => {
   const history = useHistory();
@@ -10,7 +11,8 @@ const Login = (props: any) => {
 
   let usernameRef = useRef<HTMLInputElement>(null);
   let passwordRef = useRef<HTMLInputElement>(null);
-
+  const windowSize = useContext(windowSizeContext);
+  const MOBILE_VIEW = windowSize.width <= 768;
   useEffect(() => {
     usernameRef.current.focus();
   }, []);
@@ -30,6 +32,7 @@ const Login = (props: any) => {
         password: passwordRef.current.value,
       })
       .then((resp) => {
+        console.log(resp);
         if (resp.status == 200) {
           console.log("Successful Login!");
           setLoginSuccess(true);
@@ -46,6 +49,7 @@ const Login = (props: any) => {
         }
       });
   };
+
   const demoSubmit = async () => {
     //Handle user log in submit
     await apis.demoLogin().then((resp) => {
@@ -70,7 +74,7 @@ const Login = (props: any) => {
     <div className="login-wrapper">
       <div className="login__board">
         <div className="login__board__content">
-          <h3>Log In to MeeMeals</h3>
+          <h3>Log In</h3>
           <form
             // ref={(form) => (this.form = form)}
             className="login__board__content__form"
@@ -107,6 +111,7 @@ const Login = (props: any) => {
                 id="user-login"
                 name="user"
                 onClick={userSubmit}
+                size={MOBILE_VIEW ? "sm" : "lg"}
               >
                 Log In
               </Button>
@@ -115,6 +120,7 @@ const Login = (props: any) => {
                 id="demo-login"
                 name="demo"
                 onClick={demoSubmit}
+                size={MOBILE_VIEW ? "sm" : "lg"}
               >
                 Demo Log In
               </Button>
@@ -131,14 +137,14 @@ const Login = (props: any) => {
           </span>
           <div className="login__board__content-account-options">
             <p style={{ textDecoration: "line-through" }}>
-              Forgot your password?{" "}
+              Forgot your password? {MOBILE_VIEW ? <br /> : <>&nbsp;</>}
               <Link style={{ pointerEvents: "none" }} to="/recover-password">
                 Click here
               </Link>
               .
             </p>
             <p>
-              Don't have an account?{" "}
+              Don't have an account?{MOBILE_VIEW ? <br /> : <>&nbsp;</>}
               <Link to="/create-account">Create an account</Link>.
             </p>
           </div>

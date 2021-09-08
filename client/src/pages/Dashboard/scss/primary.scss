@@ -1,14 +1,14 @@
-@import "../../style/colors.scss";
+@import "../../../style/colors.scss";
 
 .dashboard-wrapper {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: auto;
-  /* overflow: hidden; */
+  // overflow: hidden;
 }
+
 .dashboard__content-inner {
   box-sizing: border-box;
-  padding-left: 200px;
   height: calc(100vh - 75px);
 }

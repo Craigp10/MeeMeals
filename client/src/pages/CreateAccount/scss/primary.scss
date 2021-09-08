@@ -1,15 +1,15 @@
-@import "../../style/colors.scss";
+@import "../../../style/colors.scss";
+
 .create-account-wrapper {
-  height: 100vh;
-  width: 100vw;
   color: $primary-blue;
+  font-size: 1.2rem;
 
   .create-account__board {
     border: 0.5px solid $primary-blue;
     border-radius: 4px;
-    height: 60vh;
-    width: 60vw;
-    margin: 100px auto 0;
+    // height: 60vh;
+    width: 80vw;
+    margin: 10% auto 0;
     box-shadow: 0 30px 60px -12px $dark-gray, 0 10px 36px -10px $darker-gray;
   }
 
@@ -22,8 +22,7 @@
   }
 
   form {
-    width: 60%;
-    padding: 20px 40px;
+    width: 80%;
   }
 
   .create-account__board__content__form-buttons {
@@ -31,14 +30,12 @@
     margin: auto;
     display: flex;
     justify-content: space-evenly;
-    width: 60%;
-    padding-top: 20px;
-
+    font-size: 0.6rem;
     button {
+      margin: 5px;
       color: $primary-blue;
       background-color: $white;
       border: 1px solid $primary-blue;
-
       &:hover {
         border: 1px solid $primary-blue;
         background-color: $primary-blue;
@@ -52,17 +49,19 @@
     font-style: italic;
     font-size: 1rem;
     color: red;
+    text-align: center;
   }
 
   .inActive {
     visibility: hidden;
   }
 
-  .create-account__board__content-recover {
+  .create-account__board__content-account-options {
     padding-top: 20px;
-    justify-self: flex-end;
-    &:link {
-      text-decoration: none;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
   }
 }

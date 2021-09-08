@@ -1,20 +1,9 @@
-@import "../../style/colors.scss";
+@import "../../../style/colors.scss";
+
 .meals-wrapper {
   height: 100%;
   color: $primary-blue;
   padding-top: 50px;
-
-  .glyphicon-search {
-    width: 95%;
-    height: 100%;
-    padding: 0 10px;
-    display: flex;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    background-color: $white;
-    box-shadow: 0 0px 36px -10px $darker-gray;
-  }
 
   .meals__board {
     border-radius: 4px;
@@ -32,7 +21,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     height: 70px;
     border-bottom: 1px solid $light-gray;
-
     div {
       text-align: center;
     }
@@ -43,28 +31,47 @@
     justify-content: center;
     padding: 10px 5px;
 
+    .glyphicon-search {
+      width: 95%;
+      height: 100%;
+      padding: 0 10px;
+      display: flex;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
+      box-shadow: 0 0px 36px -10px $darker-gray;
+    }
+
     #search {
+      border: 1px solid green;
       padding-left: 20px;
       border: none;
       width: 100%;
-      font-size: 18px;
+      font-size: 1.5rem;
+      outline: none;
     }
   }
 
   .meals__board__header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
-    font-size: 24px;
-    padding-top: 15px;
+    font-size: 2rem;
   }
 
   .meals__board__header-create {
     padding: 15px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+
     button {
       border-radius: 10px;
       color: $primary-blue;
       background: none;
       font-weight: bold;
-      padding: 5px;
       border: none;
     }
     button:hover {

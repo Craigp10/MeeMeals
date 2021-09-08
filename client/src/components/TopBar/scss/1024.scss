@@ -1,0 +1,11 @@
+@import "../../../style/colors.scss";
+
+.topbar-wrapper {
+  .topbar__title {
+    width: 17.5%;
+  }
+
+  .topbar__leftover {
+    flex-grow: 1;
+  }
+}

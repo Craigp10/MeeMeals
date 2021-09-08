@@ -1,12 +1,15 @@
-@import "../../style/colors.scss";
+@import "../../../style/colors.scss";
 
 .meals-modal__content {
   background: $white;
-  height: 700px;
-  width: 800px;
+  width: 250px;
   opacity: 1;
   box-shadow: 0 0 60px 10px $dark-gray;
   border-radius: 4px;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
 
   .glyphicon-remove:hover {
     cursor: pointer;
@@ -133,7 +136,8 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    padding: 15px 0;
+    padding: 5px 0;
+    border-top: 1px solid $light-gray;
   }
 
   #submit {

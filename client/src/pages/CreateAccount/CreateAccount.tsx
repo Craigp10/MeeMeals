@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./CreateAccount.scss";
+import "./scss/compiled.scss";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import apis from "../../api/index";
+import { windowSizeContext } from "../../App";
 
 type validationError = {
   errorType: number;
@@ -17,17 +18,19 @@ const CreateAccount = (props: any) => {
   const history = useHistory();
   const [createSuccess, setCreateSuccess] = useState<boolean | null>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [validationErrorArray, setValidationErrorArray] = useState<
-    validationError[]
-  >([
-    { errorType: 0, errorMessage: "" },
-    { errorType: 0, errorMessage: "" },
-    { errorType: 0, errorMessage: "" },
-  ]);
-  const [validationError, setValidationError] = useState<boolean>(false);
+  // const [validationErrorArray, setValidationErrorArray] = useState<
+  //   validationError[]
+  // >([
+  //   { errorType: 0, errorMessage: "" },
+  //   { errorType: 0, errorMessage: "" },
+  //   { errorType: 0, errorMessage: "" },
+  // ]);
+  // const [validationError, setValidationError] = useState<boolean>(false);
   let usernameRef = useRef<HTMLInputElement>(null);
   let emailRef = useRef<HTMLInputElement>(null);
   let passwordRef = useRef<HTMLInputElement>(null);
+  const windowSize = useContext(windowSizeContext);
+  const MOBILE_VIEW = windowSize.width <= 768;
 
   const createAccountLogin = async () => {
     console.log("Create account clicked", passwordRef);
@@ -66,10 +69,9 @@ const CreateAccount = (props: any) => {
           }
         })
         .catch((err) => console.log(err));
-
-      setCreateSuccess(false);
     } else {
-      setValidationError(false);
+      setCreateSuccess(false);
+      // setValidationError(false);
     }
   };
 
@@ -137,20 +139,17 @@ const CreateAccount = (props: any) => {
                 name="createBtn"
                 onClick={!isLoading ? createAccountLogin : null}
                 disabled={isLoading}
+                size={MOBILE_VIEW ? "sm" : "lg"}
               >
                 Create Account!
               </Button>
             </div>
           </form>
-          <span
-            className={
-              createSuccess
-                ? "create-account__board__content-failed inActive"
-                : "create-account__board__content-failed"
-            }
-          >
-            Failed to create account.
-          </span>
+          {!createSuccess ? (
+            <span className="create-account__board__content-failed">
+              Failed to create account.
+            </span>
+          ) : null}
           <div className="create-account__board__content-recover">
             Already have an account?{" "}
             <Link

@@ -67,7 +67,7 @@ const App = () => {
   useEffect(() => {
     const checkCurrentSession = async () =>
       await apis.checkSession().then((resp) => {
-        console.log(resp.data.user);
+        // console.log(resp.data.user);
         if (resp.data.isAuth) {
           setAuthenticated(true);
           setUser(resp.data.user);
@@ -77,51 +77,50 @@ const App = () => {
 
     checkCurrentSession();
   }, []);
+
   return (
-    <userContext.Provider value={user}>
-      <windowSizeContext.Provider value={{ width, height }}>
-        <Router>
-          <div
-            className="app"
-            onKeyDown={(e) => {
-              var code = e.which || e.keyCode; //Get key code
-              if ((e.ctrlKey || e.metaKey) && code == 83) {
-                e.preventDefault();
-                return;
-              }
-            }}
-          >
-            {!isLoading ? (
-              <userContext.Provider value={user}>
-                <Switch>
-                  <PublicRoute
-                    path="/login"
-                    component={Login}
-                    setAuthenticated={setAuthenticated}
-                    setUser={setUser}
-                    authenticated={authenticated}
-                  />
-                  <PublicRoute
-                    path="/create-account"
-                    component={CreateAccount}
-                    setAuthenticated={setAuthenticated}
-                    setUser={setUser}
-                    authenticated={authenticated}
-                  />
-                  <PrivateRoute
-                    path="/"
-                    component={Dashboard}
-                    isAuthenticated={authenticated}
-                    setAuthenticated={setAuthenticated}
-                  />
-                  <Route component={NotFound} />
-                </Switch>
-              </userContext.Provider>
-            ) : null}
-          </div>
-        </Router>
-      </windowSizeContext.Provider>
-    </userContext.Provider>
+    <Router>
+      <div
+        className="app"
+        onKeyDown={(e) => {
+          var code = e.which || e.keyCode; //Get key code
+          if ((e.ctrlKey || e.metaKey) && code == 83) {
+            e.preventDefault();
+            return;
+          }
+        }}
+      >
+        {!isLoading ? (
+          <userContext.Provider value={user}>
+            <windowSizeContext.Provider value={{ width, height }}>
+              <Switch>
+                <PublicRoute
+                  path="/login"
+                  component={Login}
+                  setAuthenticated={setAuthenticated}
+                  setUser={setUser}
+                  authenticated={authenticated}
+                />
+                <PublicRoute
+                  path="/create-account"
+                  component={CreateAccount}
+                  setAuthenticated={setAuthenticated}
+                  setUser={setUser}
+                  authenticated={authenticated}
+                />
+                <PrivateRoute
+                  path="/"
+                  component={Dashboard}
+                  isAuthenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
+                <Route component={NotFound} />
+              </Switch>
+            </windowSizeContext.Provider>
+          </userContext.Provider>
+        ) : null}
+      </div>
+    </Router>
   );
 };
 

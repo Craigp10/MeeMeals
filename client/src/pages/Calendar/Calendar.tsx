@@ -1,12 +1,13 @@
 import React, { FC, useState, useEffect, useContext } from "react";
-import "./Calendar.scss";
+import "./scss/compiled.scss";
 import apis, { getDateMeals } from "../../api/index";
 import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import DateSelector from "../../components/DateSelector/DateSelector";
 import dayjs from "dayjs";
 import SaveLoader from "../../components/SavingLoader/SavingLoader";
-import { userContext } from "../../App";
+import MealSelection from "../../components/MealsSelection/MealsSelection";
+import { userContext, windowSizeContext } from "../../App";
 
 const SAVING_STATUSES = {
   initialize: "",
@@ -31,6 +32,7 @@ const EMPTY_MEAL = {
   tags: [""],
   _id: "",
 };
+
 type meals = {
   category: string;
   date_created: string;
@@ -81,7 +83,10 @@ const Calendar = (props: any) => {
     saving: false,
     status: SAVING_STATUSES.initialize,
   });
+  const [showSelection, setShowSelection] = useState<boolean>(false);
   const user = useContext<User>(userContext);
+  const windowSize = useContext(windowSizeContext);
+  const isMobileView = windowSize.width <= 768 ? true : false;
 
   const handleMealClick = (mealId: string) => {
     //Handles clicking a meal from the scroll wheel
@@ -205,6 +210,10 @@ const Calendar = (props: any) => {
     setAllowSave(false);
     setActiveDate(newActiveDate);
   };
+  const handleMealDropSelect = async (newActiveDate: string) => {
+    setAllowSave(false);
+    setActiveDate(newActiveDate);
+  };
 
   useEffect(() => {
     //Remove ability to save and pull new dates data
@@ -250,8 +259,7 @@ const Calendar = (props: any) => {
 
     return () => clearTimeout(timer);
   }, [saveObject.status]);
-
-  console.log(activeMeal);
+  console.log(mealTimes);
   return (
     <div className="calendar-wrapper">
       <div className="calendar__board">
@@ -259,45 +267,60 @@ const Calendar = (props: any) => {
           <DateSelector
             activeDate={activeDate}
             handleActiveDateChange={handleActiveDateChange}
+            isMobileView={windowSize.width < 768 ? true : false}
           />
         </div>
         <div className="calendar__board__planner">
-          <div className="calendar__planner-saver">
-            {saveObject.status == "" ? null : saveObject.status == "error" ? (
-              <p
-                style={{
-                  color: "red",
-                  fontStyle: "italic",
-                  fontSize: "1.2rem",
-                }}
-              >
-                Error saving changes
-              </p>
-            ) : (
-              <SaveLoader
-                saving={saveObject.saving}
-                status={saveObject.status}
-                setSaveObject={setSaveObject}
-              />
-            )}
-          </div>
+          {!isMobileView ? (
+            <div className="calendar__planner-saver">
+              {saveObject.status == "" ? null : saveObject.status == "error" ? (
+                <p
+                  style={{
+                    color: "red",
+                    fontStyle: "italic",
+                    fontSize: "1.2rem",
+                  }}
+                >
+                  Error saving changes
+                </p>
+              ) : (
+                <SaveLoader
+                  saving={saveObject.saving}
+                  status={saveObject.status}
+                  setSaveObject={setSaveObject}
+                />
+              )}
+            </div>
+          ) : null}
           <div className="calendar__planner-content">
             {mealTimes.map((meal, index) => {
               return (
                 <div className="calendar__planner-meal" key={index}>
                   <label>{meal.mealTime}</label>
-                  <MealDrop
-                    meal={
-                      meals.filter((meal_) => meal_._id == meal.mealId)
-                        .length == 0
-                        ? EMPTY_MEAL
-                        : meals.filter((meal_) => meal_._id == meal.mealId)[0]
-                    }
-                    activeMealIsActive={activeMeal.isActive}
-                    mealClickCallback={handleMealDropClick}
-                    index={index}
-                    removeMeal={handleMealRemoveClick}
-                  />
+                  <div className="calendar__planner__meal-mealdrop">
+                    <MealDrop
+                      meals={meals}
+                      meal={
+                        meals.filter((meal_) => meal_._id == meal.mealId)
+                          .length == 0
+                          ? EMPTY_MEAL
+                          : meals.filter((meal_) => meal_._id == meal.mealId)[0]
+                      }
+                      activeMealIsActive={activeMeal.isActive}
+                      mealClickCallback={handleMealDropClick}
+                      index={index}
+                      removeMeal={handleMealRemoveClick}
+                      handleMealDropSelect={(mealID: string, idx: number) => {
+                        const updateMealTimes = mealTimes;
+                        console.log(mealID, idx);
+                        updateMealTimes[idx].mealId = meals.filter(
+                          (meal_: meals) => meal_._id == mealID
+                        )[0]._id;
+                        setMealTimes([...updateMealTimes]);
+                      }}
+                      isMobileView={isMobileView}
+                    />
+                  </div>
                 </div>
               );
             })}
@@ -305,77 +328,105 @@ const Calendar = (props: any) => {
         </div>
       </div>
       <div className="calendar-content__selection">
-        <FilterSelection
-          setSearchFilter={setSearchFilter}
-          searchFilter={searchFilter}
-          setCategoryFilter={setCategoryFilter}
-          categoryFilter={categoryFilter}
-        />
+        {!isMobileView ? (
+          <>
+            <FilterSelection
+              setSearchFilter={setSearchFilter}
+              searchFilter={searchFilter}
+              setCategoryFilter={setCategoryFilter}
+              categoryFilter={categoryFilter}
+            />
+            <MealSelection
+              meals={meals}
+              handleMealClick={handleMealClick}
+              activeMeal={activeMeal.isActive}
+              showSelection={true}
+              categoryFilter={categoryFilter}
+              searchFilter={searchFilter}
+              isMobileView={isMobileView}
+            />
+          </>
+        ) : isMobileView && showSelection ? (
+          <>
+            <MealSelection
+              meals={meals}
+              handleMealClick={handleMealClick}
+              activeMeal={activeMeal.isActive}
+              showSelection={true}
+              categoryFilter={categoryFilter}
+              searchFilter={searchFilter}
+              isMobileView={isMobileView}
+            />
+          </>
+        ) : null}
 
-        <ul className="calendar-content__selection-scroll">
-          {meals
-            .filter((meal) => {
-              if (categoryFilter == "all") {
-                const mealData = [
-                  meal.display_name,
-                  ...meal.tags.map((tag) => tag),
-                  ...meal.ingredients.map((ingredient) => ingredient),
-                ];
-                return mealData
-                  .join(" ")
-                  .toLowerCase()
-                  .includes(searchFilter.toLowerCase());
-              } else {
-                const mealData = [
-                  meal.display_name,
-                  ...meal.tags.map((tag) => tag),
-                  ...meal.ingredients.map((ingredient) => ingredient),
-                ];
-                return (
-                  mealData
+        {/* <ul className="calendar-content__selection-scroll">
+            {meals
+              .filter((meal) => {
+                if (categoryFilter == "all") {
+                  const mealData = [
+                    meal.display_name,
+                    ...meal.tags.map((tag) => tag),
+                    ...meal.ingredients.map((ingredient) => ingredient),
+                  ];
+                  return mealData
                     .join(" ")
                     .toLowerCase()
-                    .includes(searchFilter.toLowerCase()) &&
-                  meal.category == categoryFilter
-                );
-              }
-            })
-            .map((meal, index) => {
-              return (
-                <div key={index} className="calendar__selection__meal-wrapper">
-                  <li
-                    className="calendar__selection__meal"
-                    onClick={() => handleMealClick(meal._id)}
+                    .includes(searchFilter.toLowerCase());
+                } else {
+                  const mealData = [
+                    meal.display_name,
+                    ...meal.tags.map((tag) => tag),
+                    ...meal.ingredients.map((ingredient) => ingredient),
+                  ];
+                  return (
+                    mealData
+                      .join(" ")
+                      .toLowerCase()
+                      .includes(searchFilter.toLowerCase()) &&
+                    meal.category == categoryFilter
+                  );
+                }
+              })
+              .map((meal, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="calendar__selection__meal-wrapper"
                   >
-                    <div className="calendar__selection__meal-header">
-                      <div className="calendar__selection__meal-displayname">
-                        {meal.display_name}
+                    <li
+                      className="calendar__selection__meal"
+                      onClick={() => handleMealClick(meal._id)}
+                    >
+                      <div className="calendar__selection__meal-header">
+                        <div className="calendar__selection__meal-displayname">
+                          {meal.display_name}
+                        </div>
                       </div>
-                    </div>
-                    <div className="calendar__selection__meal-body">
-                      <label>Ingredients</label>
-                      <div className="calendar__selection__meal-tags">
-                        {meal.ingredients.map((ingredients, idx) => (
-                          <span className="__meal-tag" key={idx}>
-                            {ingredients}
-                          </span>
-                        ))}
+                      <div className="calendar__selection__meal-body">
+                        <label>Ingredients</label>
+                        <div className="calendar__selection__meal-tags">
+                          {meal.ingredients.map((ingredients, idx) => (
+                            <span className="__meal-tag" key={idx}>
+                              {ingredients}
+                            </span>
+                          ))}
+                        </div>
+                        <hr />
+                        <label>Tags</label>
+                        <div className="calendar__selection__meal-tags">
+                          {meal.tags.map((tag, idx) => (
+                            <span className="__meal-tag" key={idx}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <hr />
-                      <label>Tags</label>
-                      <div className="calendar__selection__meal-tags">
-                        {meal.tags.map((tag, idx) => (
-                          <span className="__meal-tag" key={idx}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </li>
-                </div>
-              );
-            })}
-        </ul>
+                    </li>
+                  </div>
+                );
+              })}
+          </ul> */}
       </div>
     </div>
   );
