@@ -86,7 +86,7 @@ const Calendar = (props: any) => {
   const [showSelection, setShowSelection] = useState<boolean>(false);
   const user = useContext<User>(userContext);
   const windowSize = useContext(windowSizeContext);
-  const isMobileView = windowSize.width < 768 ? true : false;
+  const isMobileView = windowSize.width <= 768 ? true : false;
 
   const handleMealClick = (mealId: string) => {
     //Handles clicking a meal from the scroll wheel
@@ -210,6 +210,10 @@ const Calendar = (props: any) => {
     setAllowSave(false);
     setActiveDate(newActiveDate);
   };
+  const handleMealDropSelect = async (newActiveDate: string) => {
+    setAllowSave(false);
+    setActiveDate(newActiveDate);
+  };
 
   useEffect(() => {
     //Remove ability to save and pull new dates data
@@ -255,7 +259,7 @@ const Calendar = (props: any) => {
 
     return () => clearTimeout(timer);
   }, [saveObject.status]);
-
+  console.log(mealTimes);
   return (
     <div className="calendar-wrapper">
       <div className="calendar__board">
@@ -267,14 +271,7 @@ const Calendar = (props: any) => {
           />
         </div>
         <div className="calendar__board__planner">
-          {isMobileView ? (
-            <div className="calendar__board__planner_mobile-menu">
-              <span
-                className="glyphicon glyphicon-menu-left"
-                onClick={() => setShowSelection(!showSelection)}
-              ></span>
-            </div>
-          ) : (
+          {!isMobileView ? (
             <div className="calendar__planner-saver">
               {saveObject.status == "" ? null : saveObject.status == "error" ? (
                 <p
@@ -294,111 +291,51 @@ const Calendar = (props: any) => {
                 />
               )}
             </div>
-          )}
+          ) : null}
           <div className="calendar__planner-content">
             {mealTimes.map((meal, index) => {
               return (
                 <div className="calendar__planner-meal" key={index}>
                   <label>{meal.mealTime}</label>
-                  <MealDrop
-                    meal={
-                      meals.filter((meal_) => meal_._id == meal.mealId)
-                        .length == 0
-                        ? EMPTY_MEAL
-                        : meals.filter((meal_) => meal_._id == meal.mealId)[0]
-                    }
-                    activeMealIsActive={activeMeal.isActive}
-                    mealClickCallback={handleMealDropClick}
-                    index={index}
-                    removeMeal={handleMealRemoveClick}
-                  />
+                  <div className="calendar__planner__meal-mealdrop">
+                    <MealDrop
+                      meals={meals}
+                      meal={
+                        meals.filter((meal_) => meal_._id == meal.mealId)
+                          .length == 0
+                          ? EMPTY_MEAL
+                          : meals.filter((meal_) => meal_._id == meal.mealId)[0]
+                      }
+                      activeMealIsActive={activeMeal.isActive}
+                      mealClickCallback={handleMealDropClick}
+                      index={index}
+                      removeMeal={handleMealRemoveClick}
+                      handleMealDropSelect={(mealID: string, idx: number) => {
+                        const updateMealTimes = mealTimes;
+                        console.log(mealID, idx);
+                        updateMealTimes[idx].mealId = meals.filter(
+                          (meal_: meals) => meal_._id == mealID
+                        )[0]._id;
+                        setMealTimes([...updateMealTimes]);
+                      }}
+                      isMobileView={isMobileView}
+                    />
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
       </div>
-      {isMobileView ? (
-        showSelection ? (
-          <div className="calendar-content__selection">
-            <ul className="calendar-content__selection-scroll">
-              {meals
-                .filter((meal) => {
-                  if (categoryFilter == "all") {
-                    const mealData = [
-                      meal.display_name,
-                      ...meal.tags.map((tag) => tag),
-                      ...meal.ingredients.map((ingredient) => ingredient),
-                    ];
-                    return mealData
-                      .join(" ")
-                      .toLowerCase()
-                      .includes(searchFilter.toLowerCase());
-                  } else {
-                    const mealData = [
-                      meal.display_name,
-                      ...meal.tags.map((tag) => tag),
-                      ...meal.ingredients.map((ingredient) => ingredient),
-                    ];
-                    return (
-                      mealData
-                        .join(" ")
-                        .toLowerCase()
-                        .includes(searchFilter.toLowerCase()) &&
-                      meal.category == categoryFilter
-                    );
-                  }
-                })
-                .map((meal, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="calendar__selection__meal-wrapper"
-                    >
-                      <li
-                        className="calendar__selection__meal"
-                        onClick={() => handleMealClick(meal._id)}
-                      >
-                        <div className="calendar__selection__meal-header">
-                          <div className="calendar__selection__meal-displayname">
-                            {meal.display_name}
-                          </div>
-                        </div>
-                        <div className="calendar__selection__meal-body">
-                          <label>Ingredients</label>
-                          <div className="calendar__selection__meal-tags">
-                            {meal.ingredients.map((ingredients, idx) => (
-                              <span className="__meal-tag" key={idx}>
-                                {ingredients}
-                              </span>
-                            ))}
-                          </div>
-                          <hr />
-                          <label>Tags</label>
-                          <div className="calendar__selection__meal-tags">
-                            {meal.tags.map((tag, idx) => (
-                              <span className="__meal-tag" key={idx}>
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </li>
-                    </div>
-                  );
-                })}
-            </ul>
-          </div>
-        ) : null
-      ) : (
-        <div className="calendar-content__selection">
-          <FilterSelection
-            setSearchFilter={setSearchFilter}
-            searchFilter={searchFilter}
-            setCategoryFilter={setCategoryFilter}
-            categoryFilter={categoryFilter}
-          />
-          {!isMobileView || (isMobileView && props.showSelection) ? (
+      <div className="calendar-content__selection">
+        {!isMobileView ? (
+          <>
+            <FilterSelection
+              setSearchFilter={setSearchFilter}
+              searchFilter={searchFilter}
+              setCategoryFilter={setCategoryFilter}
+              categoryFilter={categoryFilter}
+            />
             <MealSelection
               meals={meals}
               handleMealClick={handleMealClick}
@@ -406,9 +343,24 @@ const Calendar = (props: any) => {
               showSelection={true}
               categoryFilter={categoryFilter}
               searchFilter={searchFilter}
+              isMobileView={isMobileView}
             />
-          ) : null}
-          {/* <ul className="calendar-content__selection-scroll">
+          </>
+        ) : isMobileView && showSelection ? (
+          <>
+            <MealSelection
+              meals={meals}
+              handleMealClick={handleMealClick}
+              activeMeal={activeMeal.isActive}
+              showSelection={true}
+              categoryFilter={categoryFilter}
+              searchFilter={searchFilter}
+              isMobileView={isMobileView}
+            />
+          </>
+        ) : null}
+
+        {/* <ul className="calendar-content__selection-scroll">
             {meals
               .filter((meal) => {
                 if (categoryFilter == "all") {
@@ -475,8 +427,7 @@ const Calendar = (props: any) => {
                 );
               })}
           </ul> */}
-        </div>
-      )}
+      </div>
     </div>
   );
 };

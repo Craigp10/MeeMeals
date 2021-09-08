@@ -6,7 +6,6 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  // padding: 0 30px;
   border: 1px solid pink;
 
   .glyphicon {
@@ -23,7 +22,9 @@
   .dates {
     width: 150px;
     transition: 0.2s ease-in-out;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: $primary-blue;
     color: $white;
   }

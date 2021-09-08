@@ -17,12 +17,14 @@ const NavigationBar = (props: any) => {
           : "navigationbar-wrapper notShown"
       }
     >
-      <div className="navigationbar-mobile">
-        <span
-          className="glyphicon glyphicon-remove"
-          onClick={hideNavBar}
-        ></span>
-      </div>
+      {windowSize.width <= 768 ? (
+        <div className="navigationbar-mobile">
+          <span
+            className="glyphicon glyphicon-remove"
+            onClick={hideNavBar}
+          ></span>
+        </div>
+      ) : null}
       <ul className="navigationbar__linklist" onClick={hideNavBar}>
         <React.Fragment>
           <li>

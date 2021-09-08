@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  ChangeEventHandler,
+} from "react";
+import Meals from "../../pages/Meals/Meals";
 import "./MealDrop.scss";
 
 type Meal = {
@@ -12,13 +18,15 @@ type Meal = {
   instructions: string[];
   isActive: boolean;
 };
-
 interface Props {
   activeMealIsActive: boolean;
   index: number;
   mealClickCallback(index: number): void;
   meal: Meal;
   removeMeal(index: number): void;
+  meals: Meal[];
+  handleMealDropSelect(mealID: string, index: number): void;
+  isMobileView: boolean;
 }
 
 const MealDrop = (props: Props) => {
@@ -57,6 +65,24 @@ const MealDrop = (props: Props) => {
             <span>Last scheduled: 7/5/21</span>
           </div>
         </div>
+      ) : props.isMobileView ? (
+        <>
+          <select
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              props.handleMealDropSelect(e.target.value, props.index)
+            }
+            value={""}
+          >
+            <option key="" value={""} disabled={true}>
+              Select a Meal
+            </option>
+            {props.meals.map((meal, idx) => (
+              <option key={meal._id} value={meal._id}>
+                {meal.display_name}
+              </option>
+            ))}
+          </select>
+        </>
       ) : (
         <div className="mealdrop__content-no-meal"></div>
       )}
