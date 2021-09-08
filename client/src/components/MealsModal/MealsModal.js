@@ -15,6 +15,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     backgroundColor: "#02203c",
   },
+  overlay: { zIndex: 1000 },
 };
 
 const MealsModal = (props) => {
@@ -38,6 +39,15 @@ const MealsModal = (props) => {
   const updateState = (e, field) => {
     const newMealData = mealData;
     newMealData[field] = e.target.value;
+    setMealData({ ...newMealData });
+  };
+
+  const deleteInstructions = (index) => {
+    console.log(index);
+    const newMealData = mealData;
+    console.log(newMealData);
+    newMealData.mealInstructions.splice(index, 1);
+    console.log(newMealData);
     setMealData({ ...newMealData });
   };
 
@@ -85,7 +95,6 @@ const MealsModal = (props) => {
     inputText[id] = value;
     setInputText({ ...inputText });
   };
-  console.log("mealData", mealData);
   return (
     <div>
       <Modal
@@ -306,6 +315,7 @@ const MealsModal = (props) => {
                   <DragDropTags
                     instructions={mealData.mealInstructions}
                     reorderInstructions={reorderInstructions}
+                    handleDeleteClick={deleteInstructions}
                   />
                   <input
                     type="text"

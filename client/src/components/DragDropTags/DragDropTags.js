@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import "./DragDropTags.scss";
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -16,6 +16,8 @@ const getItemStyle = (isDragging, draggableStyle) => {
     // some basic styles to make the items look a bit nicer
     userSelect: "none",
     border: "1px solid #02203c",
+    borderRadius: "4px",
+    width: "80%",
     // change background colour if dragging
     background: isDragging ? "#02203c" : "white",
     color: isDragging ? "white" : "#02203c",
@@ -40,7 +42,7 @@ const useDraggableInPortal = () => {
     div.style.position = "absolute";
     div.style.pointerEvents = "none";
     div.style.top = "0";
-    div.style.width = "100%";
+    div.style.width = "10%";
     div.style.height = "100%";
     div.style.listStyleType = "none";
 
@@ -86,6 +88,7 @@ const DragDropTags = (props) => {
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -104,18 +107,31 @@ const DragDropTags = (props) => {
                 className="testing"
               >
                 {renderDraggable((provided, snapshot) => (
-                  <li
-                    className="instruction-tag"
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
                   >
-                    {item}
-                  </li>
+                    <li
+                      className="instruction-tag"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}
+                    >
+                      {item}
+                    </li>
+                    {snapshot.isDragging ? null : (
+                      <span
+                        className="glyphicon glyphicon-trash"
+                        onClick={() => props.handleDeleteClick(index)}
+                      ></span>
+                    )}
+                  </div>
                 ))}
               </Draggable>
             ))}
