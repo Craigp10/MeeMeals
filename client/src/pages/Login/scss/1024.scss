@@ -1,0 +1,25 @@
+@import "../../../style/colors.scss";
+
+.login-wrapper {
+  font-size: 1.7rem;
+
+  .login__board {
+    height: 60vh;
+    width: 60vw;
+
+    box-shadow: 0 30px 60px -12px $dark-gray, 0 10px 36px -10px $darker-gray;
+  }
+
+  form {
+    width: 60%;
+  }
+
+  .login__board__content__form-buttons {
+    width: 70%;
+  }
+
+  .login__board__content-account-options {
+    width: 60%;
+    margin: auto;
+  }
+}

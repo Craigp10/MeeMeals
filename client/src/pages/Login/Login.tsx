@@ -32,6 +32,7 @@ const Login = (props: any) => {
         password: passwordRef.current.value,
       })
       .then((resp) => {
+        console.log(resp);
         if (resp.status == 200) {
           console.log("Successful Login!");
           setLoginSuccess(true);

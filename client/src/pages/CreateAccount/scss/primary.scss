@@ -30,7 +30,7 @@
     margin: auto;
     display: flex;
     justify-content: space-evenly;
-    padding-top: 20px;
+    font-size: 0.6rem;
     button {
       margin: 5px;
       color: $primary-blue;
@@ -58,7 +58,10 @@
 
   .create-account__board__content-account-options {
     padding-top: 20px;
-    justify-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 80%;
   }
 }

@@ -5,10 +5,10 @@
   height: calc(100vh - 75px - 120px);
 
   .meal-selection-content__selection {
-    height: calc(100vh - 75px);
+    height: calc(100vh - 75px - 120px);
     flex-grow: 1;
     overflow: hidden;
-    // border-left: 1px solid $primary-blue;
+    border-left: 1px solid $primary-blue;
   }
 
   ::-webkit-scrollbar {
