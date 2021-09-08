@@ -1,8 +1,17 @@
 @import "../../../style/colors.scss";
 
+.notShown {
+  width: 0;
+  transition: 0.5s;
+}
+.shown {
+  width: 60%;
+  transition: 0.5s;
+}
 .navigationbar-wrapper {
   box-sizing: border-box;
-  width: 60%;
+  // border: 1px solid green;
+  overflow-x: hidden;
   height: calc(100% - 75px);
   background-color: $faded-white;
   text-align: center;
@@ -36,6 +45,8 @@
   }
 
   .navigationbar-mobile {
+    padding: 5px;
+    transition: 1s;
     span {
       display: flex;
       justify-content: flex-end;
