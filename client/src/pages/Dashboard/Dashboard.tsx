@@ -28,7 +28,7 @@ interface Props {
 
 const Dashboard = (props: Props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const history = useHistory();
   const user = useContext(userContext);
   const windowSize = useContext(windowSizeContext);
@@ -44,7 +44,7 @@ const Dashboard = (props: Props) => {
       }
     });
   };
-
+  console.log(show);
   return (
     <div className="dashboard-wrapper">
       {user.id != "" ? (
@@ -54,9 +54,7 @@ const Dashboard = (props: Props) => {
               <TopBar logout={logout} user={user} setShow={setShow} />
             </div>
             <div className="dashboard__content-navigationbar">
-              {show ? (
-                <NavigationBar show={show} setShow={setShow} logout={logout} />
-              ) : null}
+              <NavigationBar show={show} setShow={setShow} logout={logout} />
             </div>
             <div className="dashboard__content-inner">
               <Switch>
