@@ -27,7 +27,7 @@ interface Props {
 const MealSelection = (props: Props) => (
   <div className="meal-selection-wrapper">
     <div className="meal-selection-content__selection">
-      <ul className="meal-selection-content__selection-scroll">
+      <div className="meal-selection-content__selection-scroll">
         {props.meals
           .filter((meal: meal) => {
             if (props.categoryFilter == "all") {
@@ -61,7 +61,7 @@ const MealSelection = (props: Props) => (
                 key={index}
                 className="meal-selection__selection__meal-wrapper"
               >
-                <li
+                <div
                   className="meal-selection__selection__meal"
                   onClick={() => props.handleMealClick(meal._id)}
                 >
@@ -91,11 +91,11 @@ const MealSelection = (props: Props) => (
                       ))}
                     </div>
                   </div>
-                </li>
+                </div>
               </div>
             );
           })}
-      </ul>
+      </div>
     </div>
   </div>
 );

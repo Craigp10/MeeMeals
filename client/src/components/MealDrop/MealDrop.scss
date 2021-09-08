@@ -91,3 +91,25 @@
     }
   }
 }
+@media screen and (min-width: 1024px) {
+  .mealdrop-wrapper {
+    .mealdrop__content {
+      width: 300px;
+    }
+
+    .mealdrop__content-no-meal {
+      width: 300px;
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+  .mealdrop-wrapper {
+    .mealdrop__content {
+      width: 400px;
+    }
+
+    .mealdrop__content-no-meal {
+      width: 400px;
+    }
+  }
+}
