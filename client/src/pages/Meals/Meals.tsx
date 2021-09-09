@@ -106,7 +106,6 @@ const Meals = (props: any) => {
       setMeals(resp.data.meals);
     });
   };
-  console.log("MOBILE_VIEW", MOBILE_VIEW);
 
   return (
     <>

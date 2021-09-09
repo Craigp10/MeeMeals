@@ -21,11 +21,11 @@ type Meal = {
 interface Props {
   activeMealIsActive: boolean;
   index: number;
-  mealClickCallback(index: number): void;
+  mealClickCallback?: (index: number) => void;
   meal: Meal;
-  removeMeal(index: number): void;
+  removeMeal?: (index: number) => void;
   meals: Meal[];
-  handleMealDropSelect(mealID: string, index: number): void;
+  handleMealDropSelect?: (mealID: string, index: number) => void;
   isMobileView: boolean;
 }
 
@@ -76,7 +76,7 @@ const MealDrop = (props: Props) => {
             <option key="" value={""} disabled={true}>
               Select a Meal
             </option>
-            {props.meals.map((meal, idx) => (
+            {props.meals.map((meal: Meal, idx: number) => (
               <option key={meal._id} value={meal._id}>
                 {meal.display_name}
               </option>

@@ -16,7 +16,7 @@ type Meal = {
 interface Props {
   index: number;
   meal: Meal;
-  deleteMeal(meal_id: string): void;
+  deleteMeal?: (meal_id: string) => void;
   handleShow(action: string, id: string | null): void;
   disable: boolean;
 }

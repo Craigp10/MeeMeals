@@ -17,7 +17,7 @@ type meal = {
 interface Props {
   meals: meal[];
   activeMeal: boolean;
-  handleMealClick: (mealId: string) => void;
+  handleMealClick?: (mealId: string) => void;
   showSelection: boolean;
   categoryFilter: string;
   searchFilter: string;
@@ -34,7 +34,7 @@ const MealSelection = (props: Props) => (
               if (props.categoryFilter == "all") {
                 const mealData = [
                   meal.display_name,
-                  ...meal.tags.map((tag) => tag),
+                  ...meal.tags.map((tag: string) => tag),
                   ...meal.ingredients.map((ingredient) => ingredient),
                 ];
                 return mealData

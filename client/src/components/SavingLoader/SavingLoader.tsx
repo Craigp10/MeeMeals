@@ -9,6 +9,12 @@ const clipStyler = {
   // color: "lightGray",
 };
 
+interface Props {
+  saving: Boolean;
+  status: String;
+  setSaveObject?: (setSaveObject: boolean) => void;
+}
+
 const SavingLoader = (props: any) => {
   const [saveTimer, setSaveTimer] = useState(0);
 

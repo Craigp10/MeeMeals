@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import "./scss/compiled.scss";
 import { windowSizeContext } from "../../App";
 
-const NavigationBar = (props: any) => {
+interface Props {
+  show: Boolean;
+  setShow?: (value: boolean) => void;
+}
+
+const NavigationBar = (props: Props) => {
   const windowSize = useContext(windowSizeContext);
 
   const hideNavBar = () => {

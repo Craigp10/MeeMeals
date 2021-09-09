@@ -33,7 +33,7 @@ const EMPTY_MEAL = {
   _id: "",
 };
 
-type meals = {
+type meal = {
   category: string;
   date_created: string;
   description: string;
@@ -71,7 +71,7 @@ const Calendar = (props: any) => {
     { mealTime: "Dinner", mealId: "" },
     { mealTime: "Snack", mealId: "" },
   ]);
-  const [meals, setMeals] = useState<meals[]>([]);
+  const [meals, setMeals] = useState<meal[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [searchFilter, setSearchFilter] = useState<string>("");
   const [activeMeal, setActiveMeal] = useState<activeMeal>({
@@ -115,7 +115,7 @@ const Calendar = (props: any) => {
     //Handles when user is 'dropping' a meal on to one of the meal times
     const updateMealTimes = mealTimes;
     updateMealTimes[index].mealId = meals.filter(
-      (meal_: any) => meal_._id == activeMeal.activeMealID
+      (meal_: meal) => meal_._id == activeMeal.activeMealID
     )[0]._id;
 
     setActiveMeal({
@@ -273,23 +273,25 @@ const Calendar = (props: any) => {
         <div className="calendar__board__planner">
           {!isMobileView ? (
             <div className="calendar__planner-saver">
-              {saveObject.status == "" ? null : saveObject.status == "error" ? (
-                <p
-                  style={{
-                    color: "red",
-                    fontStyle: "italic",
-                    fontSize: "1.2rem",
-                  }}
-                >
-                  Error saving changes
-                </p>
-              ) : (
-                <SaveLoader
-                  saving={saveObject.saving}
-                  status={saveObject.status}
-                  setSaveObject={setSaveObject}
-                />
-              )}
+              {
+                saveObject.status == "" ? null : saveObject.status ==
+                  "error" ? (
+                  <p
+                    style={{
+                      color: "red",
+                      fontStyle: "italic",
+                      fontSize: "1.2rem",
+                    }}
+                  >
+                    Error saving changes
+                  </p>
+                ) : null
+                // <SaveLoader removed for now until I can refactor the save timeout logic
+                //   saving={saveObject.saving}
+                //   status={saveObject.status}
+                //   setSaveObject={setSaveObject}
+                // />
+              }
             </div>
           ) : null}
           <div className="calendar__planner-content">
@@ -314,7 +316,7 @@ const Calendar = (props: any) => {
                         const updateMealTimes = mealTimes;
                         console.log(mealID, idx);
                         updateMealTimes[idx].mealId = meals.filter(
-                          (meal_: meals) => meal_._id == mealID
+                          (meal_: meal) => meal_._id == mealID
                         )[0]._id;
                         setMealTimes([...updateMealTimes]);
                       }}
@@ -359,74 +361,6 @@ const Calendar = (props: any) => {
             />
           </>
         ) : null}
-
-        {/* <ul className="calendar-content__selection-scroll">
-            {meals
-              .filter((meal) => {
-                if (categoryFilter == "all") {
-                  const mealData = [
-                    meal.display_name,
-                    ...meal.tags.map((tag) => tag),
-                    ...meal.ingredients.map((ingredient) => ingredient),
-                  ];
-                  return mealData
-                    .join(" ")
-                    .toLowerCase()
-                    .includes(searchFilter.toLowerCase());
-                } else {
-                  const mealData = [
-                    meal.display_name,
-                    ...meal.tags.map((tag) => tag),
-                    ...meal.ingredients.map((ingredient) => ingredient),
-                  ];
-                  return (
-                    mealData
-                      .join(" ")
-                      .toLowerCase()
-                      .includes(searchFilter.toLowerCase()) &&
-                    meal.category == categoryFilter
-                  );
-                }
-              })
-              .map((meal, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="calendar__selection__meal-wrapper"
-                  >
-                    <li
-                      className="calendar__selection__meal"
-                      onClick={() => handleMealClick(meal._id)}
-                    >
-                      <div className="calendar__selection__meal-header">
-                        <div className="calendar__selection__meal-displayname">
-                          {meal.display_name}
-                        </div>
-                      </div>
-                      <div className="calendar__selection__meal-body">
-                        <label>Ingredients</label>
-                        <div className="calendar__selection__meal-tags">
-                          {meal.ingredients.map((ingredients, idx) => (
-                            <span className="__meal-tag" key={idx}>
-                              {ingredients}
-                            </span>
-                          ))}
-                        </div>
-                        <hr />
-                        <label>Tags</label>
-                        <div className="calendar__selection__meal-tags">
-                          {meal.tags.map((tag, idx) => (
-                            <span className="__meal-tag" key={idx}>
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </li>
-                  </div>
-                );
-              })}
-          </ul> */}
       </div>
     </div>
   );

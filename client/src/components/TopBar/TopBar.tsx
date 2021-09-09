@@ -10,8 +10,8 @@ interface User {
 }
 
 type Props = {
-  logout: () => void;
-  setShow: (show: boolean) => void;
+  logout?: () => void;
+  setShow?: (show: boolean) => void;
   user: User;
 };
 

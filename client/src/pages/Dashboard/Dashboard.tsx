@@ -54,7 +54,7 @@ const Dashboard = (props: Props) => {
               <TopBar logout={logout} user={user} setShow={setShow} />
             </div>
             <div className="dashboard__content-navigationbar">
-              <NavigationBar show={show} setShow={setShow} logout={logout} />
+              <NavigationBar show={show} setShow={setShow} />
             </div>
             <div className="dashboard__content-inner">
               <Switch>

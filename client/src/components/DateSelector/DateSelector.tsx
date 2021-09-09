@@ -9,7 +9,7 @@ type dates = {
 
 interface Props {
   activeDate: string; // "M/D/YYYY"
-  handleActiveDateChange(newActiveDate: string): void;
+  handleActiveDateChange?: (newActiveDate: string) => void;
   isMobileView: boolean;
 }
 
