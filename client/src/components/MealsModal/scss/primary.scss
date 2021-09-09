@@ -73,11 +73,11 @@
       border-bottom: 1px solid $primary-blue;
     }
 
-    #mealCategory {
+    #category {
       /* appearance: none; */
       border: 1px solid $primary-blue;
-      padding: 5px;
-      /* background-color: red; */
+      outline: none;
+      padding: 10px;
       border-radius: 4px;
     }
 
