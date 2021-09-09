@@ -170,45 +170,52 @@ exports.demoSignup = async (req, res) => {
       if (err) {
         res.status(500).send({ message: err });
       }
-      console.log("New Demo user created", user.meals);
-      Calendar.findOne({ date: dayjs().format("M/D/YYYY") }, (err, date) => {
-        if (date) {
-          Calendar.findOneAndUpdate(
-            { date: date, users: { $elemMatch: { user_id: user._id } } },
-            {
-              $push: {
-                users: {
+      console.log("New Demo user created");
+      Calendar.findOne(
+        { date: dayjs().format("M/D/YYYY") },
+        async (err, date) => {
+          if (date) {
+            await Calendar.findOneAndUpdate(
+              { date: date.date }, //users: { $elemMatch: { user_id: user._id } } },
+              {
+                $push: {
+                  users: {
+                    user_id: user._id,
+                    breakfast: user.meals[2]._id,
+                    lunch: user.meals[0]._id,
+                    dinner: user.meals[3]._id,
+                    snack: user.meals[5]._id,
+                  },
+                },
+              },
+              { new: true },
+              (err, doc) => doc
+            );
+            console.log("Demo user added to existing date");
+          } else {
+            await new Calendar({
+              date: dayjs().format("M/D/YYYY"),
+              users: [
+                {
                   user_id: user._id,
                   breakfast: user.meals[2]._id,
                   lunch: user.meals[0]._id,
                   dinner: user.meals[3]._id,
                   snack: user.meals[5]._id,
                 },
-              },
-            },
-            { new: true },
-            (err, doc) => doc
-          );
-        } else {
-          new Calendar({
-            date: dayjs().format("M/D/YYYY"),
-            users: [
-              {
-                user_id: user._id,
-                breakfast: user.meals[2]._id,
-                lunch: user.meals[0]._id,
-                dinner: user.meals[3]._id,
-                snack: user.meals[5]._id,
-              },
-            ],
-          }).save((err, date) => {
-            if (err) {
-              res.status(500).send({ message: err });
-            }
-            console.log("New Demo date created", date.users);
-          });
+              ],
+            }).save((err, date) => {
+              if (err) {
+                res.status(500).send({ message: err });
+              }
+              console.log(
+                "New Demo date created and Demo user added",
+                date.users
+              );
+            });
+          }
         }
-      });
+      );
     });
   }
 

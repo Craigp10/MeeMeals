@@ -3,7 +3,6 @@ const Calendar = require("../models/calendar.model");
 updateChanges = async (req, res) => {
   try {
     const { user_id, changes, date } = req.body;
-    console.log("updateChanges", user_id, changes, date);
     const dateExist = await Calendar.findOne({ date: date }, (err, doc) => doc);
     if (!dateExist) {
       let newDateObj = {
@@ -24,7 +23,7 @@ updateChanges = async (req, res) => {
         { date: date, users: { $elemMatch: { user_id: user_id } } },
         (err, doc) => doc
       );
-      console.log(userExist);
+      // console.log(userExist);
       if (userExist) {
         const results = await Calendar.findOneAndUpdate(
           { date: date, users: { $elemMatch: { user_id: user_id } } },
@@ -32,7 +31,7 @@ updateChanges = async (req, res) => {
           { new: true },
           (err, doc) => doc
         );
-        console.log("results", results);
+        // console.log("results", results);
       } else {
         Calendar.findOneAndUpdate(
           { date: date },
@@ -86,7 +85,7 @@ pullSingleDay = async (req, res) => {
 
 pullSchedule = async (req, res) => {
   const { week, user_id } = req.body;
-  console.log(week, user_id);
+  // console.log(week, user_id);
   // console.log(week, user_id);
   const weekMeals = await Calendar.find(
     {
