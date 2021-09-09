@@ -19,6 +19,7 @@ const User = mongoose.model(
         date_created: { type: String, required: true },
       },
     ],
+    is_demo: { type: Boolean, required: true },
     roles: {
       type: [
         {

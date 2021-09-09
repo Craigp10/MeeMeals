@@ -12,9 +12,10 @@ exports.demoSignup = async (req, res) => {
     (err, doc) => doc
   );
   if (!demoUser) {
+    const demo_username = "demo" + req.sessionID.slice(1, 5);
     demoUser = new User({
-      username: "demo" + req.sessionID.slice(1, 5),
-      email: "demoemail@email.com",
+      username: demo_username,
+      email: `${demo_username}@email.com`,
       password: bcrypt.hashSync("demopassword", 8),
       meals: [
         {
@@ -163,8 +164,8 @@ exports.demoSignup = async (req, res) => {
             "Delicious vegetarian Italian meal picked up fresh herbs and animal free protein",
         },
       ],
+      is_demo: true,
     });
-
     await demoUser.save((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -232,6 +233,7 @@ exports.signup = (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
+    is_demo: false,
   });
 
   user.save((err, user) => {
@@ -295,7 +297,7 @@ exports.getSession = (req, res) => {
 exports.logout = async (req, res) => {
   if (req.session.isDemo) {
     await User.deleteOne({ username: "demo" + req.sessionID.slice(1, 5) });
-    await Calendar.collection.drop();
+    // await Calendar.collection.drop();
   }
 
   await req.session.destroy((err) => {
