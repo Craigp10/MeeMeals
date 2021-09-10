@@ -10,13 +10,15 @@ const app = express();
 const userRouter = require("./routes/user.router"); //(app);
 const authRouter = require("./routes/auth.router"); //(app);
 const calendarRouter = require("./routes/calendar.router");
+const User = require("./models/user.model");
 const Redis = require("ioredis");
 const apiPort = 3000;
+require("./cron/index")();
 
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:8000"], // "http://52.2.53.62" on AWS
+    origin: ["http://localhost:8000", AWS_DOMAIN],
   })
 );
 

@@ -80,9 +80,16 @@ const editMeal = async (req, res) => {
   });
 };
 
+const deleteDemoUsers = async (req, res) => {
+  console.log("deleteDemoUsers called");
+  await User.deleteMany({ is_demo: true }, (err, doc) => doc);
+  console.log("deleteDemoUsers finished");
+};
+
 module.exports = {
   getMeals,
   newMeal,
   deleteMeal,
   editMeal,
+  deleteDemoUsers,
 };
