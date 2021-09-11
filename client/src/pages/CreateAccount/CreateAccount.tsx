@@ -34,6 +34,7 @@ const CreateAccount = (props: any) => {
 
   const createAccountLogin = async () => {
     console.log("Create account clicked", passwordRef);
+    setIsLoading(true);
     if (validateCreateAccount()) {
       console.log("Validated!");
       //make api request
@@ -73,6 +74,7 @@ const CreateAccount = (props: any) => {
       setCreateSuccess(false);
       // setValidationError(false);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {

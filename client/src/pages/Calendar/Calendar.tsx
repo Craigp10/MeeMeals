@@ -21,18 +21,6 @@ type mealTime = {
   mealId: string;
 };
 
-const EMPTY_MEAL = {
-  category: "",
-  date_created: "",
-  description: "",
-  display_name: "",
-  ingredients: [""],
-  instructions: [""],
-  isActive: false,
-  tags: [""],
-  _id: "",
-};
-
 type meal = {
   category: string;
   date_created: string;
@@ -61,7 +49,19 @@ interface User {
   email: string;
 }
 
-const Calendar = (props: any) => {
+const EMPTY_MEAL: meal = {
+  category: "",
+  date_created: "",
+  description: "",
+  display_name: "",
+  ingredients: [""],
+  instructions: [""],
+  isActive: false,
+  tags: [""],
+  _id: "",
+};
+
+const Calendar = () => {
   const [activeDate, setActiveDate] = useState<string>(
     dayjs().format("M/D/YYYY")
   );
@@ -158,7 +158,7 @@ const Calendar = (props: any) => {
           activeMealTimes[3].mealId = schedule?.snack;
           setMealTimes([...activeMealTimes]);
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           console.log(err);
           setMealTimes([]);
         });
@@ -248,8 +248,6 @@ const Calendar = (props: any) => {
     //Timer to update displayed saving status to user
     const timer = setTimeout(() => {
       const status = saveObject.status;
-      // let saving
-      // ["success", "error", ""].includes(status) ? saving = false : saving = true;
 
       setSaveObject({
         saving: ["success", "error", ""].includes(status) ? false : true,
@@ -259,7 +257,7 @@ const Calendar = (props: any) => {
 
     return () => clearTimeout(timer);
   }, [saveObject.status]);
-  console.log(mealTimes);
+
   return (
     <div className="calendar-wrapper">
       <div className="calendar__board">
@@ -314,7 +312,6 @@ const Calendar = (props: any) => {
                       removeMeal={handleMealRemoveClick}
                       handleMealDropSelect={(mealID: string, idx: number) => {
                         const updateMealTimes = mealTimes;
-                        console.log(mealID, idx);
                         updateMealTimes[idx].mealId = meals.filter(
                           (meal_: meal) => meal_._id == mealID
                         )[0]._id;

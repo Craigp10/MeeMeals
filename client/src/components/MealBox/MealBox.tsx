@@ -58,14 +58,8 @@ const MealBox = (props: Props) => {
                 {props.meal.ingredients.map(
                   (ingredient: string, idx: number) => {
                     return (
-                      <li
-                        className="ingredient"
-                        // style={{ display: "block" }}
-                        key={idx}
-                      >
-                        {/* <p> */}
+                      <li className="ingredient" key={idx}>
                         {ingredient}
-                        {/* </p> */}
                       </li>
                     );
                   }

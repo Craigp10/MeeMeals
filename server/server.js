@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const connectRedis = require("connect-redis");
 const sessionConfig = require("./config/session.config.js");
+const awsConfig = require("./config/aws.config.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./db");
@@ -18,7 +19,7 @@ require("./cron/index")();
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:8000", AWS_DOMAIN],
+    origin: ["http://localhost:8000", awsConfig.AWS_DOMAIN],
   })
 );
 

@@ -54,14 +54,13 @@ type weekMeal = {
   pulled: boolean;
 };
 
-const Home = (props: any) => {
+const Home = () => {
   const [weekMeals, setWeekMeals] = useState<weekMeal[]>([]);
   const [userMeals, setUserMeals] = useState<meal[]>([]);
   const [week, setWeek] = useState(generateCurrentWeek());
   const user = useContext<User>(userContext);
 
   useEffect(() => {
-    //When props change, pull the current week of meals for that user
     const getCalendarWeek = async () =>
       await apis.pullCalendarWeek({ user_id: user.id, week }).then((resp) => {
         setWeekMeals(resp.data.meals);
