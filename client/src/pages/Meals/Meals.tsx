@@ -17,11 +17,6 @@ type meal = {
   _id: string;
 };
 
-type activeMealObj = {
-  isActive: boolean;
-  activeMealID: string;
-};
-
 interface User {
   id: string;
   username: string;
@@ -32,10 +27,7 @@ const Meals = (props: any) => {
   const [meals, setMeals] = useState<meal[]>([]);
   const [show, setShow] = useState<boolean>(false);
   const [modalAction, setModalAction] = useState<string>("");
-  const [activeMeal, setActiveMeal] = useState<activeMealObj>({
-    isActive: false,
-    activeMealID: "",
-  });
+  const [activeMealID, setActiveMealID] = useState<string>("");
   const [searchFilter, setSearchFilter] = useState<string>("");
   const user = useContext<User>(userContext);
   const windowSize = useContext(windowSizeContext);
@@ -46,24 +38,29 @@ const Meals = (props: any) => {
     const getUserMealsFunc = async () =>
       await apis.getUserMeals({ user_id: user.id }).then((resp) => {
         setMeals(resp.data.meals);
+        if (
+          props.history.action == "PUSH" &&
+          props.location.state?.mealPreview &&
+          !activeMealID
+        ) {
+          setActiveMealID(props.location.state.mealPreview);
+          setModalAction("preview");
+          setShow(true);
+        }
       });
-
     getUserMealsFunc();
   }, []);
 
   const handleClose = () => {
     //close modal, remove active meal state
-    setActiveMeal({
-      isActive: false,
-      activeMealID: "",
-    });
+    setActiveMealID("");
     setShow(false);
   };
 
   const handleShow = (action: string, id: string | null) => {
     //show modal, set activeMeal if preview or edit action
     if (action == "edit" || action == "preview") {
-      setActiveMeal({ isActive: true, activeMealID: id });
+      setActiveMealID(id);
     }
     setModalAction(action);
     setShow(true);
@@ -76,7 +73,7 @@ const Meals = (props: any) => {
     const requestObj = {
       meal: data,
       user_id: user.id,
-      _id: activeMeal.activeMealID,
+      _id: activeMealID,
     };
 
     const resp =
@@ -106,19 +103,16 @@ const Meals = (props: any) => {
       setMeals(resp.data.meals);
     });
   };
-
   return (
     <>
       <div className="meals-wrapper">
-        {show ? (
+        {show && activeMealID ? (
           <MealsModal
             show={show}
             handleClose={handleClose}
             handleSubmit={handleSubmit}
             modalAction={modalAction}
-            mealData={
-              meals.filter((meal) => meal._id == activeMeal.activeMealID)[0]
-            }
+            mealData={meals.filter((meal) => meal._id == activeMealID)[0]}
           />
         ) : null}
         <div className="meals__board">
@@ -155,18 +149,20 @@ const Meals = (props: any) => {
                 </div>
               ) : (
                 meals
-                  .filter((meal, idx) => {
+                  .filter((meal: meal, idx: number) => {
                     const mealData = [
                       meal.display_name,
-                      ...meal.tags.map((tag) => tag),
-                      ...meal.ingredients.map((ingredient) => ingredient),
+                      ...meal.tags.map((tag: string) => tag),
+                      ...meal.ingredients.map(
+                        (ingredient: string) => ingredient
+                      ),
                     ];
                     return mealData
                       .join(" ")
                       .toLowerCase()
                       .includes(searchFilter.toLowerCase());
                   })
-                  .map((meal, idx) => (
+                  .map((meal: meal, idx: number) => (
                     <div key={meal._id}>
                       <MealBox
                         index={idx}

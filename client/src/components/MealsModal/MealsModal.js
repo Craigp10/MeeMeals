@@ -56,12 +56,6 @@ const MealsModal = (props) => {
     if (props.modalAction == "edit" || props.modalAction == "preview") {
       const newMealData = props.mealData; //mealData;
 
-      // newMealData["display_name"] = props.mealData.display_name;
-      // newMealData["ingredients"] = props.mealData.ingredients;
-      // newMealData["instructions"] = props.mealData.instructions;
-      // newMealData["tags"] = props.mealData.tags;
-      // newMealData["description"] = props.mealData.description;
-      // newMealData["category"] = props.mealData.category;
       setMealData({ ...newMealData });
     }
   }, []);

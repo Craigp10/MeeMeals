@@ -3,6 +3,7 @@ import "./scss/compiled.scss";
 import dayjs from "dayjs";
 import apis from "../../api/index";
 import { userContext } from "../../App";
+import { Link, useHistory, withRouter } from "react-router-dom";
 
 //grid structure, styling with css grid
 const GRID_LAYOUT = [
@@ -57,8 +58,9 @@ type weekMeal = {
 const Home = () => {
   const [weekMeals, setWeekMeals] = useState<weekMeal[]>([]);
   const [userMeals, setUserMeals] = useState<meal[]>([]);
-  const [week, setWeek] = useState(generateCurrentWeek());
+  const [week, setWeek] = useState<string[]>(generateCurrentWeek());
   const user = useContext<User>(userContext);
+  const history = useHistory();
 
   useEffect(() => {
     const getCalendarWeek = async () =>
@@ -108,13 +110,12 @@ const Home = () => {
                         ?.display_name ? (
                         <span
                           className="__grid-meal"
-                          // onClick={() =>
-                          //   //Implementation to allow the user to preview a meal from homepage by clicking on it, currently routes to meal page, maybe just use a mealModal here
-                          //   history.push({
-                          //     pathname: "/meals",
-                          //     state: { mealPreview: day.breakfast },
-                          //   })
-                          // }
+                          onClick={() =>
+                            history.push({
+                              pathname: "/meals",
+                              state: { mealPreview: day.breakfast },
+                            })
+                          }
                           style={{ gridColumn: idx + 2, gridRow: 2 }}
                         >
                           <p>
@@ -131,6 +132,12 @@ const Home = () => {
                         <span
                           className="__grid-meal"
                           style={{ gridColumn: idx + 2, gridRow: 3 }}
+                          onClick={() =>
+                            history.push({
+                              pathname: "/meals",
+                              state: { mealPreview: day.lunch },
+                            })
+                          }
                         >
                           <p>
                             {
@@ -146,6 +153,12 @@ const Home = () => {
                         <span
                           className="__grid-meal"
                           style={{ gridColumn: idx + 2, gridRow: 4 }}
+                          onClick={() =>
+                            history.push({
+                              pathname: "/meals",
+                              state: { mealPreview: day.dinner },
+                            })
+                          }
                         >
                           <p>
                             {
@@ -161,6 +174,12 @@ const Home = () => {
                         <span
                           className="__grid-meal"
                           style={{ gridColumn: idx + 2, gridRow: 5 }}
+                          onClick={() =>
+                            history.push({
+                              pathname: "/meals",
+                              state: { mealPreview: day.snack },
+                            })
+                          }
                         >
                           <p>
                             {
