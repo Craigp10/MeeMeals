@@ -33,7 +33,6 @@ const CreateAccount = (props: any) => {
   const MOBILE_VIEW = windowSize.width <= 768;
 
   const createAccountLogin = async () => {
-    console.log("Create account clicked", passwordRef);
     setIsLoading(true);
     if (validateCreateAccount()) {
       console.log("Validated!");
