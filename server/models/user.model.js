@@ -6,6 +6,7 @@ const User = mongoose.model(
     username: String,
     email: String,
     password: String,
+    date_created: String,
     meals: [
       {
         isActive: { type: Boolean, required: true },

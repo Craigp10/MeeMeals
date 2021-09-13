@@ -17,6 +17,7 @@ exports.demoSignup = async (req, res) => {
       username: demo_username,
       email: `${demo_username}@email.com`,
       password: bcrypt.hashSync("demopassword", 8),
+      date_created: dayjs().format("M/D/YYYY"),
       meals: [
         {
           isActive: true,
@@ -241,6 +242,7 @@ exports.signup = (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
     is_demo: false,
+    date_created: dayjs().format("M/D/YYYY"),
   });
 
   user.save((err, user) => {
