@@ -103,10 +103,11 @@ const Meals = (props: any) => {
       setMeals(resp.data.meals);
     });
   };
+  console.log(show);
   return (
     <>
       <div className="meals-wrapper">
-        {show && activeMealID ? (
+        {show ? (
           <MealsModal
             show={show}
             handleClose={handleClose}
@@ -115,6 +116,7 @@ const Meals = (props: any) => {
             mealData={meals.filter((meal) => meal._id == activeMealID)[0]}
           />
         ) : null}
+
         <div className="meals__board">
           <div className="meals__board__header">
             <div className="meals__board__header-search">
