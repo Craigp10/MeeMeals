@@ -44,7 +44,6 @@ const Dashboard = (props: Props) => {
       }
     });
   };
-  console.log(show);
   return (
     <div className="dashboard-wrapper">
       {user.id != "" ? (
