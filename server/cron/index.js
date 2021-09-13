@@ -4,7 +4,7 @@ console.log("running cron file");
 // Schedule tasks to be run on the server.
 
 module.exports = () => {
-  cron.schedule("* * * * *", async () => {
+  cron.schedule("0 0 * * *", async () => {
     console.log("Deleting demo users");
     await deleteDemoUsers();
     console.log("Finished deleting demo users");
