@@ -210,10 +210,6 @@ const Calendar = () => {
     setAllowSave(false);
     setActiveDate(newActiveDate);
   };
-  const handleMealDropSelect = async (newActiveDate: string) => {
-    setAllowSave(false);
-    setActiveDate(newActiveDate);
-  };
 
   useEffect(() => {
     //Remove ability to save and pull new dates data
