@@ -82,13 +82,15 @@ const App = () => {
     <Router>
       <div
         className="app"
-        onKeyDown={(e) => {
-          var code = e.which || e.keyCode; //Get key code
-          if ((e.ctrlKey || e.metaKey) && code == 83) {
-            e.preventDefault();
-            return;
-          }
-        }}
+        // onKeyDown={(e) => {
+        //   console.log("keydown", e);
+        //   console.log(e.which, e.keyCode, e);
+        //   let code = e.which || e.keyCode; //Get key code
+        //   if ((e.ctrlKey || e.metaKey) && code == 83) {
+        //     e.preventDefault();
+        //     return;
+        //   }
+        // }}
       >
         {!isLoading ? (
           <userContext.Provider value={user}>

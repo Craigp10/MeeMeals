@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, FC } from "react";
 import "./scss/compiled.scss";
 import dayjs from "dayjs";
 
@@ -79,6 +79,7 @@ const DateSelector = (props: Props) => {
       updateActiveDate(newDates, 6);
     }
   };
+
   const handleDatesChangeMobile = (direction: string) => {
     //Used in mobile views so the date selector scrolls dates one date at a time
     const newDates = dates;
