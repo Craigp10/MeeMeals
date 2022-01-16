@@ -17,12 +17,12 @@ const NavigationBar = (props: Props) => {
   return (
     <div
       className={
-        windowSize.width <= 768 && props.show
+        windowSize.width < 1024 && props.show
           ? "navigationbar-wrapper shown"
           : "navigationbar-wrapper notShown"
       }
     >
-      {windowSize.width <= 768 ? (
+      {windowSize.width < 1024 ? (
         <div className="navigationbar-mobile">
           <span
             className="glyphicon glyphicon-remove"

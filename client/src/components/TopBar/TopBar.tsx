@@ -19,7 +19,7 @@ const TopBar = (props: Props) => {
   const windowSize = useContext(windowSizeContext);
   return (
     <div className="topbar-wrapper">
-      {windowSize.width <= 768 ? (
+      {windowSize.width < 1024 ? (
         <>
           <div className="topbar__menu">
             <span
