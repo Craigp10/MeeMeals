@@ -77,7 +77,7 @@ const App = () => {
 
     checkCurrentSession();
   }, []);
-
+  console.log("user", user);
   return (
     <Router>
       <div
