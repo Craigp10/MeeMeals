@@ -91,6 +91,7 @@ const Login = (props: any) => {
                 type="text"
                 placeholder="Enter Username"
                 ref={usernameRef}
+                disabled
               />
             </Form.Group>
             <Form.Group
@@ -102,6 +103,7 @@ const Login = (props: any) => {
                 type="password"
                 placeholder="password"
                 ref={passwordRef}
+                disabled
               />
             </Form.Group>
             <hr />
@@ -112,6 +114,7 @@ const Login = (props: any) => {
                 name="user"
                 onClick={userSubmit}
                 size={MOBILE_VIEW ? "sm" : "lg"}
+                disabled
               >
                 Log In
               </Button>
@@ -143,9 +146,12 @@ const Login = (props: any) => {
               </Link>
               .
             </p>
-            <p>
+            <p style={{ textDecoration: "line-through" }}>
               Don't have an account?{MOBILE_VIEW ? <br /> : <>&nbsp;</>}
-              <Link to="/create-account">Create an account</Link>.
+              <Link style={{ pointerEvents: "none" }} to="/create-account">
+                Create an account
+              </Link>
+              .
             </p>
           </div>
         </div>
