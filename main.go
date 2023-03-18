@@ -18,6 +18,7 @@ func main() {
 	router := mux.NewRouter()
 
 	// Endpoint paths should only contain nouns
+	router.HandleFunc("/hello", c.Hello)
 
 	// User Router
 	userRouter := router.PathPrefix("/user").Subrouter()
