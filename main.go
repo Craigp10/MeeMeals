@@ -10,9 +10,12 @@ import (
 
 func main() {
 	fmt.Println("Hello Meemeals! Starting Server...")
-
 	// Create new Server Client
 	c := New()
+	c.mClient.Connect()
+	defer c.mClient.Disconnect()
+
+	c.Bootstrap()
 
 	// Create multiplexer
 	router := mux.NewRouter()
