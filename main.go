@@ -4,14 +4,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/kelseyhightower/envconfig"
+	"gopkg.in/yaml.v2"
 )
 
 func main() {
 	fmt.Println("Hello Meemeals! Starting Server...")
 	// Create new Server Client
-	c := New()
+	cfg := Config{}
+	readFile(&cfg)
+	readEnv(&cfg)
+
+	c := New(&cfg)
 	c.mClient.Connect()
 	defer c.mClient.Disconnect()
 
@@ -54,5 +61,31 @@ func main() {
 	err := http.ListenAndServe(":8000", router)
 	if err != nil {
 		log.Fatal("error starting server", err)
+	}
+}
+
+func processError(err error) {
+	fmt.Println(err)
+	os.Exit(2)
+}
+
+func readFile(cfg *Config) {
+	f, err := os.Open("config.yml")
+	if err != nil {
+		processError(err)
+	}
+	defer f.Close()
+
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(cfg)
+	if err != nil {
+		processError(err)
+	}
+}
+
+func readEnv(cfg *Config) {
+	err := envconfig.Process("", cfg)
+	if err != nil {
+		processError(err)
 	}
 }
