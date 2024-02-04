@@ -138,6 +138,29 @@ const Login = (props: any) => {
           >
             Failed to login.
           </span>
+          <div
+            style={{
+              // border: "1px solid blue",
+              display: "flex",
+              // alignContent: "center",
+              // justifyContent: "center",
+              // alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "1.2rem",
+                fontStyle: "italic",
+                margin: "auto",
+                // border: "1px solid red",
+                width: "70%",
+              }}
+            >
+              Explore meemeals as a demo user by clicking `Demo Log in`.
+              Currently only demo users are supported.
+            </span>
+          </div>
           <div className="login__board__content-account-options">
             <p style={{ textDecoration: "line-through" }}>
               Forgot your password? {MOBILE_VIEW ? <br /> : <>&nbsp;</>}
