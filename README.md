@@ -20,4 +20,8 @@ The technologies used are React, NodeJS, MongoDB, Nginx, redis, Typescript, and 
 
 #### Node.js express server
 
-`cd server/ `
+`nodemon server/server.js`
+
+#### Run React Frontend app
+
+`cd client/ && npm start`
