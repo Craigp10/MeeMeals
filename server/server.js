@@ -13,13 +13,26 @@ const authRouter = require("./routes/auth.router"); //(app);
 const calendarRouter = require("./routes/calendar.router");
 const User = require("./models/user.model");
 const Redis = require("ioredis");
-const apiPort = 3000;
+const apiPort = 8080;
 require("./cron/index")();
+
+
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? [awsConfig.AWS_DOMAIN]
+    : ['http://localhost:8000', 'http://0.0.0.0:8000'];
 
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:8000", awsConfig.AWS_DOMAIN],
+    origin: allowedOrigins,
+  })
+);
+
+app.use(
+  cors({
+    credentials: true,
+    origin: allowedOrigins,
   })
 );
 
@@ -49,10 +62,11 @@ app.use(
     saveUninitialized: false, //If session isn't modified we don't want to save
     cookie: {
       path: "/",
-      httpOnly: true, //this allows JS from accessing cookie, avoids attacks in the browser
-      secure: false,
-      maxAge: 1000 * 60 * 30, //30minutes //60 * 8, //expires in 8 hours
-    },
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 1000 * 60 * 30,
+    }
   })
 );
 
