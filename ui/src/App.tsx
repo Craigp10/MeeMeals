@@ -34,16 +34,17 @@ function useWindowDimensions(): windowSize {
   return windowDimensions;
 }
 
-interface User {
+type User = {
   id: string;
   username: string;
   email: string;
-}
+};
 
-interface windowSize {
+type windowSize = {
   width: number;
   height: number;
-}
+};
+
 export const userContext = createContext<User>({
   id: "",
   username: "",
@@ -74,7 +75,6 @@ const App = () => {
         }
         setIsLoading(false);
       });
-
     checkCurrentSession();
   }, []);
 
