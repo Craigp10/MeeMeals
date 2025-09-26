@@ -10,18 +10,9 @@ The technologies used are React, NodeJS, MongoDB, Nginx, redis, Typescript, and 
 
 ### Services
 
-#### MongoDB
+Run Docker Services
+`docker compose down -v --remove-orphans docker compose up`
 
-`docker run -d -p 27017:27017 --name test-mongo mongo:latest`
-
-#### Redis
-
-`brew services start redis`
-
-#### Node.js express server
-
-`nodemon server/server.js`
-
-#### Run React Frontend app
-
-`cd client/ && npm start`
+Rebuild
+docker compose down -v --remove-orphans
+docker compose up --build
