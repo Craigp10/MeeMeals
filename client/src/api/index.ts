@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 const api = axios.create({
-  baseURL: "http://localhost:3000/api", //   "/api" on aws
+  baseURL: "http://localhost:8080/api", //   "/api" on aws
 });
 
 export const getAllMeals = () => api.get("/meals/getAll");
