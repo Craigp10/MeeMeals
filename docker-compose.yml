@@ -18,17 +18,17 @@ services:
       - redis
     command: nodemon server.js
 
-  client:
+  ui:
     build:
-      context: ./client
+      context: ./ui
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"              # React dev server exposed on localhost:3000
+      - "8000:8000"
     environment:
-      NODE_OPTIONS: "--openssl-legacy-provider" 
-      CHOKIDAR_USEPOLLING: true  # Enables hot reload on Docker for Mac/Windows
+      NODE_OPTIONS: "--openssl-legacy-provider"
+      CHOKIDAR_USEPOLLING: true
     volumes:
-      - ./client:/app
+      - ./ui:/app
       - /app/node_modules
     command: npm start
 
