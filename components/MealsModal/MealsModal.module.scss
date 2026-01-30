@@ -1,0 +1,188 @@
+@import "@/styles/variables.scss";
+
+.content {
+  background: $white;
+  width: 350px;
+  opacity: 1;
+  box-shadow: 0 0 60px 10px $dark-gray;
+  border-radius: 4px;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: 500px;
+  }
+}
+
+.header {
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid $light-gray;
+}
+
+.headerLeft {
+  width: 10%;
+}
+
+.headerTitle {
+  flex-grow: 1;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.headerRight {
+  width: 10%;
+  align-items: center;
+  text-align: center;
+  padding: 0 10px 0 0;
+  font-size: 20px;
+  color: $light-gray;
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.form {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 20px;
+  overflow: auto;
+  max-height: 60vh;
+}
+
+.formField {
+  background: none;
+  outline: none;
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  padding: 10px;
+  height: auto;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  input {
+    outline: none;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid $primary-blue;
+    padding: 5px 0;
+  }
+
+  select {
+    border: 1px solid $primary-blue;
+    outline: none;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100px;
+    outline: none;
+    resize: none;
+    border: 1px solid $light-gray;
+    padding: 5px;
+  }
+}
+
+.hint {
+  font-size: 0.8rem;
+  font-weight: normal;
+  margin-left: 5px;
+  color: $light-gray;
+}
+
+.extension {
+  min-height: 40px;
+  width: 100%;
+  user-select: none;
+  margin-bottom: 10px;
+}
+
+.instructionExtension {
+  min-height: 40px;
+  width: 100%;
+  user-select: none;
+  padding: 0;
+  margin-bottom: 10px;
+  list-style-position: inside;
+}
+
+.instructionTag {
+  padding: 5px;
+  margin: 0;
+  border-radius: 4px;
+  color: $primary-blue;
+  background: $white;
+  border: 1px solid $primary-blue;
+  margin-bottom: 2px;
+  cursor: pointer;
+
+  &:hover {
+    background: $faded-white;
+  }
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: $primary-blue;
+  color: $white;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.btns {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 15px 0;
+  border-top: 1px solid $light-gray;
+
+  button {
+    padding: 10px 20px;
+    background-color: $white;
+    color: $primary-blue;
+    border: 1px solid $primary-blue;
+    font-weight: bold;
+    border-radius: 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-blue;
+      color: $white;
+    }
+  }
+}
+
+.disabled {
+  background: $dark-white !important;
+  border: 1px solid $dark-white !important;
+  cursor: not-allowed !important;
+  color: black !important;
+
+  &:hover {
+    background: $dark-white !important;
+    color: black !important;
+  }
+}

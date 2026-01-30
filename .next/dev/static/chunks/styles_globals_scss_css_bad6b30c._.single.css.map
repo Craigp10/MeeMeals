@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///turbopack:///[project]/styles/globals.scss"],"sourcesContent":["@import \"./variables.scss\";\n\n* {\n  box-sizing: border-box;\n  padding: 0;\n  margin: 0;\n}\n\nhtml,\nbody {\n  max-width: 100vw;\n  overflow-x: hidden;\n  margin: 0;\n  background: white;\n}\n\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\n}\n\n.app {\n  height: 100%;\n  width: 100%;\n  overflow: auto;\n  font-size: 14px;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\n// Utility classes\n.text-center {\n  text-align: center;\n}\n\n.mt-1 {\n  margin-top: 0.25rem;\n}\n.mt-2 {\n  margin-top: 0.5rem;\n}\n.mt-3 {\n  margin-top: 1rem;\n}\n.mt-4 {\n  margin-top: 1.5rem;\n}\n\n.mb-1 {\n  margin-bottom: 0.25rem;\n}\n.mb-2 {\n  margin-bottom: 0.5rem;\n}\n.mb-3 {\n  margin-bottom: 1rem;\n}\n.mb-4 {\n  margin-bottom: 1.5rem;\n}\n"],"names":[],"mappings":"AAEA;;;;;;AAMA;;;;;;;AAQA;;;;AAKA;;;;;;;AAOA;;;;;AAMA;;;;AAIA;;;;AAGA;;;;AAGA;;;;AAGA;;;;AAIA;;;;AAGA;;;;AAGA;;;;AAGA"}}]
+}

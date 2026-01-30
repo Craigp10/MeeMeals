@@ -95,6 +95,9 @@
     user-select: none;
     span:hover {
       cursor: pointer;
+      background: $white;
+      color:  $primary-blue;
+      border: 1px solid $primary-blue;
       li {
         display: inline-block;
         overflow-wrap: normal;

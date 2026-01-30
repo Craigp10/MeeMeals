@@ -1,0 +1,39 @@
+// Glyphicons from Bootstrap 3
+// Using CDN for the icon font
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.eot');
+  src: url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+       url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+       url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.woff') format('woff'),
+       url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+       url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glyphicon-user:before { content: "\e008"; }
+.glyphicon-th-list:before { content: "\e012"; }
+.glyphicon-search:before { content: "\e003"; }
+.glyphicon-plus:before { content: "\002b"; }
+.glyphicon-remove:before { content: "\e014"; }
+.glyphicon-pencil:before { content: "\270f"; }
+.glyphicon-trash:before { content: "\e020"; }
+.glyphicon-eye-open:before { content: "\e105"; }
+.glyphicon-home:before { content: "\e021"; }
+.glyphicon-calendar:before { content: "\e109"; }
+.glyphicon-cutlery:before { content: "\e179"; }
+.glyphicon-log-out:before { content: "\e163"; }
+.glyphicon-chevron-left:before { content: "\e079"; }
+.glyphicon-chevron-right:before { content: "\e080"; }
