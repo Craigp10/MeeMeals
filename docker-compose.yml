@@ -1,37 +1,26 @@
-version: '3.8'
-
 services:
-  backend:
+  app:
     build:
-      context: ./server
+      context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "3000:3000"
     environment:
-      NODE_OPTIONS: "--openssl-legacy-provider"
+      - MONGODB_URI=mongodb://mongo:27017/meemeals
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SESSION_SECRET=${SESSION_SECRET:-your-secret-key-change-in-production}
+      - COOKIE_NAME=meemeals_session
+      - NODE_ENV=development
     volumes:
-      - ./server:/app
+      - .:/app
       - /app/node_modules
+      - /app/.next
     depends_on:
       mongo:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: nodemon server.js
-
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    environment:
-      NODE_OPTIONS: "--openssl-legacy-provider"
-      CHOKIDAR_USEPOLLING: true
-    volumes:
-      - ./client:/app
-      - /app/node_modules
-    command: npm start
 
   mongo:
     image: mongo:6
@@ -52,12 +41,6 @@ services:
     restart: always
     ports:
       - "6379:6379"
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_PASSWORD=yourpassword
-      - SESSION_SECRET=yourSecret
-      - COOKIE_NAME=session_id
     volumes:
       - redis_data:/data
     healthcheck:

@@ -1,0 +1,170 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/auth/demo",
+      "regex": "^/api/auth/demo(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/demo(?:/)?$"
+    },
+    {
+      "page": "/api/auth/logout",
+      "regex": "^/api/auth/logout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/logout(?:/)?$"
+    },
+    {
+      "page": "/api/auth/session",
+      "regex": "^/api/auth/session(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/session(?:/)?$"
+    },
+    {
+      "page": "/api/auth/signin",
+      "regex": "^/api/auth/signin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/signin(?:/)?$"
+    },
+    {
+      "page": "/api/auth/signup",
+      "regex": "^/api/auth/signup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/signup(?:/)?$"
+    },
+    {
+      "page": "/api/calendar/changes",
+      "regex": "^/api/calendar/changes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/calendar/changes(?:/)?$"
+    },
+    {
+      "page": "/api/calendar/date-meals",
+      "regex": "^/api/calendar/date\\-meals(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/calendar/date\\-meals(?:/)?$"
+    },
+    {
+      "page": "/api/calendar/schedule",
+      "regex": "^/api/calendar/schedule(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/calendar/schedule(?:/)?$"
+    },
+    {
+      "page": "/api/user/delete-meal",
+      "regex": "^/api/user/delete\\-meal(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/user/delete\\-meal(?:/)?$"
+    },
+    {
+      "page": "/api/user/edit-meal",
+      "regex": "^/api/user/edit\\-meal(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/user/edit\\-meal(?:/)?$"
+    },
+    {
+      "page": "/api/user/meals",
+      "regex": "^/api/user/meals(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/user/meals(?:/)?$"
+    },
+    {
+      "page": "/api/user/new-meal",
+      "regex": "^/api/user/new\\-meal(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/user/new\\-meal(?:/)?$"
+    },
+    {
+      "page": "/create-account",
+      "regex": "^/create\\-account(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/create\\-account(?:/)?$"
+    },
+    {
+      "page": "/dashboard",
+      "regex": "^/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard(?:/)?$"
+    },
+    {
+      "page": "/dashboard/calendar",
+      "regex": "^/dashboard/calendar(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/calendar(?:/)?$"
+    },
+    {
+      "page": "/dashboard/meals",
+      "regex": "^/dashboard/meals(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/meals(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

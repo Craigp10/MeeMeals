@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/2b6d8283f0185b1b.js","/_next/static/chunks/7c92e96509cd355e.js"],""]
+3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"XNdqWR8iSNRrJmDl3JyHs","rsc":["$","$1","c",{"children":[["$","div",null,{"style":{"display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center","height":"100vh","textAlign":"center","padding":"2rem"},"children":[["$","h1",null,{"style":{"fontSize":"3rem","marginBottom":"1rem"},"children":"404"}],["$","h2",null,{"style":{"marginBottom":"1rem"},"children":"Page Not Found"}],["$","p",null,{"style":{"marginBottom":"2rem","color":"#666"},"children":"The page you're looking for doesn't exist."}],["$","$L2",null,{"href":"/login","style":{"padding":"0.75rem 1.5rem","background":"#02203c","color":"white","borderRadius":"4px","textDecoration":"none"},"children":"Go to Login"}]]}],[["$","script","script-0",{"src":"/_next/static/chunks/7c92e96509cd355e.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

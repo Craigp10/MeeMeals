@@ -1,0 +1,23 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/demo/route": "app/api/auth/demo/route.js",
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
+  "/api/auth/session/route": "app/api/auth/session/route.js",
+  "/api/auth/signin/route": "app/api/auth/signin/route.js",
+  "/api/auth/signup/route": "app/api/auth/signup/route.js",
+  "/api/calendar/changes/route": "app/api/calendar/changes/route.js",
+  "/api/calendar/date-meals/route": "app/api/calendar/date-meals/route.js",
+  "/api/calendar/schedule/route": "app/api/calendar/schedule/route.js",
+  "/api/user/delete-meal/route": "app/api/user/delete-meal/route.js",
+  "/api/user/edit-meal/route": "app/api/user/edit-meal/route.js",
+  "/api/user/meals/route": "app/api/user/meals/route.js",
+  "/api/user/new-meal/route": "app/api/user/new-meal/route.js",
+  "/create-account/page": "app/create-account/page.js",
+  "/dashboard/calendar/page": "app/dashboard/calendar/page.js",
+  "/dashboard/meals/page": "app/dashboard/meals/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js"
+}
