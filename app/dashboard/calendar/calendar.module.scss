@@ -21,9 +21,17 @@
   box-shadow: 0 0 20px -5px $darker-gray;
 }
 
-.dateSelector {
+.dateControls {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  // border:1px solid pink;
+  width: 40%;
+}
+
+.dateSelector {
+  display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 15px;

@@ -135,11 +135,13 @@ export default function CalendarPage() {
     <div className={styles.wrapper}>
       <div className={styles.board}>
         <div className={styles.dateSelector}>
-          <button onClick={() => handleDateChange(-1)}>&lt; Prev</button>
-          <span className={styles.activeDate}>
-            {dayjs(activeDate, "M/D/YYYY").format("dddd, MMMM D, YYYY")}
-          </span>
-          <button onClick={() => handleDateChange(1)}>Next &gt;</button>
+          <div className={styles.dateControls}>
+            <button onClick={() => handleDateChange(-1)}>Prev</button>
+            <span className={styles.activeDate}>
+              {dayjs(activeDate, "M/D/YYYY").format("dddd, MMMM D, YYYY")}
+            </span>
+            <button onClick={() => handleDateChange(1)}>Next</button>
+          </div>
         </div>
 
         {saveStatus && (
