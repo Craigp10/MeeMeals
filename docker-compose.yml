@@ -7,8 +7,6 @@ services:
       - "3000:3000"
     environment:
       - MONGODB_URI=mongodb://mongo:27017/meemeals
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
       - SESSION_SECRET=${SESSION_SECRET:-your-secret-key-change-in-production}
       - COOKIE_NAME=meemeals_session
       - NODE_ENV=development
@@ -18,8 +16,6 @@ services:
       - /app/.next
     depends_on:
       mongo:
-        condition: service_healthy
-      redis:
         condition: service_healthy
 
   mongo:
@@ -36,20 +32,27 @@ services:
       retries: 5
       start_period: 10s
 
-  redis:
-    image: redis:7
-    restart: always
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 5s
+  # Redis - uncomment when needed for caching/sessions
+  # redis:
+  #   image: redis:7
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #     start_period: 5s
+  #
+  # To re-enable Redis:
+  # 1. Uncomment the redis service above
+  # 2. Add to app.depends_on: redis: condition: service_healthy
+  # 3. Add to app.environment: REDIS_HOST=redis, REDIS_PORT=6379
+  # 4. Uncomment redis_data in volumes below
 
 volumes:
   mongo_data:
-  redis_data:
+  # redis_data:
