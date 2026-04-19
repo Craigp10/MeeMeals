@@ -1,0 +1,90 @@
+@import "@/styles/variables.scss";
+
+.wrapper {
+  height: 100%;
+  color: $primary-blue;
+  padding-top: 50px;
+}
+
+.board {
+  border-radius: 4px;
+  background-color: $faded-white;
+  height: 95%;
+  width: 90%;
+  margin: auto;
+  box-shadow: 0 0px 36px -10px $darker-gray;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 10px;
+  text-align: center;
+}
+
+.body {
+  overflow-x: scroll;
+  flex-grow: 1;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+}
+
+.grid {
+  padding: 0px 5px 0px 0px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  column-gap: 30px;
+  font-weight: bold;
+  justify-items: center;
+  align-items: center;
+}
+
+.gridLayoutTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gridLayoutLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gridMeal {
+  border-radius: 7px;
+  transition: all 0.4s;
+  padding: 5px;
+  background-color: $faded-white;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
+  box-shadow: 0 0 30px -10px $darker-gray, 0 10px 20px -5px $darker-gray;
+  cursor: pointer;
+
+  p {
+    text-align: center;
+    margin: auto;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    transform: translateY(-10px);
+    height: 100%;
+    color: $white;
+    background: $primary-blue;
+
+    p {
+      white-space: normal;
+      height: 100%;
+      overflow: scroll;
+    }
+  }
+}

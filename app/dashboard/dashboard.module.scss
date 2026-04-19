@@ -1,0 +1,32 @@
+@import "@/styles/variables.scss";
+
+.wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.mainContainer {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.inner {
+  flex: 1;
+  overflow: auto;
+  background-color: $faded-white;
+}

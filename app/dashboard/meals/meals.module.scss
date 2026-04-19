@@ -1,0 +1,113 @@
+@import "@/styles/variables.scss";
+
+.wrapper {
+  height: 100%;
+  color: $primary-blue;
+  padding-top: 50px;
+}
+
+.board {
+  border-radius: 4px;
+  height: 95%;
+  width: 90%;
+  margin: auto;
+  background-color: $faded-white;
+  box-shadow: 0 0px 20px -1px $darker-gray;
+}
+
+.header {
+  display: grid;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 70px;
+  border-bottom: 1px solid $light-gray;
+
+  > div {
+    text-align: center;
+  }
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  padding: 10px 5px;
+}
+
+.searchInput {
+  width: 95%;
+  height: 100%;
+  padding: 0 10px;
+  display: flex;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: $white;
+  box-shadow: 0 0px 36px -10px $darker-gray;
+
+  input {
+    padding-left: 10px;
+    border: none;
+    width: 100%;
+    font-size: 1.2rem;
+    outline: none;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    font-size: 2rem;
+  }
+}
+
+.create {
+  padding: 15px;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+
+  button {
+    border-radius: 10px;
+    color: $primary-blue;
+    background: none;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: $white;
+      background: $primary-blue;
+    }
+  }
+}
+
+.scroll {
+  overflow: auto;
+  height: calc(100% - 100px);
+}
+
+.mealboxes {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (min-width: $breakpoint-md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.none {
+  padding: 2rem;
+  text-align: center;
+  font-style: italic;
+}

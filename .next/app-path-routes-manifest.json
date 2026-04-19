@@ -1,0 +1,23 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/demo/route": "/api/auth/demo",
+  "/api/auth/logout/route": "/api/auth/logout",
+  "/api/auth/session/route": "/api/auth/session",
+  "/api/auth/signin/route": "/api/auth/signin",
+  "/api/auth/signup/route": "/api/auth/signup",
+  "/api/calendar/changes/route": "/api/calendar/changes",
+  "/api/calendar/date-meals/route": "/api/calendar/date-meals",
+  "/api/calendar/schedule/route": "/api/calendar/schedule",
+  "/api/user/delete-meal/route": "/api/user/delete-meal",
+  "/api/user/edit-meal/route": "/api/user/edit-meal",
+  "/api/user/meals/route": "/api/user/meals",
+  "/api/user/new-meal/route": "/api/user/new-meal",
+  "/create-account/page": "/create-account",
+  "/dashboard/calendar/page": "/dashboard/calendar",
+  "/dashboard/meals/page": "/dashboard/meals",
+  "/dashboard/page": "/dashboard",
+  "/favicon.ico/route": "/favicon.ico",
+  "/login/page": "/login",
+  "/page": "/"
+}

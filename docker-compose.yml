@@ -1,36 +1,22 @@
-version: '3.8'
-
 services:
-  backend:
+  app:
     build:
-      context: ./server
+      context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"               # Backend exposed on localhost:8080
+      - "3000:3000"
     environment:
-      NODE_OPTIONS: "--openssl-legacy-provider"
-      # Add any other env vars or use env_file here
+      - MONGODB_URI=mongodb://mongo:27017/meemeals
+      - SESSION_SECRET=${SESSION_SECRET:-your-secret-key-change-in-production}
+      - COOKIE_NAME=meemeals_session
+      - NODE_ENV=development
     volumes:
-      - ./server:/app
-      # - /app/node_modules
-    depends_on:
-      - mongo
-      - redis
-    command: nodemon server.js
-
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"              # React dev server exposed on localhost:3000
-    environment:
-      NODE_OPTIONS: "--openssl-legacy-provider" 
-      CHOKIDAR_USEPOLLING: true  # Enables hot reload on Docker for Mac/Windows
-    volumes:
-      - ./client:/app
+      - .:/app
       - /app/node_modules
-    command: npm start
+      - /app/.next
+    depends_on:
+      mongo:
+        condition: service_healthy
 
   mongo:
     image: mongo:6
@@ -39,22 +25,34 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
-  redis:
-    image: redis:7
-    restart: always
-    ports:
-      - "6379:6379"
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_PASSWORD=yourpassword
-      - SESSION_SECRET=yourSecret
-      - COOKIE_NAME=session_id
-    volumes:
-      - redis_data:/data
+  # Redis - uncomment when needed for caching/sessions
+  # redis:
+  #   image: redis:7
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #     start_period: 5s
+  #
+  # To re-enable Redis:
+  # 1. Uncomment the redis service above
+  # 2. Add to app.depends_on: redis: condition: service_healthy
+  # 3. Add to app.environment: REDIS_HOST=redis, REDIS_PORT=6379
+  # 4. Uncomment redis_data in volumes below
 
 volumes:
   mongo_data:
-  redis_data:
-
+  # redis_data:
