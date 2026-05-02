@@ -2,3 +2,5 @@ node_modules/
 config/
 *.drawio
 config.yml
+*.env*
+
