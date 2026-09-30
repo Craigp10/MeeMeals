@@ -3,38 +3,19 @@
 .calendar-wrapper {
   display: flex;
   height: 100%;
+  background-color: $bg;
+  color: $text;
+  font-size: 14px;
+  line-height: 1.4;
 
-  .glyphicon-chevron-left .glyphicon-chevron-right {
-    color: $primary;
-  }
-
-  span:hover {
+  button {
     cursor: pointer;
   }
+}
 
-  .calendar__board {
-    display: inline-block;
-    width: 100%;
-  }
-
-  ::-webkit-scrollbar {
-    height: 0px;
-    /* background: transparent; make scrollbar transparent */
-  }
-
-  .calendar__board__planner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .calendar__board__planner_mobile-menu {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 20px 10px 0;
-    color: $primary;
-    font-size: 2rem;
-  }
+/* Phones: one day, the slots stacked. */
+.calendar-wrapper--mobile {
+  flex-direction: column;
 
   .calendar__planner-content {
     display: flex;
@@ -54,4 +35,433 @@
     width: 100%;
     text-align: center;
   }
+}
+
+/* Tablet and up: meals panel beside the planner. */
+.calendar__meals {
+  width: 280px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-height: 0;
+  padding: 24px 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 1px solid $border;
+  background-color: $surface;
+}
+
+.calendar__meals-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+  }
+
+  span {
+    font-size: 14px;
+    color: $text-secondary;
+  }
+}
+
+.calendar__meals-hint {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: $text-secondary;
+}
+
+.calendar__main {
+  flex-grow: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar__content {
+  flex-grow: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  padding: 20px 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.calendar__placing {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 4px 4px 4px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: $radius-card;
+  border: 1px solid $primary-border;
+  background-color: $primary-tint;
+
+  span {
+    flex-grow: 1;
+    font-size: 15px;
+  }
+
+  button {
+    height: 44px;
+    padding: 0 16px;
+    border-radius: $radius-button;
+    border: 1px solid $primary-border;
+    background-color: $card;
+    color: $text;
+    font: inherit;
+    font-weight: 700;
+
+    &:hover {
+      background-color: $surface;
+    }
+  }
+}
+
+.calendar__footer {
+  flex-shrink: 0;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.calendar__status {
+  margin: 0;
+  flex-grow: 1;
+  font-size: 14px;
+  font-style: italic;
+  color: $text-status;
+}
+
+.calendar__progress {
+  width: 160px;
+  height: 8px;
+  display: block;
+  overflow: hidden;
+  border-radius: 999px;
+  background-color: $border;
+
+  span {
+    display: block;
+    height: 100%;
+    background-color: $primary;
+  }
+}
+
+.calendar__progress-label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Week: seven columns that scroll sideways rather than squeeze. */
+$week-columns: 96px repeat(7, minmax(88px, 1fr));
+
+.week-view {
+  flex-grow: 1;
+  min-height: 0;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.week-view__head,
+.week-view__row {
+  display: grid;
+  grid-template-columns: $week-columns;
+  gap: 8px;
+}
+
+.week-view__row {
+  flex: 1 1 0;
+  min-height: 132px;
+}
+
+.week-view__day {
+  height: 60px;
+  border: 0;
+  border-radius: $radius-button;
+  background: transparent;
+  color: $text;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  &:hover {
+    background-color: $border;
+  }
+}
+
+.week-view__dow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-secondary;
+}
+
+.week-view__num {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.week-view__day--today {
+  .week-view__dow {
+    color: $primary;
+  }
+
+  .week-view__num {
+    background-color: $primary;
+    color: $on-primary;
+  }
+}
+
+.week-view__row-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-left: 4px;
+
+  span:first-child {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  span:last-child {
+    font-size: 13px;
+    color: $text-secondary;
+  }
+}
+
+/* Day */
+.day-view {
+  flex-grow: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .date-selector-wrapper {
+    flex-shrink: 0;
+    margin: 0 -32px;
+    width: auto;
+  }
+}
+
+.day-view__body {
+  flex-grow: 1;
+  min-height: 0;
+  display: flex;
+  gap: 24px;
+}
+
+.day-view__slots {
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-view__summary {
+  width: 260px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: $radius-card;
+  border: 1px solid $border;
+  background-color: $surface;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    div {
+      padding: 12px;
+      border-radius: $radius-button;
+      background-color: $bg;
+    }
+
+    dt {
+      font-size: 13px;
+      font-weight: 400;
+      color: $text-secondary;
+    }
+
+    dd {
+      margin: 4px 0 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+}
+
+/* Month */
+.month-view {
+  flex-grow: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.month-view__weekdays,
+.month-view__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.month-view__weekdays abbr {
+  padding: 0 8px;
+  border: 0;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-secondary;
+}
+
+.month-view__grid {
+  flex-grow: 1;
+  min-height: 0;
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+}
+
+.month-view__cell {
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: $radius-button;
+  border: 1px solid $border;
+  background-color: $card;
+
+  button {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    border: 0;
+    background: transparent;
+    color: $text;
+    font: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3px;
+    text-align: left;
+    overflow: hidden;
+
+    &:hover {
+      background-color: $surface;
+    }
+  }
+
+  &--outside {
+    border-color: $border;
+    background-color: $bg;
+
+    .month-view__num {
+      color: $text-muted;
+    }
+  }
+
+  &--placing {
+    border-style: dashed;
+    border-color: $primary-dashed;
+
+    button:hover {
+      background-color: $primary-tint;
+    }
+  }
+
+  &--over {
+    background-color: $primary-tint;
+    outline: 2px dashed $primary;
+    outline-offset: -2px;
+  }
+}
+
+.month-view__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.month-view__num {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.month-view__cell--today .month-view__num {
+  background-color: $primary;
+  color: $on-primary;
+}
+
+.month-view__count {
+  font-size: 12px;
+  color: $text-secondary;
+}
+
+.month-view__item {
+  flex-shrink: 0;
+  display: block;
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: var(--meal-bg);
+  color: $text;
+}
+
+.month-view__initial {
+  color: var(--meal-fg);
+}
+
+.month-view__more {
+  font-size: 12px;
+  font-weight: 700;
+  color: $text-secondary;
 }

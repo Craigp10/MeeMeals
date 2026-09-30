@@ -52,6 +52,28 @@
   --radius-button: 9px;
 }
 
+/* Sets --meal-fg / --meal-bg for anything tinted by its meal's category. */
+.meal-type--breakfast {
+  --meal-fg: var(--meal-breakfast-fg);
+  --meal-bg: var(--meal-breakfast-bg);
+}
+.meal-type--lunch {
+  --meal-fg: var(--meal-lunch-fg);
+  --meal-bg: var(--meal-lunch-bg);
+}
+.meal-type--dinner {
+  --meal-fg: var(--meal-dinner-fg);
+  --meal-bg: var(--meal-dinner-bg);
+}
+.meal-type--snack {
+  --meal-fg: var(--meal-snack-fg);
+  --meal-bg: var(--meal-snack-bg);
+}
+.meal-type--other {
+  --meal-fg: var(--color-text-secondary);
+  --meal-bg: var(--color-border);
+}
+
 body {
   margin: 0;
   background: var(--color-bg);

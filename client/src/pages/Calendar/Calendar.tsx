@@ -1,47 +1,35 @@
-import React, { FC, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
+import { Dayjs } from "dayjs";
 import "./scss/compiled.scss";
-import apis, { getDateMeals } from "../../api/index";
+import apis from "../../api/index";
+import CalendarToolbar from "../../components/CalendarToolbar/CalendarToolbar";
+import DateSelector from "../../components/DateSelector/DateSelector";
 import MealDrop from "../../components/MealDrop/MealDrop";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
-import DateSelector from "../../components/DateSelector/DateSelector";
-import dayjs from "dayjs";
-import SaveLoader from "../../components/SavingLoader/SavingLoader";
-import MealSelection from "../../components/MealsSelection/MealsSelection";
+import MealSelection, {
+  filterMeals,
+} from "../../components/MealsSelection/MealsSelection";
+import WeekView from "./views/WeekView";
+import DayView from "./views/DayView";
+import MonthView from "./views/MonthView";
 import { userContext, windowSizeContext } from "../../App";
-
-const SAVING_STATUSES = {
-  initialize: "",
-  pending: "pending",
-  success: "success",
-  error: "error",
-};
-
-type mealTime = {
-  mealTime: string;
-  mealId: string;
-};
-
-type meal = {
-  category: string;
-  date_created: string;
-  description: string;
-  display_name: string;
-  ingredients: string[];
-  instructions: string[];
-  isActive: boolean;
-  tags: string[];
-  _id: string;
-};
-
-type activeMeal = {
-  isActive: boolean;
-  activeMealID: string;
-};
-
-type saveObj = {
-  saving: boolean;
-  status: string;
-};
+import {
+  CalendarView,
+  EMPTY_DAY,
+  Meal,
+  PlannerProps,
+  SLOTS,
+  Schedule,
+  SlotId,
+  SlotRef,
+  dateKey,
+  longDate,
+  mealsInDay,
+  rangeLabel,
+  shiftAnchor,
+  today,
+  visibleDates,
+} from "./planner";
 
 interface User {
   id: string;
@@ -49,7 +37,14 @@ interface User {
   email: string;
 }
 
-const EMPTY_MEAL: meal = {
+type PulledDay = Partial<Record<SlotId, string>> & {
+  day: string;
+  pulled: boolean;
+};
+
+type SlotChange = SlotRef & { mealId: string };
+
+const EMPTY_MEAL: Meal = {
   category: "",
   date_created: "",
   description: "",
@@ -61,299 +56,318 @@ const EMPTY_MEAL: meal = {
   _id: "",
 };
 
+/*
+ * The calendar keeps one Schedule for every date it has loaded, keyed the way
+ * the server keys days (M/D/YYYY). Each view reads from it; every change is
+ * applied locally first, then the whole day it touched is saved, because the
+ * server stores a day's four slots together.
+ */
 const Calendar = () => {
-  const [activeDate, setActiveDate] = useState<string>(
-    dayjs().format("M/D/YYYY")
-  );
-  const [mealTimes, setMealTimes] = useState<mealTime[]>([
-    { mealTime: "Breakfast", mealId: "" },
-    { mealTime: "Lunch", mealId: "" },
-    { mealTime: "Dinner", mealId: "" },
-    { mealTime: "Snack", mealId: "" },
-  ]);
-  const [meals, setMeals] = useState<meal[]>([]);
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const [searchFilter, setSearchFilter] = useState<string>("");
-  const [activeMeal, setActiveMeal] = useState<activeMeal>({
-    isActive: false,
-    activeMealID: "",
-  });
-  const [allowSave, setAllowSave] = useState<boolean>(false);
-  const [saveObject, setSaveObject] = useState<saveObj>({
-    saving: false,
-    status: SAVING_STATUSES.initialize,
-  });
-  const [showSelection, setShowSelection] = useState<boolean>(false);
   const user = useContext<User>(userContext);
   const windowSize = useContext(windowSizeContext);
-  const isMobileView = windowSize.width <= 768 ? true : false;
+  const isMobileView = windowSize.width < 768;
 
-  const handleMealClick = (mealId: string) => {
-    //Handles clicking a meal from the scroll wheel
-    if (mealId == activeMeal.activeMealID) {
-      setActiveMeal({
-        isActive: false,
-        activeMealID: "",
-      });
-    } else {
-      setActiveMeal({
-        isActive: true,
-        activeMealID: mealId,
-      });
-    }
-  };
+  const [view, setView] = useState<CalendarView>("week");
+  const [anchor, setAnchor] = useState<Dayjs>(today());
+  const [meals, setMeals] = useState<Meal[]>([]);
+  const [schedule, setSchedule] = useState<Schedule>({});
+  const [pickedMealId, setPickedMealId] = useState<string>("");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [searchFilter, setSearchFilter] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [saveFailed, setSaveFailed] = useState<boolean>(false);
 
-  const handleMealRemoveClick = (index: number) => {
-    //Handles removing a meal from one of the meal times
-    const updateMealTimes: mealTime[] = mealTimes;
-    updateMealTimes[index].mealId = "";
-    setMealTimes([...updateMealTimes]);
-    handleSave();
-  };
-
-  const handleMealDropClick = (index: number) => {
-    //Handles when user is 'dropping' a meal on to one of the meal times
-    const updateMealTimes = mealTimes;
-    updateMealTimes[index].mealId = meals.filter(
-      (meal_: meal) => meal_._id == activeMeal.activeMealID
-    )[0]._id;
-
-    setActiveMeal({
-      isActive: false,
-      activeMealID: "",
-    });
-    setMealTimes([...updateMealTimes]);
-    handleSave();
-  };
-
-  const handleSave = () => {
-    setSaveObject({
-      saving: true,
-      status: SAVING_STATUSES.pending,
-    });
-  };
+  const activeView: CalendarView = isMobileView ? "day" : view;
+  const now = today();
+  const dates = useMemo(
+    () => visibleDates(activeView, anchor),
+    [activeView, anchor]
+  );
+  const rangeKey = dateKey(dates[0]) + "|" + dates.length;
+  const mealsById = useMemo(() => {
+    const byId: Record<string, Meal> = {};
+    meals.forEach((meal) => (byId[meal._id] = meal));
+    return byId;
+  }, [meals]);
+  const pickedMeal = pickedMealId ? mealsById[pickedMealId] : undefined;
 
   useEffect(() => {
-    //On mount, pull meals and any meal times for current user
-    const setMealsFunc = async () =>
-      await apis
-        .getUserMeals({ user_id: user.id })
-        .then((resp) => setMeals(resp.data.meals))
+    apis
+      .getUserMeals({ user_id: user.id })
+      .then((resp) => setMeals(resp.data.meals ?? []))
+      .catch((err) => {
+        console.log(err);
+        setMeals([]);
+      });
+  }, [user.id]);
+
+  useEffect(() => {
+    let current = true;
+    apis
+      .pullCalendarWeek({ user_id: user.id, week: dates.map(dateKey) })
+      .then((resp) => {
+        if (!current) return;
+        const pulled: Schedule = {};
+        (resp.data.meals as PulledDay[]).forEach((day) => {
+          pulled[day.day] = {
+            breakfast: day.breakfast || "",
+            lunch: day.lunch || "",
+            dinner: day.dinner || "",
+            snack: day.snack || "",
+          };
+        });
+        setSchedule((previous) => ({ ...previous, ...pulled }));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (current) setStatus("could not load planned meals");
+      });
+    return () => {
+      current = false;
+    };
+    // rangeKey identifies `dates`, which is rebuilt on every anchor change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rangeKey, user.id]);
+
+  const where = (ref: SlotRef) => {
+    const date = dates.find((candidate) => dateKey(candidate) === ref.date);
+    return (date ? longDate(date) : ref.date) + " " + ref.slot;
+  };
+
+  const mealName = (mealId: string) =>
+    mealsById[mealId]?.display_name ?? "meal";
+
+  const writeSlots = (changes: SlotChange[], message: string) => {
+    const next = { ...schedule };
+    changes.forEach((change) => {
+      next[change.date] = {
+        ...(next[change.date] ?? EMPTY_DAY),
+        [change.slot]: change.mealId,
+      };
+    });
+    setSchedule(next);
+    setStatus(message);
+
+    const touched = Array.from(new Set(changes.map((change) => change.date)));
+    touched.forEach((date) =>
+      apis
+        .saveCalendarChanges({ date, user_id: user.id, changes: next[date] })
+        .then(() => setSaveFailed(false))
         .catch((err) => {
           console.log(err);
-          setMeals([]);
-        });
-    const pullDateMeals = async () =>
-      await apis
-        .getDateMeals({
-          date: activeDate,
-          user_id: user.id,
+          setSaveFailed(true);
         })
-        .then((resp) => {
-          const schedule = resp.data.data;
-          const activeMealTimes = mealTimes;
-          activeMealTimes[0].mealId = schedule?.breakfast;
-          activeMealTimes[1].mealId = schedule?.lunch;
-          activeMealTimes[2].mealId = schedule?.dinner;
-          activeMealTimes[3].mealId = schedule?.snack;
-          setMealTimes([...activeMealTimes]);
-        })
-        .catch((err: Error) => {
-          console.log(err);
-          setMealTimes([]);
-        });
-
-    setMealsFunc();
-    pullDateMeals();
-  }, []);
-
-  useEffect(() => {
-    if (allowSave) {
-      //avoids saving with empty meal times
-      const changes = {
-        breakfast: mealTimes[0].mealId,
-        lunch: mealTimes[1].mealId,
-        dinner: mealTimes[2].mealId,
-        snack: mealTimes[3].mealId,
-      };
-
-      const saveChanges = async () =>
-        await apis
-          .saveCalendarChanges({
-            date: activeDate,
-            user_id: user.id,
-            changes,
-          })
-          .then((resp) => {
-            setSaveObject({
-              ...{
-                saving: saveObject.saving,
-                status: SAVING_STATUSES.success,
-              },
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            setSaveObject({
-              ...{
-                saving: saveObject.saving,
-                status: SAVING_STATUSES.error,
-              },
-            });
-          });
-
-      saveChanges();
-    }
-  }, [mealTimes]);
-
-  const handleActiveDateChange = async (newActiveDate: string) => {
-    setAllowSave(false);
-    setActiveDate(newActiveDate);
+    );
   };
 
-  useEffect(() => {
-    //Remove ability to save and pull new dates data
-    const getDateMealsFunc = async () =>
-      await apis
-        .getDateMeals({
-          date: activeDate,
-          user_id: user.id,
-        })
-        .then((resp) => {
-          const schedule = resp.data.data;
-          const activeMealTimes: mealTime[] = [
-            { mealTime: "Breakfast", mealId: "" },
-            { mealTime: "Lunch", mealId: "" },
-            { mealTime: "Dinner", mealId: "" },
-            { mealTime: "Snack", mealId: "" },
-          ];
-          if (resp.status == 200) {
-            activeMealTimes[0].mealId = schedule?.breakfast;
-            activeMealTimes[1].mealId = schedule?.lunch;
-            activeMealTimes[2].mealId = schedule?.dinner;
-            activeMealTimes[3].mealId = schedule?.snack;
-          }
-          setMealTimes([...activeMealTimes]);
-          setAllowSave(true);
-        });
+  const placeMeal = (to: SlotRef, mealId: string) => {
+    setPickedMealId("");
+    const current = schedule[to.date]?.[to.slot] ?? "";
+    if (current === mealId) {
+      setStatus(mealName(mealId) + " is already planned for " + where(to));
+      return;
+    }
+    writeSlots(
+      [{ ...to, mealId }],
+      current && mealsById[current]
+        ? "replaced " + mealName(current) + " with " + mealName(mealId) + " in " + where(to)
+        : "added " + mealName(mealId) + " to " + where(to)
+    );
+  };
 
-    getDateMealsFunc();
-  }, [activeDate]);
+  // Moving onto a filled slot swaps the two meals, so nothing is lost.
+  const moveMeal = (from: SlotRef, to: SlotRef) => {
+    if (from.date === to.date && from.slot === to.slot) return;
+    const mealId = schedule[from.date]?.[from.slot];
+    if (!mealId) return;
+    const displaced = schedule[to.date]?.[to.slot] ?? "";
+    writeSlots(
+      [
+        { ...from, mealId: displaced },
+        { ...to, mealId },
+      ],
+      "moved " + mealName(mealId) + " to " + where(to)
+    );
+  };
 
-  useEffect(() => {
-    //Timer to update displayed saving status to user
-    const timer = setTimeout(() => {
-      const status = saveObject.status;
+  const removeMeal = (at: SlotRef) => {
+    const mealId = schedule[at.date]?.[at.slot];
+    if (!mealId) return;
+    writeSlots(
+      [{ ...at, mealId: "" }],
+      "removed " + mealName(mealId) + " from " + where(at)
+    );
+  };
 
-      setSaveObject({
-        saving: ["success", "error", ""].includes(status) ? false : true,
-        status,
-      });
-    }, 500);
+  const showDate = (date: Dayjs) => {
+    setAnchor(date);
+    setStatus("showing " + rangeLabel(activeView, date));
+  };
 
-    return () => clearTimeout(timer);
-  }, [saveObject.status]);
+  const openDay = (date: Dayjs) => {
+    setView("day");
+    setAnchor(date);
+    setStatus("showing " + rangeLabel("day", date));
+  };
+
+  const pickMeal = (mealId: string) => {
+    const deselect = mealId === pickedMealId;
+    setPickedMealId(deselect ? "" : mealId);
+    setStatus(
+      deselect
+        ? "placement cancelled"
+        : "selected " + mealName(mealId) + "; choose where to place it"
+    );
+  };
+
+  const plannerProps: PlannerProps = {
+    dates,
+    anchor,
+    today: now,
+    schedule,
+    meals,
+    mealsById,
+    pickedMeal,
+    onPlace: placeMeal,
+    onMove: moveMeal,
+    onRemove: removeMeal,
+    onOpenDay: openDay,
+  };
+
+  if (isMobileView) {
+    const key = dateKey(anchor);
+    return (
+      <div className="calendar-wrapper calendar-wrapper--mobile">
+        <DateSelector
+          dates={dates}
+          activeDate={anchor}
+          today={now}
+          isMobileView={true}
+          onSelect={showDate}
+        />
+        <div className="calendar__planner-content">
+          {SLOTS.map((slot, index) => {
+            const mealId = schedule[key]?.[slot.id];
+            const at = { date: key, slot: slot.id };
+            return (
+              <div className="calendar__planner-meal" key={slot.id}>
+                <label>{slot.label}</label>
+                <div className="calendar__planner__meal-mealdrop">
+                  <MealDrop
+                    meals={meals}
+                    meal={(mealId && mealsById[mealId]) || EMPTY_MEAL}
+                    activeMealIsActive={!!pickedMeal}
+                    mealClickCallback={() => placeMeal(at, pickedMealId)}
+                    index={index}
+                    removeMeal={() => removeMeal(at)}
+                    handleMealDropSelect={(id: string) => placeMeal(at, id)}
+                    isMobileView={true}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  const visibleMeals = filterMeals(meals, categoryFilter, searchFilter);
+  let progressLabel: string;
+  let progress: number;
+  if (activeView === "month") {
+    const inMonth = dates.filter((date) => date.month() === anchor.month());
+    const planned = inMonth.reduce(
+      (sum, date) => sum + mealsInDay(schedule[dateKey(date)]).length,
+      0
+    );
+    const daysPlanned = inMonth.filter(
+      (date) => mealsInDay(schedule[dateKey(date)]).length > 0
+    ).length;
+    progressLabel = planned + " meals planned in " + anchor.format("MMMM");
+    progress = daysPlanned / inMonth.length;
+  } else {
+    const days = activeView === "day" ? [anchor] : dates;
+    const total = days.length * SLOTS.length;
+    const filled = days.reduce(
+      (sum, date) => sum + mealsInDay(schedule[dateKey(date)]).length,
+      0
+    );
+    progressLabel = filled + " of " + total + " slots planned";
+    progress = filled / total;
+  }
 
   return (
     <div className="calendar-wrapper">
-      <div className="calendar__board">
-        <div className="calendar__board__dates">
-          <DateSelector
-            activeDate={activeDate}
-            handleActiveDateChange={handleActiveDateChange}
-            isMobileView={windowSize.width < 768 ? true : false}
-          />
+      <aside aria-labelledby="calendar-meals-heading" className="calendar__meals">
+        <div className="calendar__meals-heading">
+          <h2 id="calendar-meals-heading">My meals</h2>
+          <span>
+            {visibleMeals.length} of {meals.length}
+          </span>
         </div>
-        <div className="calendar__board__planner">
-          {!isMobileView ? (
-            <div className="calendar__planner-saver">
-              {
-                saveObject.status == "" ? null : saveObject.status ==
-                  "error" ? (
-                  <p
-                    style={{
-                      color: "red",
-                      fontStyle: "italic",
-                      fontSize: "1.2rem",
-                    }}
-                  >
-                    Error saving changes
-                  </p>
-                ) : null
-                // <SaveLoader removed for now until I can refactor the save timeout logic
-                //   saving={saveObject.saving}
-                //   status={saveObject.status}
-                //   setSaveObject={setSaveObject}
-                // />
-              }
+        <p id="calendar-meals-hint" className="calendar__meals-hint">
+          Drag a meal onto the calendar, or select it and choose a slot.
+        </p>
+        <FilterSelection
+          setSearchFilter={setSearchFilter}
+          searchFilter={searchFilter}
+          setCategoryFilter={setCategoryFilter}
+          categoryFilter={categoryFilter}
+        />
+        <MealSelection
+          meals={meals}
+          pickedMealId={pickedMealId}
+          handleMealClick={pickMeal}
+          categoryFilter={categoryFilter}
+          searchFilter={searchFilter}
+          describedBy="calendar-meals-hint"
+        />
+      </aside>
+
+      <div className="calendar__main">
+        <CalendarToolbar
+          title={rangeLabel(activeView, anchor)}
+          view={activeView}
+          showViewSwitch={true}
+          onPrev={() => showDate(shiftAnchor(activeView, anchor, -1))}
+          onToday={() => showDate(now)}
+          onNext={() => showDate(shiftAnchor(activeView, anchor, 1))}
+          onViewChange={(next) => {
+            setView(next);
+            setStatus(next + " view, showing " + rangeLabel(next, anchor));
+          }}
+        />
+
+        <div className="calendar__content">
+          {pickedMeal ? (
+            <div className="calendar__placing">
+              <span>
+                Placing <strong>{pickedMeal.display_name}</strong>.{" "}
+                {activeView === "month"
+                  ? "Choose a day; it goes in the " + pickedMeal.category + " slot."
+                  : "Choose any slot marked Place Here."}
+              </span>
+              <button type="button" onClick={() => pickMeal(pickedMealId)}>
+                Cancel
+              </button>
             </div>
           ) : null}
-          <div className="calendar__planner-content">
-            {mealTimes.map((meal, index) => {
-              return (
-                <div className="calendar__planner-meal" key={index}>
-                  <label>{meal.mealTime}</label>
-                  <div className="calendar__planner__meal-mealdrop">
-                    <MealDrop
-                      meals={meals}
-                      meal={
-                        meals.filter((meal_) => meal_._id == meal.mealId)
-                          .length == 0
-                          ? EMPTY_MEAL
-                          : meals.filter((meal_) => meal_._id == meal.mealId)[0]
-                      }
-                      activeMealIsActive={activeMeal.isActive}
-                      mealClickCallback={handleMealDropClick}
-                      index={index}
-                      removeMeal={handleMealRemoveClick}
-                      handleMealDropSelect={(mealID: string, idx: number) => {
-                        const updateMealTimes = mealTimes;
-                        updateMealTimes[idx].mealId = meals.filter(
-                          (meal_: meal) => meal_._id == mealID
-                        )[0]._id;
-                        setMealTimes([...updateMealTimes]);
-                      }}
-                      isMobileView={isMobileView}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+
+          {activeView === "week" ? <WeekView {...plannerProps} /> : null}
+          {activeView === "day" ? <DayView {...plannerProps} /> : null}
+          {activeView === "month" ? <MonthView {...plannerProps} /> : null}
+
+          <div className="calendar__footer">
+            <p role="status" aria-live="polite" className="calendar__status">
+              {saveFailed ? "Error saving changes" : status}
+            </p>
+            <span aria-hidden="true" className="calendar__progress">
+              <span style={{ width: Math.round(progress * 100) + "%" }}></span>
+            </span>
+            <span className="calendar__progress-label">{progressLabel}</span>
           </div>
         </div>
-      </div>
-      <div className="calendar-content__selection">
-        {!isMobileView ? (
-          <>
-            <FilterSelection
-              setSearchFilter={setSearchFilter}
-              searchFilter={searchFilter}
-              setCategoryFilter={setCategoryFilter}
-              categoryFilter={categoryFilter}
-            />
-            <MealSelection
-              meals={meals}
-              handleMealClick={handleMealClick}
-              activeMeal={activeMeal.isActive}
-              showSelection={true}
-              categoryFilter={categoryFilter}
-              searchFilter={searchFilter}
-              isMobileView={isMobileView}
-            />
-          </>
-        ) : isMobileView && showSelection ? (
-          <>
-            <MealSelection
-              meals={meals}
-              handleMealClick={handleMealClick}
-              activeMeal={activeMeal.isActive}
-              showSelection={true}
-              categoryFilter={categoryFilter}
-              searchFilter={searchFilter}
-              isMobileView={isMobileView}
-            />
-          </>
-        ) : null}
       </div>
     </div>
   );

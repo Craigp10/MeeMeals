@@ -1,108 +1,75 @@
 @import "../../style/colors.scss";
+
 .selection-filter-wrapper {
-  background-color: $surface;
-  height: 120px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  row-gap: 5px;
-  column-gap: 5px;
-  padding: 10px;
-  border: 1px solid $border;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .selection-filter__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
   .filterBtn {
-    display: flex;
-    border-radius: $radius-button;
-    align-items: center;
-    justify-content: center;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid $border-strong;
     background-color: $card;
+    color: $text;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    &:hover {
+      background-color: $bg;
+    }
   }
 
-  .activeCate {
-    background-color: $primary;
-    color: $on-primary;
-    box-shadow: inset 100px 0 0 0 $primary;
-    -webkit-transition: all ease 0.5s;
-    -moz-transition: all ease 0.5s;
-    transition: all ease 0.5s;
+  .activeCate,
+  .activeCate:hover {
+    border-color: $text;
+    background-color: $text;
+    color: $card;
   }
 
-  #all {
-    grid-column: 2 / 4;
-    grid-row: 1;
-    width: 70%;
-    margin: 0 auto;
+  .selection-filter__label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: $text;
   }
 
-  #breakfast {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  #breakfast:not(.activeCate) {
-    color: $meal-breakfast-fg;
-    background-color: $meal-breakfast-bg;
-  }
-
-  #lunch {
-    grid-column: 2;
-    grid-row: 2;
-  }
-  #lunch:not(.activeCate) {
-    color: $meal-lunch-fg;
-    background-color: $meal-lunch-bg;
-  }
-
-  #dinner {
-    grid-column: 3;
-    grid-row: 2;
-  }
-  #dinner:not(.activeCate) {
-    color: $meal-dinner-fg;
-    background-color: $meal-dinner-bg;
-  }
-
-  #snack {
-    grid-column: 4;
-    grid-row: 2;
-  }
-  #snack:not(.activeCate) {
-    color: $meal-snack-fg;
-    background-color: $meal-snack-bg;
-  }
-
-  #search {
-    border: none;
-    font-size: 1.5rem;
-    /* The .glyphicon-search wrapper sets the icon font; don't inherit it. */
-    font-family: $font-body;
-  }
-
-  .glyphicon-search {
-    grid-column: 1/5;
-    grid-row: 3;
-    padding: 0 10px;
+  .selection-filter__search {
+    position: relative;
     display: flex;
-    border-radius: $radius-button;
     align-items: center;
-    justify-content: center;
-    background-color: $card;
-  }
-  .glyphicon-search span:hover {
-    text-decoration: none;
-  }
-  .glyphicon-search input {
-    outline: none;
-    width: 100%;
-    padding: 0 20px;
-  }
-}
+    margin-top: -6px;
 
-@media screen and (min-width: 1024px) {
-  .selection-filter-wrapper {
-    font-size: 1rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .selection-filter-wrapper {
-    font-size: 1.5rem;
+    svg {
+      position: absolute;
+      left: 12px;
+      color: $text-secondary;
+      pointer-events: none;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      height: 44px;
+      padding: 0 12px 0 40px;
+      border: 1px solid $border-strong;
+      border-radius: $radius-button;
+      background-color: $card;
+      color: $text;
+      font-family: $font-body;
+      font-size: 16px;
+
+      &::placeholder {
+        color: $text-muted;
+      }
+    }
   }
 }

@@ -1,0 +1,95 @@
+@import "../../style/colors.scss";
+
+.calendar-toolbar {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-height: 88px;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid $border;
+  background-color: $surface;
+
+  button {
+    height: 44px;
+    padding: 0 18px;
+    border-radius: $radius-button;
+    border: 1px solid $border-strong;
+    background-color: $surface;
+    color: $text;
+    font: inherit;
+    font-weight: 700;
+    font-size: 15px;
+
+    &:hover {
+      background-color: $bg;
+    }
+  }
+}
+
+.calendar-toolbar__title {
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $text-secondary;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.calendar-toolbar__nav {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .calendar-toolbar__icon {
+    width: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.calendar-toolbar__views {
+  flex-shrink: 0;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: $radius-card;
+  background-color: $border;
+
+  button {
+    min-width: 84px;
+    border: 0;
+    background: transparent;
+    color: $text-secondary;
+
+    &:hover {
+      background-color: $surface;
+    }
+
+    &[aria-pressed="true"] {
+      background-color: $card;
+      color: $text;
+      box-shadow: 0 1px 3px $shadow-tint;
+    }
+  }
+}

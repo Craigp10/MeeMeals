@@ -1,46 +1,77 @@
 @import "../../../style/colors.scss";
 
 .date-selector-wrapper {
+  box-sizing: border-box;
   width: 100%;
   height: 80px;
+  padding: 0 16px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  background-color: $bg;
-  .glyphicon {
-    color: $primary;
-    padding-bottom: 20px;
-  }
+  gap: 6px;
+  background-color: $border;
+  border-bottom: 1px solid $border-strong;
 
-  span {
-    padding: 10px 20px;
-    border-top-right-radius: $radius-card;
-    border-top-left-radius: $radius-card;
+  .date-selector__step {
+    align-self: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: $radius-button;
+    background: transparent;
+    color: $primary;
+    font-size: 18px;
+
+    &:hover {
+      background-color: $surface;
+    }
   }
 
   .dates {
+    box-sizing: border-box;
     width: 150px;
-    transition: 0.2s ease-in-out;
+    padding: 8px 6px 0;
+    border: 0;
+    border-top-left-radius: $radius-card;
+    border-top-right-radius: $radius-card;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background-color: $primary;
-    color: $on-primary;
+    justify-content: flex-start;
+    gap: 1px;
+    font: inherit;
+    transition: height 0.2s ease-in-out;
   }
 
   .notActive {
     height: 50px;
+    background-color: $surface;
+    color: $text;
+
+    &:hover {
+      background-color: $card;
+    }
   }
 
   .isActive {
-    background-color: $surface;
-    color: $text;
     height: 70px;
-    /* // width: 500px; */
-    border-bottom: none;
-    z-index: 98;
+    background-color: $primary;
+    color: $on-primary;
+    z-index: 1;
   }
-}
 
-@media screen and (min-width: 768px) {
+  span.dates {
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .dates__day {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .dates__date {
+    font-size: 13px;
+  }
 }
