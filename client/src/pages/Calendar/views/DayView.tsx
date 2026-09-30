@@ -17,12 +17,13 @@ const DayView = (props: PlannerProps) => {
   const countLabel = (n: number) => (n === 1 ? "1 meal" : n + " meals");
 
   return (
-    <section aria-label="Day plan" className="day-view">
+    <section aria-label="Day plan" className={"day-view day-view--" + props.layout}>
       <DateSelector
         dates={props.dates}
         activeDate={props.anchor}
         today={props.today}
         isMobileView={false}
+        scrollable={props.layout === "phone"}
         onSelect={props.onOpenDay}
         describe={(date) =>
           countLabel(mealsInDay(props.schedule[dateKey(date)]).length)
@@ -46,6 +47,8 @@ const DayView = (props: PlannerProps) => {
                 isToday={key === dateKey(props.today)}
                 menuAbove={row >= 2}
                 menuAlignRight={true}
+                stacked={props.layout === "phone"}
+                menuAsSheet={props.layout === "phone"}
                 onPlace={(id) => props.onPlace(at, id)}
                 onMove={(from) => props.onMove(from, at)}
                 onRemove={() => props.onRemove(at)}

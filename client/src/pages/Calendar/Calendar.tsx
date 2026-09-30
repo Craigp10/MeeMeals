@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { Dayjs } from "dayjs";
 import "./scss/compiled.scss";
 import apis from "../../api/index";
-import CalendarToolbar from "../../components/CalendarToolbar/CalendarToolbar";
-import DateSelector from "../../components/DateSelector/DateSelector";
-import MealDrop from "../../components/MealDrop/MealDrop";
+import CalendarToolbar, {
+  MEALS_TOGGLE_ID,
+} from "../../components/CalendarToolbar/CalendarToolbar";
 import FilterSelection from "../../components/SelectionFilter/SelectionFilter";
 import MealSelection, {
   filterMeals,
 } from "../../components/MealsSelection/MealsSelection";
 import WeekView from "./views/WeekView";
+import WeekListView from "./views/WeekListView";
 import DayView from "./views/DayView";
 import MonthView from "./views/MonthView";
 import { userContext, windowSizeContext } from "../../App";
@@ -17,16 +18,19 @@ import {
   CalendarView,
   EMPTY_DAY,
   Meal,
+  Layout,
   PlannerProps,
   SLOTS,
   Schedule,
   SlotId,
   SlotRef,
   dateKey,
+  layoutFor,
   longDate,
   mealsInDay,
   rangeLabel,
   shiftAnchor,
+  shortRangeLabel,
   today,
   visibleDates,
 } from "./planner";
@@ -44,18 +48,6 @@ type PulledDay = Partial<Record<SlotId, string>> & {
 
 type SlotChange = SlotRef & { mealId: string };
 
-const EMPTY_MEAL: Meal = {
-  category: "",
-  date_created: "",
-  description: "",
-  display_name: "",
-  ingredients: [""],
-  instructions: [""],
-  isActive: false,
-  tags: [""],
-  _id: "",
-};
-
 /*
  * The calendar keeps one Schedule for every date it has loaded, keyed the way
  * the server keys days (M/D/YYYY). Each view reads from it; every change is
@@ -65,9 +57,14 @@ const EMPTY_MEAL: Meal = {
 const Calendar = () => {
   const user = useContext<User>(userContext);
   const windowSize = useContext(windowSizeContext);
-  const isMobileView = windowSize.width < 768;
+  const layout: Layout = layoutFor(windowSize.width);
+  const panelIsOverlay = layout !== "desktop";
 
-  const [view, setView] = useState<CalendarView>("week");
+  const [view, setView] = useState<CalendarView>(() =>
+    layoutFor(windowSize.width) === "phone" ? "day" : "week"
+  );
+  const [mealsOpen, setMealsOpen] = useState<boolean>(false);
+  const closeMealsButton = useRef<HTMLButtonElement>(null);
   const [anchor, setAnchor] = useState<Dayjs>(today());
   const [meals, setMeals] = useState<Meal[]>([]);
   const [schedule, setSchedule] = useState<Schedule>({});
@@ -77,7 +74,7 @@ const Calendar = () => {
   const [status, setStatus] = useState<string>("");
   const [saveFailed, setSaveFailed] = useState<boolean>(false);
 
-  const activeView: CalendarView = isMobileView ? "day" : view;
+  const activeView: CalendarView = view;
   const now = today();
   const dates = useMemo(
     () => visibleDates(activeView, anchor),
@@ -128,6 +125,15 @@ const Calendar = () => {
     // rangeKey identifies `dates`, which is rebuilt on every anchor change.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rangeKey, user.id]);
+
+  const showMeals = panelIsOverlay ? mealsOpen : true;
+  const wasOpen = useRef(false);
+  useEffect(() => {
+    if (!panelIsOverlay) return;
+    if (mealsOpen) closeMealsButton.current?.focus();
+    else if (wasOpen.current) document.getElementById(MEALS_TOGGLE_ID)?.focus();
+    wasOpen.current = mealsOpen;
+  }, [mealsOpen, panelIsOverlay]);
 
   const where = (ref: SlotRef) => {
     const date = dates.find((candidate) => dateKey(candidate) === ref.date);
@@ -213,6 +219,8 @@ const Calendar = () => {
   const pickMeal = (mealId: string) => {
     const deselect = mealId === pickedMealId;
     setPickedMealId(deselect ? "" : mealId);
+    // On narrow screens the panel covers the calendar, so get it out of the way.
+    if (!deselect && panelIsOverlay) setMealsOpen(false);
     setStatus(
       deselect
         ? "placement cancelled"
@@ -221,6 +229,7 @@ const Calendar = () => {
   };
 
   const plannerProps: PlannerProps = {
+    layout,
     dates,
     anchor,
     today: now,
@@ -233,44 +242,6 @@ const Calendar = () => {
     onRemove: removeMeal,
     onOpenDay: openDay,
   };
-
-  if (isMobileView) {
-    const key = dateKey(anchor);
-    return (
-      <div className="calendar-wrapper calendar-wrapper--mobile">
-        <DateSelector
-          dates={dates}
-          activeDate={anchor}
-          today={now}
-          isMobileView={true}
-          onSelect={showDate}
-        />
-        <div className="calendar__planner-content">
-          {SLOTS.map((slot, index) => {
-            const mealId = schedule[key]?.[slot.id];
-            const at = { date: key, slot: slot.id };
-            return (
-              <div className="calendar__planner-meal" key={slot.id}>
-                <label>{slot.label}</label>
-                <div className="calendar__planner__meal-mealdrop">
-                  <MealDrop
-                    meals={meals}
-                    meal={(mealId && mealsById[mealId]) || EMPTY_MEAL}
-                    activeMealIsActive={!!pickedMeal}
-                    mealClickCallback={() => placeMeal(at, pickedMealId)}
-                    index={index}
-                    removeMeal={() => removeMeal(at)}
-                    handleMealDropSelect={(id: string) => placeMeal(at, id)}
-                    isMobileView={true}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
 
   const visibleMeals = filterMeals(meals, categoryFilter, searchFilter);
   let progressLabel: string;
@@ -298,16 +269,60 @@ const Calendar = () => {
   }
 
   return (
-    <div className="calendar-wrapper">
-      <aside aria-labelledby="calendar-meals-heading" className="calendar__meals">
+    <div className={"calendar-wrapper calendar-wrapper--" + layout}>
+      {panelIsOverlay && mealsOpen ? (
+        <div
+          className="calendar__backdrop"
+          aria-hidden="true"
+          onClick={() => setMealsOpen(false)}
+        ></div>
+      ) : null}
+      {showMeals ? (
+      <aside
+        id="calendar-meals"
+        aria-labelledby="calendar-meals-heading"
+        role={panelIsOverlay ? "dialog" : undefined}
+        aria-modal={panelIsOverlay ? true : undefined}
+        className={
+          "calendar__meals" +
+          (panelIsOverlay ? " calendar__meals--overlay calendar__meals--" + layout : "")
+        }
+        onKeyDown={(event) => {
+          if (panelIsOverlay && event.key === "Escape") setMealsOpen(false);
+        }}
+      >
         <div className="calendar__meals-heading">
           <h2 id="calendar-meals-heading">My meals</h2>
           <span>
             {visibleMeals.length} of {meals.length}
           </span>
+          {panelIsOverlay ? (
+            <button
+              type="button"
+              ref={closeMealsButton}
+              className="calendar__meals-close"
+              aria-label="Close meals"
+              onClick={() => setMealsOpen(false)}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          ) : null}
         </div>
         <p id="calendar-meals-hint" className="calendar__meals-hint">
-          Drag a meal onto the calendar, or select it and choose a slot.
+          {layout === "phone"
+            ? "Tap a meal, then choose a slot marked Place Here."
+            : "Drag a meal onto the calendar, or select it and choose a slot."}
         </p>
         <FilterSelection
           setSearchFilter={setSearchFilter}
@@ -324,12 +339,19 @@ const Calendar = () => {
           describedBy="calendar-meals-hint"
         />
       </aside>
+      ) : null}
 
       <div className="calendar__main">
         <CalendarToolbar
-          title={rangeLabel(activeView, anchor)}
+          title={
+            panelIsOverlay
+              ? shortRangeLabel(activeView, anchor)
+              : rangeLabel(activeView, anchor)
+          }
           view={activeView}
-          showViewSwitch={true}
+          layout={layout}
+          mealsOpen={mealsOpen}
+          onToggleMeals={panelIsOverlay ? () => setMealsOpen(!mealsOpen) : undefined}
           onPrev={() => showDate(shiftAnchor(activeView, anchor, -1))}
           onToday={() => showDate(now)}
           onNext={() => showDate(shiftAnchor(activeView, anchor, 1))}
@@ -354,7 +376,13 @@ const Calendar = () => {
             </div>
           ) : null}
 
-          {activeView === "week" ? <WeekView {...plannerProps} /> : null}
+          {activeView === "week" ? (
+            layout === "phone" ? (
+              <WeekListView {...plannerProps} />
+            ) : (
+              <WeekView {...plannerProps} />
+            )
+          ) : null}
           {activeView === "day" ? <DayView {...plannerProps} /> : null}
           {activeView === "month" ? <MonthView {...plannerProps} /> : null}
 

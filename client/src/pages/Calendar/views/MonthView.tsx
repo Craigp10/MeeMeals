@@ -38,7 +38,10 @@ const MonthView = (props: PlannerProps) => {
   };
 
   return (
-    <section aria-label="Month overview" className="month-view">
+    <section
+      aria-label="Month overview"
+      className={"month-view month-view--" + props.layout}
+    >
       <div className="month-view__weekdays">
         {weekOf(props.anchor).map((date) => (
           <abbr key={date.day()} title={date.format("dddd")}>
@@ -107,6 +110,14 @@ const MonthView = (props: PlannerProps) => {
               >
                 <span className="month-view__head">
                   <span className="month-view__num">{date.format("D")}</span>
+                  <span className="month-view__dots" aria-hidden="true">
+                    {ids.map((id, index) => (
+                      <span
+                        key={index}
+                        className={categoryClass(props.mealsById[id].category)}
+                      ></span>
+                    ))}
+                  </span>
                   <span className="month-view__count">
                     {ids.length
                       ? ids.length === 1

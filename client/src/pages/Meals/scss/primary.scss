@@ -2,96 +2,222 @@
 
 .meals-wrapper {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg;
   color: $text;
-  padding-top: 50px;
+  font-size: 14px;
+  line-height: 1.4;
 
-  .meals__board {
-    border-radius: $radius-card;
-    height: 95%;
-    width: 90%;
-    margin: auto;
-    background-color: $surface;
-    box-shadow: 0 0px 20px -1px $shadow-tint-strong;
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+}
+
+.meals__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Phones first: title and Create on one row, search full width below. */
+.meals__header {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid $border;
+  background-color: $surface;
+}
+
+.meals__title {
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+
+  h1 {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.15;
   }
 
-  .meals__board__header {
-    display: grid;
-    border-top-left-radius: $radius-card;
-    border-top-right-radius: $radius-card;
-    grid-template-columns: 1fr 1fr 1fr;
-    height: 70px;
-    border-bottom: 1px solid $border;
-    div {
-      text-align: center;
+  span {
+    font-size: 15px;
+    color: $text-secondary;
+  }
+}
+
+.meals__search {
+  order: 1;
+  flex-basis: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  svg {
+    position: absolute;
+    left: 12px;
+    color: $text-secondary;
+    pointer-events: none;
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 44px;
+    padding: 0 12px 0 40px;
+    border: 1px solid #a8a092;
+    border-radius: 10px;
+    background-color: $card;
+    color: $text;
+    font-family: $font-body;
+    font-size: 16px;
+
+    &::placeholder {
+      color: $text-muted;
     }
   }
+}
 
-  .meals__board__header-search {
+.meals__create {
+  height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 10px;
+  background-color: $primary;
+  color: $on-primary;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+}
+
+.meals__controls {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+
+  label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  select {
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #a8a092;
+    border-radius: 10px;
+    background-color: $card;
+    color: $text;
+    font-family: $font-body;
+    font-size: 15px;
+  }
+}
+
+.meals__filters {
+  flex-basis: 100%;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  button {
+    flex-shrink: 0;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid $border-strong;
+    background-color: $card;
+    color: $text;
+    font-size: 14px;
+    font-weight: 700;
     display: flex;
-    justify-content: center;
-    padding: 10px 5px;
+    align-items: center;
+    gap: 8px;
 
-    .glyphicon-search {
-      width: 95%;
-      height: 100%;
-      padding: 0 10px;
-      display: flex;
-      border-radius: $radius-button;
-      align-items: center;
-      justify-content: center;
-      background-color: $card;
-      box-shadow: 0 0px 36px -10px $shadow-tint-strong;
+    span {
+      font-weight: 400;
+      color: $text-secondary;
     }
 
-    #search {
-      border: 1px solid green;
-      padding-left: 20px;
-      border: none;
-      width: 100%;
-      font-size: 1.5rem;
-      outline: none;
-      /* The .glyphicon-search wrapper sets the icon font; don't inherit it. */
-      font-family: $font-body;
+    &:hover {
+      background-color: $surface;
+    }
+
+    &[aria-pressed="true"] {
+      border-color: $text;
+      background-color: $text;
+      color: $card;
+
+      span {
+        color: inherit;
+        opacity: 0.8;
+      }
     }
   }
+}
 
-  .meals__board__header-title {
+.meals__list {
+  flex-grow: 1;
+  min-height: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 4px 16px 24px;
+}
+
+.meals__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+.meals__empty {
+  padding: 64px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 15px;
+    color: $text-secondary;
+  }
+
+  .meals__empty-title {
     font-family: $font-display;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 2rem;
-  }
-
-  .meals__board__header-create {
-    padding: 15px;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-
-    button {
-      border-radius: $radius-button;
-      color: $primary;
-      background: none;
-      font-weight: bold;
-      border: none;
-    }
-    button:hover {
-      color: $on-primary;
-      background: $primary-hover;
-    }
-  }
-
-  .meals__board__scroll {
-    overflow: scroll;
-    height: calc(100% - 100px);
-  }
-
-  .meals__board__scroll-mealboxes {
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-weight: 600;
+    font-size: 22px;
+    color: $text;
   }
 }

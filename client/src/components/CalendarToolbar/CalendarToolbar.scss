@@ -93,3 +93,68 @@
     }
   }
 }
+
+.calendar-toolbar__meals {
+  flex-shrink: 0;
+}
+
+.calendar-toolbar--tablet {
+  padding: 12px 20px;
+  gap: 12px;
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .calendar-toolbar__views button {
+    min-width: 64px;
+    padding: 0 12px;
+  }
+}
+
+/* Phones: title and paging on the first row, view switch and Meals below. */
+.calendar-toolbar--phone {
+  flex-wrap: wrap;
+  min-height: 0;
+  padding: 12px 16px;
+  gap: 10px 8px;
+
+  .calendar-toolbar__title {
+    flex: 1 1 0;
+
+    span {
+      display: none;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+  }
+
+  .calendar-toolbar__nav button {
+    padding: 0 12px;
+  }
+
+  .calendar-toolbar__views {
+    flex: 1 1 auto;
+    order: 1;
+
+    button {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 8px;
+    }
+  }
+
+  .calendar-toolbar__meals {
+    order: 2;
+    padding: 0 16px;
+    border-color: $primary;
+    background-color: $primary;
+    color: $on-primary;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+}

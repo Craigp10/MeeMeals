@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Dayjs } from "dayjs";
 import "./scss/compiled.scss";
 import { dateKey } from "../../pages/Calendar/planner";
@@ -10,10 +10,18 @@ interface Props {
   isMobileView: boolean;
   onSelect: (date: Dayjs) => void;
   describe?: (date: Dayjs) => string;
+  scrollable?: boolean;
 }
 
 const DateSelector = (props: Props) => {
   const activeKey = dateKey(props.activeDate);
+  const activeTab = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (props.scrollable && activeTab.current) {
+      activeTab.current.scrollIntoView({ block: "nearest", inline: "center" });
+    }
+  }, [activeKey, props.scrollable]);
 
   if (props.isMobileView) {
     return (
@@ -40,7 +48,13 @@ const DateSelector = (props: Props) => {
   }
 
   return (
-    <nav aria-label="Days this week" className="date-selector-wrapper">
+    <nav
+      aria-label="Days this week"
+      className={
+        "date-selector-wrapper" +
+        (props.scrollable ? " date-selector-wrapper--scroll" : "")
+      }
+    >
       {props.dates.map((date) => {
         const key = dateKey(date);
         const isActive = key === activeKey;
@@ -49,6 +63,7 @@ const DateSelector = (props: Props) => {
           <button
             type="button"
             key={key}
+            ref={isActive ? activeTab : undefined}
             className={"dates " + (isActive ? "isActive" : "notActive")}
             aria-current={isActive ? "date" : undefined}
             aria-label={

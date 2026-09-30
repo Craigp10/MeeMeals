@@ -1,17 +1,8 @@
 import type { DragEvent } from "react";
 import dayjs, { Dayjs } from "dayjs";
+import type { Meal } from "../../types/meal";
 
-export type Meal = {
-  category: string;
-  date_created: string;
-  description: string;
-  display_name: string;
-  ingredients: string[];
-  instructions: string[];
-  isActive: boolean;
-  tags: string[];
-  _id: string;
-};
+export type { Meal };
 
 export type SlotId = "breakfast" | "lunch" | "dinner" | "snack";
 
@@ -23,7 +14,15 @@ export type CalendarView = "day" | "week" | "month";
 
 export type SlotRef = { date: string; slot: SlotId };
 
+export type Layout = "phone" | "tablet" | "desktop";
+
+// Phones under 768px ($tablet-width). Under 1200px ($large-desktop-width)
+// the app's own nav sidebar leaves no room for the meals panel beside a week.
+export const layoutFor = (width: number): Layout =>
+  width < 768 ? "phone" : width < 1200 ? "tablet" : "desktop";
+
 export interface PlannerProps {
+  layout: Layout;
   dates: Dayjs[];
   anchor: Dayjs;
   today: Dayjs;
@@ -85,6 +84,14 @@ export const rangeLabel = (view: CalendarView, anchor: Dayjs): string => {
   if (view === "month") return anchor.format("MMMM YYYY");
   const week = weekOf(anchor);
   return dateKey(week[0]) + " – " + dateKey(week[6]);
+};
+
+// Fits a phone or tablet toolbar: "Tue 9/29", "9/28 – 10/4", "September 2026".
+export const shortRangeLabel = (view: CalendarView, anchor: Dayjs): string => {
+  if (view === "day") return anchor.format("ddd M/D");
+  if (view === "month") return anchor.format("MMMM YYYY");
+  const week = weekOf(anchor);
+  return week[0].format("M/D") + " – " + week[6].format("M/D");
 };
 
 export const shiftAnchor = (

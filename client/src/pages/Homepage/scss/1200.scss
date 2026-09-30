@@ -1,0 +1,13 @@
+@import "../../../style/colors.scss";
+
+/* Wide screens: the side panels move into a column beside the main content. */
+.home__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 32px;
+}
+
+.home__side {
+  display: flex;
+  flex-direction: column;
+}

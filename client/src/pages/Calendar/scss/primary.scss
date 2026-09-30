@@ -465,3 +465,300 @@ $week-columns: 96px repeat(7, minmax(88px, 1fr));
   font-weight: 700;
   color: $text-secondary;
 }
+
+/*
+ * Tablet and phone. The page sets calendar-wrapper--{layout} from the window
+ * width it already tracks, so these rules and the component props agree.
+ */
+.calendar-wrapper--tablet,
+.calendar-wrapper--phone {
+  position: relative;
+}
+
+.calendar__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 29;
+  background-color: $shadow-tint;
+}
+
+.calendar__meals--overlay {
+  position: absolute;
+  z-index: 30;
+  box-shadow: 0 12px 32px $shadow-tint;
+}
+
+.calendar__meals--tablet {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 320px;
+}
+
+.calendar__meals--phone {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: 75%;
+  border-right: 0;
+  border-top: 1px solid $border;
+  border-radius: $radius-card $radius-card 0 0;
+  padding: 16px 16px 12px;
+}
+
+.calendar__meals-heading {
+  gap: 8px;
+
+  h2 {
+    flex-grow: 1;
+  }
+}
+
+.calendar__meals-close {
+  align-self: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: $radius-button;
+  background: transparent;
+  color: $text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: $bg;
+  }
+}
+
+.calendar-wrapper--tablet {
+  .calendar__content {
+    padding: 16px 20px 12px;
+  }
+
+  .week-view__head,
+  .week-view__row {
+    grid-template-columns: 80px repeat(7, minmax(76px, 1fr));
+    gap: 6px;
+  }
+
+  .day-view .date-selector-wrapper {
+    margin: 0 -20px;
+  }
+
+  .day-view__summary {
+    width: 200px;
+  }
+}
+
+.calendar-wrapper--phone {
+  .calendar__main {
+    overflow-y: auto;
+  }
+
+  .calendar__content {
+    flex-grow: 0;
+    padding: 12px 16px 16px;
+  }
+
+  .calendar__footer {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .calendar__status {
+    flex-basis: 100%;
+  }
+
+  .calendar__progress {
+    flex-grow: 1;
+    width: auto;
+  }
+}
+
+/* Phone week: a list of days. */
+.week-list {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.week-list__heading {
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-body;
+
+  button {
+    flex-grow: 1;
+    min-height: 44px;
+    padding: 0 4px;
+    border: 0;
+    border-radius: $radius-button;
+    background: transparent;
+    color: $text;
+    font: inherit;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    text-align: left;
+
+    &:hover {
+      background-color: $border;
+    }
+  }
+}
+
+.week-list__dow {
+  font-family: $font-display;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.week-list__date {
+  font-size: 14px;
+  color: $text-secondary;
+}
+
+.week-list__today {
+  align-self: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: $primary;
+  color: $on-primary;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.week-list__count {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: $text-secondary;
+}
+
+.week-list__slots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.week-list__slot {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .meal-slot {
+    flex-grow: 1;
+    min-height: 84px;
+  }
+}
+
+.week-list__slot-label {
+  padding-left: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: $text-secondary;
+}
+
+/* Phone day: slots stacked at their natural height, summary underneath. */
+.day-view--phone {
+  flex-grow: 0;
+  min-height: auto;
+
+  .meal-slot--full {
+    flex: none;
+  }
+
+  .date-selector-wrapper {
+    margin: 0 -16px;
+  }
+
+  .day-view__body {
+    flex-grow: 0;
+    min-height: auto;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .day-view__slots {
+    gap: 10px;
+  }
+
+  .day-view__summary {
+    width: auto;
+    align-self: stretch;
+  }
+}
+
+/* Month: dots stand in for meal names where there is no room. */
+.month-view__dots {
+  display: none;
+  gap: 3px;
+  flex-wrap: wrap;
+
+  span {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background-color: var(--meal-fg);
+  }
+}
+
+.month-view--phone {
+  .month-view__grid {
+    flex-grow: 0;
+    grid-template-rows: repeat(6, 64px);
+    gap: 4px;
+  }
+
+  .month-view__weekdays {
+    gap: 4px;
+
+    abbr {
+      padding: 0 2px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+  }
+
+  .month-view__cell button {
+    padding: 4px;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .month-view__head {
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .month-view__num {
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+  }
+
+  .month-view__count,
+  .month-view__item,
+  .month-view__more {
+    display: none;
+  }
+
+  .month-view__dots {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.month-view--tablet {
+  .month-view__item {
+    font-size: 11px;
+  }
+}

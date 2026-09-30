@@ -75,3 +75,19 @@
     font-size: 13px;
   }
 }
+
+/* Tabs keep their width and the strip scrolls sideways (phones). */
+.date-selector-wrapper.date-selector-wrapper--scroll {
+  justify-content: flex-start;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dates {
+    flex: 0 0 104px;
+    max-width: none;
+  }
+}

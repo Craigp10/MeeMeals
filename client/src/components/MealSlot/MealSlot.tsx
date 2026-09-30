@@ -22,6 +22,8 @@ interface Props {
   isToday: boolean;
   menuAbove?: boolean;
   menuAlignRight?: boolean;
+  stacked?: boolean;
+  menuAsSheet?: boolean;
   onPlace: (mealId: string) => void;
   onMove: (from: SlotRef) => void;
   onRemove: () => void;
@@ -104,6 +106,7 @@ const MealSlot = (props: Props) => {
   const zoneClass = [
     "meal-slot",
     "meal-slot--" + props.variant,
+    props.stacked ? "meal-slot--stacked" : "",
     props.meal ? "meal-slot--filled" : "meal-slot--empty",
     props.isToday ? "meal-slot--today" : "",
     props.pickedMeal ? "meal-slot--placing" : "",
@@ -186,12 +189,20 @@ const MealSlot = (props: Props) => {
           </button>
         )}
 
+        {menuOpen && props.menuAsSheet ? (
+          <div
+            className="meal-slot__backdrop"
+            aria-hidden="true"
+            onClick={() => setMenuOpen(false)}
+          ></div>
+        ) : null}
         {menuOpen ? (
           <div
             role="group"
             aria-label={"Choose a meal for " + where}
             className={
               "meal-slot__menu" +
+              (props.menuAsSheet ? " meal-slot__menu--sheet" : "") +
               (props.menuAbove ? " meal-slot__menu--above" : "") +
               (props.menuAlignRight ? " meal-slot__menu--right" : "")
             }

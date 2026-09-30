@@ -353,3 +353,57 @@
   font-size: 14px;
   color: $text-secondary;
 }
+
+/* Narrow screens: the label sits above the meal and its actions. */
+.meal-slot--full.meal-slot--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 14px 16px;
+
+  .meal-slot__label {
+    width: auto;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 0;
+  }
+
+  .meal-slot__meal {
+    width: 100%;
+  }
+
+  .meal-slot__add,
+  .meal-slot__place {
+    width: 100%;
+  }
+
+  /* The label row already says "Nothing planned". */
+  .meal-slot__body:empty,
+  .meal-slot__empty {
+    display: none;
+  }
+}
+
+/* Phones: the Add menu becomes a sheet pinned to the bottom of the screen. */
+.meal-slot__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background-color: $shadow-tint;
+}
+
+.meal-slot__menu.meal-slot__menu--sheet {
+  position: fixed;
+  z-index: 50;
+  top: auto;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  width: auto;
+  max-height: 70vh;
+
+  .meal-slot__menu-options {
+    max-height: calc(70vh - 64px);
+  }
+}

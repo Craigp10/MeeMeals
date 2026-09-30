@@ -28,6 +28,10 @@
   --color-border: #e2dcd0;
   --color-border-strong: #cfc7b8;
 
+  /* Destructive actions */
+  --color-danger: #9b2c1f;
+  --color-danger-hover: #7a2217;
+
   /* Meal types */
   --meal-breakfast-fg: #7a4a00;
   --meal-breakfast-bg: #fbebc8;
@@ -89,6 +93,33 @@ h5,
 h6 {
   font-family: var(--font-display);
   font-weight: 600;
+}
+
+/* A thin scrollbar that only shows while the area is hovered or has focus. */
+.scroll-on-hover {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &:hover,
+  &:focus-within {
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-color: transparent;
+    background-clip: padding-box;
+  }
+
+  &:hover::-webkit-scrollbar-thumb,
+  &:focus-within::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-strong);
+  }
 }
 
 /* Blue focus ring is intentional: it stays legible against the warm palette. */
