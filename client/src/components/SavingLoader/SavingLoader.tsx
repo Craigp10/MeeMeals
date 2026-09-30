@@ -45,14 +45,14 @@ const SavingLoader = (props: any) => {
           css={clipStyler}
           loading={props.saving}
           size={30}
-          color={"lightGray"}
+          color={"var(--color-primary)"}
         />
       ) : (
         <p
           style={{
             fontStyle: "italic",
             fontSize: "1.2rem",
-            color: "lightGray",
+            color: "var(--color-text-status)",
           }}
         >
           changes saved

@@ -13,7 +13,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "#02203c",
+    backgroundColor: "var(--color-header-bg)",
   },
   overlay: { zIndex: 1000 },
 };

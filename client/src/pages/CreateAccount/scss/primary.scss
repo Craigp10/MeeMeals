@@ -1,16 +1,16 @@
 @import "../../../style/colors.scss";
 
 .create-account-wrapper {
-  color: $primary-blue;
+  color: $text;
   font-size: 1.2rem;
 
   .create-account__board {
-    border: 0.5px solid $primary-blue;
-    border-radius: 4px;
+    border: 0.5px solid $border;
+    border-radius: $radius-card;
     // height: 60vh;
     width: 80vw;
     margin: 10% auto 0;
-    box-shadow: 0 30px 60px -12px $dark-gray, 0 10px 36px -10px $darker-gray;
+    box-shadow: 0 30px 60px -12px $shadow-tint, 0 10px 36px -10px $shadow-tint-strong;
   }
 
   .create-account__board__content {
@@ -33,13 +33,13 @@
     font-size: 0.6rem;
     button {
       margin: 5px;
-      color: $primary-blue;
-      background-color: $white;
-      border: 1px solid $primary-blue;
+      color: $primary;
+      background-color: $card;
+      border: 1px solid $primary;
       &:hover {
-        border: 1px solid $primary-blue;
-        background-color: $primary-blue;
-        color: $white;
+        border: 1px solid $primary-hover;
+        background-color: $primary-hover;
+        color: $on-primary;
       }
     }
   }

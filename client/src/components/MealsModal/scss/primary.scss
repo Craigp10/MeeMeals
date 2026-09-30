@@ -1,11 +1,11 @@
 @import "../../../style/colors.scss";
 
 .meals-modal__content {
-  background: $white;
+  background: $card;
   width: 250px;
   opacity: 1;
-  box-shadow: 0 0 60px 10px $dark-gray;
-  border-radius: 4px;
+  box-shadow: 0 0 60px 10px $shadow-tint;
+  border-radius: $radius-card;
   top: 40px;
   left: 40px;
   right: 40px;
@@ -13,7 +13,7 @@
 
   .glyphicon-remove:hover {
     cursor: pointer;
-    color: black;
+    color: $text;
   }
 
   .meals-modal__content__header {
@@ -23,7 +23,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    border-bottom: 1px solid $light-gray;
+    border-bottom: 1px solid $border;
   }
 
   .meals-modal__content__header-left {
@@ -31,6 +31,7 @@
   }
 
   .meals-modal__content__header-title {
+    font-family: $font-display;
     flex-grow: 1;
     font-size: 18px;
     text-align: center;
@@ -43,7 +44,7 @@
     text-align: center;
     padding: 0 10px 0 0;
     font-size: 20px;
-    color: $light-gray;
+    color: $text-muted;
   }
 
   .meals-modal__content__form {
@@ -57,12 +58,12 @@
   }
 
   .meals-modal__content__form-field {
-    background-color: $faded-white;
+    background-color: $surface;
     background: none;
     outline: none;
     width: 100%;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: $radius-button;
+    border-top-right-radius: $radius-button;
     padding: 10px;
     height: auto;
 
@@ -70,15 +71,15 @@
       outline: none;
       border: none;
       width: 100%;
-      border-bottom: 1px solid $primary-blue;
+      border-bottom: 1px solid $border-strong;
     }
 
     #category {
       /* appearance: none; */
-      border: 1px solid $primary-blue;
+      border: 1px solid $border-strong;
       outline: none;
       padding: 10px;
-      border-radius: 4px;
+      border-radius: $radius-button;
     }
 
     textarea {
@@ -111,19 +112,19 @@
   .instruction-tag {
     padding: 5px;
     margin: 0;
-    border-radius: 4px;
-    color: $primary-blue;
-    background: $white;
-    border: 1px solid $primary-blue;
+    border-radius: $radius-button;
+    color: $primary;
+    background: $card;
+    border: 1px solid $primary;
     margin-bottom: 2px;
   }
 
   .tag {
     display: inline-block;
     padding: 5px;
-    border-radius: 4px;
-    background: $primary-blue;
-    color: $white;
+    border-radius: $radius-button;
+    background: $primary;
+    color: $on-primary;
     margin-right: 2px;
     margin-bottom: 2px;
   }
@@ -137,28 +138,28 @@
     width: 100%;
     justify-content: center;
     padding: 5px 0;
-    border-top: 1px solid $light-gray;
+    border-top: 1px solid $border;
   }
 
   #submit {
     padding: 10px;
-    background-color: $white;
-    color: $primary-blue;
-    border: 1px solid $primary-blue;
+    background-color: $card;
+    color: $primary;
+    border: 1px solid $primary;
     font-weight: bold;
-    border-radius: 25px;
+    border-radius: $radius-button;
     box-sizing: border-box;
     &:hover {
       cursor: pointer;
-      background-color: $primary-blue;
-      color: $white;
+      background-color: $primary-hover;
+      color: $on-primary;
     }
   }
 
   .disabled {
-    background: $dark-white !important;
-    border: 1px solid $dark-white !important;
+    background: $border !important;
+    border: 1px solid $border !important;
     cursor: not-allowed !important;
-    color: black !important;
+    color: $text-muted !important;
   }
 }

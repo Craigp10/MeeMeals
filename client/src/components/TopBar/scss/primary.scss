@@ -1,14 +1,14 @@
 @import "../../../style/colors.scss";
 
 .topbar-wrapper {
-  background-color: $primary-blue;
+  background-color: $header-bg;
   display: flex;
   height: 75px;
   box-sizing: border-box;
   margin: 0;
   position: relative;
   justify-content: space-between;
-  color: $white;
+  color: $header-fg;
 
   span:hover {
     cursor: pointer;
@@ -20,11 +20,11 @@
     padding-left: 30px;
     .glyphicon-th-list {
       padding: 5px;
-      border-radius: 4px;
+      border-radius: $radius-button;
     }
     .glyphicon-th-list:hover {
-      background-color: white;
-      color: $primary-blue;
+      background-color: $header-fg;
+      color: $header-bg;
     }
   }
   .topbar__title {
@@ -32,7 +32,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    font-family: $font-display;
+    font-weight: 600;
     font-size: 2rem;
   }
 
@@ -41,14 +42,14 @@
     display: flex;
     justify-content: flex-end;
     .topbar__leftover-icon {
-      background-color: $white;
+      background-color: $header-fg;
       height: 75px;
       width: 75px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 40px;
-      color: $primary-blue;
+      color: $header-bg;
     }
   }
 }

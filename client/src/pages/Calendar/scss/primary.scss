@@ -5,7 +5,7 @@
   height: 100%;
 
   .glyphicon-chevron-left .glyphicon-chevron-right {
-    color: $primary-blue;
+    color: $primary;
   }
 
   span:hover {
@@ -32,7 +32,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 10px 20px 10px 0;
-    color: $primary-blue;
+    color: $primary;
     font-size: 2rem;
   }
 

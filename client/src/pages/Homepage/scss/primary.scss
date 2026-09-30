@@ -2,21 +2,23 @@
 
 .home-wrapper {
   height: 100%;
-  color: $primary-blue;
+  color: $text;
   padding-top: 50px;
 
   .home__content__board {
-    border-radius: 4px;
-    background-color: $faded-white;
+    border-radius: $radius-card;
+    background-color: $surface;
     height: 95%;
     width: 90%;
     margin: auto;
-    box-shadow: 0 0px 36px -10px $darker-gray;
+    box-shadow: 0 0px 36px -10px $shadow-tint-strong;
     display: flex;
     flex-direction: column;
   }
 
   .home__content__board-header {
+    font-family: $font-display;
+    font-size: 1.5rem;
     padding: 10px;
     text-align: center;
   }
@@ -44,17 +46,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    span + span {
+      color: $text-secondary;
+    }
+  }
+
+  .__grid-layout-left {
+    color: $text-secondary;
   }
 
   .__grid-meal {
-    border-radius: 7px;
+    border-radius: $radius-card;
     transition: all 0.4s;
     padding: 5px;
-    background-color: $faded-white;
+    background-color: $card;
     width: 100%;
     height: 40%;
     overflow: hidden;
-    box-shadow: 0 0 30px -10px $darker-gray, 0 10px 20px -5px $darker-gray;
+    box-shadow: 0 0 30px -10px $shadow-tint-strong, 0 10px 20px -5px $shadow-tint-strong;
 
     p {
       text-align: center;
@@ -67,8 +77,8 @@
     &:hover {
       transform: translateY(-10px);
       height: 100%;
-      color: $white;
-      background: $primary-blue;
+      color: $on-primary;
+      background: $primary;
 
       p {
         white-space: normal;

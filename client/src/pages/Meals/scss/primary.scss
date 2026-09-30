@@ -2,25 +2,25 @@
 
 .meals-wrapper {
   height: 100%;
-  color: $primary-blue;
+  color: $text;
   padding-top: 50px;
 
   .meals__board {
-    border-radius: 4px;
+    border-radius: $radius-card;
     height: 95%;
     width: 90%;
     margin: auto;
-    background-color: $faded-white;
-    box-shadow: 0 0px 20px -1px $darker-gray;
+    background-color: $surface;
+    box-shadow: 0 0px 20px -1px $shadow-tint-strong;
   }
 
   .meals__board__header {
     display: grid;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: $radius-card;
+    border-top-right-radius: $radius-card;
     grid-template-columns: 1fr 1fr 1fr;
     height: 70px;
-    border-bottom: 1px solid $light-gray;
+    border-bottom: 1px solid $border;
     div {
       text-align: center;
     }
@@ -36,11 +36,11 @@
       height: 100%;
       padding: 0 10px;
       display: flex;
-      border-radius: 10px;
+      border-radius: $radius-button;
       align-items: center;
       justify-content: center;
-      background-color: $white;
-      box-shadow: 0 0px 36px -10px $darker-gray;
+      background-color: $card;
+      box-shadow: 0 0px 36px -10px $shadow-tint-strong;
     }
 
     #search {
@@ -50,10 +50,13 @@
       width: 100%;
       font-size: 1.5rem;
       outline: none;
+      /* The .glyphicon-search wrapper sets the icon font; don't inherit it. */
+      font-family: $font-body;
     }
   }
 
   .meals__board__header-title {
+    font-family: $font-display;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,15 +71,15 @@
     justify-content: center;
 
     button {
-      border-radius: 10px;
-      color: $primary-blue;
+      border-radius: $radius-button;
+      color: $primary;
       background: none;
       font-weight: bold;
       border: none;
     }
     button:hover {
-      color: $white;
-      background: $primary-blue;
+      color: $on-primary;
+      background: $primary-hover;
     }
   }
 

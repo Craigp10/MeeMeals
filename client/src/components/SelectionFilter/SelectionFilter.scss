@@ -1,6 +1,6 @@
 @import "../../style/colors.scss";
 .selection-filter-wrapper {
-  background-color: $light-gray;
+  background-color: $surface;
   height: 120px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -8,19 +8,19 @@
   row-gap: 5px;
   column-gap: 5px;
   padding: 10px;
-  border: 1px solid $primary-blue;
+  border: 1px solid $border;
   .filterBtn {
     display: flex;
-    border-radius: 20px;
+    border-radius: $radius-button;
     align-items: center;
     justify-content: center;
-    background-color: $white;
+    background-color: $card;
   }
 
   .activeCate {
-    background-color: $primary-blue;
-    color: $white;
-    box-shadow: inset 100px 0 0 0 $primary-blue;
+    background-color: $primary;
+    color: $on-primary;
+    box-shadow: inset 100px 0 0 0 $primary;
     -webkit-transition: all ease 0.5s;
     -moz-transition: all ease 0.5s;
     transition: all ease 0.5s;
@@ -37,25 +37,43 @@
     grid-column: 1;
     grid-row: 2;
   }
+  #breakfast:not(.activeCate) {
+    color: $meal-breakfast-fg;
+    background-color: $meal-breakfast-bg;
+  }
 
   #lunch {
     grid-column: 2;
     grid-row: 2;
+  }
+  #lunch:not(.activeCate) {
+    color: $meal-lunch-fg;
+    background-color: $meal-lunch-bg;
   }
 
   #dinner {
     grid-column: 3;
     grid-row: 2;
   }
+  #dinner:not(.activeCate) {
+    color: $meal-dinner-fg;
+    background-color: $meal-dinner-bg;
+  }
 
   #snack {
     grid-column: 4;
     grid-row: 2;
   }
+  #snack:not(.activeCate) {
+    color: $meal-snack-fg;
+    background-color: $meal-snack-bg;
+  }
 
   #search {
     border: none;
     font-size: 1.5rem;
+    /* The .glyphicon-search wrapper sets the icon font; don't inherit it. */
+    font-family: $font-body;
   }
 
   .glyphicon-search {
@@ -63,10 +81,10 @@
     grid-row: 3;
     padding: 0 10px;
     display: flex;
-    border-radius: 25px;
+    border-radius: $radius-button;
     align-items: center;
     justify-content: center;
-    background-color: $white;
+    background-color: $card;
   }
   .glyphicon-search span:hover {
     text-decoration: none;
