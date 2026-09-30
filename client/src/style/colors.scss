@@ -1,9 +1,58 @@
-$highlight-blue: #aec6dd;
-$primary-blue: #02203c;
-$white: #ffffff;
-$dark-white: #e9e8e8;
-$faded-white: #fafafa;
-$light-gray: rgb(212, 212, 212);
-$dark-gray: rgba(156, 156, 156, 0.2);
-$darker-gray: rgba(51, 51, 51, 0.2);
-$faded-gray: rgba(182, 182, 182, 0.2);
+/*
+ * Role-based aliases for the design tokens declared in src/App.scss.
+ * Use the role, not the color: $primary is "the action color", not "terracotta".
+ */
+
+// Brand
+$header-bg: var(--color-header-bg);
+$header-fg: var(--color-header-fg);
+$primary: var(--color-primary);
+$primary-hover: var(--color-primary-hover);
+$primary-tint: var(--color-primary-tint);
+$primary-border: var(--color-primary-border);
+$primary-dashed: var(--color-primary-dashed);
+$on-primary: var(--color-header-fg);
+
+// Surfaces
+$bg: var(--color-bg);
+$surface: var(--color-surface);
+$card: var(--color-card);
+
+// Text
+$text: var(--color-text);
+$text-secondary: var(--color-text-secondary);
+$text-muted: var(--color-text-muted);
+$text-status: var(--color-text-status);
+
+// Borders
+$border: var(--color-border);
+$border-strong: var(--color-border-strong);
+
+// Destructive actions
+$danger: var(--color-danger);
+$danger-hover: var(--color-danger-hover);
+
+// Meal types
+$meal-breakfast-fg: var(--meal-breakfast-fg);
+$meal-breakfast-bg: var(--meal-breakfast-bg);
+$meal-lunch-fg: var(--meal-lunch-fg);
+$meal-lunch-bg: var(--meal-lunch-bg);
+$meal-dinner-fg: var(--meal-dinner-fg);
+$meal-dinner-bg: var(--meal-dinner-bg);
+$meal-snack-fg: var(--meal-snack-fg);
+$meal-snack-bg: var(--meal-snack-bg);
+
+// Effects
+$shadow-card: var(--shadow-card);
+$shadow-tint: var(--shadow-tint);
+$shadow-tint-strong: var(--shadow-tint-strong);
+$shadow-tint-faint: var(--shadow-tint-faint);
+$focus-ring: var(--focus-ring);
+
+// Shape
+$radius-card: var(--radius-card);
+$radius-button: var(--radius-button);
+
+// Type
+$font-display: var(--font-display);
+$font-body: var(--font-body);

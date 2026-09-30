@@ -2,8 +2,8 @@
 
 .mealbox-wrapper {
   margin: 10px;
-  border-radius: 25px;
-  box-shadow: 0 0 10px 2px $dark-gray;
+  border-radius: $radius-card;
+  box-shadow: 0 0 10px 2px $shadow-tint;
 
   .mealbox__content__header-displayname {
     font-size: 1.5rem;
@@ -11,7 +11,7 @@
   }
 
   .mealbox__content {
-    border-radius: 25px;
+    border-radius: $radius-card;
     display: flex;
     flex-direction: column;
     height: 250px;

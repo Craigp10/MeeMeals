@@ -1,107 +1,110 @@
-import React, { FC, useState, useEffect, useContext } from "react";
-import { userContext, windowSizeContext } from "../../App";
+import React from "react";
+import {
+  Meal,
+  isSlotId,
+  slotLabel,
+  writeDragPayload,
+} from "../../pages/Calendar/planner";
+import { categoryClass } from "../MealSlot/MealSlot";
 import "./scss/compiled.scss";
 
-type meal = {
-  category: string;
-  date_created: string;
-  description: string;
-  display_name: string;
-  ingredients: string[];
-  instructions: string[];
-  isActive: boolean;
-  tags: string[];
-  _id: string;
-};
-
 interface Props {
-  meals: meal[];
-  activeMeal: boolean;
-  handleMealClick?: (mealId: string) => void;
-  showSelection: boolean;
+  meals: Meal[];
+  pickedMealId: string;
+  handleMealClick: (mealId: string) => void;
   categoryFilter: string;
   searchFilter: string;
-  isMobileView: boolean;
+  describedBy?: string;
 }
 
-const MealSelection = (props: Props) => (
-  <div className="meal-selection-wrapper">
-    <div className="meal-selection-content__selection">
-      <div className="meal-selection-content__selection-scroll">
-        {props.meals.length ? (
-          props.meals
-            .filter((meal: meal) => {
-              if (props.categoryFilter == "all") {
-                const mealData = [
-                  meal.display_name,
-                  ...meal.tags.map((tag: string) => tag),
-                  ...meal.ingredients.map((ingredient) => ingredient),
-                ];
-                return mealData
-                  .join(" ")
-                  .toLowerCase()
-                  .includes(props.searchFilter.toLowerCase());
-              } else {
-                const mealData = [
-                  meal.display_name,
-                  ...meal.tags.map((tag: string) => tag),
-                  ...meal.ingredients.map((ingredient) => ingredient),
-                ];
-                return (
-                  mealData
-                    .join(" ")
-                    .toLowerCase()
-                    .includes(props.searchFilter.toLowerCase()) &&
-                  meal.category == props.categoryFilter
-                );
-              }
-            })
-            .map((meal: meal, index: number) => {
-              return (
-                <div
-                  key={index}
-                  className="meal-selection__selection__meal-wrapper"
-                >
-                  <div
-                    className="meal-selection__selection__meal"
-                    onClick={() => props.handleMealClick(meal._id)}
-                  >
-                    <div className="meal-selection__selection__meal-header">
-                      <div className="meal-selection__selection__meal-displayname">
-                        {meal.display_name}
-                      </div>
-                    </div>
-                    <div className="meal-selection__selection__meal-body">
-                      <label>Ingredients</label>
-                      <div className="meal-selection__selection__meal-tags">
-                        {meal.ingredients.map(
-                          (ingredients: string, idx: number) => (
-                            <span className="__meal-tag" key={idx}>
-                              {ingredients}
-                            </span>
-                          )
-                        )}
-                      </div>
-                      <hr />
-                      <label>Tags</label>
-                      <div className="meal-selection__selection__meal-tags">
-                        {meal.tags.map((tag: string, idx: number) => (
-                          <span className="__meal-tag" key={idx}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })
-        ) : (
-          <span>You do not have any meals created!</span>
-        )}
-      </div>
-    </div>
-  </div>
+export const filterMeals = (
+  meals: Meal[],
+  categoryFilter: string,
+  searchFilter: string
+) => {
+  const query = searchFilter.toLowerCase();
+  return meals.filter((meal) => {
+    const searchable = [meal.display_name, ...meal.tags, ...meal.ingredients]
+      .join(" ")
+      .toLowerCase();
+    return (
+      searchable.includes(query) &&
+      (categoryFilter === "all" || meal.category === categoryFilter)
+    );
+  });
+};
+
+const GripIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <circle cx="9" cy="6" r="1.6" />
+    <circle cx="15" cy="6" r="1.6" />
+    <circle cx="9" cy="12" r="1.6" />
+    <circle cx="15" cy="12" r="1.6" />
+    <circle cx="9" cy="18" r="1.6" />
+    <circle cx="15" cy="18" r="1.6" />
+  </svg>
 );
+
+const MealSelection = (props: Props) => {
+  const visible = filterMeals(
+    props.meals,
+    props.categoryFilter,
+    props.searchFilter
+  );
+
+  return (
+    <ul aria-label="Meals" className="meal-selection-wrapper">
+      {visible.map((meal) => {
+        const isPicked = props.pickedMealId === meal._id;
+        return (
+          <li key={meal._id}>
+            <button
+              type="button"
+              draggable={true}
+              className={
+                "meal-selection__meal " +
+                categoryClass(meal.category) +
+                (isPicked ? " meal-selection__meal--picked" : "")
+              }
+              aria-pressed={isPicked}
+              aria-describedby={props.describedBy}
+              onClick={() => props.handleMealClick(meal._id)}
+              onDragStart={(event) =>
+                writeDragPayload(event, { mealId: meal._id })
+              }
+            >
+              <span className="meal-selection__meal-header">
+                <span className="meal-selection__meal-name">
+                  {meal.display_name}
+                </span>
+                <GripIcon />
+              </span>
+              <span className="meal-selection__meal-body">
+                {isSlotId(meal.category) ? (
+                  <span className="meal-selection__meal-tag">
+                    {slotLabel(meal.category)}
+                  </span>
+                ) : null}
+              </span>
+            </button>
+          </li>
+        );
+      })}
+      {!visible.length ? (
+        <li className="meal-selection__empty">
+          {props.meals.length
+            ? "No meals match your search."
+            : "You do not have any meals created!"}
+        </li>
+      ) : null}
+    </ul>
+  );
+};
 
 export default MealSelection;

@@ -115,6 +115,7 @@ const Login = (props: any) => {
                 onClick={userSubmit}
                 size={MOBILE_VIEW ? "sm" : "lg"}
                 disabled
+                style={{ textDecoration: "line-through" }}
               >
                 Log In
               </Button>

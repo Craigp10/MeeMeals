@@ -1,6 +1,135 @@
+/*
+ * Design tokens for the warm ("kitchen") palette.
+ * Declared once here because App.scss is imported a single time, from App.tsx.
+ * SCSS aliases for these live in style/colors.scss and are what components use.
+ */
+:root {
+  /* Brand */
+  --color-header-bg: #2a1f1a;
+  --color-header-fg: #fffbf5;
+  --color-primary: #b4532a;
+  --color-primary-hover: #8a3d1e;
+  --color-primary-tint: #fbe7dc;
+  --color-primary-border: #e8b79c;
+  --color-primary-dashed: #d9936f;
+
+  /* Surfaces */
+  --color-bg: #faf3ea;
+  --color-surface: #fffbf5;
+  --color-card: #ffffff;
+
+  /* Text */
+  --color-text: #2a1f1a;
+  --color-text-secondary: #5a4a40;
+  --color-text-muted: #75665c;
+  --color-text-status: #3a2d26;
+
+  /* Borders */
+  --color-border: #e2dcd0;
+  --color-border-strong: #cfc7b8;
+
+  /* Destructive actions */
+  --color-danger: #9b2c1f;
+  --color-danger-hover: #7a2217;
+
+  /* Meal types */
+  --meal-breakfast-fg: #7a4a00;
+  --meal-breakfast-bg: #fbebc8;
+  --meal-lunch-fg: #1f5a48;
+  --meal-lunch-bg: #d7ebe2;
+  --meal-dinner-fg: #7e2a4a;
+  --meal-dinner-bg: #f5dce5;
+  --meal-snack-fg: #5a3f8c;
+  --meal-snack-bg: #eae2f4;
+
+  /* Effects - warm brown shadow tints instead of cool gray */
+  --shadow-card: 0 4px 12px rgba(42, 31, 26, 0.18);
+  --shadow-tint: rgba(42, 31, 26, 0.18);
+  --shadow-tint-strong: rgba(42, 31, 26, 0.22);
+  --shadow-tint-faint: rgba(42, 31, 26, 0.1);
+  --focus-ring: #1d4ed8;
+
+  /* Type & shape */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+  --radius-card: 12px;
+  --radius-button: 9px;
+}
+
+/* Sets --meal-fg / --meal-bg for anything tinted by its meal's category. */
+.meal-type--breakfast {
+  --meal-fg: var(--meal-breakfast-fg);
+  --meal-bg: var(--meal-breakfast-bg);
+}
+.meal-type--lunch {
+  --meal-fg: var(--meal-lunch-fg);
+  --meal-bg: var(--meal-lunch-bg);
+}
+.meal-type--dinner {
+  --meal-fg: var(--meal-dinner-fg);
+  --meal-bg: var(--meal-dinner-bg);
+}
+.meal-type--snack {
+  --meal-fg: var(--meal-snack-fg);
+  --meal-bg: var(--meal-snack-bg);
+}
+.meal-type--other {
+  --meal-fg: var(--color-text-secondary);
+  --meal-bg: var(--color-border);
+}
+
 body {
   margin: 0;
-  background: white;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* A thin scrollbar that only shows while the area is hovered or has focus. */
+.scroll-on-hover {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &:hover,
+  &:focus-within {
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-color: transparent;
+    background-clip: padding-box;
+  }
+
+  &:hover::-webkit-scrollbar-thumb,
+  &:focus-within::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-strong);
+  }
+}
+
+/* Blue focus ring is intentional: it stays legible against the warm palette. */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .app {

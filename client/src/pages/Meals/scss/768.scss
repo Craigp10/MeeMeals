@@ -1,1 +1,38 @@
 @import "../../../style/colors.scss";
+
+.meals__header {
+  min-height: 88px;
+  padding: 12px 32px;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+.meals__title h1 {
+  font-size: 30px;
+}
+
+.meals__search {
+  order: 0;
+  flex: 0 1 340px;
+}
+
+.meals__controls {
+  padding: 16px 32px;
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+
+.meals__filters {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  overflow-x: visible;
+}
+
+.meals__list {
+  padding: 4px 32px 24px;
+}
+
+.meals__grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}

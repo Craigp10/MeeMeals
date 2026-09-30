@@ -1,0 +1,409 @@
+@import "../../style/colors.scss";
+
+.meal-slot {
+  position: relative;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  border-radius: $radius-card;
+  border: 1px solid $border;
+  background-color: $surface;
+  box-shadow: 0 5px 20px -5px $shadow-tint-faint;
+
+  &--filled {
+    background-color: $card;
+  }
+
+  &--today {
+    border-color: $primary-border;
+  }
+
+  &--placing {
+    background-color: $card;
+    border-style: dashed;
+    border-color: $primary-dashed;
+    box-shadow: none;
+
+    &:hover {
+      background-color: $primary-tint;
+    }
+  }
+
+  &--over {
+    background-color: $primary-tint;
+    border-color: transparent;
+    outline: 2px dashed $primary;
+    outline-offset: -1px;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+}
+
+.meal-slot--compact {
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+
+  .meal-slot__body {
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .meal-slot__meal {
+    position: relative;
+    border-radius: $radius-button;
+    padding: 6px 8px;
+    background-color: var(--meal-bg);
+  }
+
+  .meal-slot__meal-name {
+    flex-grow: 1;
+    min-width: 0;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.25;
+    color: $text;
+    overflow-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .meal-slot__meal-meta {
+    display: block;
+    min-height: 28px;
+    padding-right: 28px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 28px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--meal-fg);
+  }
+
+  .meal-slot__remove {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .meal-slot__add,
+  .meal-slot__place {
+    width: 100%;
+    min-height: 36px;
+    font-size: 14px;
+  }
+}
+
+.meal-slot--full {
+  flex: 1 1 0;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 16px 16px 16px 24px;
+
+  .meal-slot__label {
+    width: 120px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 4px;
+
+    h3 {
+      margin: 0;
+      font-family: $font-body;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    span {
+      font-size: 14px;
+      color: $text-secondary;
+    }
+  }
+
+  .meal-slot__body {
+    flex-grow: 1;
+    min-width: 0;
+    align-self: stretch;
+    overflow-y: auto;
+  }
+
+  .meal-slot__meal {
+    width: 280px;
+    max-width: 100%;
+    border-radius: $radius-card;
+    overflow: hidden;
+    background-color: $card;
+    box-shadow: $shadow-card;
+  }
+
+  .meal-slot__meal-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 4px 0 16px;
+    background-color: var(--meal-bg);
+  }
+
+  .meal-slot__meal-name {
+    flex-grow: 1;
+    min-width: 0;
+    font-weight: 700;
+    font-size: 16px;
+    color: $text;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .meal-slot__meal-meta {
+    display: block;
+    padding: 8px 16px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--meal-fg);
+  }
+
+  .meal-slot__remove {
+    width: 44px;
+    height: 44px;
+  }
+
+  .meal-slot__empty {
+    margin: 0;
+    padding-top: 6px;
+    font-size: 15px;
+    color: $text-secondary;
+  }
+
+  .meal-slot__actions {
+    flex-shrink: 0;
+  }
+
+  .meal-slot__add,
+  .meal-slot__place {
+    height: 44px;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+}
+
+.meal-slot__meal {
+  cursor: grab;
+}
+
+.meal-slot__remove {
+  flex-shrink: 0;
+  border: 0;
+  border-radius: $radius-button;
+  background: transparent;
+  color: $text-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: $card;
+    color: $text;
+  }
+}
+
+.meal-slot__actions {
+  position: relative;
+}
+
+.meal-slot__add {
+  border-radius: $radius-button;
+  border: 1px dashed $border-strong;
+  background: transparent;
+  color: $text-secondary;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &:hover {
+    background-color: $primary-tint;
+    color: $text;
+  }
+}
+
+.meal-slot__place {
+  border-radius: $radius-button;
+  border: 2px solid $primary;
+  background-color: $card;
+  color: $primary;
+  font-weight: 700;
+
+  &:hover {
+    background-color: $primary;
+    color: $on-primary;
+  }
+}
+
+.meal-slot__menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 280px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  background-color: $card;
+  border: 1px solid $border-strong;
+  border-radius: $radius-card;
+  box-shadow: 0 12px 32px $shadow-tint;
+
+  &--above {
+    top: auto;
+    bottom: calc(100% + 4px);
+  }
+
+  &--right {
+    left: auto;
+    right: 0;
+  }
+}
+
+.meal-slot__menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 4px 8px;
+  font-weight: 700;
+  font-size: 14px;
+
+  button {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: $radius-button;
+    background: transparent;
+    color: $text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $bg;
+    }
+  }
+}
+
+.meal-slot__menu-options {
+  max-height: 264px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  button {
+    min-height: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: $radius-button;
+    background: transparent;
+    color: $text;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+
+    &:hover {
+      background-color: $bg;
+    }
+  }
+}
+
+.meal-slot__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background-color: var(--meal-fg);
+}
+
+.meal-slot__option-name {
+  flex-grow: 1;
+  font-size: 15px;
+}
+
+.meal-slot__option-type {
+  font-size: 13px;
+  color: $text-secondary;
+}
+
+.meal-slot__menu-empty {
+  margin: 0;
+  padding: 8px;
+  font-size: 14px;
+  color: $text-secondary;
+}
+
+/* Narrow screens: the label sits above the meal and its actions. */
+.meal-slot--full.meal-slot--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 14px 16px;
+
+  .meal-slot__label {
+    width: auto;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 0;
+  }
+
+  .meal-slot__meal {
+    width: 100%;
+  }
+
+  .meal-slot__add,
+  .meal-slot__place {
+    width: 100%;
+  }
+
+  /* The label row already says "Nothing planned". */
+  .meal-slot__body:empty,
+  .meal-slot__empty {
+    display: none;
+  }
+}
+
+/* Phones: the Add menu becomes a sheet pinned to the bottom of the screen. */
+.meal-slot__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background-color: $shadow-tint;
+}
+
+.meal-slot__menu.meal-slot__menu--sheet {
+  position: fixed;
+  z-index: 50;
+  top: auto;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  width: auto;
+  max-height: 70vh;
+
+  .meal-slot__menu-options {
+    max-height: calc(70vh - 64px);
+  }
+}

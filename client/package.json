@@ -51,6 +51,9 @@
       "last 1 safari version"
     ]
   },
+  "overrides": {
+    "react-error-overlay": "6.0.9"
+  },
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.1.1",
     "@types/react-modal": "^3.12.1",

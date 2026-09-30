@@ -15,12 +15,12 @@ const getItemStyle = (isDragging, draggableStyle) => {
   return {
     // some basic styles to make the items look a bit nicer
     userSelect: "none",
-    border: "1px solid #02203c",
-    borderRadius: "4px",
+    border: "1px solid var(--color-primary)",
+    borderRadius: "var(--radius-button)",
     width: "80%",
     // change background colour if dragging
-    background: isDragging ? "#02203c" : "white",
-    color: isDragging ? "white" : "#02203c",
+    background: isDragging ? "var(--color-primary)" : "var(--color-card)",
+    color: isDragging ? "var(--color-header-fg)" : "var(--color-primary)",
     // styles we need to apply on draggables
     ...draggableStyle,
   };
