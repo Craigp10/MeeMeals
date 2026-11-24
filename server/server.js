@@ -13,6 +13,9 @@ const authRouter = require("./routes/auth.router"); //(app);
 const calendarRouter = require("./routes/calendar.router");
 const User = require("./models/user.model");
 const Redis = require("ioredis");
+const { requireAuth, enforceSessionExpiry } = require("./middleware");
+const { listenForSessionExpiry } = require("./events/sessionExpiry");
+const { SESSION_MAX_AGE_MS } = require("./sessionDuration");
 const apiPort = 8080;
 require("./cron/index")();
 
@@ -46,6 +49,8 @@ const redis = new Redis({
   password: sessionConfig.REDIS_PASSWORD,
 });
 
+listenForSessionExpiry(redis);
+
 const RedisStore = connectRedis(session);
 const redisStore = new RedisStore({
   client: redis,
@@ -65,24 +70,22 @@ app.use(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
-      maxAge: 1000 * 60 * 30,
+      maxAge: SESSION_MAX_AGE_MS,
     }
   })
 );
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-app.all("*", (req, res, next) => {
-  if (!req.session.isAuth) {
-    req.session.isAuth = false;
-  }
-  // console.log("session * ", req.session);
-  next();
-});
+app.use(enforceSessionExpiry);
+
+// Note: don't write to req.session for unauthenticated requests. Doing so
+// saves a brand new session (and sends a new cookie) whenever the old one
+// has expired, which kept expired users looking "logged in".
 
 app.use("/api/meals", mealsRouter);
 app.use("/api/auth", authRouter); //currently get error with this... need to spend some time learning express more.
-app.use("/api/user", userRouter);
-app.use("/api/calendar", calendarRouter);
+app.use("/api/user", requireAuth, userRouter);
+app.use("/api/calendar", requireAuth, calendarRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

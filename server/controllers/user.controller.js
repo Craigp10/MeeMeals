@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const Calendar = require("../models/calendar.model");
 const dayjs = require("dayjs");
 
 const getMeals = async (req, res) => {
@@ -86,10 +87,29 @@ const deleteDemoUsers = async (req, res) => {
   console.log("deleteDemoUsers finished");
 };
 
+// Deletes a single demo user and removes their entries from every calendar date.
+// Used on demo logout and when a demo session expires in Redis.
+const deleteDemoUserData = async (username) => {
+  const demoUser = await User.findOne({ username, is_demo: true });
+  if (!demoUser) return false;
+
+  const userId = String(demoUser._id);
+  await Calendar.updateMany(
+    { "users.user_id": userId },
+    { $pull: { users: { user_id: userId } } }
+  );
+  // Drop any calendar dates left with no users
+  await Calendar.deleteMany({ users: { $size: 0 } });
+  await User.deleteOne({ _id: demoUser._id });
+  console.log(`Deleted demo user ${username} and their calendar entries`);
+  return true;
+};
+
 module.exports = {
   getMeals,
   newMeal,
   deleteMeal,
   editMeal,
   deleteDemoUsers,
+  deleteDemoUserData,
 };

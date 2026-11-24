@@ -7,7 +7,10 @@ import Login from "./pages/Login/Login";
 import CreateAccount from "./pages/CreateAccount/CreateAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import "./App.scss";
-import apis from "./api/index";
+import apis, { setUnauthorizedHandler } from "./api/index";
+
+// How often to check whether the session is still valid while logged in
+const SESSION_CHECK_INTERVAL_MS = 60 * 1000;
 
 function getWindowDimensions(): windowSize {
   const { innerWidth: width, innerHeight: height } = window;
@@ -77,6 +80,32 @@ const App = () => {
       });
     checkCurrentSession();
   }, []);
+
+  // Log the user out (which unmounts the Dashboard and redirects to /login)
+  // once their session expires on the server.
+  useEffect(() => {
+    if (!authenticated) return;
+
+    const endSession = () => {
+      setAuthenticated(false);
+      setUser({ id: "", username: "", email: "" });
+    };
+    setUnauthorizedHandler(endSession);
+
+    const interval = setInterval(() => {
+      apis
+        .checkSession()
+        .then((resp) => {
+          if (!resp.data.isAuth) endSession();
+        })
+        .catch((err) => console.log("Unable to check session", err));
+    }, SESSION_CHECK_INTERVAL_MS);
+
+    return () => {
+      clearInterval(interval);
+      setUnauthorizedHandler(null);
+    };
+  }, [authenticated]);
 
   return (
     <Router>
