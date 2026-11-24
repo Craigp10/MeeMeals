@@ -5,6 +5,23 @@ const api = axios.create({
   baseURL: "http://localhost:8080/api", //   "/api" on aws
 });
 
+// Called when the server says the session is gone (e.g. the session cookie
+// expired). App registers a handler that logs the user out.
+let unauthorizedHandler: (() => void) | null = null;
+export const setUnauthorizedHandler = (handler: (() => void) | null) => {
+  unauthorizedHandler = handler;
+};
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error?.response?.status === 401 && unauthorizedHandler) {
+      unauthorizedHandler();
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const getAllMeals = () => api.get("/meals/getAll");
 export const getUserMeals = (payload:any) => api.post(`/user/meals`, payload);
 export const getDateMeals = (payload:any) =>

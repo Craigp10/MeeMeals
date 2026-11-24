@@ -4,15 +4,23 @@ const dayjs = require("dayjs");
 const User = db.user;
 const Role = db.role;
 const Calendar = db.calendar;
+const { deleteDemoUserData } = require("./user.controller");
+const { SESSION_MAX_AGE_MS } = require("../sessionDuration");
 
 let bcrypt = require("bcryptjs");
+
+// Demo usernames are derived from the session ID so the demo user can be
+// found again on logout or when the session expires.
+const demoUsernameForSession = (sessionID) => "demo" + sessionID.slice(1, 5);
+exports.demoUsernameForSession = demoUsernameForSession;
+
 exports.demoSignup = async (req, res) => {
   let demoUser = await User.findOne(
     { email: "demo" + req.sessionID.slice(1, 5) },
     (err, doc) => doc
   );
   if (!demoUser) {
-    const demo_username = "demo" + req.sessionID.slice(1, 5);
+    const demo_username = demoUsernameForSession(req.sessionID);
     demoUser = new User({
       username: demo_username,
       email: `${demo_username}@email.com`,
@@ -222,6 +230,9 @@ exports.demoSignup = async (req, res) => {
 
   req.session.isAuth = true;
   req.session.isDemo = true;
+  // Hard expiry: 30 minutes from login, not extended by activity
+  req.session.expiresAt = Date.now() + SESSION_MAX_AGE_MS;
+  req.session.cookie.expires = new Date(req.session.expiresAt);
 
   req.session.user = {
     id: demoUser._id,
@@ -280,6 +291,9 @@ exports.signin = async (req, res) => {
 
   req.session.isAuth = true;
   req.session.isDemo = false;
+  // Hard expiry: 30 minutes from login, not extended by activity
+  req.session.expiresAt = Date.now() + SESSION_MAX_AGE_MS;
+  req.session.cookie.expires = new Date(req.session.expiresAt);
 
   req.session.user = {
     id: user._id,
@@ -297,7 +311,7 @@ exports.signin = async (req, res) => {
 exports.getSession = (req, res) => {
   return res.status(200).send({
     sessionID: req.sessionID,
-    isAuth: req.session.isAuth,
+    isAuth: Boolean(req.session.isAuth),
     user: req.session.user,
     a: "hello",
   });
@@ -305,8 +319,7 @@ exports.getSession = (req, res) => {
 
 exports.logout = async (req, res) => {
   if (req.session.isDemo) {
-    await User.deleteOne({ username: "demo" + req.sessionID.slice(1, 5) });
-    // await Calendar.collection.drop();
+    await deleteDemoUserData(demoUsernameForSession(req.sessionID));
   }
 
   await req.session.destroy((err) => {
